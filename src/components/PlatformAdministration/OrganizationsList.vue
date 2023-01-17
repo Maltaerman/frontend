@@ -57,7 +57,7 @@
 				</button-1>
 
 			</div>
-			<div v-if="searchController.isSearchedOrgResult"  class="py-6 flex flex-wrap gap-4 justify-center">
+			<div v-if="searchController.isSearchedOrgResult"  class="py-6 flex flex-wrap gap-4">
 				<div class="w-full flex gap-4 items-center">
 					<div class="h-min" v-if="searchController.SearchedOrganizationsList.length<=0">
             {{ $t('dashboard.forRequest') }} "{{searchController.SearchedOrgName}}" {{ $t('dashboard.noMatches') }}
@@ -70,11 +70,11 @@
 					</button-1>
 				</div>
 				<OrganizationListItem v-for="(item, index) in searchController.SearchedOrganizationsList"
-						:key="`org${index}`" :organization="item" @remove="onRemoveClick"/>
+						:key="`org${index}`" :organization="item" @remove="onRemoveClick" class="basis-[240px] grow"/>
 			</div>
-			<div v-else class="py-6 flex flex-wrap gap-4 justify-center">
+			<div v-else class="py-6 flex flex-wrap gap-4">
 				<OrganizationListItem v-for="(item, index) in organizationsList"
-				:key="`org${index}`" :organization="item" @remove="onRemoveClick"/>
+				:key="`org${index}`" :organization="item" @remove="onRemoveClick" class="basis-[240px] grow"/>
 			</div>
 		</div>
 

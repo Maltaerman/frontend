@@ -8,7 +8,8 @@ import i18n from "./libs/i18n/index.js";
 import VueGoogleMaps from '@fawmi/vue-google-maps'
 import ComponentsList from "./components/ComponentsList.js";
 import ResizeTextarea from 'resize-textarea-vue3';
-import Info from "/src/components/pluginComponents/toast"
+import Info from "/src/components/pluginComponents/toast";
+import SimpleTypehead from "vue3-simple-typeahead";
 
 const app = createApp(App);
 
@@ -30,7 +31,7 @@ app.use(VueGoogleMaps,{
     });
 app.use(ResizeTextarea);
 app.use(Info);
-
+app.use(SimpleTypehead);
 ComponentsList.forEach(component=>{
   app.component(component.name, component);
 })

@@ -1,7 +1,7 @@
 <template>
 	<label class="inline-block w-full relative" @focusin="onFocus" @focusout="onLeave">
 		<input
-					 :type="type" class="input-1" :value="modelValue" @input="updateInput" :placeholder="placeholder"
+					 :type="type" class="input-1 outline-none" :value="modelValue" @input="updateInput" :placeholder="placeholder"
 		:class="validationStyle" :disabled="disabled" :id="inpId" @keyup="keyAction" ref="inp">
 
     <div v-if="suggestionsVisible && suggestions && suggestions.length>1"

@@ -102,11 +102,11 @@ const mainRouter = [
   },
 ]
 export const Router = createRouter({
-  routes : mainRouter,
   history : createWebHistory(),
-  scrollBehavior(to, from, savedPosition) {
-    return { top: 0 }
-  },
+  routes : mainRouter,
+  scrollBehavior : function (to, _from, savedPosition) {
+    return savedPosition || { top: 0, left: 0 }
+  }
 });
 
 Router.beforeEach((to, form)=>{

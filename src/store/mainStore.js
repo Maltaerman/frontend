@@ -107,6 +107,7 @@ const storePrototype = {
         return;
       await api.locations.getLocationChangeLog(context.state.selectedMarkerData.id)
         .then((response) => {
+          console.log(response.data)
           context.commit('setSelectedMarkerHistory', response.data);
       });
     },

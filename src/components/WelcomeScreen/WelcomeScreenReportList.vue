@@ -1,10 +1,10 @@
 <template>
-  <transition-group name="report-appear" tag="div" class="flex flex-col flex-nowrap h-[268px] gap-2 overflow-hidden">
+  <transition-group name="report-appear" tag="div" class="flex flex-col flex-nowrap overflow-hidden container-height">
     <div v-for="report in visibleElements" v-bind:key="`rep${report.id}`" @click="OnReportClick(report)"
-         class="h-[84px] flex flex-nowrap items-center w-full group hover:bg-blue-c-100 bg-white gap-3.5 shrink-0 grow-0 cursor-pointer">
-      <div class="w-0.5 h-3/5 bg-gray-c-300 group-hover:h-full group-hover:bg-blue-c-400 duration-200"/>
-      <div class="grow h-3/5">
-        <div class="text-h4 group-hover:text-blue-c-400 group-hover:font-semibold">
+         class="item-height flex flex-nowrap items-center w-full group hover:bg-blue-c-100 shrink-0 grow-0 cursor-pointer">
+      <div class="w-0.5 h-3/5 bg-gray-c-300 group-hover:h-full group-hover:bg-blue-c-400 duration-200 shrink-0 grow-0"/>
+      <div class="grow-0 h-full py-2 pr-4 pl-3.5 grow-0 shrink-0">
+        <div class="text-h4 mobile:text-b3 group-hover:text-blue-c-400 group-hover:font-semibold duration-100">
           {{ ReportAddressFull(report) }}
         </div>
         <div class="flex flex-nowrap pt-1 items-center font-semibold text-b3 gap-2 text-gray-c-500">
@@ -88,6 +88,14 @@ export default {
       this.$emit("report-click", report);
     }
 	},
+	computed :{
+		itemHeight(){
+			if(document.body.clientWidth <= 480)
+				return "64px"
+			else
+				return "67px"
+		}
+	},
 	mounted() {
 		this.startAnimation();
 	},
@@ -98,20 +106,31 @@ export default {
 </script>
 
 <style scoped>
-	.report-appear-enter-from{
-		margin-bottom: -92px;
+	.item-height{
+		/*height: v-bind(itemHeight);*/
 	}
-  .report-appear-enter-to{
-    margin-bottom: 0;
-  }
+	.container-height{
+		height: calc(v-bind(itemHeight)*3);
+	}
+	.report-appear-enter-from{
+		margin-bottom: calc(v-bind(itemHeight)*-1);
+		opacity: 0;
+	}
+	.report-appear-enter-to{
+		margin-bottom: 0;
+		opacity: 1;
+	}
 	.report-appear-enter-active,
 	.report-appear-leave-active{
-		transition: margin-top 1s ease-out,margin-bottom 1s ease-out;
+		transition: all 1s ease-out,margin-bottom 1s ease-out, opacity 1s ease-out;
 	}
 	.report-appear-leave-from{
 		margin-top: 0;
+		opacity: 1;
 	}
 	.report-appear-leave-to{
-		margin-top: -92px;
+		margin-top: calc(v-bind(itemHeight)*-1);
+		opacity: 0;
 	}
+
 </style>

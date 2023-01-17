@@ -19,7 +19,8 @@
 							mobile:text-h2-m tablet:text-h2-m w-full">
 							{{ $t('login.header') }}
 							<div>
-								<Input-1 name="email" ref="emailInput" validation-type="mail" type="email" class="w-full my-6" placeholder="Email" v-model="email"/>
+								<Input-1 name="email" ref="emailInput" validation-type="mail" type="email"
+												 class="w-full my-6" placeholder="Email" v-model="email"/>
 								<Input-pass name="password" class="w-full" v-model="pass"/>
 								<button-text-1 class="font-semibold block my-3" @click="toPassReset">
 									{{ $t('login.resetPassword') }}

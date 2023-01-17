@@ -2,7 +2,7 @@
 	<ConfirmModal :is-bg-click-close=false :is-visible="isLeaveModalVisible"
 		:cancel-button-text="$t('reportTools.cancelButtonText')"
     :accept-button-text="$t('reportTools.acceptButtonText')"
-		:title="$t('general.dataNotSaved')" :question="question"
+		:title="$t('general.dataNotSaved')" :question="$t('reportTools.beforeLeaveMessage')"
 		:close-func="closeLeavePageConfirmModal"
 		:accept-button-func="PageLeaveAccepted"
 		:cancel-button-func="PageLeaveCanceled"/>
@@ -22,26 +22,26 @@
 	 </div>
 
    <div class="bg-blue-c-200 p-2 rounded-lg">
-		 <h1 class="w-full text-center text-h2 font-semibold">Актуальна адреса</h1>
+		 <h1 class="w-full text-center text-h2 font-semibold">{{$t("reportTools.currentAddress")}}</h1>
      <label>
        <div class="text-h3 text-gray-c-600 py-2">
-         Місто<sup class="text-red-c-500">*</sup>
+         {{$t("reportTools.city")}}<sup class="text-red-c-500">*</sup>
        </div>
-       <input1 v-model="updatedReport.city" placeholder="Місто" class="w-full rounded-xl"
+       <input1 v-model="updatedReport.city" :placeholder="$t('reportTools.city')" class="w-full rounded-xl"
 							 :validation-func="AddressValidation" validation-message="Мінімальна довжина 2 символи"/>
      </label>
      <label>
        <div class="text-h3 text-gray-c-600 py-2">
-         Вулиця<sup class="text-red-c-500">*</sup>
+         {{$t("reportTools.street")}}<sup class="text-red-c-500">*</sup>
        </div>
-       <input1 v-model="updatedReport.address" placeholder="Вулиця" class="w-full rounded-xl"
+       <input1 v-model="updatedReport.address" :placeholder="$t('reportTools.street')" class="w-full rounded-xl"
 							 :validation-func="AddressValidation" validation-message="Мінімальна довжина 2 символи"/>
      </label>
      <label>
        <div class="text-h3 text-gray-c-600 py-2">
-         Будинок
+         {{ $t("reportTools.streetNumber") }}
        </div>
-       <input1 v-model="updatedReport.street_number" placeholder="Номер будинку" class="w-full rounded-xl"/>
+       <input1 v-model="updatedReport.street_number" :placeholder="$t('reportTools.streetNumber')" class="w-full rounded-xl"/>
      </label>
    </div>
 
@@ -123,7 +123,6 @@ export default {
         }
       },
 			isLeaveModalVisible : false,
-			question: this.$t('reportTools.beforeLeaveMessage'),
 			isPageLeaveConfirmed : false,
 			targetLeaveRef : "",
 		}

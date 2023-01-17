@@ -19,4 +19,5 @@ npm run build
 Components docs:
 ```
 https://vuejsexamples.com/resize-textarea-a-simple-textarea-resize-for-vue3/
+https://www.npmjs.com/package/vue3-simple-typeahead
 ```

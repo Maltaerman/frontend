@@ -6,6 +6,7 @@ import NotFound from "./NotFound.vue";
 import Overview from "./Overview.vue";
 import ReportStateItem from "./ReportStateItem.vue";
 import SideBar from "./SideBar.vue";
+import Footer from "./Footer.vue";
 
 export default [
   Contacts,
@@ -15,5 +16,6 @@ export default [
   NotFound,
   Overview,
   ReportStateItem,
-  SideBar
+  SideBar,
+  Footer
 ]

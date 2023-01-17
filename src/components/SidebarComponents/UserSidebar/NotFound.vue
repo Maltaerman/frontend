@@ -36,7 +36,7 @@
 			</button-1>
 <!--			<FeedBackForm/>-->
     </div>
-    <Contacts/>
+    <Footer/>
 		<Loader v-if="isLoader"/>
     <SendReportRequestModal :is-modal-visible="isRequestModalView" :close-func="closeReqModal"/>
   </div>
@@ -47,18 +47,18 @@ import {mapActions, mapGetters, mapState} from "vuex";
 import axios from "axios";
 import api from "../../../api/index.js"
 import Loader from "../../Loader.vue";
-import Contacts from "./Contacts.vue";
 import FeedBackForm from "./FeedBackForm.vue";
 import userRoles from "../../mixins/userRoles.js";
 import SendReportRequestModal from "../../Modals/SendReportRequestModal.vue";
+import Footer from "./Footer.vue";
 
 export default {
   name: "NotFound",
   mixins : [userRoles],
 	components: {
+		Footer,
     SendReportRequestModal,
 		FeedBackForm,
-		Contacts,
 		Loader
 	},
   data(){

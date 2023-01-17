@@ -59,7 +59,7 @@
         </button-1>
 			</router-link>
 		</div>
-		<Contacts/>
+		<Footer/>
 	</div>
 </template>
 
@@ -69,18 +69,18 @@ import {mapGetters, mapMutations, mapState} from "vuex";
 import Button2 from "../../Buttons/Button_2.vue";
 import api from "../../../api/index.js";
 import ModalTemplate from "../../Modals/ModalTemplate.vue";
-import Contacts from "../UserSidebar/Contacts.vue";
 import AwaitModal from "../../Modals/AwaitModal.vue";
 import reportItemFlags from "../../mixins/reportItemFlags.js";
 import ReportStateItem from "../UserSidebar/ReportStateItem.vue";
+import Footer from "../UserSidebar/Footer.vue";
 
 
 export default {
 	name: "RequestCompletedPreview",
 	components: {
+		Footer,
     ReportStateItem,
 		AwaitModal,
-		Contacts,
 		ModalTemplate,
 		Button2,
 		SVG_status_list,

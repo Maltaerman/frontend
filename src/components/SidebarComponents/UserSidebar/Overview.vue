@@ -18,7 +18,7 @@
         {{ $t('userSideBar.reportButton') }}
 			</button-1>
 		</div>
-		<Contacts/>
+		<Footer/>
   </div>
 </template>
 
@@ -26,16 +26,16 @@
 import SVG_status_list from "../../ComponentsSVG/SVG_status_list.vue";
 import {mapActions, mapGetters, mapState} from "vuex";
 import Expander from "../../Other/Expander.vue";
-import Contacts from "./Contacts.vue";
 import reportItemFlags from "../../mixins/reportItemFlags.js";
 import ReportStateItem from "./ReportStateItem.vue";
+import Footer from "./Footer.vue";
 
 
 export default {
   name: "Overview",
   components: {
+		Footer,
     ReportStateItem,
-		Contacts,
 		Expander,
 		SVG_status_list,
   },

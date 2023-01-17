@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+    --mobile-screen-max : 480px;
+    --desctop-screen-min : 950px;
+    --tablet-screen-min : 481px;
+}
+
+
 @layer utilities {
     ::-webkit-scrollbar {
         width: 8px; /* ширина для вертикального скролла */
@@ -50,13 +57,13 @@
     }
     .input-1 {
         @apply border font-normal
-        rounded-lg outline-none text-h3 px-4 py-2
+        rounded-lg text-h3 px-4 py-2
         hover:border-blue-c-400 focus:border-blue-c-500
         disabled:bg-gray-c-100 disabled:hover:border-gray-c-300
         disabled:text-gray-c-500 w-full
     }
 
-    /*Дизайн скролла для Firefox*/
+    /*Дизайн скрола для Firefox*/
     .overflow-y-auto{
         overflow-y: auto;
         scrollbar-color: rgba(73, 84, 102, 0.51) transparent;

@@ -1,8 +1,8 @@
 <template>
   <modal-template :is-modal-visible="isModalVisible" :close-func="close" :is-hide-on-click="isHideOnClick"
-  :class-list="`grid place-content-center`">
+  	:class-list="`grid place-content-center px-2`">
     <transition name="modal-anim">
-      <div v-if="animTrigger" class="bg-white w-[480px] rounded-lg relative mobile:w-full relative p-6 mx-auto max-h-screen overflow-y-auto"
+      <div v-if="animTrigger" class="bg-white w-[480px] rounded-lg relative mobile:w-full relative p-6 mx-auto max-h-screen"
            @click.stop>
         <button class="absolute top-6 right-6 cursor-pointer"
                 @click="close">
@@ -16,9 +16,11 @@
         </div>
 
         <div class="flex flex-col gap-4 mt-4 mb-2">
-          <input1 v-model.trim="requestedOrgName" class="w-full"
-                  :placeholder="$t('dashboard.organizationSearchPlaceholder')"
-                  @focusout="orgInpFocusLose"/>
+					<input-suggest :placeholder="$t('dashboard.organizationSearchPlaceholder')"
+												 v-model.trim="requestedOrg" :item-projection-function="suggestionProjection"
+												 :suggestion="suggestionsC" @select-item="setSelectedItem"
+
+					/>
           <input1 placeholder="E-mail" class="outline-none" validation-type="mail"
                   :validation-message="$t('validations.mailNotValid')" v-model.trim="mail"/>
         </div>
@@ -37,9 +39,10 @@ import ModalTemplate from "./ModalTemplate.vue";
 import input1 from "../Inputs/Input-1.vue"
 import api from "../../api/index.js";
 import regex from "../mixins/regex.js";
+import InputSuggest from "../Inputs/suggestionInput/Input-suggestion.vue";
 export default {
   name: "UserInviteModal",
-  components: {ModalTemplate, input1},
+  components: {InputSuggest, ModalTemplate, input1},
 	mixins : [regex],
   props : {
     isModalVisible : {
@@ -62,18 +65,10 @@ export default {
     return {
       animTrigger: false,
       mail : "",
-      requestedOrgName : "",
+      requestedOrg : "",
       organization : undefined,
 			isLoader : false,
-      suggestions : [
-        "org0",
-        "org1",
-        "org2",
-        "org3",
-        "org4",
-        "org5",
-        "org6",
-      ]
+      suggestions : []
     }
   },
   methods : {
@@ -81,23 +76,20 @@ export default {
       this.animTrigger = false
       setTimeout(()=>{
         this.mail = "";
+				this.requestedOrg = "";
 				this.organization = undefined
 				this.suggestions = []
         this.closeFunc()
       }, 200)
     },
-		orgInpFocusLose(){
-			this.getOrganization();
-		},
 		async getOrganization(){
-			if(this.requestedOrgName.length<2)
+			if(this.requestedOrg.length<2)
 				return;
-			await api.organizations.getOrganizationByName(this.requestedOrgName, {})
+			await api.organizations.getOrganizationByName(this.requestedOrg, {})
 				.then(res=>{
 					console.log(res)
 					if(res.data[0]) {
-						this.organization = res.data[0];
-						this.requestedOrgName = this.organization.name
+						this.suggestions = res.data;
 					}
 				})
 				.catch(err=>{
@@ -132,6 +124,14 @@ export default {
 					this.isLoader = false;
 				})
 		},
+		suggestionProjection : (org) => {
+			return org.name;
+		},
+		setSelectedItem(item){
+			this.organization = item;
+			this.suggestions = [];
+		}
+
   },
   computed : {
     suggestionsC(){
@@ -147,7 +147,15 @@ export default {
         this.$nextTick(()=>{
           this.animTrigger = true;
         })
-    }
+    },
+		requestedOrg(n){
+			this.organization = undefined;
+			if(!n || n.length<3) {
+				this.suggestions = [];
+			}
+			else
+				this.getOrganization();
+		},
   }
 }
 </script>

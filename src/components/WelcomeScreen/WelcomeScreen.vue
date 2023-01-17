@@ -1,15 +1,15 @@
 <template>
-  <div class="flex flex-nowrap flex-col h-full">
+  <div class="flex flex-nowrap flex-col justify-between h-full overflow-y-auto gap-6">
     <Header class="shrink-0 grow-0"/>
-    <div class="flex flex-col justify-start items-center px-4 pt-24
+    <div class="flex flex-col justify-center items-center
         w-[600px] mx-auto
         mobile:text-h4 mobile:w-full
-        text-h3 grow shrink">
-      <img src="/src/assets/fullLogo.svg">
-      <p class="text-gray-c-500  mt-9 text-justify">
+        text-h3 grow shrink px-4">
+      <img src="/src/assets/fullLogo.svg" class="inline-block w-[310px]">
+      <p class="text-gray-c-500 mt-6 text-justify">
         {{ $t('welcomeScreen.helperText') }}
       </p>
-      <div class="mx-[2.5%] w-full border bg-white rounded-xl border-gray-c-300 border-[2px] h-10 flex flex-nowrap mt-6 mb-12"
+      <div class="mx-[2.5%] w-full border bg-white rounded-xl border-gray-c-300 border-[2px] h-10 flex flex-nowrap mt-6 mb-9"
            :class="{'border-blue-c-500': isInputFocused}"
       >
         <div class="w-[44px] cursor-pointer rounded-xl">
@@ -35,8 +35,8 @@
       </div>
 
       <div class="w-full" v-if="recentReports.length>0">
-        <div class="font-semibold mb-2">Recently completed reports</div>
-				<WelcomeScreenReportList :reports-list="recentReports" :delay="5000" @report-click="GetReportById" class="w-full"/>
+        <div class="font-semibold mb-2 bg-white z-10">{{$t("welcomeScreen.recentlyReports")}}</div>
+				<WelcomeScreenReportList :reports-list="recentReports" :delay="5000" @report-click="GetReportById" class="w-full]"/>
       </div>
 
 
@@ -46,6 +46,17 @@
         <p class="mt-2 font-normal">{{ $t('welcomeScreen.secondExample') }}</p>
       </div>-->
     </div>
+		<footer class="mt-[30px] py-6 mobile:py-5 px-4 gap-6 mobile:gap-3 flex items-center flex-wrap justify-center">
+			<div class="flex gap-6 flex-nowrap text-h4 text-blue-c-500 font-semibold break-words">
+				<a href="https://about.projectdim.org" target="_blank">{{$t("footer.about")}}</a>
+				<a href="https://dimblog.wixsite.com/project-dim" target="_blank">{{$t("footer.blog")}}</a>
+				<a href="https://about.projectdim.org/" target="_blank">❤ {{$t("footer.support")}}</a>
+			</div>
+			<div class="flex gap-4 flex-nowrap text-h4 text-gray-c-400 font-semibold mobile:text-b3">
+				<p>{{$t("footer.ngo")}}</p>
+				<p>{{$t("footer.code")}}</p>
+			</div>
+		</footer>
   </div>
 </template>
 

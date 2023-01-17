@@ -5,13 +5,23 @@
     "examples": "Examples",
     "firstExample": "Nezalezhnosti Ave, Kharkiv, Kharkivs'ka oblast, Ukraine, 61000",
     "secondExample": "Bekhterevs'kyi Ln, Kyiv, Ukraine, 02000",
-    "requestError" : "Unable to process request at {address}. Enter a more accurate address."
+    "requestError" : "Unable to process request at {address}. Enter a more accurate address.",
+    "recentlyReports" : "Recently completed reports"
+  },
+  "footer" : {
+    "about" : "About us",
+    "blog": "Blog",
+    "support": "Support us",
+    "ngo" : "NGO \"ЦИФРОВА ПЛАТФОРМА ДІМ\"",
+    "code" : "RN: 44815141"
   },
   "header": {
     "login": "Log in",
     "logout": "Log out",
     "map": "Map",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "settings" : "Settings",
+    "requests" : "Requests"
   },
   "userSideBar": {
     "choose-location": "Choose a location of interest.",
@@ -59,7 +69,11 @@
     "intact": "INTACT",
     "damaged": "DAMAGED",
     "noData": "NO DATA",
-    "descriptionDeleted" : "Description deleted"
+    "descriptionDeleted" : "Description deleted",
+    "city" : "City",
+    "street" : "Street",
+    "streetNumber" : "Street number",
+    "currentAddress" : "Current address",
   },
   "dashboard": {
     "admin": "Administrator",
@@ -111,7 +125,7 @@
   "login": {
     "header": "Login",
     "password": "Password",
-    "resetPassword": "Reset password...",
+    "resetPassword": "Forgot password...",
     "resetPasswordTitle": "Reset password",
     "logIn": "Login",
     "understood": "Understood, thank you.",
