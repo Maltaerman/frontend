@@ -1,5 +1,5 @@
 import VuexPersistence from "vuex-persist";
-import api from "../api/index.js"
+import api from "../http_client/index.js"
 import {createStore} from "vuex";
 import ReportLocationState from "./ReportedLocationStore.js";
 import UserStore from "./UserStore.js";

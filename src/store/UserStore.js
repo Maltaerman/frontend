@@ -1,5 +1,5 @@
 import userRoles from "../components/mixins/userRoles.js";
-import api from "../api/index.js";
+import api from "../http_client/index.js";
 
 export default {
   state(){

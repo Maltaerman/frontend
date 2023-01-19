@@ -45,7 +45,7 @@
 <script>
 import {mapActions, mapGetters, mapState} from "vuex";
 import axios from "axios";
-import api from "../../../api/index.js"
+import api from "../../../http_client/index.js"
 import Loader from "../../Loader.vue";
 import FeedBackForm from "./FeedBackForm.vue";
 import userRoles from "../../mixins/userRoles.js";

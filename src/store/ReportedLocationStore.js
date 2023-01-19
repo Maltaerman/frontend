@@ -1,4 +1,4 @@
-import api from "../api/index.js";
+import api from "../http_client/index.js";
 import {createStore} from "vuex";
 
 

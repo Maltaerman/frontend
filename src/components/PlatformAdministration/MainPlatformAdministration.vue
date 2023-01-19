@@ -19,7 +19,7 @@
 			<div class="font-semibold text-blue-c-500">
 				<router-link to="/admin/organizations">
 					<div class="hover:bg-blue-c-100 p-1 w-full cursor-pointer h-[58px] flex gap-4
-					items-center px-10"
+					items-center px-6 text-h3"
 						:class="{'bg-blue-c-200' : isPathMatched('/admin/organizations') || isPathMatched('/admin')}">
 						<img src="/src/assets/Organizations/List.svg"
 									class="h-5 w-5 block">
@@ -28,7 +28,7 @@
 				</router-link>
 
 				<div class="hover:bg-blue-c-100 p-1 w-full cursor-pointer h-[58px] flex gap-4
-				items-center px-10" @click="showSettings">
+				items-center px-6 text-h3" @click="showSettings">
 					<img  src="/src/assets/Settings.svg"
 								class="h-5 w-5 block">
 					<p class="h-min">{{ $t('dashboard.settings') }}</p>

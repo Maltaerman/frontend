@@ -67,7 +67,7 @@
 import SVG_status_list from "../../ComponentsSVG/SVG_status_list.vue";
 import {mapGetters, mapMutations, mapState} from "vuex";
 import Button2 from "../../Buttons/Button_2.vue";
-import api from "../../../api/index.js";
+import api from "../../../http_client/index.js";
 import ModalTemplate from "../../Modals/ModalTemplate.vue";
 import AwaitModal from "../../Modals/AwaitModal.vue";
 import reportItemFlags from "../../mixins/reportItemFlags.js";

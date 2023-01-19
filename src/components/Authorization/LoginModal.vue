@@ -73,7 +73,7 @@
 	</teleport>
 </template>
 <script>
-import api from "../../api/index.js";
+import api from "../../http_client/index.js";
 import {mapMutations, mapGetters, mapActions} from 'vuex';
 import Button1 from "../Buttons/Button_1.vue";
 import Loader from "../Loader.vue";

@@ -66,7 +66,7 @@ import Test from "../Test.vue"
 import { mapState, mapActions } from "vuex";
 import SVG_building_condition from "../ComponentsSVG/SVG_building_condition.vue";
 import WelcomeScreenReportList from "./WelcomeScreenReportList.vue";
-import api from "../../api/index.js";
+import api from "../../http_client/index.js";
 export default {
   name: "WelcomeScreen",
   components: {
@@ -114,6 +114,7 @@ export default {
 		async GetRecentReports(){
 			await api.locations.getRecentReports(20)
 				.then(res=>{
+					console.log(res)
 					this.recentReports = res.data ?? [];
 				})
 				.catch(err=>{

@@ -64,7 +64,7 @@
 import Input1 from "../Inputs/Input-1.vue";
 import Button2 from "../Buttons/Button_2.vue";
 import CodeInput from "../Inputs/CodeInput.vue";
-import api from "../../api/index.js";
+import api from "../../http_client/index.js";
 import {mapGetters, mapMutations} from "vuex";
 import TelInput from "../Inputs/TelInput.vue";
 import regex from "../mixins/regex.js";
@@ -270,26 +270,12 @@ export default {
         this.SendRequestAction();
     },
 		GetCodeAction(){
-			this.getCode();
-			/*if(import.meta.env.PROD){
-				console.log("Get code PROD");
-				this.getCode();
-			}
-			else if(import.meta.env.DEV){
-				console.log("Get code DEV");
-				this.getCodeDev();
-			}*/
+			//this.getCode();
+			this.getCodeDev();
 		},
 		SendRequestAction(){
-			this.sendRequest();
-			/*if(import.meta.env.PROD){
-				console.log("Send request PROD")
-				this.sendRequest();
-			}
-			else if(import.meta.env.DEV){
-				console.log("Send request DEV")
-				this.sendRequestDev();
-			}*/
+			//this.sendRequest();
+			this.sendRequestDev();
 		},
 	},
   computed : {

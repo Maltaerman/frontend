@@ -43,8 +43,9 @@
     "allListEmpty": "Зараз немає запитів на адресу",
     "myListEmpty": "Список Ваших запитів порожній",
     "takeRequest": "Розглянути",
-    "addToMyList": "Додати до 'Моїх запитів'",
-    "myRequest": "Мій запит"
+    "addToMyList": "Додати до \"Моїх запитів\"",
+    "myRequest": "Мій запит",
+    "expireIn" : "Видаляється менше ніж за {hours} години"
   },
   "reportTools": {
     "header": "Оновлення стану",

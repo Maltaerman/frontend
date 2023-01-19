@@ -142,7 +142,7 @@ import axios from "axios";
 import {mapActions, mapGetters, mapMutations} from "vuex";
 import userRoles from "../mixins/userRoles.js";
 import helper from "../mixins/helper.js";
-import api from "../../api/index.js";
+import api from "../../http_client/index.js";
 
 export default {
   name: "GoogleMap",

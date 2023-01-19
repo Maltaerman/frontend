@@ -1,12 +1,23 @@
 export  default {
   methods : {
-    // return DD.MM.YYYY
-    GetDate(dateStr) {
+    GetDate(dateStr){
       try {
         let date = dateStr;
         if (typeof dateStr !== typeof new Date()) {
           date = new Date(dateStr);
         }
+        return date;
+      }
+      catch{
+        return null;
+      }
+    },
+    // return DD.MM.YYYY
+    GetDateString(dateStr) {
+      try {
+        let date = this.GetDate(dateStr)
+        if(!date)
+          throw new Error("Date formatter error. Method: GetDate");
         let day = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`
         let month = date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`
 
@@ -20,10 +31,9 @@ export  default {
     // return hh:mm DD.MM.YYYY
     GetDateTime(dateStr){
       try {
-        let date = dateStr;
-        if (typeof dateStr !== typeof new Date()) {
-          date = new Date(dateStr);
-        }
+        let date = this.GetDate(dateStr)
+        if(!date)
+          throw new Error("Date formatter error. Method: GetDateTime");
 
         let hours = date.getHours() > 9 ? date.getHours() : `0${date.getHours()}`
         let minutes = date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`
@@ -40,15 +50,14 @@ export  default {
     // return MM dd, HH:mm
     GetDateTimeShort(dateStr){
       try {
-        let date = dateStr;
-        if (typeof dateStr !== typeof new Date()) {
-          date = new Date(dateStr);
-        }
+        let date = this.GetDate(dateStr)
+        if(!date)
+          throw new Error("Date formatter error. Method: GetDateTime");
 
         let hours = date.getHours() > 9 ? date.getHours() : `0${date.getHours()}`;
         let minutes = date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`;
 
-        return `${this.MonthLocalization(date.getMonth()+1).substring(0,3)} ${date.getDate()}, ${hours}:${minutes}`
+        return `${this.MonthLocalization(date.getMonth()).substring(0,3)} ${date.getDate()}, ${hours}:${minutes}`
       }
       catch (err){
         console.error("Date formatter error. Method: GetDateTimeShort");
@@ -71,7 +80,7 @@ export  default {
         this.$t("month.nov"),
         this.$t("month.dec"),
       ]
-      return month[num-1] || "Error"
+      return month[num] || "Error"
     },
     GetDayDateString(dateStr){
       try {

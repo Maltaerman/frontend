@@ -1,10 +1,18 @@
 <template>
 	<div class="shadow-cs3 p-4 rounded-lg mb-4 relative"
-		:class="{'bg-blue-c-100' : isSelected}">
+		:class="{
+			'bg-blue-c-100' : isSelected,
+			'border border-red-c-500' : isExpired
+		}">
 		<div>
 			<div class="flex justify-between mb-3">
-				<div class="text-h4 text-gray-c-500 capitalize">
-					{{ GetDayDateString(locationRequest.created_at) }}
+				<div class="text-h4 text-gray-c-500">
+					<span v-if="!isExpired" class="capitalize">
+						{{ GetDayDateString(locationRequest.created_at) }}
+					</span>
+					<span v-else class="text-red-c-500">
+						{{$t("aidWorkerSideBar.expireIn", {hours : expireInHours})}}
+					</span>
 				</div>
 				<div class="text-h4 text-gray-c-500">
 					{{locationRequest.city}}
@@ -49,7 +57,7 @@
 <script>
 
 import {mapActions, mapState} from "vuex";
-import api from "../../../api/index.js";
+import api from "../../../http_client/index.js";
 import Loader from "../../Loader.vue";
 import dateFormatter from "../../mixins/dateFormatter.js";
 
@@ -73,8 +81,8 @@ export default {
 	},
 	data () {
 		return {
-			isMyRequest: false,
-			isLoaderVisible : false
+			isLoaderVisible : false,
+			expireInHours : 2
 		}
 	},
 	methods :{
@@ -103,7 +111,7 @@ export default {
 			}).finally(()=>{
 				this.isLoaderVisible = false;
 			})
-		}
+		},
 	},
 	computed : {
 		...mapState({
@@ -138,7 +146,18 @@ export default {
       }
       address = address.substring(0, address.length-trim);
       return address.length>0 ? address : this.$t("general.error");
-    }
+    },
+		// is request remove from "My request" in 2 hours
+		isExpired(){
+			let result = false
+			if(this.locationRequest.reported_by && this.locationRequest.report_expires){
+				return this.GetDate(this.locationRequest.report_expires)-this.GetDate(Date.now()) <= this.expireInHours * 3600000;
+			}
+			return result;
+		}
+	},
+	mounted() {
+		//console.log(this.locationRequest)
 	}
 }
 </script>

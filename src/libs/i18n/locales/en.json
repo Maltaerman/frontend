@@ -43,8 +43,9 @@
     "allListEmpty": "There is no location requests for now.",
     "myListEmpty": "You request list is empty",
     "takeRequest": "Review",
-    "addToMyList": "Add to 'My requests'",
-    "myRequest": "My request"
+    "addToMyList": "Add to \"My requests\"",
+    "myRequest": "My request",
+    "expireIn" : "Expires in less than {hours} hours"
   },
   "reportTools": {
     "header": "Report status",

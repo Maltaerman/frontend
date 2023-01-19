@@ -17,7 +17,7 @@
 <script>
 import ReportRequestListItem from "./ReportRequestListItem.vue";
 import Loader from "../../Loader.vue";
-import api from "../../../api/index.js";
+import api from "../../../http_client/index.js";
 import {mapGetters} from "vuex";
 
 export default {
@@ -40,6 +40,7 @@ export default {
 			await api.locations.getAssignedRequests().then(res=>{
 					this.myUnreviewedMarkers = res.data;
 				}).catch(err=>{
+					this.$toast.error(this.$t("general.errorMessage"))
 					alert(err);
 				}).finally(()=>{
 					this.isLoaderVisible = false
