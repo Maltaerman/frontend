@@ -44,10 +44,10 @@
 
 <script>
 import Header from "../Header.vue";
-import helper from "../mixins/helper.js";
+import RouterHelper from "../mixins/routerHelper.js";
 export default {
 	name: "MainPlatformAdministration",
-	mixins : [helper],
+	mixins : [RouterHelper],
 	components : {
 		Header
 	},

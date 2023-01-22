@@ -36,7 +36,7 @@
 
       <div class="w-full" v-if="recentReports.length>0">
         <div class="font-semibold mb-2 bg-white z-10">{{$t("welcomeScreen.recentlyReports")}}</div>
-				<WelcomeScreenReportList :reports-list="recentReports" :delay="5000" @report-click="GetReportById" class="w-full]"/>
+				<WelcomeScreenReportList :reports-list="recentReports" :delay="5000" @report-click="RecentReportClick" class="w-full"/>
       </div>
 
 
@@ -63,7 +63,7 @@
 <script>
 import Header from "../Header.vue";
 import Test from "../Test.vue"
-import { mapState, mapActions } from "vuex";
+import {mapState, mapActions, mapMutations} from "vuex";
 import SVG_building_condition from "../ComponentsSVG/SVG_building_condition.vue";
 import WelcomeScreenReportList from "./WelcomeScreenReportList.vue";
 import api from "../../http_client/index.js";
@@ -83,7 +83,13 @@ export default {
     }
   },
   methods: {
-		...mapActions(["GetMarkerByCoords", "getMarkerById"]),
+		...mapActions({
+			GetMarkerByCoords : "GetMarkerByCoords",
+			getMarkerById : "getMarkerById"
+		}),
+		...mapMutations({
+			setSelectedMarker : "setSelectedMarker"
+		}),
     OnInputFocus(arg){
       this.isInputFocused = arg;
     },
@@ -92,13 +98,10 @@ export default {
       autocomplete.value = ''
     },
 		GetMarker(arg){
-      console.log(arg)
       let payload = {}
       try {
-        payload = {
-          lat: arg.geometry.location.lat(),
-          lng: arg.geometry.location.lng()
-        }
+        payload = this.coordsFormatter(arg.geometry.location)
+				console.log(payload)
       }
       catch  {
         this.$toast.error(this.$t("welcomeScreen.requestError", {address : arg.name ?? ""}))
@@ -107,20 +110,36 @@ export default {
 			this.GetMarkerByCoords({position : payload, name : arg.name})
 			this.$router.push("/main/overview");
 		},
-    GetReportById(report){
-      this.getMarkerById(report.id);
-      this.$router.push("/main/overview");
+    RecentReportClick(report){
+			this.setSelectedMarker(report);
+			this.$router.replace({path: "/main/overview", query: {id : report.id, ...report.position}})
     },
 		async GetRecentReports(){
 			await api.locations.getRecentReports(20)
 				.then(res=>{
-					console.log(res)
 					this.recentReports = res.data ?? [];
 				})
 				.catch(err=>{
 					console.error(err);
 				})
-		}
+		},
+		coordsFormatter(coords){
+			let res = {};
+			if(typeof coords.lat == 'function')
+				res.lat = coords.lat();
+			else if(typeof coords.lat == 'number')
+				res.lat = coords.lat;
+			else if(typeof coords.lat == 'string')
+				res.lat = Number(coords.lat)
+
+			if(typeof coords.lng == 'function')
+				res.lng = coords.lng();
+			else if(typeof coords.lng == 'number')
+				res.lng = coords.lng;
+			else if(typeof coords.lng == 'string')
+				res.lng = Number(coords.lng)
+			return res;
+		},
   },
 	computed : {
 		...mapState(["selectedMarkerData","notFoundedMarkerData"]),

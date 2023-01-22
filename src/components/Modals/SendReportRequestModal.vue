@@ -180,9 +180,8 @@ export default {
             }
             this.setUnreviewedMarkers([data, ...this.getRequestMarkers])
             this.setNotFoundMarker({
-              location_id : res.data.location_id,
+              id : res.data.location_id,
               position : res.data.position,
-              isRequested : true,
               address :  this.notFoundedMarker.address
             })
             let successMess = this.$t("notFoundAddress.modalSuccessMess",
@@ -237,7 +236,6 @@ export default {
               location_id : res.data.location_id,
               //position : res.data.position,
               position: {...this.notFoundedMarker.position},
-              isRequested : true,
               address :  this.notFoundedMarker.address
             })
             let successMess = this.$t("notFoundAddress.modalSuccessMess",

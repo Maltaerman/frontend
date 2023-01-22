@@ -1,9 +1,6 @@
 
 export  default {
   methods : {
-    isPathMatched(url){
-      return this.$route.matched.some(x=>x.path===url)
-    },
     isEqual2(object1, object2) {
       if(!object1 || !object2)
         return false;

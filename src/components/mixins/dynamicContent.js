@@ -4,7 +4,6 @@ import stringFormatter from "./StringFormatter.js";
 export default {
   mixins : [stringFormatter],
   methods : {
-    //TODO Localozation
     ReportAddressFull(report){
       let address = ""
       if(report.address)

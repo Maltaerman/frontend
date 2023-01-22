@@ -80,6 +80,7 @@ const storePrototype = {
   getters : { // функцію для отримання даних зі state з можливістю здійснювати попередні обрахунки
     getMapCenter(state){
       return state.mapCenter ? state.mapCenter : state.defaultMapCenter
+      //return  state.mapCenter ?? undefined
     },
     getSelectedLocationRequest(state){
       return state.reports.selectedLocationRequest
@@ -92,6 +93,9 @@ const storePrototype = {
     },
     notFoundedMarker(state){
       return state.notFoundedMarkerData ?? null;
+    },
+    selectedReport(state){
+      return state.selectedMarkerData ?? undefined;
     }
   },
   actions : { // функції для зміни даних шляхом ініціалізації мутацій можуть бути АСИНХРОННИМИ
@@ -116,11 +120,12 @@ const storePrototype = {
       await api.locations.exactSearch(position.lat, position.lng).then((response) => {
         if(response.data.status === 3)
           context.commit("setSelectedMarker", response.data);
+        else if(response.data.id)
+          context.commit("setNoDataMarker", response.data);
         else{
           let notFoundAddress = {
             position: response.data.position,
             address: `${response.data.address}, ${response.data.street_number}, ${response.data.city}, ${response.data.index}, ${response.data.country}`,
-            isRequested : true
           }
           context.commit("setNoDataMarker", notFoundAddress);
         }
@@ -132,10 +137,24 @@ const storePrototype = {
         context.commit("setNoDataMarker", notFoundAddress);
       });
     },
-    async getMarkerById (context, locationId) {
+    /*async getMarkerById (context, locationId) {
       await api.locations.getLocationById(locationId).then((response) => {
+        console.log(response.data)
         context.commit("setSelectedMarker", response.data)
       })
+    },*/
+    async getMarkerById (context, {locationId, callbackFailed}) {
+      await api.locations.getLocationById(locationId)
+        .then((response) => {
+          if(response.data.status == 3)
+            context.commit("setSelectedMarker", response.data)
+          else
+            context.commit("setNoDataMarker", response.data)
+        })
+        .catch(err=>{
+          if(callbackFailed)
+            callbackFailed();
+        })
     },
     setUnreviewedMarkers(context, markersArray){
       context.commit("setUnreviewedMarkers", markersArray)

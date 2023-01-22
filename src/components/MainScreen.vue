@@ -20,7 +20,7 @@ import SideBar from "./SidebarComponents/UserSidebar/SideBar.vue";
 import NotFound from "./SidebarComponents/UserSidebar/NotFound.vue";
 import GoogleMap from "./MapComponents/GoogleMap.vue";
 import Header from "./Header.vue";
-import {mapState} from "vuex";
+import {mapGetters, mapState} from "vuex";
 
 export default {
 	name: "MainScreen",
@@ -31,9 +31,23 @@ export default {
 		GoogleMap
 	},
   computed : {
-		...mapState(["selectedMarkerData", "notFoundedMarkerData"])
+		...mapGetters({
+			selectedReport : "selectedReport",
+			notFoundedMarker : "notFoundedMarker"
+		})
 	},
-
+	watch : {
+		notFoundedMarker(newVal){
+			if(newVal) {
+				this.$router.replace({path: "/main/overview", query: {id : newVal.id,...newVal.position}})
+			}
+		},
+		selectedReport(newVal){
+			if(newVal) {
+				this.$router.replace({path: "/main/overview", query: {id : newVal.id, ...newVal.position}})
+			}
+		}
+	}
 }
 </script>
 

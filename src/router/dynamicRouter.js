@@ -25,18 +25,13 @@ const mainRouter = [
     component : WelcomeScreen
   },
   {
-    path : "/main",
+    path : "/main/:lat?/:lng?",
     component : MainScreen,
     children : [
       {
-        path : "overview",
-        alias : [""],
-        component : SideBar
-      },
-      {
         path : "requests",
         component : SideBarAidWorker,
-        meta : {requiresAuth : true}
+        meta : {requiresAuth : true},
       },
       {
         path: "submit-report",
@@ -44,7 +39,7 @@ const mainRouter = [
         meta : {
           requiresAuth  : true,
           selectedRequest : true
-        }
+        },
       },
       {
         path: "submit-report-preview",
@@ -52,9 +47,15 @@ const mainRouter = [
         meta : {
           requiresAuth  : true,
           selectedRequest : true
-        }
+        },
       },
-    ]
+      {
+        path : "overview",
+        alias : [""],
+        component : SideBar,
+      },
+    ],
+
   },
   {
     path : "/admin",
