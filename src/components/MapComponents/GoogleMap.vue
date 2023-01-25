@@ -212,19 +212,6 @@ export default {
         this.currentMapZoom = this.currentMapZoom >= 17 ? this.currentMapZoom : 17;
       }, 500)
     },
-		 getRequestByClick(m){
-			if(!this.isAuth)
-					return;
-
-			 let notFoundedMarker = {
-				 position: m.location,
-         //TODO
-				 address: "saf",
-				 id : m.id
-			 }
-			 this.setNoDataMarker(notFoundedMarker);
-
-		},
     async getGooglePlaceInfo (coords) {
 			coords = this.coordsFormatter(coords)
      /* console.log("Click")
@@ -350,16 +337,6 @@ export default {
     }
   },
 	watch : {
-		/*notFoundMarker : function (newValue) {
-			if(newValue && !newValue.id) {
-				this.ifClickMarker = true;
-				this.ClickMarkerCoords = newValue.position;
-			}
-			else{
-				this.ifClickMarker = false;
-				this.ClickMarkerCoords = undefined;
-			}
-		},*/
 		getMapCenter : function (newValue) {
 			//FIXME костилі для того, щоб центр мапи змінювався
 			// при повторному присвоєнні ідентичного значення

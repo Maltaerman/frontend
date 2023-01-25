@@ -220,12 +220,6 @@ export default {
       // FIXME не працює на сервері
       await api.guest.sendAddressRequest(params)
           .then((res) => {
-            console.log(res)
-						/*let data = {
-							position : {...res.data.position} ?? {...this.notFoundedMarker.position},
-							status : res.status ?? 1
-						}*/
-
             let data = {
               position : {...this.notFoundedMarker.position},
               status : res.status ?? 1
@@ -234,7 +228,6 @@ export default {
             this.setUnreviewedMarkers([data, ...this.getRequestMarkers])
             this.setNotFoundMarker({
               location_id : res.data.location_id,
-              //position : res.data.position,
               position: {...this.notFoundedMarker.position},
               address :  this.notFoundedMarker.address
             })
@@ -268,12 +261,12 @@ export default {
         this.SendRequestAction();
     },
 		GetCodeAction(){
-			//this.getCode();
-			this.getCodeDev();
+			this.getCode();
+			//this.getCodeDev();
 		},
 		SendRequestAction(){
-			//this.sendRequest();
-			this.sendRequestDev();
+			this.sendRequest();
+			//this.sendRequestDev();
 		},
 	},
   computed : {

@@ -27,7 +27,7 @@
       </keep-alive>
 	  </div>
 	</div>
-	<NotFound/>
+	<NotFound v-else/>
 </template>
 
 <script>

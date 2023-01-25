@@ -50,6 +50,9 @@ const storePrototype = {
       state.markers = markers.filter((mark) => mark.status === 3);
       state.unreviewedMarkers = markers.filter((mark) => mark.status === 1 || mark.status === 2);
     },
+    setReviewedMarkerList(state, list){
+      state.markers = list.filter((mark) => mark.status === 3);
+    },
     setUnreviewedMarkers(state, markers){
       state.unreviewedMarkers = markers;
     },

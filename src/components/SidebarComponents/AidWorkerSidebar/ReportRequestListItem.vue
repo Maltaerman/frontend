@@ -17,7 +17,7 @@
 				<div class="text-h4 text-gray-c-500">
 					{{locationRequest.city}}
 					<img src="/Marker-gray.svg" class="inline-block">
-          {{ locationRequest.distance ? locationRequest.distance.toFixed(0) + " km" : 'Невідомо' }}
+          {{ locationRequest.distance ? locationRequest.distance.toFixed(0) + " km" : $t("general.unknown") }}
 				</div>
 			</div>
 			<div class="text-h3 text-blue-c-500 font-semibold pb-2 shadow-cs2 cursor-pointer"
@@ -64,7 +64,7 @@ import dateFormatter from "../../mixins/dateFormatter.js";
 export default {
 	name: "ReportRequestListItem",
 	components: {Loader},
-	emits : ["remove-from-my-list"],
+	emits : ["remove-from-my-list", "add-to-my-list"],
   mixins : [dateFormatter],
 	props : {
 		locationRequest : {
@@ -94,7 +94,7 @@ export default {
 		async AddToMyRequests(){
 			this.isLoaderVisible = true;
 			await api.locations.assignRequest(this.locationRequest.id).then(res=>{
-				this.locationRequest.reported_by = res.data.reported_by
+				this.$emit("add-to-my-list", res.data)
 			}).catch(err=>{
 				console.log(err)
 			}).finally(()=>{
@@ -104,8 +104,7 @@ export default {
 		async RemoveFromMyRequests(){
 			this.isLoaderVisible = true;
 			await api.locations.removeAssignRequest(this.locationRequest.id).then(res=>{
-				this.locationRequest.reported_by = res.data.reported_by
-				this.$emit("remove-from-my-list", this.locationRequest.id)
+				this.$emit("remove-from-my-list", res.data)
 			}).catch(err=>{
 				console.log(err)
 			}).finally(()=>{

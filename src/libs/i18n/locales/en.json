@@ -45,7 +45,8 @@
     "takeRequest": "Review",
     "addToMyList": "Add to \"My requests\"",
     "myRequest": "My request",
-    "expireIn" : "Expires in less than {hours} hours"
+    "expireIn" : "Expires in less than {hours} hours",
+    "expireMessage" : "Requests will be automatically removed from this page 48 hours after they are added."
   },
   "reportTools": {
     "header": "Report status",
@@ -197,7 +198,8 @@
     "toDeleteType": "To delete type:",
     "deleted": "Deleted",
     "success": "Successfully",
-    "edited": "Edited"
+    "edited": "Edited",
+    "unknown" : "Unknown"
   },
   "tooltips": {
     "water": "Water",

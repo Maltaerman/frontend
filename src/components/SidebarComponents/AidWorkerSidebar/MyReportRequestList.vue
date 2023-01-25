@@ -1,5 +1,6 @@
 <template>
-	<div class="px-6 relative">
+	<div class="p-6 relative">
+		<div class="text-h4 mb-4 text-gray-c-600">{{$t("aidWorkerSideBar.expireMessage")}}</div>
 		<ReportRequestListItem v-if="myUnreviewedMarkers.length > 0"
 			v-for="item in myUnreviewedMarkers"
 			:key="`request${item.id}`"
@@ -22,41 +23,26 @@ import {mapGetters} from "vuex";
 
 export default {
 	name: "MyReportRequestList",
+	emits : ["remove-from-my-list"],
 	components: {
 		ReportRequestListItem,
 		Loader
 	},
-	data(){
-		return {
-			myUnreviewedMarkers: [],
-			isLoaderVisible : false
+	props : {
+		myUnreviewedMarkers: {
+			type : Array,
+			default : []
+		},
+		isLoaderVisible : {
+			type : Boolean,
+			defaults : false
 		}
 	},
 	methods : {
-		async GetMyReportsRequest(){
-			if(!this.isAuth)
-				return;
-			this.isLoaderVisible = true;
-			await api.locations.getAssignedRequests().then(res=>{
-					this.myUnreviewedMarkers = res.data;
-				}).catch(err=>{
-					this.$toast.error(this.$t("general.errorMessage"))
-					alert(err);
-				}).finally(()=>{
-					this.isLoaderVisible = false
-				})
-		},
-		OnRemoveFromMyList(locationId){
-			this.myUnreviewedMarkers = this.myUnreviewedMarkers
-				.filter(el=>el.id!==locationId)
+		OnRemoveFromMyList(request){
+			this.$emit("remove-from-my-list", request);
 		}
 	},
-	computed : {
-		...mapGetters(["isAuth"])
-	},
-	mounted() {
-		this.GetMyReportsRequest();
-	}
 }
 </script>
 

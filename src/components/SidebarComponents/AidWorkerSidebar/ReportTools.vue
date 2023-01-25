@@ -128,7 +128,7 @@ export default {
 		}
 	},
 	methods : {
-		...mapMutations(['setSelectedMarker']),
+/*		...mapMutations(['setSelectedMarker']),*/
 		...mapActions(['setSelectedRequest']),
 		PreviewFinishedReport(){
 			this.setSelectedRequest(this.updatedReport);

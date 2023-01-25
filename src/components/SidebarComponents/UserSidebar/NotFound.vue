@@ -48,7 +48,6 @@
 
 <script>
 import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
-import axios from "axios";
 import api from "../../../http_client/index.js"
 import Loader from "../../Loader.vue";
 import FeedBackForm from "./FeedBackForm.vue";
@@ -79,11 +78,9 @@ export default {
     }
   },
 	computed : {
-    ...mapState({
-      notFoundedMarkerData :"notFoundedMarkerData",
-    }),
     ...mapGetters({
       getRequestMarkers : "getRequestMarkers",
+			notFoundedMarkerData : "notFoundedMarker"
     }),
     buttonDisabled(){
       if(this.notFoundedMarkerData===null)
@@ -109,13 +106,13 @@ export default {
 		...mapMutations({
 			setSelectedMarker : "setSelectedMarker"
 		}),
+		// its for existed requests
     async reviewNotFoundMarker(){
       if(!this.notFoundedMarkerData.id)
         return;
       this.isLoader = true;
       await api.locations.getLocationById(this.notFoundedMarkerData.id)
           .then(res=>{
-            console.log(res)
             if(res.data.reported_by && res.data.reported_by !== this.getUser.id){
               this.$toast.error(this.$t("notFoundAddress.modalErrReqInWork"), {
                 duration : false
@@ -135,6 +132,9 @@ export default {
       if(this.notFoundedMarkerData.id
           && this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker))
        this.reviewNotFoundMarker();
+			else if(!this.notFoundedMarkerData.id
+				&& this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker))
+				this.reviewNotExistedMarker();
       else
         this.isRequestModalView = true;
     },
@@ -154,6 +154,29 @@ export default {
 			this.setSelectedMarker(report);
 			this.$router.replace({path: "/main/overview", query: {id : report.id, ...report.position}})
 		},
+		async reviewNotExistedMarker(){
+			if(!this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker))
+				return;
+			this.isLoader = true;
+			let position = {...this.notFoundedMarkerData.position};
+			await api.locations.getGeocodingOSM(this.notFoundedMarkerData.position)
+				.then(res=>{
+					if(res.data) {
+							this.createNotRequestedReport({...position, ...res.data});
+					}
+					else
+						throw new Error();
+				})
+				.catch(err=>{
+					this.$toast.error(this.$t("general.errorMessage"));
+				}).finally(()=>{
+					this.isLoader = false;
+				})
+		},
+		createNotRequestedReport(reportData){
+			this.setSelectedRequest(reportData);
+			this.$router.push("/main/submit-report");
+		}
 	},
 	created() {
 		this.GetRecentReports();
