@@ -10,13 +10,10 @@
 				<div class="w-[44px] cursor-pointer rounded-xl">
 					<img src="/search.svg" class="h-full w-full object-scale-down">
 				</div>
-<!--				:options="{
-				fields: [`geometry`, `name`]
-				}"-->
 				<GMapAutocomplete
           id="autocomplete"
 					ref="autocomplete"
-					:placeholder="$t('welcomeScreen.searchPlaceholder')"
+					:placeholder="$t('welcomeScreen.searchAddress')"
 					@place_changed="setPlace"
 					class="w-full bg-transparent outline-none block text-h3"
 					:select-first-on-enter="true"
@@ -155,7 +152,7 @@ export default {
 		  isInputFocused : false,
 		  searchRequest : "",
       intervalId : "",
-      isLoaderVisible :false
+      isLoaderVisible :false,
 	  }
   },
 	computed : {
@@ -214,8 +211,6 @@ export default {
     },
     async getGooglePlaceInfo (coords) {
 			coords = this.coordsFormatter(coords)
-     /* console.log("Click")
-      console.log(coords);*/
 			await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords.lat},${coords.lng}&key=${import.meta.env.VITE_GMAPS_APIKEY}`)
         .then((res =>{
           let googlePlace = res.data.results.find(x=> Object.keys(x.geometry).includes("bounds"));
@@ -243,22 +238,6 @@ export default {
             }
             this.setNoDataMarker(notFoundedMarker);
           }
-
-			  	/*let ExistedMarker = this.CheckIsReportedMarkerExist(res.data.results)
-			  	let correctMarkerData = res.data.results[0]
-			  	if(ExistedMarker){
-			  		this.getMarkerInfo(ExistedMarker);
-			  		this.ifClickMarker = false;
-			  		this.ClickMarkerCoords = null;
-			  	}
-			  	else {
-			  		let m = ExistedMarker ? ExistedMarker : correctMarkerData;
-			  		let notFoundedMarker = {
-			  			position: this.coordsFormatter(m.geometry.location),
-			  			address: res.data.results[0].formatted_address
-			  		}
-			  		this.setNoDataMarker(notFoundedMarker);
-			  	}*/
 			  }))
         .catch((err) => console.log(err));
     },
@@ -380,9 +359,6 @@ export default {
 			this.currentMapZoom = 18
 		}, 1000)
 	},
-	beforeRouteUpdate(){
-		console.log("route update")
-	}
 }
 
 </script>

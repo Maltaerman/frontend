@@ -18,7 +18,7 @@
         <GMapAutocomplete
             id="autocomplete"
             ref="autocomplete"
-            :placeholder="$t('welcomeScreen.searchPlaceholder')"
+            :placeholder="$t('welcomeScreen.searchAddress')"
             @place_changed="GetMarker"
             class="w-full bg-transparent outline-none block text-h3"
             :options="{

@@ -125,7 +125,6 @@ export default {
 				index : this.requestedMarker.index,
 			}*/
 
-
 			let requestSender = this.requestedMarker.id ? api.locations.submitLocationReport : api.locations.addReportByAdmin
 
 			if(this.requestedMarker.id){
@@ -152,6 +151,7 @@ export default {
 					/*console.log(res.data)
 					console.log(this.getReviewedMarkers)*/
 
+					// Push new marker to report marker list if it needed
 					if(!this.getReviewedMarkers.find(x=>x.location_id===res.data.id)){
 						let newMapMarker = {
 							location_id : res.data.id,
@@ -160,6 +160,8 @@ export default {
 						}
 						this.setReviewedMarkerList([...this.getReviewedMarkers, newMapMarker])
 					}
+					//
+					// Remove request marker from requested markers if it there
 					this.setUnreviewedMarkers(this.getRequestMarkers.filter(x=>x.location_id !== res.data.id))
 					this.$toast.success(this.$t('general.dataPublished'), {
 						onClose: this.closeResultModal

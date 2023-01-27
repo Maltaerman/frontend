@@ -31,7 +31,8 @@ export default {
 		c_height () {
 			return this.height > 0 ? this.width : this.defaultData.height
 		}
-	}
+	},
+
 }
 </script>
 

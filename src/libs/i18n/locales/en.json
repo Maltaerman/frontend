@@ -1,7 +1,7 @@
 {
   "welcomeScreen": {
-    "helperText": "Search an address to see crowdsourced reports of your town.",
-    "searchPlaceholder": "Type an address...",
+    "helperText": "Our partner organizations report if buildings are damaged, have stable electricity, water, etc.",
+    "searchAddress" : "Search for your address",
     "examples": "Examples",
     "firstExample": "Nezalezhnosti Ave, Kharkiv, Kharkivs'ka oblast, Ukraine, 61000",
     "secondExample": "Bekhterevs'kyi Ln, Kyiv, Ukraine, 02000",
@@ -75,7 +75,7 @@
     "city" : "City",
     "street" : "Street",
     "streetNumber" : "Street number",
-    "currentAddress" : "Current address",
+    "currentAddress" : "Current address"
   },
   "dashboard": {
     "admin": "Administrator",

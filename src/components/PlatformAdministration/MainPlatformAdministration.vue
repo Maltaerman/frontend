@@ -16,22 +16,30 @@
 				</p>
 			</div>
 
-			<div class="font-semibold text-blue-c-500">
-				<router-link to="/admin/organizations">
-					<div class="hover:bg-blue-c-100 p-1 w-full cursor-pointer h-[58px] flex gap-4
-					items-center px-6 text-h3"
-						:class="{'bg-blue-c-200' : isPathMatched('/admin/organizations') || isPathMatched('/admin')}">
-						<img src="/src/assets/Organizations/List.svg"
-									class="h-5 w-5 block">
-						<p class="h-min">{{ $t('dashboard.organizations') }}</p>
-					</div>
-				</router-link>
+			<div>
+				<MenuItemLink to="/admin/organizations">
+					<template #image>
+						<SVG_Org_List/>
+					</template>
+					<template #text>
+						{{ $t('dashboard.organizations') }}
+					</template>
+				</MenuItemLink>
+<!--				<MenuItemLink to="/admin/roles">
+					<template #image>
+						<SVG_Org_List/>
+					</template>
+					<template #text>
+						Roles
+					</template>
+				</MenuItemLink >-->
 
-				<div class="hover:bg-blue-c-100 p-1 w-full cursor-pointer h-[58px] flex gap-4
-				items-center px-6 text-h3" @click="showSettings">
-					<img  src="/src/assets/Settings.svg"
-								class="h-5 w-5 block">
-					<p class="h-min">{{ $t('dashboard.settings') }}</p>
+				<div class="group p-1 w-full cursor-pointer h-[58px] flex gap-4
+					items-center px-6 text-h3" @click="showSettings">
+					<div class="h-5 w-5">
+						<SVG_settings class="fill-gray-c-500 group-hover:fill-blue-c-400"/>
+					</div>
+					<p class="h-min text-gray-c-500 group-hover:text-blue-c-400 font-semibold">{{ $t('dashboard.settings') }}</p>
 				</div>
 
 			</div>
@@ -45,10 +53,16 @@
 <script>
 import Header from "../Header.vue";
 import RouterHelper from "../mixins/routerHelper.js";
+import MenuItemLink from "../SidebarComponents/MenuItemLink.vue";
+import SVG_Org_List from "../ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue";
+import SVG_settings from "../ComponentsSVG/SVG_settings.vue";
 export default {
 	name: "MainPlatformAdministration",
 	mixins : [RouterHelper],
 	components : {
+		SVG_settings,
+		SVG_Org_List,
+		MenuItemLink,
 		Header
 	},
 	data(){

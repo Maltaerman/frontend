@@ -44,7 +44,7 @@ export default function (instance) {
 
         // position {lng : Number, lat : Number}
         getGeocodingOSM(position){
-            return instance.get("/locations/geocode", {
+            return instance.get("/geocode/reverse", {
                 params : {
                     geocoder : "osm",
                     ...position
