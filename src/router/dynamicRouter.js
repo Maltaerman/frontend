@@ -10,6 +10,7 @@ const OrganizationsList = () => import("../components/PlatformAdministration/Org
 const OrganizationProfile = () => import("../components/PlatformAdministration/OrganizationProfile.vue");
 const UserRegistration = () => import("../components/Authorization/UserRegistration.vue");
 const PasswordReset = () => import("../components/Authorization/PasswordReset.vue");
+const UserRoles = () =>import("../components/PlatformAdministration/UserRoles.vue");
 
 
 import {store} from "../store/mainStore.js";
@@ -77,6 +78,14 @@ const mainRouter = [
       {
         path : "organization-profile/:id",
         component : OrganizationProfile,
+        meta : {
+          requiresAuth  : true,
+          minRole : userRoles.data().userRoles.organizationAdmin
+        },
+      },
+      {
+        path : "roles",
+        component : UserRoles,
         meta : {
           requiresAuth  : true,
           minRole : userRoles.data().userRoles.organizationAdmin

@@ -122,7 +122,7 @@
 							</span>
 						</button>
 					</router-link>
-					<router-link to="/admin">
+					<router-link to="/admin/organizations">
 						<button class="px-3 py-2 rounded-r-lg border"
 										:class="{'border-blue-c-500 bg-blue-c-500 text-white' : isAdminPage,
 												'border-gray-c-300' : !isAdminPage}">

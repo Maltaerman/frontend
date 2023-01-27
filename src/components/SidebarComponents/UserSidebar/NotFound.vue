@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 import api from "../../../http_client/index.js"
 import Loader from "../../Loader.vue";
 import FeedBackForm from "./FeedBackForm.vue";
@@ -113,34 +113,26 @@ export default {
       this.isLoader = true;
       await api.locations.getLocationById(this.notFoundedMarkerData.id)
           .then(res=>{
-            if(res.data.reported_by && res.data.reported_by !== this.getUser.id){
-              this.$toast.error(this.$t("notFoundAddress.modalErrReqInWork"), {
-                duration : false
-              })
-              return;
-            }
-            this.setSelectedRequest(res.data);
-            this.isLoader = false;
-            this.$router.push("/main/submit-report")
+						this.GetExistedRequestInWork(res.data);
           })
           .catch(err=>{
             this.isLoader = false;
             this.$toast.error(this.$t("general.errorMessage"))
           })
     },
-    buttonAction(){
-      if(this.notFoundedMarkerData.id
-          && this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker))
-       this.reviewNotFoundMarker();
-			else if(!this.notFoundedMarkerData.id
-				&& this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker))
-				this.reviewNotExistedMarker();
-      else
-        this.isRequestModalView = true;
-    },
-    closeReqModal(){
-      this.isRequestModalView = false;
-    },
+		GetExistedRequestInWork(request){
+			if(request.reported_by && request.reported_by !== this.getUser.id){
+				this.$toast.error(this.$t("notFoundAddress.modalErrReqInWork"), {
+					duration : false
+				})
+				return;
+			}
+			this.setSelectedRequest(request);
+			this.isLoader = false;
+			this.$router.push("/main/submit-report")
+		},
+		//
+		//Resent reports
 		async GetRecentReports(){
 			await api.locations.getRecentReports(20)
 				.then(res=>{
@@ -154,6 +146,10 @@ export default {
 			this.setSelectedMarker(report);
 			this.$router.replace({path: "/main/overview", query: {id : report.id, ...report.position}})
 		},
+		//
+
+
+		//Reporting unrequested location
 		async reviewNotExistedMarker(){
 			if(!this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker))
 				return;
@@ -176,7 +172,20 @@ export default {
 		createNotRequestedReport(reportData){
 			this.setSelectedRequest(reportData);
 			this.$router.push("/main/submit-report");
-		}
+		},
+		//
+
+		buttonAction(){
+			if(this.notFoundedMarkerData.id && this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker))
+				this.reviewNotFoundMarker();
+			else if(!this.notFoundedMarkerData.id && this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker))
+				this.reviewNotExistedMarker();
+			else
+				this.isRequestModalView = true;
+		},
+		closeReqModal(){
+			this.isRequestModalView = false;
+		},
 	},
 	created() {
 		this.GetRecentReports();
@@ -187,22 +196,3 @@ export default {
 <style scoped>
 
 </style>
-
-
-<!--
-async getPlaceData (lat, lng) {
-let placeData = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat + ',' + lng}&key=${import.meta.env.VITE_GMAPS_APIKEY}`)
-.then((res => res.data))
-.catch((err) => console.log(JSON.stringify(err)));
-if (!placeData) return
-let addressData = placeData.results[0].address_components;
-let coordsData = placeData.results[0].geometry;
-let formattedAddress = {};
-for (var i = 0; i < addressData.length; i++) {
-var c = addressData[i];
-formattedAddress[c.types[0]] = c;
-}
-return {
-address: formattedAddress, coords: coordsData
-}
-},-->
