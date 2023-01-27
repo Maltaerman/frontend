@@ -84,7 +84,7 @@
         }"
     >
       <GMapMarker
-        :v-if="this.ifClickMarker"
+        :v-if="this.isClickMarker"
         key="customMarker"
         :draggable="false"
         :position= "this.ClickMarkerCoords"
@@ -141,17 +141,16 @@
 import axios from "axios";
 import {mapActions, mapGetters, mapMutations} from "vuex";
 import userRoles from "../mixins/userRoles.js";
-import helper from "../mixins/helper.js";
-import api from "../../api/index.js";
+import routerHelper from "../mixins/routerHelper.js";
 
 export default {
   name: "GoogleMap",
-	mixins : [userRoles, helper],
+	mixins : [userRoles, routerHelper],
   data : function (){
 	  return {
 		  currentMapZoom : 17,
 			currentMapCenter : {lat: 49.23414701332752, lng: 28.46228865225255},
-		  ifClickMarker : false,
+		  isClickMarker : false,
 		  ClickMarkerCoords : null,
 		  isInputFocused : false,
 		  searchRequest : "",
@@ -165,16 +164,17 @@ export default {
 			getRole : "getRole",
 			reviewedMarkers : "getReviewedMarkers",
 			requestedMarkers : "getRequestMarkers",
-			isAuth : "isAuth"
+			isAuth : "isAuth",
+			selectedMarker : "selectedReport",
+			notFoundMarker : "notFoundedMarker"
 		}),
-		notFoundMarker(){
-			return this.$store.state.notFoundedMarkerData;
-		}
 	},
 	methods : {
 		...mapMutations(["setNoDataMarker", "setSelectedMarker", "setMapCenter"]),
 		...mapActions(["getMarkersByMapCenter","GetMarkerByCoords", "getMarkerById"]),
 	  ClickHandler(event) {
+			this.isClickMarker = true;
+			this.ClickMarkerCoords = this.coordsFormatter(event.latLng)
       this.$router.push("/main/overview");
       this.getGooglePlaceInfo(event.latLng)
 		},
@@ -182,7 +182,7 @@ export default {
 		OnMapCenterChanged(coords) {
       this.isLoaderVisible = true;
       clearTimeout(this.intervalId);
-      this.intervalId =
+			this.intervalId =
           setTimeout(()=>this.GetMarkersByMapCenter(coords), 500);
     },
     async GetMarkersByMapCenter(coords){
@@ -195,71 +195,43 @@ export default {
     },
     /////////
     getMarkerInfo(marker) {
-			this.ifClickMarker = false;
-			if(!this.isPathMatched("/main/overview"))
-				this.$router.push("/main/overview");
-			this.getMarkerById(marker.location_id);
+			this.isClickMarker = false;
+			this.getMarkerById({
+				locationId : marker.location_id,
+				callbackFailed : ()=> this.$toast.error(this.$t("general.errorMessage"))
+			});
 			setTimeout(()=>{
 				this.currentMapZoom = this.currentMapZoom >= 17 ? this.currentMapZoom : 17;
 			}, 500)
 		},
     getRequestedMarkerInfo(marker) {
-			this.ifClickMarker = false;
+			this.isClickMarker = false;
 			this.ClickMarkerCoords = null;
-      if(!this.isPathMatched("/main/overview"))
-        this.$router.push("/main/overview");
       this.getGooglePlaceInfo(marker.position);
       setTimeout(()=>{
         this.currentMapZoom = this.currentMapZoom >= 17 ? this.currentMapZoom : 17;
       }, 500)
     },
-		 getRequestByClick(m){
-			if(!this.isAuth)
-					return;
-
-			 let notFoundedMarker = {
-				 position: m.location,
-         //TODO
-				 address: "saf",
-				 isRequested : true,
-				 location_id : m.location_id
-			 }
-			 this.setNoDataMarker(notFoundedMarker);
-
-		},
     async getGooglePlaceInfo (coords) {
 			coords = this.coordsFormatter(coords)
      /* console.log("Click")
       console.log(coords);*/
 			await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords.lat},${coords.lng}&key=${import.meta.env.VITE_GMAPS_APIKEY}`)
         .then((res =>{
-          /*console.log("Result")
-          console.log(res.data)*/
-
-          //let googlePlace = res.data.results.find(x=> x.types.includes("premise"));
-
           let googlePlace = res.data.results.find(x=> Object.keys(x.geometry).includes("bounds"));
-         /* console.log("Bounds")
-          console.log(googlePlace.geometry.bounds)*/
-
-          //let googlePlace = res.data.results[0];
-         /* console.log("googlePlace")
-          console.log(googlePlace)*/
-
           if(googlePlace && this.checkIsCoordsInObjViewport(coords, googlePlace)){
             let ExistedMarker = this.CheckIsReportedMarkerExist2(googlePlace)
             if(ExistedMarker){
               this.getMarkerInfo(ExistedMarker);
-              this.ifClickMarker = false;
+              this.isClickMarker = false;
               this.ClickMarkerCoords = null;
             }
             else {
-              let isPlaceRequested = this.CheckIsRequestMarkerExist(googlePlace);
+              let isPlaceRequested = this.GetRequestMarkerIsExist(googlePlace);
               let notFoundedMarker = {
                 position: this.coordsFormatter(googlePlace.geometry.location),
                 address: googlePlace.formatted_address,
-                isRequested : isPlaceRequested ? true : false,
-                location_id : isPlaceRequested ? isPlaceRequested.location_id : undefined
+                id : isPlaceRequested ? isPlaceRequested.location_id : undefined
               }
               this.setNoDataMarker(notFoundedMarker);
             }
@@ -310,7 +282,7 @@ export default {
         })
       return marker ?? false;
     },
-    CheckIsRequestMarkerExist(googlePlace){
+    GetRequestMarkerIsExist(googlePlace){
       let marker = this.requestedMarkers.find(x=>{
         return this.checkIsCoordsInObjViewport(x.position, googlePlace)
       })
@@ -338,11 +310,15 @@ export default {
 				res.lat = coords.lat();
 			else if(typeof coords.lat == 'number')
 				res.lat = coords.lat;
+			else if(typeof coords.lat == 'string')
+				res.lat = Number(coords.lat)
 
 			if(typeof coords.lng == 'function')
 				res.lng = coords.lng();
 			else if(typeof coords.lng == 'number')
 				res.lng = coords.lng;
+			else if(typeof coords.lng == 'string')
+				res.lng = Number(coords.lng)
 			return res;
 		},
     checkIsCoordsInObjViewport(coords, obj){
@@ -361,16 +337,6 @@ export default {
     }
   },
 	watch : {
-		notFoundMarker : function (newValue) {
-			if(newValue && !newValue.isRequested) {
-				this.ifClickMarker = true;
-				this.ClickMarkerCoords = newValue.position;
-			}
-			else{
-				this.ifClickMarker = false;
-				this.ClickMarkerCoords = undefined;
-			}
-		},
 		getMapCenter : function (newValue) {
 			//FIXME костилі для того, щоб центр мапи змінювався
 			// при повторному присвоєнні ідентичного значення
@@ -385,13 +351,38 @@ export default {
 					}, 500)
 			}
 		}
+
 	},
 	created() {
+		let center = this.coordsFormatter({
+			lng : this.$route.query.lng,
+			lat : this.$route.query.lat
+		})
+		if(center.lat && center.lng)
+			this.currentMapCenter = center;
+		else
+			this.currentMapCenter = this.getMapCenter;
 		this.OnMapCenterChanged(this.currentMapCenter);
+
+		//region Check if we have selected marker in store
+		let isId = this.$route.query.id && Number(this.$route.query.id);
+		let isSelectedMarkerId = this.selectedMarker &&  isId && this.selectedMarker.id ==  this.$route.query.id;
+		let isNotFoundMarkerId = this.notFoundMarker &&  isId && this.notFoundMarker.id ==  this.$route.query.id;
+		//endregion
+
+		if(!isNotFoundMarkerId && !isSelectedMarkerId && isId){
+			this.getMarkerById({
+				locationId : Number(this.$route.query.id),
+				callbackFailed : ()=>this.$toast.error(this.$t("general.errorMessage"))
+			});
+		}
 		setTimeout(()=>{
-			this.currentMapZoom = 16
+			this.currentMapZoom = 18
 		}, 1000)
 	},
+	beforeRouteUpdate(){
+		console.log("route update")
+	}
 }
 
 </script>

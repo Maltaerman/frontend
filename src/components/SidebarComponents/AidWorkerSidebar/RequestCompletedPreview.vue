@@ -67,7 +67,7 @@
 import SVG_status_list from "../../ComponentsSVG/SVG_status_list.vue";
 import {mapGetters, mapMutations, mapState} from "vuex";
 import Button2 from "../../Buttons/Button_2.vue";
-import api from "../../../api/index.js";
+import api from "../../../http_client/index.js";
 import ModalTemplate from "../../Modals/ModalTemplate.vue";
 import AwaitModal from "../../Modals/AwaitModal.vue";
 import reportItemFlags from "../../mixins/reportItemFlags.js";
@@ -89,7 +89,6 @@ export default {
 	data : function () {
 		return {
 			issueMessage: "",
-			isPushingMessageVisible : false,
 			isLeaveModalVisible : false,
 			isPageLeaveConfirmed : false,
 			targetLeaveRef : ""
@@ -100,45 +99,81 @@ export default {
 			markerReports: state => state.reports.selectedLocationRequest.reports,
 			requestedMarker: state => state.reports.selectedLocationRequest,
 		}),
-		...mapGetters(["isAuth"]),
+		...mapGetters({
+			isAuth : "isAuth",
+			selectedReport : "selectedReport",
+			getReviewedMarkers : "getReviewedMarkers",
+			getRequestMarkers : "getRequestMarkers"
+		}),
 		isDisabled(){
 			return this.issueMessage.length < 10;
 		},
 	},
 	methods : {
-		...mapMutations(["setSelectedMarker"]),
+		...mapMutations({
+			setSelectedMarker : "setSelectedMarker",
+			setReviewedMarkerList : "setReviewedMarkerList",
+			setUnreviewedMarkers : "setUnreviewedMarkers"
+		}),
 		async SaveAndPublish(){
-			this.isPushingMessageVisible = true;
-      this.$toast.wait(this.$t('general.publishing'),  this.closePushingModal)
-			let payload ={
-				location_id : this.requestedMarker.id,
+      this.$toast.wait(this.$t('general.publishing'))
+			let payload = {...this.requestedMarker}
+			/*{
 				street_number : this.requestedMarker.street_number,
 				address : this.requestedMarker.address,
         city : this.requestedMarker.city,
-				...this.requestedMarker.reports
+				index : this.requestedMarker.index,
+			}*/
+
+
+			let requestSender = this.requestedMarker.id ? api.locations.submitLocationReport : api.locations.addReportByAdmin
+
+			if(this.requestedMarker.id){
+				requestSender = api.locations.submitLocationReport;
+				payload = {
+					location_id : this.requestedMarker.id,
+					...this.requestedMarker.reports,
+					...payload
+				}
+			}
+			else {
+				requestSender = api.locations.addReportByAdmin;
+				payload = {
+					reports : {...this.requestedMarker.reports},
+					...payload
+				}
 			}
 
-			await api.locations.submitLocationReport(payload)
-				.then(res=>{
-          this.$toast.clear();
-          this.setSelectedMarker(res.data);
-					this.closePushingModal();
-          this.$toast.success(this.$t('general.dataPublished'), {
-            onClose : this.closeResultModal
-          });
+			await requestSender(payload)
+				.then(res => {
+					this.$toast.clear();
+					this.setSelectedMarker(res.data);
+
+					/*console.log(res.data)
+					console.log(this.getReviewedMarkers)*/
+
+					if(!this.getReviewedMarkers.find(x=>x.location_id===res.data.id)){
+						let newMapMarker = {
+							location_id : res.data.id,
+							position : res.data.position,
+							status : res.data.status
+						}
+						this.setReviewedMarkerList([...this.getReviewedMarkers, newMapMarker])
+					}
+					this.setUnreviewedMarkers(this.getRequestMarkers.filter(x=>x.location_id !== res.data.id))
+					this.$toast.success(this.$t('general.dataPublished'), {
+						onClose: this.closeResultModal
+					});
 				})
-				.catch(err=>{
-          this.$toast.clear();
+				.catch(err => {
+					this.$toast.clear();
 					this.$toast.error(this.$t("general.errorMessage"));
-          console.error(err)
+					console.error(err)
 				})
-		},
-		closePushingModal(){
-			this.isPushingMessageVisible = false;
 		},
 		closeResultModal(){
 			this.isPageLeaveConfirmed = true;
-      this.$router.push("/main");
+      this.$router.push({path: "/main/overview", query: {id : this.selectedReport.id,...this.selectedReport.position}});
 		},
 		closeLeavePageConfirmModal(){
 			this.isLeaveModalVisible = false;

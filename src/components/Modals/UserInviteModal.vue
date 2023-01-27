@@ -37,7 +37,7 @@
 <script>
 import ModalTemplate from "./ModalTemplate.vue";
 import input1 from "../Inputs/Input-1.vue"
-import api from "../../api/index.js";
+import api from "../../http_client/index.js";
 import regex from "../mixins/regex.js";
 import InputSuggest from "../Inputs/suggestionInput/Input-suggestion.vue";
 export default {

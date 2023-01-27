@@ -25,7 +25,7 @@ describe('user settings', () => {
     cy.get('#setting-name').clear().type(testname);
     cy.get('#updateData').should('not.be.disabled');
     cy.get('#updateData').click();
-    cy.intercept('/api/v1/users/info' , (req) => {
+    cy.intercept('/http_client/v1/users/info' , (req) => {
       req.continue((res) => {
         expect(res.statusCode).to.eq(200);
       });

@@ -123,7 +123,7 @@
 
 <script>
 import OrganizationListItem from "./OrganizationListItem.vue";
-import api from "../../api/index.js";
+import api from "../../http_client/index.js";
 import ModalTemplate from "../Modals/ModalTemplate.vue";
 import Input1 from "../Inputs/Input-1.vue";
 import Loader from "../Loader.vue";
@@ -253,7 +253,7 @@ export default {
         this.$toast.error(this.$t('validations.minLength', {amount : 3}));
 				return
 			}
-			/*await api.organizations.getOrganizationByName(this.searchController.SearchedOrgName,
+			/*await http_client.organizations.getOrganizationByName(this.searchController.SearchedOrgName,
 				{signal : this.searchController.cancelController.signal}
 			)*/
 			await api.organizations.getOrganizationByName(this.searchController.SearchedOrgName,

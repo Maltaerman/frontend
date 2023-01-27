@@ -73,7 +73,7 @@ import ButtonOptions from "./Buttons/Button-options.vue";
 import ModalTemplate from "./Modals/ModalTemplate.vue";
 import Button1 from "./Buttons/Button_1.vue";
 import {mapGetters, mapMutations} from "vuex";
-import api from "../api/index.js";
+import api from "../http_client/index.js";
 import Loader from "./Loader.vue";
 
 export default {

@@ -40,7 +40,7 @@
 import regex from "../mixins/regex.js";
 import Header from "../Header.vue";
 import InputPass from "../Inputs/Input-pass.vue";
-import api from "../../api/index.js";
+import api from "../../http_client/index.js";
 
 export default {
 	name: "PasswordReset",

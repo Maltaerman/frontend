@@ -54,7 +54,6 @@ export default {
 	methods : {
 		...mapMutations(["setLocalization"]),
 		ToggleDrop(bool){
-			console.log("Focus " + bool);
 			this.isDropped = bool;
 		},
 		setLang(item){

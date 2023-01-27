@@ -40,6 +40,19 @@ export default function (instance) {
                       records
                   }
               })
+        },
+
+        // position {lng : Number, lat : Number}
+        getGeocodingOSM(position){
+            return instance.get("/locations/geocode", {
+                params : {
+                    geocoder : "osm",
+                    ...position
+                }
+            })
+        },
+        addReportByAdmin(report){
+            return instance.post("/locations/add", report);
         }
     }
 }

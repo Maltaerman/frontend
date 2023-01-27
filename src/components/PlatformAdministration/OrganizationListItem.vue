@@ -30,11 +30,9 @@
 
 		<div class="text-body-1 text-center font-semibold mt-4 mb-1 break-words group-hover:text-blue-c-500">
 			{{organization.name}}
-<!--			Organization name-->
 		</div>
 
 		<div class="text-center text-b3 text-gray-c-500">
-<!--			organization.com-->
 			{{organization.site}}
 		</div>
 	</div>

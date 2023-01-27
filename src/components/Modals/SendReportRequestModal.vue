@@ -64,7 +64,7 @@
 import Input1 from "../Inputs/Input-1.vue";
 import Button2 from "../Buttons/Button_2.vue";
 import CodeInput from "../Inputs/CodeInput.vue";
-import api from "../../api/index.js";
+import api from "../../http_client/index.js";
 import {mapGetters, mapMutations} from "vuex";
 import TelInput from "../Inputs/TelInput.vue";
 import regex from "../mixins/regex.js";
@@ -180,9 +180,8 @@ export default {
             }
             this.setUnreviewedMarkers([data, ...this.getRequestMarkers])
             this.setNotFoundMarker({
-              location_id : res.data.location_id,
+              id : res.data.location_id,
               position : res.data.position,
-              isRequested : true,
               address :  this.notFoundedMarker.address
             })
             let successMess = this.$t("notFoundAddress.modalSuccessMess",
@@ -221,12 +220,6 @@ export default {
       // FIXME не працює на сервері
       await api.guest.sendAddressRequest(params)
           .then((res) => {
-            console.log(res)
-						/*let data = {
-							position : {...res.data.position} ?? {...this.notFoundedMarker.position},
-							status : res.status ?? 1
-						}*/
-
             let data = {
               position : {...this.notFoundedMarker.position},
               status : res.status ?? 1
@@ -235,9 +228,7 @@ export default {
             this.setUnreviewedMarkers([data, ...this.getRequestMarkers])
             this.setNotFoundMarker({
               location_id : res.data.location_id,
-              //position : res.data.position,
               position: {...this.notFoundedMarker.position},
-              isRequested : true,
               address :  this.notFoundedMarker.address
             })
             let successMess = this.$t("notFoundAddress.modalSuccessMess",
@@ -271,25 +262,11 @@ export default {
     },
 		GetCodeAction(){
 			this.getCode();
-			/*if(import.meta.env.PROD){
-				console.log("Get code PROD");
-				this.getCode();
-			}
-			else if(import.meta.env.DEV){
-				console.log("Get code DEV");
-				this.getCodeDev();
-			}*/
+			//this.getCodeDev();
 		},
 		SendRequestAction(){
 			this.sendRequest();
-			/*if(import.meta.env.PROD){
-				console.log("Send request PROD")
-				this.sendRequest();
-			}
-			else if(import.meta.env.DEV){
-				console.log("Send request DEV")
-				this.sendRequestDev();
-			}*/
+			//this.sendRequestDev();
 		},
 	},
   computed : {

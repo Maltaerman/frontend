@@ -195,7 +195,7 @@ import ModalTemplate from "../Modals/ModalTemplate.vue";
 import input1 from "../Inputs/Input-1.vue"
 import Button2 from "../Buttons/Button_2.vue";
 import Loader from "../Loader.vue";
-import api from "../../api/index.js";
+import api from "../../http_client/index.js";
 import RemoveOrgModal from "./RemoveOrgModal.vue";
 import ConfirmModal from "../Modals/ConfirmModal.vue";
 
@@ -236,7 +236,7 @@ export default {
 	},
 	methods : {
 		GetOrgJoinDate(){
-			return this.GetDate(this.organization.created_at)
+			return this.GetDateString(this.organization.created_at)
 		},
 		GetCurrentUserStatusStyle(mailConf, isActive){
 			if(mailConf && isActive)
@@ -287,9 +287,7 @@ export default {
 		},
 		async EditOrg(){
 			this.isEditModalLoaderVisible = true;
-			//TODO Демострація org edit
-			//await new Promise(resolve => setTimeout(resolve, 3000));
-			//this.isEditModalLoaderVisible = false;
+
 			await api.organizations.editOrganization(this.organization.id, this.editingOrgName, this.editingOrgSite, "")
 				.then(res => {
 					this.organization = res.data;
@@ -337,9 +335,6 @@ export default {
 		},
 		async getOrganization(){
 			this.isLoaderVisible = true;
-			//TODO демонстрація отримання організації
-			//await new Promise(resolve => setTimeout(resolve, 3000));
-
 			await api.organizations.getOrgById(this.$route.params.id)
 				.then(res=>{
 					this.organization = res.data;
