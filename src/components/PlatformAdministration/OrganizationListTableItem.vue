@@ -1,7 +1,7 @@
 <template>
 
-    <tr class="h-[56px]" @mouseleave="HideMenu">
-        <td class="flex row ">
+    <tr class="h-[56px] " @mouseleave="HideMenu">
+        <td class="flex max-content row pl-4 items-end pt-1">
             <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 mr-5">
                 <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
@@ -10,24 +10,22 @@
                 </svg>
             </div>
             <div class="flex-col">
-                <div class="font-semibold text-base text-gray-c-800 ">{{ organization.name }}</div>
+                <div class="font-semibold text-base text-gray-c-800 truncate text-ellipsis overflow-hidden">{{ organization.name }}</div>
                 <div class=" font-text-xs text-subtitle text-gray-c-600">{{ organization.place }}</div>
             </div>
 
         </td>
         <td class="text-right pr-4">{{ organization.workers || 64 }}</td>
-        <td>
-            <div
-                class="flex flex-row bg-white rounded-lg max-w-max border px-2 py-0.5"
-                :class="`${getOrganizationStatus().color} ${getOrganizationStatus().textColor}`"
-                >
-                <div v-if="organization.status === organizationStatuses.DISABLED" 
-                class="h-5 w-5 mr-1 top-0.5 relative inline-block  border-green-c-200">
+        <td class="pl-4">
+            <div class="flex flex-row bg-white rounded-lg max-w-max border px-2 py-0.5"
+                :class="`${getOrganizationStatus().color} ${getOrganizationStatus().textColor}`">
+                <div v-if="organization.status === organizationStatuses.DISABLED"
+                    class="h-5 w-5 mr-1 top-0.5 relative inline-block  border-green-c-200">
 
                     <SVG_eye_crossed class="fill-green-c-500"></SVG_eye_crossed>
                 </div>
 
-                <span class="capitalize"> {{organization.status || 'Disabled'}}</span>
+                <span class="capitalize"> {{ organization.status || 'Disabled' }}</span>
             </div>
         </td>
         <td class="p-2 relative">
@@ -100,7 +98,7 @@ export default {
                 case PENDING:
                     return { staus: ACTIVE, color: 'border-gray-c-200', textColor: 'text-gray-c-500', }
                 case DISABLED:
-                    return { staus: ACTIVE, color: 'border-gray-c-300', textColor: 'text-gray-c-500', backgroundColor: 'fill-gray-c-200'}
+                    return { staus: ACTIVE, color: 'border-gray-c-300', textColor: 'text-gray-c-500', backgroundColor: 'fill-gray-c-200' }
                 default:
                     break;
             }

@@ -1,11 +1,11 @@
 <template>
     <div>
-        <table class="table-auto w-full overflow-x-scroll ">
+        <table class="table-auto w-full overflow-x-scroll">
             <thead>
-                <tr class="text-left text-base font-medium text-gray-c-400 bg-gray-50 h-[56px] px-2">
-                    <th class="w-1/3 text-base font-medium">Organization</th>
-                    <th class="w-32 text-center text-base font-medium">Aid Workers</th>
-                    <th class="text-base font-medium" colspan="2">Status</th>
+                <tr class="text-left text-base font-medium text-gray-c-400 bg-gray-50 h-[58px]">
+                    <th class="w-1/4 text-base font-medium pl-4">Organization</th>
+                    <th class="w-24 text-center text-base font-medium">Aid Workers</th>
+                    <th class="text-base font-medium pl-4" colspan="2">Status</th>
                 </tr>
             </thead>
             <tbody class="text-sm divide-y divide-gray-100">
