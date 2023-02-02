@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <table class="table-auto w-full overflow-x-scroll">
+    <div class="overflow-x-auto min-w-[500px]">
+        <table class="table-auto w-full overflow-x-scroll ">
             <thead>
                 <tr class="text-left text-base font-medium text-gray-c-400 bg-gray-50 h-[58px]">
                     <th class="w-1/4 text-base font-medium pl-4">Organization</th>
