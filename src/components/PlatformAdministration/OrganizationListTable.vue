@@ -12,6 +12,7 @@
                 <OrganizationListTableItem v-for="(organization, index) in organizationsList" 
                     :key="`org${index}`"
                     :organization="{ ...organization, place: 'Kyiv, Ukraine', avatar }" 
+                    @remove="onRemoveOrg"
                     />
             </tbody>
         </table>
@@ -24,6 +25,7 @@ import OrganizationListTableItem from './OrganizationListTableItem.vue'
 import avatar from "../../assets/Organizations/avatar.svg"
 export default {
     name: "OrganizationListTable",
+    emits : ["remove"],
     components: {
         OrganizationListTableItem,
     },
@@ -46,6 +48,9 @@ export default {
         OnInputFocus(value) {
             this.isInputFocused = value;
         },
+        onRemoveOrg(organization){
+			this.$emit("remove", organization);
+		}
     },
 }
 </script>

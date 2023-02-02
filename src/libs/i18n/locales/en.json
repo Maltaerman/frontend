@@ -83,7 +83,7 @@
     "settings": "Settings",
     "organizationListEmpty": "List is empty",
     "addOrganization": "Add organization",
-    "organizationSearchPlaceholder": "Organization search...",
+    "organizationSearchPlaceholder": "Search Organizations...",
     "forRequest": "No records matching ",
     "noMatches": "",
     "requestResult": "Records matching ",

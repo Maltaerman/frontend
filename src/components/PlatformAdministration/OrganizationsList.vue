@@ -1,9 +1,14 @@
 <template>
 	<div class="p-9 mobile:py-6 mobile:px-4 h-full overflow-y-auto">
-		<h1 class="font-semibold text-gray-c-800 text-h1 mobile:text-h1-m">
-			{{ $t('dashboard.organizations') }}
-		</h1>
-
+		<div class="flex row justify-between">
+			<h1 class="font-semibold text-gray-c-800 text-h1 mobile:text-h1-m">
+				{{ $t('dashboard.organizations') }}
+			</h1>
+			<button-1 class="block flex items-center mobile:w-full justify-center h-[46px]" @click="showAddOrgModal">
+				<img src="/src/assets/plus.svg" class="inline-block mr-2.5 mobile:mt-0.5">
+				<p>{{ $t('dashboard.addOrganization') }}</p>
+			</button-1>
+		</div>
 		<div v-if="organizationsList.length <= 0" class="mt-[215px]">
 			<img class="w-[205px] h-[234px] mobile:w-[157px] mobile:h-[179px] mx-auto"
 				src="/src/assets/Organizations/Picture.png">
@@ -14,7 +19,7 @@
 			</button-1>
 		</div>
 		<div v-else class="mt-9">
-			<div class="flex flex-wrap justify-start gap-3">
+			<div class="flex flex-wrap justify-start gap-3 mb-6">
 				<div class="border font-normal
 							rounded-lg outline-none text-h3
 							hover:border-blue-c-400 focus:border-blue-c-500
@@ -37,26 +42,12 @@
 					<input ref="inp" class="w-full outline-none px-4 py-2 bg-transparent text-h3"
 						@focusin="OnInputFocus(true)" @focusout="OnInputFocus(false)" @click.stop
 						:placeholder="$t('dashboard.organizationSearchPlaceholder')"
-						v-model="searchController.SearchedOrgName" id="inpOrgSearch" />
+						v-model="searchController.SearchedOrgName"
+						id="inpOrgSearch" />
 				</div>
 
-				<!--				<button-1 class="block items-center px-9 mobile:w-full" :disabled="searchController.SearchedOrgName.length < 3"
-					@click="GetOrganizationByName">
-					{{ $t('general.search') }}
-				</button-1>-->
-
-				<button-2 class="block flex items-center mobile:w-full justify-center" @click="showAddOrgModal">
-					<img src="/src/assets/plusBlue.svg" class="inline-block mr-2.5 mobile:mt-0.5">
-					<p>{{ $t('dashboard.addOrganization') }}</p>
-				</button-2>
-
-				<button-1 class="block mobile:grow h-min" @click.stop="ShowUserInviteModal">
-					<img class="inline-block mb-0.5 mr-1.5" src="/src/assets/Organizations/addUser.svg" alt="">
-					<span>{{ $t('organizationProfile.addEmployee') }}</span>
-				</button-1>
-
 			</div>
-			<!-- <div v-if="searchController.isSearchedOrgResult" class="py-6 flex flex-wrap gap-4">
+			<div v-if="searchController.isSearchedOrgResult" class="py-6 flex flex-wrap gap-4">
 				<div class="w-full flex gap-4 items-center">
 					<div class="h-min" v-if="searchController.SearchedOrganizationsList.length <= 0">
 						{{ $t('dashboard.forRequest') }} "{{ searchController.SearchedOrgName }}" {{
@@ -70,12 +61,8 @@
 						{{ $t('general.refresh') }}
 					</button-1>
 				</div>
-				<OrganizationListItem v-for="(item, index) in searchController.SearchedOrganizationsList"
-					:key="`org${index}`" :organization="item" @remove="onRemoveClick" class="basis-[240px] grow" />
-			</div> -->
-
-			<OrganizationListTable :organizations-list="searchController.isSearchedOrgResult || organizationsList"/>
-
+			</div>
+			<OrganizationListTable :organizations-list="visibleOrganizationsList" @remove="onRemoveClick"/>
 		</div>
 
 		<div ref="scrollObserver" class="relative h-[80px]" v-if="pageMax < 0">
@@ -157,7 +144,7 @@ export default {
 				createOrgModalLoaderVisible: false,
 			},
 			organizationsList: [],
-			organizationsListMapped:[],
+			organizationsListMapped: [],
 			isInputFocused: false,
 			limit: 20,
 			currentLastPage: 1,
@@ -167,7 +154,7 @@ export default {
 			createOrgName: "",
 			isLoaderVisible: false,
 			removedOrganization: null,
-			status : ['active','pending', 'disabled'] ,
+			status: ['active', 'pending', 'disabled'],
 			searchController: {
 				SearchedOrgName: "",
 				SearchedOrganizationsList: [],
@@ -176,8 +163,10 @@ export default {
 			}
 		}
 	},
-	methods: {
-
+		methods: {
+		OnInputFocus(value) {
+			this.isInputFocused = value;
+		},
 		OnDivFocus(arg) {
 			this.isInputFocused = arg;
 			if (arg)
@@ -221,7 +210,7 @@ export default {
 					else if (res.data.length < this.limit) {
 						this.pageMax = this.currentLastPage;
 					}
-					this.organizationsList = [...this.organizationsList, ...res.data].map((org,idx)=> ({...org, status: this.status[idx%3] }))
+					this.organizationsList = [...this.organizationsList, ...res.data].map((org, idx) => ({ ...org, status: this.status[idx % 3] }))
 				}).catch(err => {
 					console.error(err);
 				}).finally(() => {
@@ -266,6 +255,7 @@ export default {
 					this.isAutoPaginationOn = false;
 					this.searchController.isSearchedOrgResult = true;
 					this.searchController.SearchedOrganizationsList = res.data;
+					console.log(this.searchController.SearchedOrganizationsList)
 				})
 				.catch(err => {
 					if (axios.isCancel(err)) {
@@ -296,6 +286,10 @@ export default {
 	computed: {
 		isOrgCreateButtDisabled() {
 			return this.TrimTurbo(this.createOrgName).length < 3;
+		},
+		visibleOrganizationsList() {
+			console.log('computed curva mac')
+				return this.searchController.isSearchedOrgResult ? this.searchController.SearchedOrganizationsList : this.organizationsList
 		}
 	},
 	watch: {
@@ -303,7 +297,7 @@ export default {
 			immediate: true,
 			handler(newVal) {
 				if (!newVal)
-					this.ResetSearchResult();
+				this.ResetSearchResult();
 				this.OrganizationAutoSearch();
 			}
 		},

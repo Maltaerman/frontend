@@ -53,11 +53,9 @@
 </template>
 
 <script>
-import dateFormatter from "../mixins/dateFormatter.js";
 import SVG_building_condition from "../ComponentsSVG/SVG_building_condition.vue";
 import SVG_eye_crossed from "../ComponentsSVG/SVG_eye_crossed.vue";
-import dynamicContent from "../mixins/dynamicContent.js";
-import reportItemFlags from "../mixins/reportItemFlags.js";
+import {mapActions} from "vuex";
 
 export default {
     name: 'OrganizationListTableItem',
@@ -65,11 +63,6 @@ export default {
         SVG_building_condition,
         SVG_eye_crossed
     },
-    mixins: [
-        dateFormatter,
-        dynamicContent,
-        reportItemFlags
-    ],
     props: {
         organization: {
             type: Object,
@@ -87,8 +80,9 @@ export default {
         }
     },
     mounted() {
-        console.log(this.organization)
+        // console.log(this.organization)
     }, methods: {
+        ...mapActions(["setSelectedOrganization"]),
         getOrganizationStatus() {
             const { status = "disabled" } = this.organization
             const { ACTIVE, PENDING, DISABLED } = this.organizationStatuses
@@ -109,6 +103,14 @@ export default {
         HideMenu() {
             this.isMenuVisible = false;
         },
+        goToOrgProfile(){
+			//console.log("Go to org profile")
+			this.setSelectedOrganization(this.organization);
+			this.$router.push(`/admin/organization-profile/${this.organization.id}`);
+		},
+		removeOrg(){
+			this.$emit("remove", this.organization);
+		}
     },
 }
 </script>
