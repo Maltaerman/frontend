@@ -1,10 +1,10 @@
 <template>
 	<div class="p-9 mobile:py-6 mobile:px-4 h-full overflow-y-auto">
-		<div class="flex row justify-between">
-			<h1 class="font-semibold text-gray-c-800 text-h1 mobile:text-h1-m">
+		<div class="flex row justify-between flex-wrap">
+			<h1 class="font-semibold text-gray-c-800 mobile:w-screen text-h1 mobile:text-h1-m mobile:mb-3">
 				{{ $t('dashboard.organizations') }}
 			</h1>
-			<button-1 class="block flex items-center mobile:w-full justify-center h-[46px]" @click="showAddOrgModal">
+			<button-1 class="block flex items-center mobile:w-screen justify-center h-[46px]" @click="showAddOrgModal">
 				<img src="/src/assets/plus.svg" class="inline-block mr-2.5 mobile:mt-0.5">
 				<p>{{ $t('dashboard.addOrganization') }}</p>
 			</button-1>
@@ -18,7 +18,7 @@
 				<p>{{ $t('dashboard.addOrganization') }}</p>
 			</button-1>
 		</div>
-		<div v-else class="mt-9">
+		<div v-else class="mt-5">
 			<div class="flex flex-wrap justify-start gap-3 mb-6">
 				<div class="border font-normal
 							rounded-lg outline-none text-h3
