@@ -6,7 +6,7 @@
 			</h1>
 			<button-1 class="block flex items-center mobile:w-screen justify-center h-[46px]" @click="showAddOrgModal">
 				<img src="/src/assets/plus.svg" class="inline-block mr-2.5 mobile:mt-0.5">
-				<p>{{ $t('dashboard.addOrganization') }}</p>
+				<p>{{ $t('dashboard.inviteOrganization') }}</p>
 			</button-1>
 		</div>
 		<div v-if="organizationsList.length <= 0" class="mt-[215px]">
@@ -170,7 +170,7 @@ export default {
 		OnDivFocus(arg) {
 			this.isInputFocused = arg;
 			if (arg)
-				this.$refs.inp.focus();
+				this?.$refs?.inp?.focus();
 		},
 		ActivateInput() {
 			this.$refs.inp.select()

@@ -17,16 +17,7 @@
         </td>
         <td class="text-right pr-4">{{ organization.workers || 64 }}</td>
         <td class="pl-4">
-            <div class="flex flex-row bg-white rounded-lg max-w-max border px-2 py-0.5"
-                :class="`${getOrganizationStatus().color} ${getOrganizationStatus().textColor}`">
-                <div v-if="organization.status === organizationStatuses.DISABLED"
-                    class="h-5 w-5 mr-1 top-0.5 relative inline-block  border-green-c-200">
-
-                    <SVG_eye_crossed class="fill-green-c-500"></SVG_eye_crossed>
-                </div>
-
-                <span class="capitalize"> {{ organization.status || 'Disabled' }}</span>
-            </div>
+            <OrganizationListStatus :status="organization.status" />
         </td>
         <td class="p-2 relative">
             <div @click.stop="ShowMenu"
@@ -53,15 +44,12 @@
 </template>
 
 <script>
-import SVG_building_condition from "../ComponentsSVG/SVG_building_condition.vue";
-import SVG_eye_crossed from "../ComponentsSVG/SVG_eye_crossed.vue";
 import {mapActions} from "vuex";
-
+import OrganizationListStatus from "./OrganizationListStatus.vue";
 export default {
     name: 'OrganizationListTableItem',
     components: {
-        SVG_building_condition,
-        SVG_eye_crossed
+        OrganizationListStatus
     },
     props: {
         organization: {
@@ -78,25 +66,8 @@ export default {
                 DISABLED: 'disabled'
             }
         }
-    },
-    mounted() {
-        // console.log(this.organization)
     }, methods: {
         ...mapActions(["setSelectedOrganization"]),
-        getOrganizationStatus() {
-            const { status = "disabled" } = this.organization
-            const { ACTIVE, PENDING, DISABLED } = this.organizationStatuses
-            switch (status) {
-                case ACTIVE:
-                    return { staus: ACTIVE, color: 'border-green-c-200', textColor: 'text-green-c-500', }
-                case PENDING:
-                    return { staus: ACTIVE, color: 'border-gray-c-200', textColor: 'text-gray-c-500', }
-                case DISABLED:
-                    return { staus: ACTIVE, color: 'border-gray-c-300', textColor: 'text-gray-c-500', backgroundColor: 'fill-gray-c-200' }
-                default:
-                    break;
-            }
-        },
         ShowMenu() {
             this.isMenuVisible = !this.isMenuVisible;
         },

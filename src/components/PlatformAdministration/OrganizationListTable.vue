@@ -35,8 +35,10 @@ export default {
             default: []
         },
     },
-    created () {
-        console.log(this.organizationsList);
+    data() {
+        return {
+            avatar
+        }
     },
     methods: {
         ShowMenu() {
