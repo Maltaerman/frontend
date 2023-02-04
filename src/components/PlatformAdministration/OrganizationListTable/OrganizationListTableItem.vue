@@ -45,7 +45,7 @@
 
 <script>
 import {mapActions} from "vuex";
-import OrganizationListStatus from "./OrganizationListStatus.vue";
+import OrganizationListStatus from "./OrganizationItemStatus.vue";
 export default {
     name: 'OrganizationListTableItem',
     components: {

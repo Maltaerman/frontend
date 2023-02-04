@@ -22,7 +22,7 @@
 <script>
 
 import OrganizationListTableItem from './OrganizationListTableItem.vue'
-import avatar from "../../assets/Organizations/avatar.svg"
+import avatar from "../../../assets/Organizations/avatar.svg"
 export default {
     name: "OrganizationListTable",
     emits : ["remove"],

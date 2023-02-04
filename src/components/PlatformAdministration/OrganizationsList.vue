@@ -1,12 +1,12 @@
 <template>
 	<div class="p-9 mobile:py-6 mobile:px-4 h-full overflow-y-auto">
-		<div class="flex row justify-between flex-wrap">
-			<h1 class="font-semibold text-gray-c-800 mobile:w-screen text-h1 mobile:text-h1-m mobile:mb-3">
+		<div class="flex row justify-between">
+			<h1 class="font-semibold text-gray-c-800 text-h1 mobile:text-h1-m">
 				{{ $t('dashboard.organizations') }}
 			</h1>
-			<button-1 class="block flex items-center mobile:w-screen justify-center h-[46px]" @click="showAddOrgModal">
+			<button-1 class="block flex items-center mobile:w-full justify-center h-[46px]" @click="showAddOrgModal">
 				<img src="/src/assets/plus.svg" class="inline-block mr-2.5 mobile:mt-0.5">
-				<p>{{ $t('dashboard.inviteOrganization') }}</p>
+				<p>{{ $t('dashboard.addOrganization') }}</p>
 			</button-1>
 		</div>
 		<div v-if="organizationsList.length <= 0" class="mt-[215px]">
@@ -18,7 +18,7 @@
 				<p>{{ $t('dashboard.addOrganization') }}</p>
 			</button-1>
 		</div>
-		<div v-else class="mt-5">
+		<div v-else class="mt-9">
 			<div class="flex flex-wrap justify-start gap-3 mb-6">
 				<div class="border font-normal
 							rounded-lg outline-none text-h3
@@ -111,7 +111,7 @@
 
 <script>
 import OrganizationListItem from "./OrganizationListItem.vue";
-import OrganizationListTable from "./OrganizationListTable.vue";
+import OrganizationListTable from "./OrganizationListTable/OrganizationListTable.vue";
 import api from "../../http_client/index.js";
 import ModalTemplate from "../Modals/ModalTemplate.vue";
 import Input1 from "../Inputs/Input-1.vue";
@@ -288,7 +288,6 @@ export default {
 			return this.TrimTurbo(this.createOrgName).length < 3;
 		},
 		visibleOrganizationsList() {
-			console.log('computed curva mac')
 				return this.searchController.isSearchedOrgResult ? this.searchController.SearchedOrganizationsList : this.organizationsList
 		}
 	},

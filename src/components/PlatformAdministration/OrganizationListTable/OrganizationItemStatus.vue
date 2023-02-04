@@ -1,10 +1,9 @@
 <template>
     <div>
         <div class="flex flex-row bg-white rounded-lg max-w-max border px-2 py-0.5"
-            :class="`${getOrganizationStatus().color} ${getOrganizationStatus().textColor}`">
+            :class="`${getOrganizationStatus()?.color} ${getOrganizationStatus()?.textColor}`">
             <div v-if="status === ORGANIZATION_STATUSES?.DISABLED"
                 class="h-5 w-5 mr-1 top-0.5 relative inline-block  border-green-c-200">
-
                 <SVG_eye_crossed class="fill-green-c-500"></SVG_eye_crossed>
             </div>
             <span class="capitalize"> {{ status || 'Disabled' }}</span>
@@ -13,7 +12,7 @@
 </template>
 
 <script>
-import SVG_eye_crossed from "../ComponentsSVG/SVG_eye_crossed.vue";
+import SVG_eye_crossed from "../../ComponentsSVG/SVG_eye_crossed.vue";
 import { ORGANIZATION_STATUSES } from './constants'
 export default {
     name: 'OrganizationItemStatus',
@@ -30,9 +29,6 @@ export default {
             type: String,
             default: ''
         },
-    },
-    beforeMount() {
-console.log(this.status)
     },
     methods: {
         getOrganizationStatus() {
