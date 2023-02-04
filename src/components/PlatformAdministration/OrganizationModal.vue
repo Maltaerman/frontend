@@ -1,7 +1,6 @@
 <template>
-
-    <ModalTemplate class-list="grid place-items-center p-4" :is-modal-visible="isVisible"
-        :close-func="closeThisModal" :isHideOnClick="true">
+    <ModalTemplate class-list="grid place-items-center p-4" :is-modal-visible="isVisible" :close-func="closeThisModal"
+        :isHideOnClick="true">
         <div class="bg-white w-[480px] mx-auto mobile:w-full relative p-6 rounded-lg" @click.stop>
             <img src="/src/assets/close.svg" class="absolute top-6 right-6 cursor-pointer" @click="closeThisModal">
             <div class="text-h2 text-center font-semibold ">{{ $t('dashboard.addOrganization') }}</div>
@@ -10,22 +9,21 @@
                     <label for="inpRegNewOrgName" class="text-h4 text-gray-c-500">{{
                         $t('dashboard.organizationName')
                     }}</label>
-                    <input1 inp-id="inpRegNewOrgName" v-model="createOrgName" class="w-full mt-1"
+                    <input1 inp-id="inpRegNewOrgName" v-model="organization.createOrgName" class="w-full mt-1"
                         :placeholder="$t('dashboard.namePlaceholder')" />
                 </div>
                 <div>
                     <label for="inpRegNewOrgSite" class="text-h4 text-gray-c-500">{{
                         $t('dashboard.website')
                     }}</label>
-                    <input1 inp-id="inpRegNewOrgSite" v-model="createOrgSite" class="w-full mt-1"
+                    <input1 inp-id="inpRegNewOrgSite" v-model="organization.createOrgSite" class="w-full mt-1"
                         placeholder="organization.com" />
                 </div>
             </div>
-
-            <button-1 class="w-full" :disabled="isOrgCreateButtDisabled" @click.stop="AddOrganization()">
+            <button-1 class="w-full" :disabled="isOrgCreateButtDisabled" @click.stop="addOrganization">
                 {{ $t('general.save') }}
             </button-1>
-            <Loader v-if="modals.createOrgModalLoaderVisible" />
+            <Loader v-if="isLoaderVisible" />
         </div>
     </ModalTemplate>
 
@@ -34,8 +32,13 @@
 <script>
 import ModalTemplate from '../Modals/ModalTemplate.vue';
 import Input1 from '../Inputs/Input-1.vue';
+import StringFormatter from '../mixins/StringFormatter';
 export default {
     inheritAttrs: false,
+    emits: [
+        "addOrganization"
+    ],
+    mixins: [StringFormatter],
     components: {
         ModalTemplate,
         Input1
@@ -48,29 +51,21 @@ export default {
         closeCreateOrgModal: {
             type: Function
         },
-        AddOrganizations: {
-            type:Function
-        },
-
-    },
-    created () {
-        console.log(this.closeCreateOrgModal);
+        isLoaderVisible: {
+            type: Boolean
+        }
     },
     data() {
         return {
-            modals: {
-                userInvite: false,
-                removeOrgModalVisible: false,
-                createOrgModalVisible: false,
-                createOrgModalLoaderVisible: false,
-            },
-            createOrgSite: "",
-            createOrgName: "",
+            organization: {
+                createOrgName: "",
+                createOrgSite: "",
+            }
         }
     },
     computed: {
         isOrgCreateButtDisabled() {
-            return this.TrimTurbo(this.createOrgName).length < 3;
+            return this.TrimTurbo(this.organization.createOrgName).length < 3;
         }
     },
     methods: {
@@ -78,22 +73,10 @@ export default {
             console.log("joł")
             this.closeCreateOrgModal()
         },
-        showAddOrgModal() {
-            this.modals.createOrgModalVisible = true;
-        },
-        AddOrganization(){
-            return this.AddOrganizations()
-
-        }
-    },
-    computed: {
-        name() {
-            return this.data
+        addOrganization() {
+            console.log('adding from modal')
+            this.$emit('addOrganization', this.organization)
         }
     },
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

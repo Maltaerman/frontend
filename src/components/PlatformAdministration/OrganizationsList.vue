@@ -68,37 +68,11 @@
 		<div ref="scrollObserver" class="relative h-[80px]" v-if="pageMax < 0">
 			<Loader v-show="isLoaderVisible" />
 		</div>
-
-		<!--    add organization modal-->
-		<ModalTemplate class-list="grid place-items-center p-4" :is-modal-visible="modals.createOrgModalVisible"
-			:close-func="closeCreateOrgModal" :isHideOnClick="true">
-			<div class="bg-white w-[480px] mx-auto mobile:w-full relative p-6 rounded-lg" @click.stop>
-				<img src="/src/assets/close.svg" class="absolute top-6 right-6 cursor-pointer"
-					@click="closeCreateOrgModal">
-				<div class="text-h2 text-center font-semibold ">{{ $t('dashboard.addOrganization') }}</div>
-				<div class="flex flex-col gap-4 mt-4 mb-6">
-					<div>
-						<label for="inpRegNewOrgName" class="text-h4 text-gray-c-500">{{
-							$t('dashboard.organizationName')
-						}}</label>
-						<input1 inp-id="inpRegNewOrgName" v-model="createOrgName" class="w-full mt-1"
-							:placeholder="$t('dashboard.namePlaceholder')" />
-					</div>
-					<div>
-						<label for="inpRegNewOrgSite" class="text-h4 text-gray-c-500">{{
-							$t('dashboard.website')
-						}}</label>
-						<input1 inp-id="inpRegNewOrgSite" v-model="createOrgSite" class="w-full mt-1"
-							placeholder="organization.com" />
-					</div>
-				</div>
-
-				<button-1 class="w-full" :disabled="isOrgCreateButtDisabled" @click.stop="AddOrganizations">
-					{{ $t('general.save') }}
-				</button-1>
-				<Loader v-if="modals.createOrgModalLoaderVisible" />
-			</div>
-		</ModalTemplate>
+		<OrganizationModal  
+		:is-visible="modals.createOrgModalVisible" 
+		:close-create-org-modal="closeCreateOrgModal" 
+		@addOrganization="onAddOrganization"
+		:is-loader-visible="modals.createOrgModalLoaderVisible"/>
 		<!--    #endregion-->
 
 		<RemoveOrgModal :is-visible="modals.removeOrgModalVisible" :organization="removedOrganization"
@@ -121,6 +95,7 @@ import RemoveOrgModal from "./RemoveOrgModal.vue";
 import StringFormatter from "../mixins/StringFormatter.js";
 import axios from "axios";
 import UserInviteModal from "../Modals/UserInviteModal.vue";
+import OrganizationModal from "./OrganizationModal.vue";
 
 export default {
 	name: "OrganizationsList",
@@ -133,7 +108,8 @@ export default {
 		Input1,
 		ModalTemplate,
 		OrganizationListItem,
-		OrganizationListTable
+		OrganizationListTable,
+		OrganizationModal
 	},
 	data() {
 		return {
@@ -217,7 +193,14 @@ export default {
 					this.isLoaderVisible = false;
 				});
 		},
-		async AddOrganizations() {
+		onAddOrganization({createOrgName,createOrgSite}){
+			this.createOrgName=createOrgName
+			this.createOrgSite=createOrgSite
+			this.addOrganizations()
+		},
+		async addOrganizations() {
+			console.log('wiisz mje?')
+			console.log(this.TrimTurbo(this.createOrgName).length < 3)
 			if (this.TrimTurbo(this.createOrgName).length < 3) {
 				return;
 			}
@@ -225,6 +208,7 @@ export default {
 			this.modals.createOrgModalLoaderVisible = true;
 			await api.organizations.createOrganization(this.createOrgName, this.createOrgSite)
 				.then(res => {
+					console.log('dzieje sie?')
 					this.organizationsList = [res.data, ...this.organizationsList]
 					this.closeCreateOrgModal();
 					this.$toast.success(this.$t("dashboard.organizationAddSuccess", { orgName: this.createOrgName }))
