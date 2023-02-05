@@ -1,6 +1,6 @@
 <template>
 	<div class="p-9 mobile:py-6 mobile:px-4 h-full overflow-y-auto">
-		<div class="flex row justify-between">
+		<div class="flex row flex-wrap justify-between">
 			<h1 class="font-semibold text-gray-c-800 text-h1 mobile:text-h1-m">
 				{{ $t('dashboard.organizations') }}
 			</h1>
@@ -208,7 +208,6 @@ export default {
 			this.modals.createOrgModalLoaderVisible = true;
 			await api.organizations.createOrganization(this.createOrgName, this.createOrgSite)
 				.then(res => {
-					console.log('dzieje sie?')
 					this.organizationsList = [res.data, ...this.organizationsList]
 					this.closeCreateOrgModal();
 					this.$toast.success(this.$t("dashboard.organizationAddSuccess", { orgName: this.createOrgName }))
