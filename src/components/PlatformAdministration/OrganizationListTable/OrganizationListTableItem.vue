@@ -75,7 +75,6 @@ export default {
             this.isMenuVisible = false;
         },
         goToOrgProfile(){
-			//console.log("Go to org profile")
 			this.setSelectedOrganization(this.organization);
 			this.$router.push(`/admin/organization-profile/${this.organization.id}`);
 		},
