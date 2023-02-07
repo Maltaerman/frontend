@@ -22,8 +22,12 @@
             @place_changed="GetMarker"
             class="w-full bg-transparent outline-none block text-h3"
             :options="{
-                  fields: [`geometry`, `name`]
-                }"
+              fields: [`geometry`, `name`],
+							componentRestrictions:
+							{
+								country : [`ua`]
+							}
+            }"
             @focusin="OnInputFocus(true)"
             @focusout="OnInputFocus(false)"
             v-model="this.searchRequest"
@@ -48,9 +52,9 @@
     </div>
 		<footer class="mt-[30px] py-6 mobile:py-5 px-4 gap-6 mobile:gap-3 flex items-center flex-wrap justify-center">
 			<div class="flex gap-6 flex-nowrap text-h4 text-blue-c-500 font-semibold break-words">
-				<a href="https://about.projectdim.org" target="_blank">{{$t("footer.about")}}</a>
+				<a :href="AboutUrl" target="_blank">{{$t("footer.about")}}</a>
 				<a href="https://dimblog.wixsite.com/project-dim" target="_blank">{{$t("footer.blog")}}</a>
-				<a href="https://about.projectdim.org/" target="_blank">❤ {{$t("footer.support")}}</a>
+				<a :href="AboutUrl" target="_blank">❤ {{$t("footer.support")}}</a>
 			</div>
 			<div class="flex gap-4 flex-nowrap text-h4 text-gray-c-400 font-semibold mobile:text-b3">
 				<p>{{$t("footer.ngo")}}</p>
@@ -67,8 +71,10 @@ import {mapState, mapActions, mapMutations} from "vuex";
 import SVG_building_condition from "../ComponentsSVG/SVG_building_condition.vue";
 import WelcomeScreenReportList from "./WelcomeScreenReportList.vue";
 import api from "../../http_client/index.js";
+import coordsHelper from "../mixins/coordsHelper.js";
 export default {
   name: "WelcomeScreen",
+	mixins : [coordsHelper],
   components: {
 		WelcomeScreenReportList,
     SVG_building_condition,
@@ -101,18 +107,15 @@ export default {
       let payload = {}
       try {
         payload = this.coordsFormatter(arg.geometry.location)
-				console.log(payload)
       }
       catch  {
         this.$toast.error(this.$t("welcomeScreen.requestError", {address : arg.name ?? ""}))
         return;
       }
 			this.GetMarkerByCoords({position : payload, name : arg.name})
-			this.$router.push("/main/overview");
 		},
     RecentReportClick(report){
 			this.setSelectedMarker(report);
-			this.$router.replace({path: "/main/overview", query: {id : report.id, ...report.position}})
     },
 		async GetRecentReports(){
 			await api.locations.getRecentReports(20)
@@ -123,40 +126,38 @@ export default {
 					console.error(err);
 				})
 		},
-		coordsFormatter(coords){
-			let res = {};
-			if(typeof coords.lat == 'function')
-				res.lat = coords.lat();
-			else if(typeof coords.lat == 'number')
-				res.lat = coords.lat;
-			else if(typeof coords.lat == 'string')
-				res.lat = Number(coords.lat)
-
-			if(typeof coords.lng == 'function')
-				res.lng = coords.lng();
-			else if(typeof coords.lng == 'number')
-				res.lng = coords.lng;
-			else if(typeof coords.lng == 'string')
-				res.lng = Number(coords.lng)
-			return res;
-		},
   },
 	computed : {
 		...mapState(["selectedMarkerData","notFoundedMarkerData"]),
+		AboutUrl(){
+			let url;
+			switch (this.$i18n.locale){
+				case "ua":
+					url = "https://about.projectdim.org/main.html";
+					break;
+				case "en":
+					url = "https://about.projectdim.org/main-en.html";
+					break;
+				default:
+					url = "https://about.projectdim.org/main.html";
+					break;
+			}
+			return url;
+		}
 	},
-	/*watch : {
+	watch : {
 		selectedMarkerData: function (newVal){
 			if(newVal !== null)
-				this.$router.push("/main/overview");
+				this.$router.push({path: "/main/overview", query: {id : newVal.id, ...newVal.position}})
 		},
 		notFoundedMarkerData: function (newVal){
-			if(newVal !== null)
-				this.$router.push("/main/overview");
+			if(newVal !== null) {
+				console.log(newVal)
+				this.$router.push({path: "/main/overview", query: {id : newVal.id, ...newVal.position}})
+			}
 		}
-	},*/
+	},
 	mounted(){
-		//if(this.selectedMarkerData !==null || this.notFoundedMarkerData !==null)
-		//	this.$router.replace("/main");
 		this.GetRecentReports();
 	}
 }

@@ -36,4 +36,9 @@ ComponentsList.forEach(component=>{
   app.component(component.name, component);
 })
 
+/*
+if(window.Cypress){
+  window.app = app;
+}*/
+
 app.mount('#app');

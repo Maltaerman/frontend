@@ -26,7 +26,7 @@ function CookieUpdateFilter(mutation){
 }
 
 
-const storePrototype = {
+export const storePrototype = {
   modules:{
     reports : ReportLocationState,
     user : UserStore,
@@ -192,6 +192,7 @@ function getCookie(cname) {
   }
   return {};
 }
+
 
 export const store = createStore(storePrototype);
 

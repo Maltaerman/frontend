@@ -24,15 +24,7 @@
         <p class="font-semibold text-4xl">{{ $t('userSideBar.choose-location') }}</p>
       </div>
       <button-1 class="w-full my-6" @click="buttonAction" :disabled="buttonDisabled">
-        <span v-if="notFoundedMarkerData && notFoundedMarkerData.id && isRoleHaveAccess(getRole, userRoles.aidWorker)">
-          {{ $t('aidWorkerSideBar.takeRequest') }}
-				</span>
-				<span v-else-if="notFoundedMarkerData">
-          {{ $t('notFoundAddress.sendRequest') }}
-				</span>
-				<span v-else>
-					{{ $t('userSideBar.choose-location-button') }}
-				</span>
+				{{buttonLocalization}}
 			</button-1>
 			<div class="w-full" v-if="recentReports.length>0">
 				<div class="font-semibold mb-2 bg-white z-10">{{$t("welcomeScreen.recentlyReports")}}</div>
@@ -91,6 +83,14 @@ export default {
       else
         return false;
     },
+		buttonLocalization(){
+			let localizeStr = this.$t('userSideBar.choose-location-button');
+			if(this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker))
+			 localizeStr = this.$t('aidWorkerSideBar.takeRequest');
+			else if(this.notFoundedMarkerData)
+          localizeStr = this.$t('notFoundAddress.sendRequest');
+			return localizeStr;
+		},
 		Address(){
 			if(this.notFoundedMarkerData)
 				return this.notFoundedMarkerData.id ? this.ReportAddressFull(this.notFoundedMarkerData) :

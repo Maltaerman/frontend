@@ -1,5 +1,8 @@
 <template>
-	<div>
+	<label class="inline-block w-full relative" @focusin="OnDivFocus(true)"
+				 @focusout="OnDivFocus(false)">
+		<div v-if="label" class="text-h4 text-gray-c-500 text-left font-normal mb-2">{{label}}</div>
+
 		<div class="border font-normal flex items-center
 								rounded-lg outline-none text-h3
 								hover:border-blue-c-400 focus:border-blue-c-500
@@ -8,9 +11,7 @@
 				 :class="{'border-blue-c-500': isInputFocused,
 									'border-gray-c-300' : !isInputFocused && isValidStyle,
 									'border-red-c-500' : !isInputFocused && !isValidStyle
-									}"
-				 @focusin="OnDivFocus(true)"
-				 @focusout="OnDivFocus(false)">
+									}">
 			<input ref="pass" class="w-full outline-none px-4 pr-10 py-2 bg-transparent"
 						 :type="inputType" :placeholder="placeholderC"
 						 @focusin="OnInputFocus(true)"
@@ -29,7 +30,7 @@
 			</button>
 		</div>
 		<div v-if="!isValidStyle && validationMessage" id="invalid-feedback" class="text-red-c-500 text-b3 mt-1 text-left px-2">{{ validationMessageC }}</div>
-	</div>
+	</label>
 </template>
 
 <script>
@@ -50,7 +51,8 @@ export default {
 				return this.isPass(this.modelValue)
 			}
 		},
-		disabled : false
+		disabled : false,
+		label : String
   },
 	data(){
 		return {
@@ -75,9 +77,9 @@ export default {
         this.$refs.pass.focus();
     },
     OnValueChange(event){
-			this.validation(event.target.value);
       this.$emit("update:modelValue", event.target.value);
-    },
+			this.validation(event.target.value);
+		},
 		validation(value){
 			let isPassValid = this.validationFunc();
 			this.$emit("validation", isPassValid);

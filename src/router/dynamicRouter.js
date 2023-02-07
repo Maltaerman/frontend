@@ -10,7 +10,8 @@ const OrganizationsList = () => import("../components/PlatformAdministration/Org
 const OrganizationProfile = () => import("../components/PlatformAdministration/OrganizationProfile.vue");
 const UserRegistration = () => import("../components/Authorization/UserRegistration.vue");
 const PasswordReset = () => import("../components/Authorization/PasswordReset.vue");
-const UserRoles = () =>import("../components/PlatformAdministration/UserRoles.vue");
+const UserRoles = () => import("../components/PlatformAdministration/UserRoles.vue");
+const OrganizationRegistration = () => import("../components/OrganizationLeader/OrgRegistration.vue")
 
 
 import {store} from "../store/mainStore.js";
@@ -96,6 +97,10 @@ const mainRouter = [
   {
     path: "/registration",
     component: UserRegistration
+  },
+  {
+    path : "/organization-registration",
+    component : OrganizationRegistration
   },
   {
     path: "/password-reset",

@@ -56,7 +56,7 @@
        </div>
      </div>
      <resize-textarea
-         class="textArea"
+         class="text-area"
          :placeholder="$t('reportTools.textAreaPlaceholder')"
          v-model="updatedReport.reports[label.name].description"/>
    </div>

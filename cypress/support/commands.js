@@ -1,5 +1,7 @@
 import { mount } from "cypress/vue";
 import i18n from "../../src/libs/i18n/index.js";
+import {storePrototype} from "../../src/store/mainStore.js";
+import {createStore} from "vuex";
 
 
 Cypress.Commands.add('mount', (component, options = {}) => {

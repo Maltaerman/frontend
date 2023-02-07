@@ -91,7 +91,10 @@
     "namePlaceholder": "Назва",
     "website": "Вебсайт",
     "organizationExist" : "Огранізація \"{orgName}\" вже зареєстрована!",
-    "organizationAddSuccess": "Ви успішно додали організацію {orgName}!"
+    "organizationAddSuccess": "Ви успішно додали організацію {orgName}!",
+    "orgAddress" : "Адреса організації",
+    "orgDescription" : "Опис організації",
+    "address" : "Адреса"
   },
   "organizationProfile": {
     "organization": "Організація",
@@ -112,7 +115,9 @@
     "userRemovedError" : "Помилка видалення користувача {userName}",
     "deleteUserTitle" : "Видалення користувача",
     "deleteUserQuestion" : "Ви дійсно хочете видалити користувача {userName}?",
-    "maxInviteMess" : "Не більше 5 запрошень за раз"
+    "maxInviteMess" : "Не більше 5 запрошень за раз",
+    "logo" : "Логотип",
+    "choseFile" : "Оберіть файл"
   },
   "userSettings": {
     "header": "Налаштування",
@@ -199,7 +204,10 @@
     "deleted": "Видалена",
     "success": "Успішно",
     "edited": "Оновлено",
-    "unknown" : "Невідомо"
+    "unknown" : "Невідомо",
+    "symbols" : "символів",
+    "back" : "Назад",
+    "finish" : "Завершити"
   },
   "tooltips": {
     "water": "Вода",
@@ -251,5 +259,14 @@
     "codeExpires" : "Код застаріє за:",
     "sendCodeAgain" : "Надіслати код повторно",
     "markerError" : "Неможливо відправити запит. Вкажіть більш точне місце на карті."
+  },
+  "OrganizationRegistration" : {
+    "Welcome" : "Вітаємо!",
+    "Info" : "Вас запросили взяти участь у гуманітарній програмі, яка допомагає українцям повернутися додому.",
+    "Step1" : "Створіть профіль вашої організації",
+    "Step2" : "Вкажіть налаштування власного акаунта",
+    "orgName" : "Назва",
+    "site" : "Веб-сайт",
+    "OrgDescPlaceholder": "Розкажіть про організацію, чим вона займається"
   }
 }

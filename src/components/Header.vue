@@ -159,6 +159,9 @@
       <UserSetting :is-setting-visible="isSettingModal" v-if="isAuth"
 				@close="closeModal"/>
 <!--			#endregion -->
+			<router-link to="/organization-registration">
+				Org test
+			</router-link>
 		</header>
 </template>
 

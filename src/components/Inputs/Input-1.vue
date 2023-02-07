@@ -1,21 +1,10 @@
 <template>
 	<label class="inline-block w-full relative" @focusin="onFocus" @focusout="onLeave">
-		<input
-					 :type="type" class="input-1 outline-none" :value="modelValue" @input="updateInput" :placeholder="placeholder"
-		:class="validationStyle" :disabled="disabled" :id="inpId" @keyup="keyAction" ref="inp">
-
-    <div v-if="suggestionsVisible && suggestions && suggestions.length>1"
-         class="absolute top-11 bg-white z-[100] w-full border rounded-xl overflow-hidden py-2">
-      <div v-for="(item, i) in suggestions"
-              class="block focus:bg-blue-c-300 w-full px-1 bg-yellow-300"
-              :class="{'bg-blue-c-200' : i===suggestionIndex}"
-           :key="`sg${i}`" @click.stop="suggestionClick(i)">
-        <span >
-          {{item}}
-        </span>
-      </div>
-    </div>
-
+		<div v-if="label" class="text-h4 text-gray-c-500 text-left font-normal mb-2">{{label}}</div>
+		<input :value="modelValue"
+					 :type="type" class="input-1 outline-none"  @input="updateInput" :placeholder="placeholder"
+					 :class="validationStyle" :disabled="disabled" :id="inpId" ref="inp"
+					 />
 		<div v-if="!isValidStyle && validationMessage" class="text-red-c-500 text-b3 mt-1 text-left px-2">{{validationMessage}}</div>
 	</label>
 </template>
@@ -28,7 +17,7 @@ export default {
 	mixins : [regex],
 	emits : ["validation", "update:modelValue"],
 	props : {
-		modelValue : [String, Number],
+		modelValue: String,
 		validationType : {
 			type : String,
 			validator(value) {
@@ -50,74 +39,46 @@ export default {
 			default: "text"
 		},
     inpId : String,
-    suggestions : Array
+		label :String
 	},
 	data () {
 		return {
 			isValidStyle : true,
-      suggestionsVisible : false,
-      suggestionIndex : -1,
+			value : ""
 		}
 	},
 	methods : {
 		updateInput(event){
-      this.suggestionIndex = -1;
-      this.suggestionsVisible = true;
+			this.value = event.target.value;
 			this.$emit('update:modelValue', event.target.value)
 		},
 		onFocus(){
       //console.log("focus")
 			this.isValidStyle = true;
-      this.suggestionsVisible = true;
 		},
 		onLeave(){
       //console.log("Leave")
-			this.isValidStyle = this.validate();
-      this.suggestionsVisible = false;
+			let res = this.validate();
+			this.isValidStyle = this.value ? res : true;
     },
 		validate(){
 			let isValueValid = true;
 			switch (this.validationType){
 				case "mail":
-					isValueValid = this.isMail(this.modelValue);
+					isValueValid = this.isMail(this.value);
 					break;
 				case "name":
-					isValueValid = this.isName(this.modelValue);
+					isValueValid = this.isName(this.value);
 					break;
 				default:
-					isValueValid = this.validationFunc(this.modelValue);
+					isValueValid = this.validationFunc(this.value);
 					break;
 			}
-			if(isValueValid)
-				this.isValidStyle = true;
+			/*if(isValueValid || this.value==="")
+				this.isValidStyle = true;*/
 			this.$emit("validation", isValueValid);
 			return isValueValid;
 		},
-    keyAction(e){
-      if(!e.keyCode)
-        return
-      if(e.keyCode === 40) {
-        if(this.suggestionIndex + 1 < this.suggestions.length && this.suggestionIndex >=0)
-          this.suggestionIndex++;
-        else
-          this.suggestionIndex = 0;
-        this.$emit('update:modelValue', this.suggestions[this.suggestionIndex])
-
-      }
-      if(e.keyCode === 38) {
-        if(this.suggestionIndex <= 0)
-          this.suggestionIndex = this.suggestions.length-1;
-        else
-          this.suggestionIndex--;
-        this.$emit('update:modelValue', this.suggestions[this.suggestionIndex])
-      }
-    },
-    suggestionClick(index){
-      console.log(index)
-      this.suggestionIndex = index;
-      this.$emit('update:modelValue', this.suggestions[this.suggestionIndex])
-    }
-
 	},
 	computed : {
 		validationStyle(){
@@ -125,7 +86,10 @@ export default {
 				'border-gray-c-300' : this.isValidStyle,
 				'border-red-c-500' : !this.isValidStyle,
 			}
-		}
+		},
 	},
+	mounted() {
+		console.log(this.$el)
+	}
 }
 </script>

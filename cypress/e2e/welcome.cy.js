@@ -1,16 +1,4 @@
-// describe('language-changing', () => {
-//   it('checks if language is changing', () => {
-//     cy.visit('http://localhost:5173/');
-//
-//     const langChangerButton = cy.get('#dropButton');
-//     langChangerButton.should('have.text', 'Українська');
-//     langChangerButton.click()
-//
-//     cy.contains('English').click()
-//     langChangerButton.should('have.text', 'English');
-//   });
-// });
-
+const store = () => cy.window().its('app.$store')
 
 describe('search-input', () => {
   it('checks if search input is accessible and working', () => {
@@ -38,16 +26,18 @@ describe('google-autocomplete', () => {
   it('checks if the autocomplete suggestion is clickable and redirects successfully', () => {
     cy.visit('http://localhost:5173/');
 
+    cy.window().should('have.property', 'app');
+    console.log(cy.window())
+
     const searchInput = cy.get('input')
 
-    searchInput.type('Вінниця');
-    searchInput.invoke('val').should('eq', 'Вінниця')
+    searchInput.type('Hostomel');
+    searchInput.invoke('val').should('eq', 'Hostomel')
 
     // checking if the autocomplete feature is working
     cy.get('.pac-container');
     cy.get('.pac-item-query').first().click();
-
-    cy.url().should('eq', 'http://localhost:5173/main/overview')
+    cy.url().should('contain', 'http://localhost:5173/main/overview')
   })
 })
 

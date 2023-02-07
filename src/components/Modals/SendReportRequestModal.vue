@@ -2,60 +2,66 @@
 	<teleport to="body">
 		<div id="addressRequestModal" v-if="isModalVisible" class="overflow-y-hidden z-[1050] h-screen w-screen bg-black/30 fixed top-0 left-0 right-0 bottom-0
 				mobile:px-2 grid place-items-center">
-			<div class="mx-auto rounded-xl p-6 w-[500px] mobile:w-full
-          h-min bg-white animate-appear relative flex"
-					 :class="{'animate-disappear' : isClosedClick}"
-					 @click.stop>
-				<button class="absolute top-6 right-6 h-4 w-4"
-								@click="hide">
-					<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path fill-rule="evenodd" clip-rule="evenodd" d="M13.364 2.04988C13.7545 1.65936 13.7545 1.02619 13.364 0.635667C12.9734 0.245142 12.3403 0.245142 11.9497 0.635667L7.00003 5.58537L2.05033 0.635667C1.6598 0.245142 1.02664 0.245142 0.636113 0.635667C0.245589 1.02619 0.245589 1.65936 0.636113 2.04988L5.58582 6.99959L0.636033 11.9494C0.245509 12.3399 0.245508 12.9731 0.636033 13.3636C1.02656 13.7541 1.65972 13.7541 2.05025 13.3636L7.00003 8.4138L11.9498 13.3636C12.3403 13.7541 12.9735 13.7541 13.364 13.3636C13.7546 12.9731 13.7546 12.3399 13.364 11.9494L8.41425 6.99959L13.364 2.04988Z" fill="#1D2229"/>
-						<path fill-rule="evenodd" clip-rule="evenodd" d="M13.364 2.04988C13.7545 1.65936 13.7545 1.02619 13.364 0.635667C12.9734 0.245142 12.3403 0.245142 11.9497 0.635667L7.00003 5.58537L2.05033 0.635667C1.6598 0.245142 1.02664 0.245142 0.636113 0.635667C0.245589 1.02619 0.245589 1.65936 0.636113 2.04988L5.58582 6.99959L0.636033 11.9494C0.245509 12.3399 0.245508 12.9731 0.636033 13.3636C1.02656 13.7541 1.65972 13.7541 2.05025 13.3636L7.00003 8.4138L11.9498 13.3636C12.3403 13.7541 12.9735 13.7541 13.364 13.3636C13.7546 12.9731 13.7546 12.3399 13.364 11.9494L8.41425 6.99959L13.364 2.04988Z" fill="black" fill-opacity="0.2"/>
-					</svg>
-				</button>
-				<transition name="modal-anim" mode="out-in">
-					<div v-if="step === steps.numEnter" class="w-full text-center">
-						<div class="text-body-2  font-semibold">
-              {{ $t("addressReqModal.step1Title") }}
+			<transition name="modal-anim" mode="out-in">
+				<div v-if="animStep == 1" class="mx-auto rounded-xl p-6 w-[500px] mobile:w-full
+						h-min bg-white relative flex"
+						 @click.stop>
+					<button class="absolute top-6 right-6 h-4 w-4"
+									@click="hide">
+						<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M13.364 2.04988C13.7545 1.65936 13.7545 1.02619 13.364 0.635667C12.9734 0.245142 12.3403 0.245142 11.9497 0.635667L7.00003 5.58537L2.05033 0.635667C1.6598 0.245142 1.02664 0.245142 0.636113 0.635667C0.245589 1.02619 0.245589 1.65936 0.636113 2.04988L5.58582 6.99959L0.636033 11.9494C0.245509 12.3399 0.245508 12.9731 0.636033 13.3636C1.02656 13.7541 1.65972 13.7541 2.05025 13.3636L7.00003 8.4138L11.9498 13.3636C12.3403 13.7541 12.9735 13.7541 13.364 13.3636C13.7546 12.9731 13.7546 12.3399 13.364 11.9494L8.41425 6.99959L13.364 2.04988Z" fill="#1D2229"/>
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M13.364 2.04988C13.7545 1.65936 13.7545 1.02619 13.364 0.635667C12.9734 0.245142 12.3403 0.245142 11.9497 0.635667L7.00003 5.58537L2.05033 0.635667C1.6598 0.245142 1.02664 0.245142 0.636113 0.635667C0.245589 1.02619 0.245589 1.65936 0.636113 2.04988L5.58582 6.99959L0.636033 11.9494C0.245509 12.3399 0.245508 12.9731 0.636033 13.3636C1.02656 13.7541 1.65972 13.7541 2.05025 13.3636L7.00003 8.4138L11.9498 13.3636C12.3403 13.7541 12.9735 13.7541 13.364 13.3636C13.7546 12.9731 13.7546 12.3399 13.364 11.9494L8.41425 6.99959L13.364 2.04988Z" fill="black" fill-opacity="0.2"/>
+						</svg>
+					</button>
+					<transition name="modal-anim" mode="out-in">
+						<div v-if="step === steps.numEnter" class="w-full text-center">
+							<div class="text-body-2  font-semibold">
+								{{ $t("addressReqModal.step1Title") }}
+							</div>
+							<div class="text-body-1 mt-2 text-gray-c-600">
+								{{ $t("addressReqModal.step1Tips") }}
+							</div>
+							<TelInput class="my-6" v-model="telNum" @validation="onNumValidation"
+								@enter-click="numInpEnterClick"/>
+							<button-1 class="w-full" @click="GetCodeAction" :disabled="!isNumValid">
+								{{ $t("addressReqModal.step1Button") }}
+							</button-1>
 						</div>
-						<div class="text-body-1 mt-2 text-gray-c-600">
-              {{ $t("addressReqModal.step1Tips") }}
+						<div v-else-if="step === steps.codeEnter" class="w-full text-center">
+							<div class="text-body-2 font-semibold">
+								{{ $t("addressReqModal.step2Title") }}
+							</div>
+							<div class="text-body-1 mt-2 text-gray-c-600">
+								{{step2Tips}}
+							</div>
+							<CodeInput class="w-full my-6" :digit-amount="6" v-model="code"
+								@enter-click="codeInpEnterClick"/>
+							<button-1 class="w-full" @click="SendRequestAction" :disabled="!isCodeValid">
+								{{$t("addressReqModal.step2Button")}}
+							</button-1>
+							<div class="mt-4 text-body-1 text-gray-c-500 h-[42px] flex justify-center place-items-center">
+								<transition name="modal-anim" mode="out-in">
+									<div v-if="codeExpiredIn>0">
+										{{ $t("addressReqModal.codeExpires") }}
+									 <span class="font-semibold text-blue-c-500">
+										 &nbsp;{{ timer }}
+									 </span>
+									</div>
+									<button @click="GetCodeAction" v-else class="font-semibold text-blue-c-500">
+										{{ $t("addressReqModal.sendCodeAgain") }}
+									</button>
+								</transition>
+							</div>
 						</div>
-            <TelInput class="my-6" v-model="telNum" @validation="onNumValidation"
-              @enter-click="numInpEnterClick"/>
-						<button-1 class="w-full" @click="GetCodeAction" :disabled="!isNumValid">
-              {{ $t("addressReqModal.step1Button") }}
-						</button-1>
-					</div>
-					<div v-else-if="step === steps.codeEnter" class="w-full text-center">
-						<div class="text-body-2 font-semibold">
-              {{ $t("addressReqModal.step2Title") }}
-						</div>
-						<div class="text-body-1 mt-2 text-gray-c-600">
-              {{step2Tips}}
-						</div>
-						<CodeInput class="w-full my-6" :digit-amount="6" v-model="code"
-              @enter-click="codeInpEnterClick"/>
-						<button-1 class="w-full" @click="SendRequestAction" :disabled="!isCodeValid">
-							{{$t("addressReqModal.step2Button")}}
-						</button-1>
-            <div class="mt-4 text-body-1 text-gray-c-500 h-[42px] flex justify-center place-items-center">
-              <transition name="modal-anim" mode="out-in">
-                <div v-if="codeExpiredIn>0">
-                  {{ $t("addressReqModal.codeExpires") }}
-                 <span class="font-semibold text-blue-c-500">
-                   &nbsp;{{ timer }}
-                 </span>
-                </div>
-                <button @click="GetCodeAction" v-else class="font-semibold text-blue-c-500">
-                  {{ $t("addressReqModal.sendCodeAgain") }}
-                </button>
-              </transition>
-            </div>
-					</div>
-				</transition>
-				<Loader v-if="isLoaderVisible"></Loader>
-			</div>
+					</transition>
+	<!--				<Loader v-if="isLoaderVisible"></Loader>-->
+				</div>
+				<div v-else-if="animStep == 2" @click.stop class="mx-auto rounded-xl px-[26px] py-10 w-[500px] h-[164px] bg-white grid items-center gap-6">
+					<div class="subTitle text-gray-c-800 text-center">Sending your request...</div>
+					<ProgressBar :progress="sendingProgress"/>
+				</div>
+				<div v-else></div>
+			</transition>
 		</div>
 	</teleport>
 </template>
@@ -68,9 +74,10 @@ import api from "../../http_client/index.js";
 import {mapGetters, mapMutations} from "vuex";
 import TelInput from "../Inputs/TelInput.vue";
 import regex from "../mixins/regex.js";
+import ProgressBar from "../Other/ProgressBar.vue";
 export default {
 	name: "SendReportRequestModal",
-	components: {TelInput, CodeInput, Button2, Input1},
+	components: {ProgressBar, TelInput, CodeInput, Button2, Input1},
   mixins : [regex],
 	props : {
 		isModalVisible : {
@@ -91,12 +98,15 @@ export default {
 			code : "",
       codeExpiredIn : 0,
 			step : "numEnter",
+			animStep : 1,
 			steps : {
 				numEnter : "numEnter",
 				codeEnter : "codeEnter",
  			},
+
       onClose : () =>{},
-      intervalId : 0
+      intervalId : 0,
+			sendingProgress : 0
 		}
 	},
 	methods : {
@@ -107,6 +117,7 @@ export default {
 		hide(){
 			this.isClosedClick = true;
 			setTimeout( ()=> {
+				this.sendingProgress = 0;
 				this.isClosedClick = false;
         this.step = this.steps.numEnter;
         this.telNum = "";
@@ -115,6 +126,7 @@ export default {
         this.isNumValid = false
         this.onClose()
         this.onClose = ()=>{}
+				this.animStep = 1;
 				this.closeFunc();
 			}, 400);
 		},
@@ -166,13 +178,15 @@ export default {
         this.$toast.error(this.$t("validations.codeNotValid"))
         return;
       }
-      this.isLoaderVisible = true;
+			this.animStep = 2;
       let payload = {
         lat: this.notFoundedMarker.position.lat,
         lng: this.notFoundedMarker.position.lng
       }
+			this.sendingProgress = 45;
+			await new Promise(resolve => setTimeout(resolve, 300))
       await api.locations.requestAddressReview(payload)
-          .then((res) => {
+          .then(async (res) => {
             console.log(res)
             let data = {
               position : {...res.data.position} ?? {...payload},
@@ -186,8 +200,8 @@ export default {
             })
             let successMess = this.$t("notFoundAddress.modalSuccessMess",
                 {address : this.notFoundedMarker.address});
-
-            this.isLoaderVisible = false;
+						this.sendingProgress = 100;
+						await new Promise(resolve => setTimeout(resolve, 300))
             this.onClose = () => {this.$toast.success(successMess)}
             this.hide();
           })
@@ -217,9 +231,11 @@ export default {
         otp : this.code,
         ...this.notFoundedMarker.position
       }
-      // FIXME не працює на сервері
+			this.animStep = 2;
+			this.sendingProgress = 45;
+			await new Promise(resolve => setTimeout(resolve, 300))
       await api.guest.sendAddressRequest(params)
-          .then((res) => {
+          .then(async (res) => {
             let data = {
               position : {...this.notFoundedMarker.position},
               status : res.status ?? 1
@@ -234,6 +250,8 @@ export default {
             let successMess = this.$t("notFoundAddress.modalSuccessMess",
                 {address : this.notFoundedMarker.address});
 
+						this.sendingProgress = 100;
+						await new Promise(resolve => setTimeout(resolve, 300))
             this.isLoaderVisible = false;
             this.onClose = () => {this.$toast.success(successMess)}
             this.hide();
@@ -261,12 +279,12 @@ export default {
         this.SendRequestAction();
     },
 		GetCodeAction(){
-			this.getCode();
-			//this.getCodeDev();
+			//this.getCode();
+			this.getCodeDev();
 		},
 		SendRequestAction(){
-			this.sendRequest();
-			//this.sendRequestDev();
+			//this.sendRequest();
+			this.sendRequestDev();
 		},
 	},
   computed : {
@@ -285,18 +303,12 @@ export default {
       return this.$t("addressReqModal.step2Tips", {telNum : this.telNum})
     },
     isCodeValid(){
-      /*/\d{6}/.test(this.code)*/
       return this.onlyDigitsRegex.test(this.code)
           && this.code.length === 6
           && this.codeExpiredIn > 0;
     }
 
   },
-	/*watch : {
-		code(newVal){
-			console.log(`code is ${newVal}`)
-		}
-	}*/
   beforeUnmount() {
     clearInterval(this.intervalId);
   }

@@ -91,7 +91,10 @@
     "namePlaceholder": "Name",
     "website": "Website",
     "organizationExist" : "The organization \"{orgName}\" is already registered!",
-    "organizationAddSuccess": "You have successfully added a {orgName} organization!"
+    "organizationAddSuccess": "You have successfully added a {orgName} organization!",
+    "orgAddress" : "Organization address",
+    "orgDescription" : "Organization description",
+    "address" : "Address"
   },
   "organizationProfile": {
     "organization": "Organization",
@@ -112,7 +115,9 @@
     "userRemovedError" : "Error deleting user {userName}",
     "deleteUserTitle" : "User deleting",
     "deleteUserQuestion" : "Are you sure you want to delete user {userName}?",
-    "maxInviteMess" : "No more than 5 invitations at a time"
+    "maxInviteMess" : "No more than 5 invitations at a time",
+    "logo" : "Logo",
+    "choseFile" : "Choose file"
   },
   "userSettings": {
     "header": "Settings",
@@ -199,7 +204,10 @@
     "deleted": "Deleted",
     "success": "Successfully",
     "edited": "Edited",
-    "unknown" : "Unknown"
+    "unknown" : "Unknown",
+    "symbols" : "symbols",
+    "back" : "Back",
+    "finish" : "Finish"
   },
   "tooltips": {
     "water": "Water",
@@ -251,5 +259,14 @@
     "codeExpires" : "Code expires in:",
     "sendCodeAgain" : "Send code again",
     "markerError" : "Unable to send request. Specify a more precise location on the map."
+  },
+  "OrganizationRegistration" : {
+    "Welcome" : "Welcome",
+    "Info" : "You have been invited to take part in a humanitarian program that helps Ukrainian people come back home.",
+    "Step1" : "Create your organization profile",
+    "Step2" : "Organizational Leader settings",
+    "orgName" : "Name",
+    "site" : "Site",
+    "OrgDescPlaceholder": "Describe about the organization, what does it do"
   }
 }

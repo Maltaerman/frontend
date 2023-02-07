@@ -40,7 +40,7 @@
     .label {
         @apply text-h3 mobile:text-h4
     }
-    .textArea{
+    .text-area{
         @apply min-h-[68px] resize-none w-full border-gray-c-300 border rounded-lg px-4 py-2 text-h3
     }
 
