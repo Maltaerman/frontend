@@ -60,7 +60,7 @@ export default {
 			lastVisibleItemIndex : 0,
 			visibleElements : [],
 			animId : 0,
-      cycles : 0,
+      		cycles : 0,
 		}
 	},
 	methods : {
