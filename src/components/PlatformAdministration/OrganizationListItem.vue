@@ -1,5 +1,5 @@
 <template>
-	<div @click.stop="goToOrgProfile" @mouseleave="HideMenu" class="min-h-[182px] min-w-[240px] mobile:w-full border border-gray-c-300 rounded-lg
+	<div @click.stop="goToOrgProfile" @mouseleave="HideMenu" class="h-[182px] min-w-[240px] mobile:w-full border border-gray-c-300 rounded-lg
 	p-4 cursor-pointer relative group">
 		<div @click.stop="ShowMenu" class="absolute top-2 right-4 cursor-pointer px-1 py-3 rounded-full hover:bg-blue-c-200">
 			<img  src="/src/assets/dots.svg">
