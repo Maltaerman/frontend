@@ -95,10 +95,12 @@
     "organizationAddSuccess": "You have successfully added a {orgName} organization!"
   },
   "organizationProfile": {
+    "addEmployee": "Invite employee",
+    "aidWorkers": "Aid workers",
     "organization": "Organization",
     "creationDate": "Created:",
     "employees": "Employees",
-    "addEmployee": "Invite employee",
+    "newInvitation": "New Invitation",
     "employeeEnvelope": "Send an invite to future employees. They will receive it via email.",
     "addMore": "Add more",
     "sendInvite": "Send invite",
