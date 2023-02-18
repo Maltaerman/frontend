@@ -288,7 +288,15 @@ export default {
 		async EditOrg(){
 			this.isEditModalLoaderVisible = true;
 
-			await api.organizations.editOrganization(this.organization.id, this.editingOrgName, this.editingOrgSite, "")
+			//TODO add desc and address
+			let payload = {
+				name : this.editingOrgName,
+				website : this.editingOrgSite,
+				/*description : "",
+				address : ""*/
+			}
+
+			await api.organizations.editOrganization(this.organization.id, payload)
 				.then(res => {
 					this.organization = res.data;
 					this.CloseEditModal();
@@ -335,7 +343,7 @@ export default {
 		},
 		async getOrganization(){
 			this.isLoaderVisible = true;
-			await api.organizations.getOrgById(this.$route.params.id)
+			await api.organizations.getOrganizationsById(this.$route.params.id)
 				.then(res=>{
 					this.organization = res.data;
 					this.isLoaderVisible = false;

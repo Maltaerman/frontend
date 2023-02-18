@@ -118,38 +118,24 @@ export default {
 		async SaveAndPublish(){
       this.$toast.wait(this.$t('general.publishing'))
 			let payload = {...this.requestedMarker}
-			/*{
-				street_number : this.requestedMarker.street_number,
-				address : this.requestedMarker.address,
-        city : this.requestedMarker.city,
-				index : this.requestedMarker.index,
-			}*/
 
-			let requestSender = this.requestedMarker.id ? api.locations.submitLocationReport : api.locations.addReportByAdmin
+
+			let requestSender; //= this.requestedMarker.id ? api.locations.submitLocationReport : api.locations.addReportByAdmin
 
 			if(this.requestedMarker.id){
 				requestSender = api.locations.submitLocationReport;
-				payload = {
-					location_id : this.requestedMarker.id,
-					...this.requestedMarker.reports,
-					...payload
-				}
+				payload.location_id = this.requestedMarker.id;
 			}
 			else {
 				requestSender = api.locations.addReportByAdmin;
-				payload = {
-					reports : {...this.requestedMarker.reports},
-					...payload
-				}
 			}
+
+			console.log(payload)
 
 			await requestSender(payload)
 				.then(res => {
 					this.$toast.clear();
 					this.setSelectedMarker(res.data);
-
-					/*console.log(res.data)
-					console.log(this.getReviewedMarkers)*/
 
 					// Push new marker to report marker list if it needed
 					if(!this.getReviewedMarkers.find(x=>x.location_id===res.data.id)){

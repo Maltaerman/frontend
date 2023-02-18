@@ -118,7 +118,8 @@
     "deleteUserQuestion" : "Are you sure you want to delete user {userName}?",
     "maxInviteMess" : "No more than 5 invitations at a time",
     "logo" : "Logo",
-    "choseFile" : "Choose file"
+    "choseFile" : "Choose file",
+    "organizationSettings" : "Organization settings"
   },
   "userSettings": {
     "header": "Settings",
@@ -128,7 +129,8 @@
     "password": "Password",
     "new-password": "New password",
     "userDataUpdatedSuccessMess" : "Data update successful",
-    "userDataUpdatedErrorMess" : "Error updating data"
+    "userDataUpdatedErrorMess" : "Error updating data",
+    "personalSettings" : "Personal settings"
   },
   "login": {
     "header": "Login",
@@ -196,6 +198,7 @@
     "active": "Active",
     "banned": "Banned",
     "pending": "Pending",
+    "disabled" : "Disabled",
     "error": "Error",
     "user": "User",
     "deleteSuccess": "was successfully deleted",
@@ -208,7 +211,10 @@
     "unknown" : "Unknown",
     "symbols" : "symbols",
     "back" : "Back",
-    "finish" : "Finish"
+    "finish" : "Finish",
+    "email" : "E-mail",
+    "emails" : "E-mails",
+    "loading" : "Loading"
   },
   "tooltips": {
     "water": "Water",
@@ -269,5 +275,12 @@
     "orgName" : "Name",
     "site" : "Site",
     "OrgDescPlaceholder": "Describe about the organization, what does it do"
+  },
+  "Roles" : {
+    "Roles" : "Roles",
+    "Role" : "Role",
+    "CreateRole" : "Create role",
+    "Title" : "Title",
+    "Permissions" : "Permissions"
   }
 }

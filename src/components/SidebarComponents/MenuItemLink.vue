@@ -29,7 +29,7 @@ export default {
 	methods : {
 		updateSVG(){
 			let imgSvg = this.$refs.image_container.firstElementChild;
-			if(imgSvg.tagName === "svg"){
+			if(imgSvg && imgSvg.tagName === "svg"){
 				imgSvg.classList.add("w-full", "h-full", "group-hover:fill-blue-c-400");
 				if(this.isPathMatched(this.to)){
 					imgSvg.classList.add("fill-blue-c-500");

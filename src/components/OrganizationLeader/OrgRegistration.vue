@@ -12,105 +12,59 @@
 					{{$t("OrganizationRegistration.Info")}}
 				</div>
 
-				<div class="flex gap-2 justify-center">
+<!--				<div class="flex gap-2 justify-center">
 					<div v-for="i in 2" class="border border-blue-c-500 h-2 w-2 rounded-xl"
 							 :class="{'bg-blue-c-500' : stepNum == i}" @click="GoToStep(i)"/>
-				</div>
+				</div>-->
 
-				<div class="subTitle text-center my-4">{{StepTitle}}</div>
+				<div class="subTitle text-center my-4">{{$t("OrganizationRegistration.Step1")}}</div>
 
-				<div data-step-1 v-if="stepNum==1" >
-					<div class="flex flex-col gap-6">
-						<Input1 :label="$t('OrganizationRegistration.orgName')"
-										:placeholder="$t('dashboard.organizationName')"
-										v-model="organization.name"
-										:model-value="organization.name"
-						/>
-
-						<Input1 :label="$t('OrganizationRegistration.site')"
-										placeholder="https//:"
-										v-model="organization.site"
-						/>
-
-						<Input1 :label="$t('dashboard.address')"
-										:placeholder="$t('dashboard.orgAddress')"
-										v-model="organization.address"
-						/>
-
-						<div data-org-desc>
-							<div class="text-h4 text-gray-c-500">
-								{{$t("dashboard.orgDescription")}}
-							</div>
-							<resize-textarea class="text-area my-2 min-h-[144px]"
-															 :placeholder="$t('OrganizationRegistration.OrgDescPlaceholder')"
-															 v-model="organization.description"
-															 ref="orgDesc"
-							/>
-							<div class="text-h4 text-gray-c-500 text-right">
-								{{DescSymbolLimStr}}
-							</div>
-						</div>
-
-						<div>
-							<div class="text-h4 text-gray-c-500">
-								{{$t("organizationProfile.logo")}}
-							</div>
-
-							<div class="h-[160px] my-2 border border-gray-c-300 rounded-xl grid justify-center content-center">
-	<!--							<div class="w-[100px] h-[100px] bg-gray-200 rounded-full grid justify-center content-center">
-									<div class="text-gray-c-500 font-medium">
-										Logo
-									</div>
-								</div>-->
-								<img ref="logo" src="" class="block w-full h-full object-contain">
-							</div>
-
-							<input ref="fileInp" type="file" class="hidden" accept=".jpeg,.png,.jpg" @change.stop="onFileSelect">
-
-							<Button2 class="w-full" @click="selectFile">
-								{{$t("organizationProfile.choseFile")}}
-							</Button2>
-						</div>
-
-					</div>
-					<button1 class="w-full mt-10" @click="GoToStep(2)">
-						{{$t("general.next")}}
-					</button1>
-				</div>
-
-				<div data-step-2 v-else-if="stepNum==2">
+<!--				<div data-step-1 v-if="stepNum==1">
 					<div class="flex flex-col gap-6">
 						<Input1 :label="$t('userRegistration.name')"
 										:placeholder="$t('userRegistration.fullName')"
 										validation-type="name"
-										v-model="user.name"/>
+										v-model="user.name"
+										:model-value="user.name"
+						/>
 						<Input1 :label="$t('userRegistration.email')"
 										:placeholder="$t('userRegistration.email')"
 										validation-type="mail"
 										v-model="user.mail"
-										/>
+										:model-value="user.mail"
+						/>
 						<InputPass :label="$t('userRegistration.password')"
 											 :validation-message="$t('validations.passNotValid')"
-												v-model="user.pass"
+											 v-model="user.pass"
+											 :model-value="user.pass"
 											 @validation="onPassValid"
 						/>
 						<InputPass :label="$t('userRegistration.newPassConf')"
 											 :validation-message="$t('validations.passNotEquals')"
 											 v-model="user.passConfirm"
+											 :model-value="user.passConfirm"
 											 :validation-func="isPassEquals"
 											 ref="passConf"
 						/>
 					</div>
 
+					<button1 class="w-full mt-10" @click="GoToStep(2)">
+						{{$t("general.next")}}
+					</button1>
+				</div>-->
+
+				<div>
+					<OrgEditInputsGroup v-model="organization"/>
 					<div class="flex flex-nowrap gap-6 comp:gap-2 mt-9">
-						<Button2 class="grow-[1]" @click="GoToStep(1)">
+<!--						<Button2 class="grow-[1]" @click="GoToStep(1)">
 							{{$t("general.back")}}
-						</Button2>
-						<Button1 class="grow-[2]" @click="Registration">
+						</Button2>-->
+						<Button1 :disabled="!isOrgRegistrationEnabled" class="grow-[2]" @click="organizationRegistration">
 							{{$t("general.finish")}}
 						</Button1>
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>
@@ -119,13 +73,19 @@
 <script>
 import Header from "../Header.vue";
 import Input1 from "../Inputs/Input-1.vue";
-import {mapMutations} from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 import Button2 from "../Buttons/Button_2.vue";
 import Button1 from "../Buttons/Button_1.vue";
 import InputPass from "../Inputs/Input-pass.vue";
+import SVG_basket_red from "../ComponentsSVG/SVG_basket_red.vue";
+import api from "../../http_client/index.js";
+import OrgEditInputsGroup from "./Shared/OrgEditInputsGroup.vue";
+
 export default {
 	name: "OrgRegistration",
 	components: {
+		OrgEditInputsGroup,
+		SVG_basket_red,
 		InputPass,
 		Button1,
 		Button2,
@@ -135,21 +95,19 @@ export default {
 	data(){
 		return {
 			stepNum : 1,
-			orgDesc : "",
-			descSymbolLim : 300,
 			organization : {
 				name : "",
-				site : "",
+				website : "",
 				address : "",
 				description : "",
 				logo : undefined
 			},
-			user : {
+/*			user : {
 				name : "",
 				mail : "",
 				pass : "",
 				passConfirm : ""
-			},
+			},*/
 			validation : {
 				isPassValid : false,
 				isPassEquals : false,
@@ -157,83 +115,51 @@ export default {
 		}
 	},
 	methods : {
-		...mapMutations({
-			setLoggedUserInfo : "setLoggedUserInfo",
-			setLoggedUserCredentials : "setLoggedUserCredentials"
+		...mapActions({
+			setUserOrg : "updateUserOrganizationModel"
 		}),
-		selectFile(){
-			this.$refs.fileInp.click();
+		async organizationRegistration(){
+			if(!this.isOrgRegistrationEnabled)
+				return;
+			let payload = {
+				name : this.organization.name,
+				website : this.organization.site,
+				description: this.organization.description,
+				address: this.organization.description
+			}
+			await api.organizations.editOrganization(this.getUser.organization_model.id, payload)
+				.then(res=>{
+					console.log(res);
+					this.setUserOrg(res.data);
+				})
+				.catch(err=>{
+					console.log(err);
+			})
 		},
-		onFileSelect(e){
-			this.organization.logo = e.target.files[0]
-		},
-		logOut() {
-			this.setLoggedUserInfo(null)
-			this.setLoggedUserCredentials(null);
-		},
-		GoToStep(step){
-			this.stepNum = step;
-		},
-		onPassValid(value){
-			this.validation.isPassValid = value;
-		},
-		isPassEquals(){
-			this.validation.isPassEquals = this.user.pass === this.user.passConfirm;
-			return this.validation.isPassEquals;
-		},
-		Registration(){
-			console.log(this.organization)
-			console.log(this.user);
+		checkIsOrgActive(){
+			if(this.getUserOrganization.activated)
+				this.$router.push("/organization");
 		}
 	},
 	computed : {
-		StepTitle(){
-			let localizeStr;
-			switch (this.stepNum){
-				case 1 :
-					localizeStr = this.$t("OrganizationRegistration.Step1");
-					break;
-				case 2 :
-					localizeStr = this.$t("OrganizationRegistration.Step2");
-					break;
-				default :
-					localizeStr = this.$t("OrganizationRegistration.Step1");
-					break;
-			}
-			return localizeStr;
-		},
-		DescSymbolLimStr(){
-			return `${this.organization.description.length}/${this.descSymbolLim} ${this.$t("general.symbols")}`
+		...mapGetters({
+			getUser : "getUser",
+			getUserOrganization : "getUserOrganization"
+		}),
+		isOrgRegistrationEnabled(){
+			return this.organization.name.length > 2
+			&& this.organization.website.length > 4
+			&& this.organization.address.length > 2
 		}
 	},
 	watch : {
-		"organization.description"(newVal, oldVal){
-			if(newVal.length > this.descSymbolLim) {
-				this.organization.description = oldVal;
-				this.$refs.orgDesc.textareaContent = oldVal;
-			}
-		},
-		"organization.logo"(newVal){
-			console.log(newVal)
-			let reader = new FileReader();
-
-			let imgLogo = this.$refs.logo;
-			imgLogo.title = newVal.name;
-
-			reader.onload = function(event) {
-				imgLogo.src = event.target.result;
-			};
-
-			reader.readAsDataURL(newVal);
-		},
-		"user.pass"(newVal){
-			console.log(this.user.passConfirm)
-			if(this.user.passConfirm)
-				this.$refs.passConf.validation(this.user.passConfirm);
-		},
+		getUserOrganization(newVal){
+			this.checkIsOrgActive();
+		}
 	},
-	created() {
-		this.logOut();
+	beforeMount() {
+		this.checkIsOrgActive();
+		this.organization.name = this.getUser.organization_model.name
 	}
 }
 </script>

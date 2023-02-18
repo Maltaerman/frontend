@@ -68,12 +68,18 @@
 		<div ref="scrollObserver" class="relative h-[80px]" v-if="pageMax < 0">
 			<Loader v-show="isLoaderVisible" />
 		</div>
-		<OrganizationModal  
+
+<!--		<OrganizationModal
 		:is-visible="modals.createOrgModalVisible" 
 		:close-create-org-modal="closeCreateOrgModal" 
 		@addOrganization="onAddOrganization"
-		:is-loader-visible="modals.createOrgModalLoaderVisible"/>
+		:is-loader-visible="modals.createOrgModalLoaderVisible"/>-->
 		<!--    #endregion-->
+
+		<OrgInviteModal
+		:is-visible="modals.createOrgModalVisible"
+		:close-create-org-modal="closeCreateOrgModal"
+		:is-loader-visible="modals.createOrgModalLoaderVisible"/>
 
 		<RemoveOrgModal :is-visible="modals.removeOrgModalVisible" :organization="removedOrganization"
 			:close-func="closeRemoveModal" :on-remove-success="onRemoveSuccess" />
@@ -96,11 +102,13 @@ import StringFormatter from "../mixins/StringFormatter.js";
 import axios from "axios";
 import UserInviteModal from "../Modals/UserInviteModal.vue";
 import OrganizationModal from "./OrganizationModal.vue";
+import OrgInviteModal from "./OrgInviteModal.vue";
 
 export default {
 	name: "OrganizationsList",
 	mixins: [StringFormatter],
 	components: {
+		OrgInviteModal,
 		UserInviteModal,
 		RemoveOrgModal,
 		Button1,
@@ -298,6 +306,7 @@ export default {
 
 		this.GetOrganizationList(this.currentLastPage);
 	},
+
 }
 </script>
 

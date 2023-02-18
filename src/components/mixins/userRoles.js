@@ -6,7 +6,7 @@ export  default {
       userRoles : {
         user : "user",
         aidWorker : "aid_worker",
-        organizationAdmin : "organization_administrator",
+        organizationAdmin : "organizational_leader",
         platformAdmin: "platform_administrator"
       }
     }
@@ -22,8 +22,8 @@ export  default {
       let roles = {
         "user" : ["user"],
         "aid_worker" : ["user", "aid_worker"],
-        "organization_administrator" : ["user", "aid_worker", "organization_administrator"],
-        "platform_administrator" : ["user", "aid_worker", "organization_administrator", "platform_administrator"],
+        "organizational_leader" : ["user", "aid_worker", "organizational_leader"],
+        "platform_administrator" : ["user", "aid_worker", "organizational_leader", "platform_administrator"],
       }
       return roles[userRole].includes(requireRole);
     }

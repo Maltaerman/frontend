@@ -1,11 +1,10 @@
 <template>
-<!--	<Header :is-show-setting="isSettingModalVisible" v-on:settingClose="hideSettings"/>
+	<Header/>
 	<div class="flex h-[calc(100vh-62px)]
 	  	comp:h-[calc(100vh-74px)]
 	  	mobile:overflow-y-auto
 			tablet:overflow-y-auto">
 		<div class="shrink-0 comp:w-[320px] shadow-cs1 mobile:hidden">
-
 			<div class="w-full h-[200px] flex flex-col gap-2 place-items-center place-content-center
 				shadow-cs2">
 				<div class="w-[60px] h-[60px] rounded-full bg-blue-c-100 px-5 py-3">
@@ -16,43 +15,107 @@
 				</p>
 			</div>
 
-			<div>
-				<MenuItemLink to="/admin/organizations">
+			<nav data-sidebar-menu>
+				<MenuItemLink to="/organization/profile">
 					<template #image>
 						<SVG_Org_List/>
 					</template>
 					<template #text>
-						{{ $t('dashboard.organizations') }}
+						{{ $t('organizationProfile.organization') }}
 					</template>
 				</MenuItemLink>
-				&lt;!&ndash;				<MenuItemLink to="/admin/roles">
-									<template #image>
-										<SVG_Org_List/>
-									</template>
-									<template #text>
-										Roles
-									</template>
-								</MenuItemLink >&ndash;&gt;
 
-				<div class="group p-1 w-full cursor-pointer h-[58px] flex gap-4
-					items-center px-6 text-h3" @click="showSettings">
-					<div class="h-5 w-5">
-						<SVG_settings class="fill-gray-c-500 group-hover:fill-blue-c-400"/>
-					</div>
-					<p class="h-min text-gray-c-500 group-hover:text-blue-c-400 font-semibold">{{ $t('dashboard.settings') }}</p>
-				</div>
+				<MenuItemLink to="/organization/change-history">
+					<template #image>
+						<SVG_history/>
+					</template>
+					<template #text>
+						{{ $t('userSideBar.change-history') }}
+					</template>
+				</MenuItemLink>
 
-			</div>
+				<MenuItemLink to="/organization/settings">
+					<template #image>
+						<SVG_settings/>
+					</template>
+					<template #text>
+						{{ $t('dashboard.settings') }}
+					</template>
+				</MenuItemLink>
+			</nav>
+
 		</div>
-		<div class="w-full h-full">
+		<div class="w-full h-full overflow-y-auto">
 			<router-view></router-view>
 		</div>
-	</div>-->
+	</div>
 </template>
 
 <script>
+import Header from "../Header.vue";
+import SVG_Org_List from "../ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue";
+import MenuItemLink from "../SidebarComponents/MenuItemLink.vue";
+import SVG_history from "../ComponentsSVG/MenuItemsSvg/SVG_history.vue";
+import SVG_settings from "../ComponentsSVG/SVG_settings.vue";
+import api from "../../http_client/index.js";
+import {mapActions, mapGetters} from "vuex";
+import Loader from "../Loader.vue";
+
 export default {
-	name: "MainOrgLeader"
+	name: "MainOrgLeader",
+	components: {
+		Loader,
+		SVG_settings,
+		SVG_history,
+		Header,
+		SVG_Org_List,
+		MenuItemLink
+	},
+	data(){
+		return {
+			isLoader : true,
+			organization : {
+				name : "",
+				site : "",
+				address : "",
+				description : "",
+				logo : undefined
+			}
+		}
+	},
+	methods : {
+		...mapActions({
+			updateUserOrg : "updateUserOrganizationModel"
+		}),
+		async GetUserOrganization(){
+			this.$toast.wait(`${this.$t("general.loading")}...`)
+			await api.organizations.getOrganizationsById(this.userOrganization.id)
+				.then(res=>{
+					this.UpdateUserOrgInStore(res.data);
+					this.$toast.clear();
+				})
+				.catch(err=>{
+					this.$toast.clear();
+					this.$toast.error(this.$t('general.errorMessage'))
+				})
+		},
+		UpdateUserOrgInStore(org){
+			this.updateUserOrg(org);
+		}
+	},
+	computed : {
+		...mapGetters({
+			userOrganization : "getUserOrganization"
+		})
+	},
+	watch : {
+		userOrganization(newVal){
+			this.organization = newVal;
+		}
+	},
+	mounted() {
+		this.GetUserOrganization();
+	}
 }
 </script>
 

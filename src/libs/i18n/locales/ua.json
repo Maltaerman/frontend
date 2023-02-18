@@ -117,7 +117,8 @@
     "deleteUserQuestion" : "Ви дійсно хочете видалити користувача {userName}?",
     "maxInviteMess" : "Не більше 5 запрошень за раз",
     "logo" : "Логотип",
-    "choseFile" : "Оберіть файл"
+    "choseFile" : "Оберіть файл",
+    "organizationSettings" : "Налаштування організації"
   },
   "userSettings": {
     "header": "Налаштування",
@@ -127,7 +128,9 @@
     "password": "Пароль",
     "new-password": "Новий пароль",
     "userDataUpdatedSuccessMess" : "Оновлення даних успішне",
-    "userDataUpdatedErrorMess" : "Помилка оновлення даних"
+    "userDataUpdatedErrorMess" : "Помилка оновлення даних",
+    "personalSettings" : "Персональні налаштування"
+
   },
   "login": {
     "header": "Вхід",
@@ -196,6 +199,7 @@
     "banned": "В бані",
     "pending": "В очікуванні",
     "error": "Помилка",
+    "disabled" : "Заблоковано",
     "user": "Користувача",
     "deleteSuccess": "видалено успішно",
     "deleteError": "Помилка видалення",
@@ -207,7 +211,10 @@
     "unknown" : "Невідомо",
     "symbols" : "символів",
     "back" : "Назад",
-    "finish" : "Завершити"
+    "finish" : "Завершити",
+    "email" : "E-mail",
+    "emails" : "E-mails",
+    "loading" : "Завантаження"
   },
   "tooltips": {
     "water": "Вода",
@@ -268,5 +275,12 @@
     "orgName" : "Назва",
     "site" : "Веб-сайт",
     "OrgDescPlaceholder": "Розкажіть про організацію, чим вона займається"
+  },
+  "Roles" : {
+    "Roles" : "Ролі",
+    "Role" : "Роль",
+    "CreateRole" : "Створити роль",
+    "Title" : "Назва",
+    "Permissions" : "Дозволи"
   }
 }

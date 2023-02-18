@@ -1,8 +1,8 @@
 <template>
 	<div class="flex flex-col h-screen">
-	<Header class="grow-0 shrink-0"/>
-		<div class="grow flex items-center justify-center p-4 overflow-y-auto">
-				<div class="w-[480px] mobile:w-full">
+		<Header class="grow-0 shrink-0 sticky top-0 left-0"/>
+		<div class="grow p-4 overflow-y-auto">
+				<div class="w-[480px] mobile:w-full mx-auto">
 					<div class="text-center text-h1 font-semibold mb-9 text-gray-c-800">
             {{ $t("userRegistration.greeting") }}
           </div>
@@ -70,6 +70,8 @@ import Button1 from "../Buttons/Button_1.vue";
 import regex from "../mixins/regex.js";
 import Loader from "../Loader.vue";
 import api from "../../http_client/index.js";
+import userRoles from "../mixins/userRoles.js";
+import {mapActions} from "vuex";
 export default {
 	name: "UserRegistration",
 	components: {
@@ -79,7 +81,10 @@ export default {
 		Header,
 		input1
 	},
-	mixins : [regex],
+	mixins : [
+		regex,
+		userRoles
+	],
 	data () {
 		return {
 			isTermsAccept : false,
@@ -87,6 +92,8 @@ export default {
 			userMail : "",
 			pass : "",
 			passConfirm : "",
+			role : undefined,
+			isOrgActivated : undefined,
 			organizationId: -1,
 			isNameValid : false,
 			isMailValid : false,
@@ -96,6 +103,9 @@ export default {
 		}
 	},
 	methods : {
+		...mapActions({
+			logOut : "logOut"
+		}),
 		onNameValidate(value){
 			this.isNameValid = value;
 		},
@@ -109,6 +119,9 @@ export default {
 			return this.pass === this.passConfirm;
 		},
 		onRegSuccess(){
+			/*if(this.role == this.userRoles.organizationAdmin && !this.isOrgActivated)
+				this.$router.push("/organization-registration")
+			else*/
 			this.$router.push("/welcome");
 		},
 		async CreateUser(){
@@ -143,6 +156,8 @@ export default {
 					//FIXME сигнатура поля зміниться
 					this.organizationId = res.data.organization;
 					this.userMail = res.data.email;
+					this.role = res.data.role;
+					this.isOrgActivated = res.data.organization_model.activated;
 					this.isMailValid = true;
 					this.$toast.clear();
 				})
@@ -165,6 +180,7 @@ export default {
 	},
 	mounted() {
 		this.GetUserRegInfo();
+		this.logOut();
 	}
 }
 </script>

@@ -9,14 +9,14 @@
                     <label for="inpRegNewOrgName" class="text-h4 text-gray-c-500">{{
                         $t('dashboard.organizationName')
                     }}</label>
-                    <input1 inp-id="inpRegNewOrgName" v-model="organization.createOrgName" class="w-full mt-1"
+                    <input1 inp-id="inpRegNewOrgName" v-model.trim="organization.createOrgName" class="w-full mt-1"
                         :placeholder="$t('dashboard.namePlaceholder')" />
                 </div>
                 <div>
                     <label for="inpRegNewOrgSite" class="text-h4 text-gray-c-500">{{
                         $t('dashboard.website')
                     }}</label>
-                    <input1 inp-id="inpRegNewOrgSite" v-model="organization.createOrgSite" class="w-full mt-1"
+                    <input1 inp-id="inpRegNewOrgSite" v-model.trim="organization.createOrgSite" class="w-full mt-1"
                         placeholder="organization.com" />
                 </div>
             </div>

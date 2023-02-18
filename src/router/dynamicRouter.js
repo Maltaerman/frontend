@@ -10,13 +10,15 @@ const OrganizationsList = () => import("../components/PlatformAdministration/Org
 const OrganizationProfile = () => import("../components/PlatformAdministration/OrganizationProfile.vue");
 const UserRegistration = () => import("../components/Authorization/UserRegistration.vue");
 const PasswordReset = () => import("../components/Authorization/PasswordReset.vue");
-const UserRoles = () => import("../components/PlatformAdministration/UserRoles.vue");
+const UserRolesList = () => import("../components/PlatformAdministration/Roles/UserRolesList.vue");
+const RoleCreating = () => import("../components/PlatformAdministration/Roles/RoleCreating.vue")
 const OrganizationRegistration = () => import("../components/OrganizationLeader/OrgRegistration.vue")
 
 
 import {store} from "../store/mainStore.js";
 import {createRouter, createWebHistory} from "vue-router";
 import userRoles from "../components/mixins/userRoles.js";
+import orgLeaderRouter from "../components/OrganizationLeader/OrgLeaderRouter.js";
 
 
 
@@ -86,11 +88,19 @@ const mainRouter = [
       },
       {
         path : "roles",
-        component : UserRoles,
+        component : UserRolesList,
         meta : {
           requiresAuth  : true,
           minRole : userRoles.data().userRoles.organizationAdmin
-        },
+        }
+      },
+      {
+        path : "roles/create",
+        component : RoleCreating,
+        meta : {
+          requiresAuth  : true,
+          minRole : userRoles.data().userRoles.organizationAdmin
+        }
       }
     ]
   },
@@ -106,10 +116,13 @@ const mainRouter = [
     path: "/password-reset",
     component: PasswordReset
   },
+  orgLeaderRouter,
   { path : "/test", component : Test},
   {
     path: '/:pathMatch(.*)*',
     redirect: to=>{
+      console.log("Path not match redirect")
+      console.log(to)
       return {
         path : "/main"
       }
@@ -126,11 +139,13 @@ export const Router = createRouter({
 
 Router.beforeEach((to, form)=>{
   if(to.meta.requiresAuth && !store.getters.isAuth){
+    console.log("None authorize")
     return {
       path : "/main"
     }
   }
   if(to.meta.selectedRequest && !store.getters.getSelectedLocationRequest){
+    console.log("Selected request not exist")
     if(store.getters.isAuth){
       return "/main/requests";
     }

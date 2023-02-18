@@ -44,12 +44,10 @@ export default {
 	data () {
 		return {
 			isValidStyle : true,
-			value : ""
 		}
 	},
 	methods : {
 		updateInput(event){
-			this.value = event.target.value;
 			this.$emit('update:modelValue', event.target.value)
 		},
 		onFocus(){
@@ -59,26 +57,32 @@ export default {
 		onLeave(){
       //console.log("Leave")
 			let res = this.validate();
-			this.isValidStyle = this.value ? res : true;
+			this.isValidStyle = res;
     },
 		validate(){
 			let isValueValid = true;
 			switch (this.validationType){
 				case "mail":
-					isValueValid = this.isMail(this.value);
+					isValueValid = this.isMail(this.modelValue);
+					//console.log("mail validation " + isValueValid)
 					break;
 				case "name":
-					isValueValid = this.isName(this.value);
+					isValueValid = this.isName(this.modelValue);
 					break;
 				default:
-					isValueValid = this.validationFunc(this.value);
+					isValueValid = this.validationFunc(this.modelValue);
 					break;
 			}
-			/*if(isValueValid || this.value==="")
-				this.isValidStyle = true;*/
+			if(isValueValid || this.value==="")
+				this.isValidStyle = true;
 			this.$emit("validation", isValueValid);
 			return isValueValid;
 		},
+	},
+	watch : {
+		/*modelValue(){
+			this.validate();
+		}*/
 	},
 	computed : {
 		validationStyle(){
@@ -88,8 +92,5 @@ export default {
 			}
 		},
 	},
-	mounted() {
-		console.log(this.$el)
-	}
 }
 </script>

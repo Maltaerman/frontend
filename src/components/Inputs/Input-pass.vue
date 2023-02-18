@@ -18,6 +18,7 @@
 						 @focusout="OnInputFocus(false)"
 						 @input="OnValueChange"
 						 :id="inpId" :disabled="disabled"
+						 :value="value"
 			/>
 			<button class="w-[40px] h-full cursor-pointer rounded-lg px-1 absolute right-0 top-0" @click="toggleInputType">
 				<svg id="viewPass" class="block h-full w-full" viewBox="0 0 24 14" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +95,13 @@ export default {
     },
     validationMessageC(){
       return this.validationMessage ? this.validationMessage :  this.$t("validations.default");
-    }
-  }
+    },
+		value(){
+			return this.modelValue;
+		}
+  },
+	mounted() {
+		this.isValidStyle = this.validation(this.modelValue)
+	}
 }
 </script>

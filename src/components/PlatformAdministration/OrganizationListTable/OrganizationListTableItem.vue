@@ -1,23 +1,23 @@
 <template>
 
     <tr class="h-[56px] " @mouseleave="HideMenu">
-        <td class="flex max-content row pl-4 items-end pt-1">
-            <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 mr-5">
+        <td class="flex flex-nowrap max-content pl-4 items-center pt-1 gap-5">
+            <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
                 <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
                         clip-rule="evenodd"></path>
                 </svg>
             </div>
-            <div class="flex-col">
+            <div class="flex-col h-full">
                 <div class="font-semibold text-base text-gray-c-800 truncate text-ellipsis overflow-hidden">{{ organization.name }}</div>
-                <div class=" font-text-xs text-subtitle text-gray-c-600">{{ organization.place }}</div>
+                <div class="font-text-xs text-subtitle text-gray-c-600">{{ organization.address }}</div>
             </div>
 
         </td>
-        <td class="text-right pr-4">{{ organization.workers || 64 }}</td>
+        <td class="text-right pr-4">{{ organization.participants.length || -1 }}</td>
         <td class="pl-4">
-            <OrganizationListStatus :status="organization.status" />
+            <OrganizationListStatus :status="getOrganizationStatus(organization)" />
         </td>
         <td class="p-2 relative">
             <div @click.stop="ShowMenu"
@@ -46,6 +46,8 @@
 <script>
 import {mapActions} from "vuex";
 import OrganizationListStatus from "./OrganizationItemStatus.vue";
+import {ORGANIZATION_STATUSES} from "./constants.js";
+
 export default {
     name: 'OrganizationListTableItem',
     components: {
@@ -60,27 +62,28 @@ export default {
     data() {
         return {
             isMenuVisible: false,
-            organizationStatuses: {
-                ACTIVE: 'active',
-                PENDING: 'pending',
-                DISABLED: 'disabled'
-            }
         }
     }, methods: {
-        ...mapActions(["setSelectedOrganization"]),
-        ShowMenu() {
-            this.isMenuVisible = !this.isMenuVisible;
-        },
-        HideMenu() {
-            this.isMenuVisible = false;
-        },
-        goToOrgProfile(){
-			this.setSelectedOrganization(this.organization);
-			this.$router.push(`/admin/organization-profile/${this.organization.id}`);
-		},
-		removeOrg(){
-			this.$emit("remove", this.organization);
-		}
+    	...mapActions(["setSelectedOrganization"]),
+    	ShowMenu() {
+    	    this.isMenuVisible = !this.isMenuVisible;
+    	},
+    	HideMenu() {
+    	    this.isMenuVisible = false;
+    	},
+    	goToOrgProfile(){
+				this.setSelectedOrganization(this.organization);
+				this.$router.push(`/admin/organization-profile/${this.organization.id}`);
+			},
+			removeOrg(){
+				this.$emit("remove", this.organization);
+			},
+			getOrganizationStatus(org){
+				if(org.disabled)
+					return ORGANIZATION_STATUSES.DISABLED;
+				else
+					return org.activated ? ORGANIZATION_STATUSES.ACTIVE : ORGANIZATION_STATUSES.PENDING;
+			}
     },
 }
 </script>

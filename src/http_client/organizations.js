@@ -25,26 +25,38 @@ export default function (instance){
           website
       })
     },
-    editOrganization(id, name, website, description){
-      return instance.put(`/organizations/${id}/edit`, {
-        name,
-        website,
-        description
-      })
-    },
-    getOrgById(id){
-      return instance.get(`/organizations/${id}`);
+
+    //data : {
+    //    name : String
+    //    website : String
+    //    description : String
+    //    address : String
+    //    city: "string",
+    //    country: "string"
+    // }
+    editOrganization(id, data){
+      return instance.put(`/organizations/${id}/edit`, data)
     },
     sendUserInvite(organization_id, emails){
       return instance.put(`/organizations/${organization_id}/invite`,
         {emails : emails}
       )
     },
+
     removeOrganization(id){
       return instance.delete(`/organizations/${id}`);
     },
     removeOrganizationMember(organization_id, user_id){
       return instance.put(`/organizations/${organization_id}/remove?user_id=${user_id}`)
+    },
+    // orgData : {
+    //  name : string,
+    //  website : string,
+    //  address : string,
+    //  emails : [string]
+    //}
+    inviteOrganization(orgData){
+      return instance.post("/organizations/add", orgData);
     }
   }
 }

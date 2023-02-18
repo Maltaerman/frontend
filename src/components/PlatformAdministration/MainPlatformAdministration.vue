@@ -25,14 +25,14 @@
 						{{ $t('dashboard.organizations') }}
 					</template>
 				</MenuItemLink>
-<!--				<MenuItemLink to="/admin/roles">
+				<MenuItemLink to="/admin/roles">
 					<template #image>
-						<SVG_Org_List/>
+						<SVG_Default_User/>
 					</template>
 					<template #text>
 						Roles
 					</template>
-				</MenuItemLink >-->
+				</MenuItemLink >
 
 				<div class="group p-1 w-full cursor-pointer h-[58px] flex gap-4
 					items-center px-6 text-h3" @click="showSettings">
@@ -44,8 +44,9 @@
 
 			</div>
  		</div>
-		<div class="w-full h-full">
-			<router-view></router-view>
+		<div class="w-full h-full flex flex-col">
+			<router-view class="grow shrink"></router-view>
+			<Footer class="w-full grow-0 shrink-0"/>
 		</div>
 	</div>
 </template>
@@ -56,10 +57,12 @@ import RouterHelper from "../mixins/routerHelper.js";
 import MenuItemLink from "../SidebarComponents/MenuItemLink.vue";
 import SVG_Org_List from "../ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue";
 import SVG_settings from "../ComponentsSVG/SVG_settings.vue";
+import SVG_Default_User from "../ComponentsSVG/UserRolesSvg/SVG_Default_User.vue";
 export default {
 	name: "MainPlatformAdministration",
 	mixins : [RouterHelper],
 	components : {
+		SVG_Default_User,
 		SVG_settings,
 		SVG_Org_List,
 		MenuItemLink,

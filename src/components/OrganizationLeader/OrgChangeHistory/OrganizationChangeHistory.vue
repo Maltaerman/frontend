@@ -1,10 +1,10 @@
 <template>
-<div>Roles</div>
+	<div class="text-center">Org Change history</div>
 </template>
 
 <script>
 export default {
-	name: "UserRoles"
+	name: "OrganizationChangeHistory"
 }
 </script>
 

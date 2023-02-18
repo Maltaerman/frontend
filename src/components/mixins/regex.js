@@ -22,8 +22,8 @@ export default {
     },
     isName(name){
       //return this.nameRegex.test(name)
-      console.log("name " + name)
-      return name.length >= 3;
+      //console.log("name " + name)
+      return name.length >= 2;
     }
   }
 }
