@@ -8,13 +8,13 @@
 				<span>{{ $t('organizationProfile.newInvitation') }}</span>
 			</button-1>
 		</div>
-		<div class="flex row flex-wrap gap-4 justify-start">
+		<div class="flex row flex-wrap gap-4 justify-start  my-4 mb-4 " >
 			<!-- Need to be reusable becasue its gonna be used in table roles -->
-			<div class="flex flex-row justify-center overflow-visible max-h-[65px] pt-4 min-w-screen z-50">
-				<div class="flex-none p-2">
+			<div class="flex flex-row justify-center overflow-visible max-h-[42px] min-w-screen z-50">
+				<div class="flex-none">
 					<button @click="showDropdownOptions" @click.stop="isDropped = !isDropped"
-						class="flex flex-row justify-between  items-center  w-48 px-2 py-2 text-gray-700 bg-white border-1  border border-gray-c-300 rounded-md shadow focus:outline-none focus:border-blue-500">
-						<span class="select-none">All statuses</span>
+						class="flex flex-row justify-between mobile:w-full  items-center  w-48 px-2 py-2 text-gray-700 bg-white border-1  border border-gray-c-300 rounded-md shadow focus:outline-none focus:border-blue-500">
+						<span class="select-none">{{ activeStatusFilterValue }}</span>
 
 						<img src="/src/assets/dropdown-arrow.svg" class="w-3.5 h-2  transition-all duration-300" :class="{
 							'rotate-0': !isDropped,
@@ -23,14 +23,44 @@
 					</button>
 					<div id="options" class="hidden w-48 py-2 mt-2 bg-white rounded-lg shadow-xl">
 						<ul>
-							<li	v-for="role in workerRolesList"
+							<li v-for="status in statusesList" @click="selectStatusesFilter(status)"
+								@click.stop="showDropdownOptions"
+				
 								class="block px-4 py-2 text-gray-c-800 hover:text-blue-c-500 hover:bg-blue-c-100 hover:text-blue-c-500">
-							{{role}}
+								{{ status }}
 							</li>
 						</ul>
 
 					</div>
 				</div>
+			</div>
+			<div class="flex flex-wrap justify-start  min-w-screen">
+				<div class="border font-normal
+							rounded-lg outline-none text-h3
+							hover:border-blue-c-400 focus:border-blue-c-500
+							disabled:bg-gray-c-100 disabled:hover:border-gray-c-300
+							disabled:text-gray-c-500 flex overflow-hidden px-5 flex items-center min-w-[400px] mobile:min-w-full" :class="{
+								'border-blue-c-500': isInputFocused,
+								'border-gray-c-300': !isInputFocused
+							}" @focusin="OnDivFocus(true)" @focusout="OnDivFocus(false)" @click="ActivateInput">
+
+					<svg class="fill-gray-c-500" width="18" height="18" viewBox="0 0 18 18"
+						xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd" clip-rule="evenodd"
+							d="M7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14C8.57234 14 10.0236 13.4816 11.1922 12.6064L16.2929 17.7071C16.6834 18.0976 17.3166 18.0976 17.7071 17.7071C18.0976 17.3166 18.0976 16.6834 17.7071 16.2929L12.6064 11.1922C13.4816 10.0236 14 8.57234 14 7C14 3.13401 10.866 0 7 0ZM2 7C2 4.23858 4.23858 2 7 2C9.76142 2 12 4.23858 12 7C12 9.76142 9.76142 12 7 12C4.23858 12 2 9.76142 2 7Z" />
+						<path fill-rule="evenodd" clip-rule="evenodd"
+							d="M7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14C8.57234 14 10.0236 13.4816 11.1922 12.6064L16.2929 17.7071C16.6834 18.0976 17.3166 18.0976 17.7071 17.7071C18.0976 17.3166 18.0976 16.6834 17.7071 16.2929L12.6064 11.1922C13.4816 10.0236 14 8.57234 14 7C14 3.13401 10.866 0 7 0ZM2 7C2 4.23858 4.23858 2 7 2C9.76142 2 12 4.23858 12 7C12 9.76142 9.76142 12 7 12C4.23858 12 2 9.76142 2 7Z"
+							fill-opacity="0.2" />
+					</svg>
+
+
+					<input ref="inp" class="w-full outline-none px-4 py-2 bg-transparent text-h3"
+						@focusin="OnInputFocus(true)" @focusout="OnInputFocus(false)" @click.stop
+						:placeholder="$t('dashboard.organizationSearchPlaceholder')"
+						v-model="searchController.SearchedOrgName"
+						id="inpOrgSearch" />
+				</div>
+
 			</div>
 		</div>
 
@@ -47,7 +77,7 @@
 							{{ $t('organizationProfile.email') }}
 						</th>
 						<th class="table-col-head">
-							Role
+							{{ $t('organizationProfile.role') }}
 						</th>
 						<th class="px-2 py-[17px] font-semibold text-center">
 							{{ $t('organizationProfile.status') }}
@@ -60,7 +90,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="shadow-cs2" v-for="worker in organization.participants">
+					<tr class="shadow-cs2" v-for="worker in visibleParitcipantsList">
 						<td class="table-col-row-item">
 							<span v-if="worker.username">{{ worker.username }}</span>
 							<span v-else>-</span>
@@ -78,12 +108,7 @@
 								{{ GetCurrentUserStatusText(worker.email_confirmed, worker.is_active) }}
 							</button-tag>
 						</td>
-						<td>
-							<button-tag :button-state="GetCurrentUserStatusStyle(worker.email_confirmed, worker.is_active)"
-								class="hover:bg-white cursor-default mx-auto block">
-								{{ GetCurrentUserStatusText(worker.email_confirmed, worker.is_active) }}
-							</button-tag>
-						</td>
+
 						<td class="table-col-row-item">
 							<span v-if="worker.last_activity">{{ GetDateTime(worker.last_activity) }}</span>
 							<span v-else>-</span>
@@ -179,7 +204,7 @@
 	<ConfirmModal :is-visible="ConfirmModal.visible" :question="ConfirmModal.question"
 		:accept-button-func="ConfirmModal.accept" :cancel-button-func="ConfirmModal.decline"
 		:close-func="ConfirmModal.decline" :title="ConfirmModal.title" />
-<Loader v-if="isLoaderVisible" />
+	<Loader v-if="isLoaderVisible" />
 </template>
 
 <script>
@@ -224,7 +249,17 @@ export default {
 			isEditModalVisible: false,
 			isEditModalLoaderVisible: false,
 			editingOrgName: "",
-			organizationFilters: [],
+			organizationStatusFilters: [],
+			organizationParticipantsVisibleList: [],
+			defaultStatusFilterValue: 'All statuses',
+			activeStatusFilterValue: 'All statuses',
+			searchController: {
+				SearchedOrgName: "",
+				SearchedOrganizationsList: [],
+				isSearchedOrgResult: false,
+				cancelController: null
+			},
+			isInputFocused: false,
 			editingOrgSite: "",
 			invitedUsersList: [""],
 			isUserInviteModalVisible: false,
@@ -245,6 +280,18 @@ export default {
 	methods: {
 		GetOrgJoinDate() {
 			return this.GetDateString(this.organization.created_at)
+		},
+		ActivateInput() {
+			this.$refs.inp.select()
+		},
+		
+		OnInputFocus(value) {
+			this.isInputFocused = value;
+		},
+		OnDivFocus(arg) {
+			this.isInputFocused = arg;
+			if (arg)
+				this?.$refs?.inp?.focus();
 		},
 		GetCurrentUserStatusStyle(mailConf, isActive) {
 			if (mailConf && isActive)
@@ -287,8 +334,7 @@ export default {
 		},
 		showDropdownOptions() {
 			document.getElementById("options").classList.toggle("hidden");
-			// document.getElementById("arrow-up").classList.toggle("hidden");
-			// document.getElementById("arrow-down").classList.toggle("hidden");
+			// this.isDropped= !this.isDropped
 		},
 		ShowUserInviteModal() {
 			if (!this.invitedUsersList || this.invitedUsersList.length <= 0)
@@ -362,6 +408,13 @@ export default {
 					})
 				})
 		},
+		selectStatusesFilter(selectedStatus) {
+			this.activeStatusFilterValue = selectedStatus
+			this.isDropped = !this.isDropped
+		},
+		ToggleDrop(boolean) {
+			this.isDropped = !boolean
+		},
 		async removeWorker(worker) {
 			this.ConfirmModal.visible = false;
 			this.isLoaderVisible = true;
@@ -378,13 +431,20 @@ export default {
 		}
 	},
 	computed: {
-		statusesList() {
-			return [... new Set(Object.keys(ORGANIZATION_STATUSES))]
-		},
-		workerRolesList() {
-			const roles = this.organization.participants.map(participant => participant.organizationRole)
 
-			return [... new Set(roles)]
+		visibleParitcipantsList() {
+			switch (this.activeStatusFilterValue) {
+				case this.defaultStatusFilterValue:
+					return this.organization.participants
+
+				default:
+					return this.organization.participants.filter(worker => this.GetCurrentUserStatusText(worker.email_confirmed, worker.is_active) === this.activeStatusFilterValue)
+			}
+		},
+		statusesList() {
+			const roles = this.organization.participants.map(worker => this.GetCurrentUserStatusText(worker.email_confirmed, worker.is_active))
+
+			return [this.defaultStatusFilterValue, ... new Set(roles)]
 		},
 		isAddInviteButtVisible() {
 			return this.invitedUsersList.length < 5
