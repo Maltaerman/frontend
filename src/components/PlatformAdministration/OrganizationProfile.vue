@@ -8,11 +8,11 @@
 				<span>{{ $t('organizationProfile.newInvitation') }}</span>
 			</button-1>
 		</div>
-		<div class="flex row flex-wrap gap-4 justify-start  my-4 mb-4 " >
+		<div class="flex row flex-wrap gap-4 justify-start  my-4 mb-4 ">
 			<!-- Need to be reusable becasue its gonna be used in table roles -->
 			<div class="flex flex-row justify-center overflow-visible max-h-[42px] min-w-screen z-50">
-				<div class="flex-none">
-					<button @click="showDropdownOptions" @click.stop="isDropped = !isDropped"
+				<div class="flex-none" @mouseleave="ToggleDrop(false)" @focusout="ToggleDrop(false)">
+					<button @click.stop="isDropped = !isDropped"
 						class="flex flex-row justify-between mobile:w-full  items-center  w-48 px-2 py-2 text-gray-700 bg-white border-1  border border-gray-c-300 rounded-md shadow focus:outline-none focus:border-blue-500">
 						<span class="select-none">{{ activeStatusFilterValue }}</span>
 
@@ -21,28 +21,32 @@
 							'rotate-180': isDropped
 						}">
 					</button>
-					<div id="options" class="hidden w-48 py-2 mt-2 bg-white rounded-lg shadow-xl">
-						<ul>
-							<li v-for="status in statusesList" @click="selectStatusesFilter(status)"
-								@click.stop="showDropdownOptions"
-				
-								class="block px-4 py-2 text-gray-c-800 hover:text-blue-c-500 hover:bg-blue-c-100 hover:text-blue-c-500">
-								{{ status }}
-							</li>
-						</ul>
 
-					</div>
+					<ul id="options"
+						class="w-48 bg-white  rounded-lg shadow-xl  overflow-hidden cursor-pointer transition-all duration-300"
+						:class="{
+							'h-0': !isDropped,
+							'h-[206px]': isDropped
+						}">
+						<li v-for="status in statusesList" @click="selectStatusesFilter(status)"
+							@click.stop="ToggleDrop(false)" class="
+									block px-4 py-2 text-gray-c-800 hover:text-blue-c-500 hover:bg-blue-c-100 hover:text-blue-c-500">
+
+							{{ status }}
+						</li>
+					</ul>
+
 				</div>
 			</div>
 			<div class="flex flex-wrap justify-start  min-w-screen">
 				<div class="border font-normal
-							rounded-lg outline-none text-h3
-							hover:border-blue-c-400 focus:border-blue-c-500
-							disabled:bg-gray-c-100 disabled:hover:border-gray-c-300
-							disabled:text-gray-c-500 flex overflow-hidden px-5 flex items-center min-w-[400px] mobile:min-w-full" :class="{
-								'border-blue-c-500': isInputFocused,
-								'border-gray-c-300': !isInputFocused
-							}" @focusin="OnDivFocus(true)" @focusout="OnDivFocus(false)" @click="ActivateInput">
+									rounded-lg outline-none text-h3
+									hover:border-blue-c-400 focus:border-blue-c-500
+									disabled:bg-gray-c-100 disabled:hover:border-gray-c-300
+									disabled:text-gray-c-500 flex overflow-hidden px-5 flex items-center min-w-[400px] mobile:min-w-full" :class="{
+										'border-blue-c-500': isInputFocused,
+										'border-gray-c-300': !isInputFocused
+									}" @focusin="OnDivFocus(true)" @focusout="OnDivFocus(false)" @click="ActivateInput">
 
 					<svg class="fill-gray-c-500" width="18" height="18" viewBox="0 0 18 18"
 						xmlns="http://www.w3.org/2000/svg">
@@ -57,8 +61,7 @@
 					<input ref="inp" class="w-full outline-none px-4 py-2 bg-transparent text-h3"
 						@focusin="OnInputFocus(true)" @focusout="OnInputFocus(false)" @click.stop
 						:placeholder="$t('dashboard.organizationSearchPlaceholder')"
-						v-model="searchController.SearchedOrgName"
-						id="inpOrgSearch" />
+						v-model="searchController.SearchedOrgName" id="inpOrgSearch" />
 				</div>
 
 			</div>
@@ -284,7 +287,7 @@ export default {
 		ActivateInput() {
 			this.$refs.inp.select()
 		},
-		
+
 		OnInputFocus(value) {
 			this.isInputFocused = value;
 		},
@@ -332,10 +335,10 @@ export default {
 			else
 				this.$toast.info(this.$t("organizationProfile.maxInviteMess"))
 		},
-		showDropdownOptions() {
-			document.getElementById("options").classList.toggle("hidden");
-			// this.isDropped= !this.isDropped
-		},
+		// showDropdownOptions() {
+		// 	document.getElementById("options").classList.toggle("hidden");
+		// 	// this.isDropped= !this.isDropped
+		// },
 		ShowUserInviteModal() {
 			if (!this.invitedUsersList || this.invitedUsersList.length <= 0)
 				this.invitedUsersList = [""]
@@ -413,7 +416,7 @@ export default {
 			this.isDropped = !this.isDropped
 		},
 		ToggleDrop(boolean) {
-			this.isDropped = !boolean
+			this.isDropped = boolean
 		},
 		async removeWorker(worker) {
 			this.ConfirmModal.visible = false;
