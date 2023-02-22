@@ -10,34 +10,7 @@
 		</div>
 		<div class="flex row flex-wrap gap-4 justify-start  my-4 mb-4 ">
 			<!-- Need to be reusable becasue its gonna be used in table roles -->
-			<div class="flex flex-row justify-center overflow-visible max-h-[42px] min-w-screen z-50">
-				<div class="flex-none" @mouseleave="ToggleDrop(false)" @focusout="ToggleDrop(false)">
-					<button @click.stop="isDropped = !isDropped"
-						class="flex flex-row justify-between mobile:w-full  items-center  w-48 px-2 py-2 text-gray-700 bg-white border-1  border border-gray-c-300 rounded-md shadow focus:outline-none focus:border-blue-500">
-						<span class="select-none">{{ activeStatusFilterValue }}</span>
-
-						<img src="/src/assets/dropdown-arrow.svg" class="w-3.5 h-2  transition-all duration-300" :class="{
-							'rotate-0': !isDropped,
-							'rotate-180': isDropped
-						}">
-					</button>
-
-					<ul id="options"
-						class="w-48 bg-white  rounded-lg shadow-xl  overflow-hidden cursor-pointer transition-all duration-300"
-						:class="{
-							'h-0': !isDropped,
-							'h-[206px]': isDropped
-						}">
-						<li v-for="status in statusesList" @click="selectStatusesFilter(status)"
-							@click.stop="ToggleDrop(false)" class="
-									block px-4 py-2 text-gray-c-800 hover:text-blue-c-500 hover:bg-blue-c-100 hover:text-blue-c-500">
-
-							{{ status }}
-						</li>
-					</ul>
-
-				</div>
-			</div>
+			<OrganizationDropdown :statuses-list="statusesList" :active-status-filter-value="activeStatusFilterValue"  @statusFilterChange ="onStatusFilterChange"/>
 			<div class="flex flex-wrap justify-start  min-w-screen">
 				<div class="border font-normal
 									rounded-lg outline-none text-h3
@@ -228,6 +201,8 @@ import InputPass from '../Inputs/Input-pass.vue';
 import TelInput from '../Inputs/TelInput.vue';
 import InputSuggestion from '../Inputs/suggestionInput/Input-suggestion.vue';
 import { ORGANIZATION_STATUSES } from './constants';
+import OrganizationDropdown from './shared/OrganizationDropdown.vue';
+
 export default {
 	name: "OrganizationProfile",
 	components: {
@@ -243,7 +218,8 @@ export default {
 		Input1,
 		InputPass,
 		TelInput,
-		InputSuggestion
+		InputSuggestion,
+		OrganizationDropdown
 	},
 	mixins: [dateFormatter],
 	data() {
@@ -254,8 +230,8 @@ export default {
 			editingOrgName: "",
 			organizationStatusFilters: [],
 			organizationParticipantsVisibleList: [],
-			defaultStatusFilterValue: 'All statuses',
 			activeStatusFilterValue: 'All statuses',
+			defaultStatusFilterValue: 'All statuses',
 			searchController: {
 				SearchedOrgName: "",
 				SearchedOrganizationsList: [],
@@ -411,9 +387,9 @@ export default {
 					})
 				})
 		},
-		selectStatusesFilter(selectedStatus) {
+		onStatusFilterChange({selectedStatus}) {
+			console.log(selectedStatus)
 			this.activeStatusFilterValue = selectedStatus
-			this.isDropped = !this.isDropped
 		},
 		ToggleDrop(boolean) {
 			this.isDropped = boolean
