@@ -57,7 +57,11 @@
 
 						<div class="text-h3 mobile:text-h4
 							tablet:text-h4 text-gray-c-500 font-semibold">
-							Організація
+							{{ log.user.username }}
+							<span class="font-normal">
+							{{$t("general.in")}}
+						</span>
+<!--							{{ReportAddressFull(log.location)}}-->
 						</div>
 
 					</div>
@@ -96,11 +100,11 @@ export default {
 		},
 		getChangedLogs(log){
 			let result = []
-			if (!log.old_flags) {
+			if (!log.old_flags || Object.keys(log.old_flags).length<=0) {
 				Object.keys(log.new_flags).forEach(flag=>{
 					result.push({
 						flag : flag,
-						old_value : null,
+						old_value : undefined,
 						new_value : log.new_flags[flag].flag,
 						description : log.new_flags.description
 					})

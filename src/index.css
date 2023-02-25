@@ -63,12 +63,14 @@
         disabled:text-gray-c-500 w-full
     }
 
-    /*Дизайн скрола для Firefox*/
-    .overflow-y-auto{
-        overflow-y: auto;
-        scrollbar-color: rgba(73, 84, 102, 0.51) transparent;
-        scrollbar-width : thin;
-    }
+
+}
+
+/*Дизайн скрола для Firefox*/
+.overflow-y-auto-custom{
+    overflow-y: auto;
+    scrollbar-color: rgba(73, 84, 102, 0.51) transparent;
+    scrollbar-width : thin;
 }
 
 .modal-anim-enter-active,

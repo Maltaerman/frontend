@@ -8,7 +8,7 @@
 			</div>
 			<div>
 				<Button1 class="w-full h-min comp:w-min flex flex-nowrap items-center justify-center gap-2"
-				@click="editUserOrganization">
+				@click="editUserOrganization" :disabled="!isOrgSaveButtonAvailable">
 					<SVG_save class="fill-white inline-block h-[18px] w-auto"/>
 					<p>
 						{{$t("general.save")}}
@@ -20,14 +20,16 @@
 			<div class="subTitle">{{$t("userSettings.personalSettings")}}</div>
 			<div class="py-6 flex flex-col gap-6 comp:flex-row comp:justify-between">
 				<div class="grow comp:max-w-[480px]">
-					<ChangeMailNameInputs v-if="userEditUI.currentState===userEditUI.name" v-model="user"/>
-					<ChangePassInputs v-else-if="userEditUI.currentState===userEditUI.pass" v-model="userPassUpdate"/>
+					<ChangeMailNameInputs v-if="userEditUI.currentState===userEditUI.name" v-model="user"
+						@validation="setIsNameMailValid"/>
+					<ChangePassInputs v-else-if="userEditUI.currentState===userEditUI.pass" v-model="userPassUpdate"
+						@validation="setIsPassValid"/>
 					<Button2 @click="UserEditUISwitch" class="w-full comp:w-[200px] mt-6">
 						{{ userSettingsButtonText }}
 					</Button2>
 				</div>
 				<div>
-					<Button1 class="w-full h-min comp:w-min flex flex-nowrap items-center justify-center gap-2">
+					<Button1 @click="saveUserDataButtonAction" :disabled="!isUserSaveButtonAvailable" class="w-full h-min comp:w-min flex flex-nowrap items-center justify-center gap-2">
 						<SVG_save class="fill-white inline-block h-[18px] w-auto"/>
 						<p>
 							{{$t("general.save")}}
@@ -62,9 +64,11 @@ export default {
 		return {
 			organization : undefined,
 			user : undefined,
+			isNameMailValid : false,
 			userPassUpdate : {
-				password : "",
-				newPassword : ""
+				old_password : "",
+				new_password : "",
+				isAllValid : false
 			},
 			userEditUI : {
 				currentState : "name",
@@ -75,7 +79,9 @@ export default {
 	},
 	methods : {
 		...mapActions({
-			editOrganization : "EditUserOrganization"
+			editOrganization : "EditUserOrganization",
+			editUser : "EditUserData",
+			editUserPass : "updateUserPassword"
 		}),
 		UserEditUISwitch(){
 			switch (this.userEditUI.currentState) {
@@ -89,10 +95,12 @@ export default {
 					break;
 			}
 		},
-		onOgrEdit(org){
+		onOgrEdit(data){
 			this.$toast.clear();
-			console.log(org)
-			this.$toast.success("Org name is " + org.name)
+			if(data instanceof Error)
+				this.$toast.error(this.$t("OrganizationSettings.OrgEditError"))
+			else
+				this.$toast.success(this.$t("OrganizationSettings.OrgEditSuccess"))
 		},
 		editUserOrganization(){
 			let payload ={
@@ -100,6 +108,71 @@ export default {
 				name : this.organization.name
 			}
 			this.editOrganization(payload);
+		},
+		setIsPassValid(value){
+			this.userPassUpdate.isAllValid=value;
+		},
+		setIsNameMailValid(value){
+			let isNameChanged = this.userData.username !== this.user.username;
+			let isMailChanged = this.userData.email !== this.user.email;
+			this.isNameMailValid = (isNameChanged || isMailChanged) && value;
+		},
+		updateUserData(){
+			if(!this.isNameMailValid)
+				return;
+			this.$toast.wait(this.$t("userSettings.inProcess"));
+			let payload = {}
+			//if(this.userData.username !== this.user.username)
+				payload["username"] = this.user.username;
+			//if(this.userData.email !== this.user.email)
+				payload["email"] = this.user.email;
+				payload["full_name"] = "";
+			console.log(payload)
+			this.editUser(payload);
+		},
+		onUserDataUpdate(data){
+			this.$toast.clear();
+			if(data instanceof Error){
+				this.$toast.error(this.$t("userSettings.userDataUpdatedErrorMess"));
+				return;
+			}
+			else {
+				this.user = {...this.userData}
+				this.$toast.success(this.$t("userSettings.userDataUpdatedSuccessMess"))
+			}
+		},
+		updatesUserPass(){
+			this.$toast.wait(this.$t("userSettings.inProcess"));
+			let payload = {
+				old_password : this.userPassUpdate.old_password,
+				new_password : this.userPassUpdate.new_password
+			}
+			this.editUserPass(payload);
+		},
+		onUserPassUpdate(data){
+			this.$toast.clear(data)
+			if(data instanceof Error){
+				this.$toast.error(this.$t("userSettings.userDataUpdatedErrorMess"));
+				return;
+			}
+			else {
+				this.user = {...this.userData}
+				this.userPassUpdate.new_password = "";
+				this.userPassUpdate.old_password = "";
+				this.$toast.success(this.$t("userSettings.userDataUpdatedSuccessMess"))
+			}
+		},
+		saveUserDataButtonAction(){
+			switch (this.userEditUI.currentState) {
+				case this.userEditUI.name:
+					this.updateUserData()
+					break;
+				case this.userEditUI.pass:
+					this.updatesUserPass()
+					break
+				default:
+					break;
+			}
 		}
 	},
 	computed : {
@@ -120,20 +193,54 @@ export default {
 					break;
 			}
 			return text;
-		}
+		},
+		isUserSaveButtonAvailable(){
+			let res = false;
+			switch (this.userEditUI.currentState) {
+				case this.userEditUI.name:
+					res = this.isNameMailValid
+					break;
+				case this.userEditUI.pass:
+				res = this.userPassUpdate.isAllValid;
+					break
+				default:
+					break;
+			}
+			return res;
+		},
+		isOrgSaveButtonAvailable(){
+			if(!this.userOrganization)
+				return false;
+			let isChanged=[
+				this.organization.name !== this.userOrganization.name,
+				this.organization.website !== this.userOrganization.website,
+				this.organization.description !== this.userOrganization.description,
+				this.organization.address !== this.userOrganization.address,
+				this.organization.logo !== this.userOrganization.logo
+			]
+			return isChanged.some(x=>x==true);
+		},
+
 	},
 	watch : {
 		userOrganization(newVal){
-			this.organization = {...newVal}
+			if(newVal)
+				this.organization = {...newVal};
+			else
+				this.organization = {}
 		}
 	},
 	beforeMount() {
 		this.organization = {...this.userOrganization};
 		this.user = {...this.userData}
 		StoreEvents.subscribe(StoreEvents.events.onUserOrganizationUpdate, this.onOgrEdit);
+		StoreEvents.subscribe(StoreEvents.events.onUserDataUpdate, this.onUserDataUpdate)
+		StoreEvents.subscribe(StoreEvents.events.onUserPasswordUpdate, this.onUserPassUpdate)
 	},
 	beforeUnmount() {
 		StoreEvents.unsubscribe(StoreEvents.events.onUserOrganizationUpdate, this.onOgrEdit);
+		StoreEvents.unsubscribe(StoreEvents.events.onUserDataUpdate, this.onUserDataUpdate)
+		StoreEvents.unsubscribe(StoreEvents.events.onUserPasswordUpdate, this.onUserPassUpdate)
 	}
 }
 </script>
@@ -141,3 +248,6 @@ export default {
 <style scoped>
 
 </style>
+
+<!--
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzc3Nzk1NDksInN1YiI6Imtvc2h5QGdtYWlsLmNvbSIsInNjb3BlcyI6WyJ1c2Vyczpjb25maXJtIl19.MKxf5tRdZ8gcihMnGNXt8A6TZ6KtnUI-zUgmXTuAi9s-->

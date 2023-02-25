@@ -90,11 +90,16 @@ export default {
 	},
 	computed :{
 		DescSymbolLimStr(){
-			return `${this.modelValue.description.length}/${this.descSymbolLim} ${this.$t("general.symbols")}`
+			if(!this.modelValue || !this.modelValue.description)
+				return `0/${this.descSymbolLim} ${this.$t("general.symbols")}`
+			else
+				return `${this.modelValue.description.length}/${this.descSymbolLim} ${this.$t("general.symbols")}`
 		},
 	},
 	watch : {
 		"modelValue.description"(newVal, oldVal){
+			if(!newVal)
+				return;
 			if(newVal.length > this.descSymbolLim) {
 				this.modelValue.description = oldVal;
 				this.$refs.orgDesc.textareaContent = oldVal;
@@ -102,6 +107,7 @@ export default {
 		},
 		"modelValue.logo"(newVal){
 			//console.log(newVal)
+
 			this.logoImgSrc = undefined;
 			if(!newVal)
 				return;

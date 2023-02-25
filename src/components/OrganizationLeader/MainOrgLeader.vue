@@ -58,7 +58,7 @@ import MenuItemLink from "../SidebarComponents/MenuItemLink.vue";
 import SVG_history from "../ComponentsSVG/MenuItemsSvg/SVG_history.vue";
 import SVG_settings from "../ComponentsSVG/SVG_settings.vue";
 import api from "../../http_client/index.js";
-import {mapActions, mapGetters} from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 import Loader from "../Loader.vue";
 
 export default {
@@ -84,12 +84,12 @@ export default {
 		}
 	},
 	methods : {
-		...mapActions({
-			updateUserOrg : "updateUserOrganizationModel"
+		...mapMutations({
+			updateUserOrg : "setUserOrganization"
 		}),
 		async GetUserOrganization(){
 			this.$toast.wait(`${this.$t("general.loading")}...`)
-			await api.organizations.getOrganizationsById(this.userOrganization.id)
+			await api.organizations.getOrganizationsById(this.getUser.organization_model.id)
 				.then(res=>{
 					this.UpdateUserOrgInStore(res.data);
 					this.$toast.clear();
@@ -105,7 +105,8 @@ export default {
 	},
 	computed : {
 		...mapGetters({
-			userOrganization : "getUserOrganization"
+			userOrganization : "getUserOrganization",
+			getUser : "getUser"
 		})
 	},
 	watch : {

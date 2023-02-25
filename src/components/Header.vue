@@ -165,9 +165,6 @@
       <UserSetting :is-setting-visible="isSettingModal" v-if="isAuth"
 				@close="closeModal"/>
 <!--			#endregion -->
-			<router-link to="/organization-registration">
-				Org test
-			</router-link>
 		</header>
 </template>
 
@@ -223,9 +220,9 @@ export default {
 			this.$emit("settingClose", false);
 		},
 		LogOutUser(){
-			this.logOut();
-			this.isMenuVisibleOnMobile = false;
 			this.$router.push("/")
+			this.isMenuVisibleOnMobile = false;
+			this.logOut();
 		},
 		goToMain(){
 			this.isMenuVisibleOnMobile = false;

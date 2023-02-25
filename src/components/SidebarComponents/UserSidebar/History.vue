@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <Loader v-if="isLoader"/>
-		<HistoryItem v-for="logItem in sortedChangedLogs" :logs="logItem"   :key="`historyItem${logItem[0].id}`"/>
+		<HistoryItem v-for="logItem in sortedChangedLogs" :logs="logItem" :key="`historyItem${logItem[0].id}`"/>
   </div>
 </template>
 

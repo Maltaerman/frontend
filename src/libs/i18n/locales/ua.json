@@ -127,6 +127,7 @@
     "change-password": "Змінити пароль...",
     "password": "Пароль",
     "new-password": "Новий пароль",
+    "inProcess" : "Триває оновлення даних",
     "userDataUpdatedSuccessMess" : "Оновлення даних успішне",
     "userDataUpdatedErrorMess" : "Помилка оновлення даних",
     "personalSettings" : "Персональні налаштування"
@@ -214,7 +215,8 @@
     "finish" : "Завершити",
     "email" : "E-mail",
     "emails" : "E-mails",
-    "loading" : "Завантаження"
+    "loading" : "Завантаження",
+    "in" : "в"
   },
   "tooltips": {
     "water": "Вода",
@@ -282,5 +284,16 @@
     "CreateRole" : "Створити роль",
     "Title" : "Назва",
     "Permissions" : "Дозволи"
+  },
+  "OrganizationSettings": {
+    "OrgEditSuccess" : "Дані організації успішно оновлено.",
+    "OrgEditError" : "Не вдалося оновити дані організації."
+  },
+  "OrganizationChangeLog" : {
+    "title" : "Історія змін",
+    "searchPlaceholder" : "Шукайте за іменем або адресою...",
+    "worker" : "Працівник",
+    "hideRecord" : "Приховати",
+    "showRecord" : "Показати"
   }
 }

@@ -19,7 +19,7 @@ function CookieUpdateFilter(mutation){
   let triggerMutation=[
     "setLoggedUserInfo",
     "setLoggedUserCredentials",
-    "setUserOrganization",
+    //"setUserOrganization",
     "setLocalization"
   ]
   return triggerMutation.includes(mutation.type);
@@ -112,7 +112,7 @@ export const storePrototype = {
     async getSelectedDataHistory(context){
       if(!context.state.selectedMarkerData)
         return;
-      await api.locations.getLocationChangeLog(context.state.selectedMarkerData.id)
+      await api.changelogs.getLocationChangeLog(context.state.selectedMarkerData.id)
         .then((response) => {
           console.log(response.data)
           context.commit('setSelectedMarkerHistory', response.data);

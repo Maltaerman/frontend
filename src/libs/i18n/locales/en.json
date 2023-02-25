@@ -128,6 +128,7 @@
     "change-password": "Change password...",
     "password": "Password",
     "new-password": "New password",
+    "inProcess" : "Data update is in progress",
     "userDataUpdatedSuccessMess" : "Data update successful",
     "userDataUpdatedErrorMess" : "Error updating data",
     "personalSettings" : "Personal settings"
@@ -214,7 +215,8 @@
     "finish" : "Finish",
     "email" : "E-mail",
     "emails" : "E-mails",
-    "loading" : "Loading"
+    "loading" : "Loading",
+    "in" : "in"
   },
   "tooltips": {
     "water": "Water",
@@ -282,5 +284,16 @@
     "CreateRole" : "Create role",
     "Title" : "Title",
     "Permissions" : "Permissions"
+  },
+  "OrganizationSettings": {
+    "OrgEditSuccess" : "Organization data has been updated successfully.",
+    "OrgEditError" : "Failed to update organization data."
+  },
+  "OrganizationChangeLog" : {
+    "title" : "Change History",
+    "searchPlaceholder" : "Search name or address...",
+    "worker" : "Aid worker",
+    "hideRecord" : "Hide record",
+    "showRecord" : "Show record"
   }
 }

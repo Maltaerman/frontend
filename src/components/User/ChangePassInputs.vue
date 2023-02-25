@@ -1,11 +1,11 @@
 <template>
 	<div class="flex flex-col gap-6">
 		<InputPass inp-id="setting-pass" :placeholder="$t('userSettings.password')"
-								v-model="modelValue.password" :label="$t('userSettings.password')"
+								v-model="modelValue.old_password" :label="$t('userSettings.password')"
 							 :validation-message="$t('validations.passNotValid')"
 		/>
 		<InputPass :label="$t('userSettings.new-password')" inp-id="setting-new-pass" :placeholder="$t('userSettings.new-password')"
-								v-model="modelValue.newPassword" :validation-message="$t('validations.passNotValid')"/>
+								v-model="modelValue.new_password" :validation-message="$t('validations.passNotValid')"/>
 	</div>
 </template>
 
@@ -26,15 +26,15 @@ export default {
 	},
 	methods : {
 		Validation(){
-			this.isDataValid = this.isPass(this.modelValue.password) && this.isPass(this.modelValue.newPassword)
+			this.isDataValid = this.isPass(this.modelValue.old_password) && this.isPass(this.modelValue.new_password)
 			this.$emit("validation", this.isDataValid);
 		}
 	},
 	watch : {
-		"modelValue.password"(){
+		"modelValue.old_password"(){
 			this.Validation();
 		},
-		"modelValue.newPassword"(){
+		"modelValue.new_password"(){
 			this.Validation();
 		}
 	},

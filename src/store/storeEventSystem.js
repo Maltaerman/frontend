@@ -1,12 +1,15 @@
-class StoreEventSystem{
+//TODO event system store
+class StoreEventSystemPrototype{
   events = {
-    onUserOrganizationUpdate : "onUserOrganizationUpdate"
+    onUserOrganizationUpdate : "onUserOrganizationUpdate",
+    onUserDataUpdate : "onUserDataUpdate",
+    onUserPasswordUpdate : "onUserPassUpdate",
+    onOrganizationChangeLogUpdate : "onOrganizationChangeLogUpdate"
   }
 
   onUserOrganizationUpdate = []
 
   subscribe(event, method){
-    console.log(event, method)
     if(!this[event])
       this[event] = [];
     this[event].push(method);
@@ -27,5 +30,5 @@ class StoreEventSystem{
   }
 }
 
-const StoreEvents = new StoreEventSystem();
+const StoreEvents = new StoreEventSystemPrototype();
 export default StoreEvents;

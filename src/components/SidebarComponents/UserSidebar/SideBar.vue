@@ -1,6 +1,6 @@
 <template>
 	<div v-if="selectedMarkerData !== null"
-			 id="sideBar" class="overflow-y-auto h-full shadow-cs1 flex flex-col">
+			 id="sideBar" class="overflow-y-auto-custom h-full shadow-cs1 flex flex-col">
 	  <h1 class="px-6 font-semibold my-6 text-h1
 			mobile:text-h1-m
 			tablet:text-h1-m

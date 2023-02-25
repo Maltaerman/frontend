@@ -12,9 +12,6 @@ export default function (instance) {
         getLocationById (locationId) {
             return instance.get(`locations/location-info?location_id=${locationId}`)
         },
-        getLocationChangeLog (locationId) {
-            return instance.get(`locations/changelogs?location_id=${locationId}`)
-        },
         getReportsRequests (payload) {
             return instance.get("locations/location-requests",{params : payload})
         },

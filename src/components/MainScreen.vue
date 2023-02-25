@@ -3,9 +3,7 @@
 	<div class="flex h-[calc(100vh-62px)]
 	  	comp:h-[calc(100vh-74px)]
 	  	mobile:flex-col
-	  	tablet:flex-col
-	  	mobile:overflow-y-auto
-			tablet:overflow-y-auto">
+	  	tablet:flex-col">
 		<div class="shrink-0 comp:w-[600px] z-50 mobile:order-2 tablet:order-2">
 			<router-view></router-view>
 		</div>

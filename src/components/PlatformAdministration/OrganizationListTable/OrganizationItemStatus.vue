@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import SVG_eye_crossed from "../../ComponentsSVG/SVG_eye_crossed.vue";
+import SVG_eye_crossed from "../../ComponentsSVG/Icons/SVG_eye_crossed.vue";
 import { ORGANIZATION_STATUSES } from './constants'
 export default {
     name: 'OrganizationItemStatus',

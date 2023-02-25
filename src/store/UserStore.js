@@ -1,8 +1,6 @@
 import userRoles from "../components/mixins/userRoles.js";
 import api from "../http_client/index.js";
 import StoreEvents from "./storeEventSystem.js";
-import storeEventSystem from "./storeEventSystem.js";
-import StoreEventSystem from "./storeEventSystem.js";
 
 export default {
   state(){
@@ -21,8 +19,7 @@ export default {
       state.loggedUserCredentials = credentials;
     },
     setUserOrganization(state, organization){
-      if(state.loggedUserInfo)
-        state.loggedUserInfo.organization_model = organization
+        state.userOrganization = organization
     },
     setLocalization(state, lang){
       state.lang = lang;
@@ -41,7 +38,7 @@ export default {
       return state.loggedUserInfo;
     },
     getUserOrganization(state){
-      return state.loggedUserInfo.organization_model;
+      return state.userOrganization;
     },
     getRole(state){
       if(!state.loggedUserInfo) {
@@ -55,20 +52,20 @@ export default {
     }
   },
   actions : {
-    async GetUserOrganization(context) {
+    async GetUserOrganizationAction(context) {
       await api.organizations.getOrganizationsById(context.state.loggedUserInfo.organization_model.id)
         .then(res => {
           console.log(res)
           context.commit("setUserOrganization",
             {
-              name : res.data.name,
-              id : res.data.id,
-              website : res.data.website ?? "None",
-              email : "Here organization email",
-              created_at : (new Date(res.data.created_at)).toLocaleString()
+              name: res.data.name,
+              id: res.data.id,
+              website: res.data.website ?? "None",
+              email: "Here organization email",
+              created_at: (new Date(res.data.created_at)).toLocaleString()
             })
         })
-        .catch(err=>{
+        .catch(err => {
           console.log(err)
         })
     },
@@ -81,22 +78,53 @@ export default {
     //    city: "string",
     //    country: "string"
     // }
-    async EditUserOrganization(context, payload){
+    async EditUserOrganization(context, payload) {
       await api.organizations.editOrganization(payload.id, payload)
-        .then(res=>{
-          console.log(res);
+        .then(res => {
           context.commit("setUserOrganization", res.data);
           StoreEvents.invoke(StoreEventSystem.events.onUserOrganizationUpdate, res.data);
         })
-        .catch(err=>{
+        .catch(err => {
           console.log(err)
           StoreEvents.invoke(StoreEventSystem.events.onUserOrganizationUpdate, err);
         });
     },
+    //  payload : {
+    //    username : string,
+    //    email : string
+    //  }
+    async EditUserData(context, payload){
+      await api.user.UpdateUserData(payload)
+        .then(res=>{
+          context.commit("setLoggedUserInfo", res.data)
+          StoreEvents.invoke(StoreEventSystem.events.onUserDataUpdate, res.data);
+        })
+        .catch(err=>{
+          StoreEvents.invoke(StoreEventSystem.events.onUserDataUpdate, err);
+        })
+    },
+    async updateUserPassword(context, payload){
+      await api.user.UpdateUserPass(payload)
+        .then(res=>{
+          StoreEvents.invoke(StoreEventSystem.events.onUserPasswordUpdate, res.data);
+        })
+        .catch(err=>{
+          StoreEvents.invoke(StoreEventSystem.events.onUserPasswordUpdate, err);
+        })
+    },
+    async GetOrganizationChangeLog(context, payload){
+      await api.changelogs.getOrganizationChangeLog(payload)
+        .then(res=>{
+          StoreEvents.invoke(StoreEvents.events.onOrganizationChangeLogUpdate, res.data)
+        })
+        .catch(err=>{
+          StoreEvents.invoke(StoreEvents.events.onOrganizationChangeLogUpdate, err)
+        })
+    },
     logOut(context){
+      context.commit("setUserOrganization", null)
       context.commit("setLoggedUserInfo", null)
       context.commit("setLoggedUserCredentials", null)
-      context.commit("setUserOrganization", null)
     },
     updateUserOrganizationModel(context, org){
       context.commit("setUserOrganization", org)
