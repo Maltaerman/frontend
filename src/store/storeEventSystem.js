@@ -4,7 +4,8 @@ class StoreEventSystemPrototype{
     onUserOrganizationUpdate : "onUserOrganizationUpdate",
     onUserDataUpdate : "onUserDataUpdate",
     onUserPasswordUpdate : "onUserPassUpdate",
-    onOrganizationChangeLogUpdate : "onOrganizationChangeLogUpdate"
+    onOrganizationChangeLogUpdate : "onOrganizationChangeLogUpdate",
+    organizationRegistration : "organizationRegistration"
   }
 
   onUserOrganizationUpdate = []

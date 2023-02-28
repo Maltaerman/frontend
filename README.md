@@ -22,4 +22,5 @@ Components docs:
 https://vuejsexamples.com/resize-textarea-a-simple-textarea-resize-for-vue3/
 https://www.npmjs.com/package/vue3-simple-typeahead
 https://vue-map.netlify.app/docs/
+https://vue3datepicker.com/
 ```

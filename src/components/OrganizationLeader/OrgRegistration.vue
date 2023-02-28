@@ -78,8 +78,9 @@ import Button2 from "../Buttons/Button_2.vue";
 import Button1 from "../Buttons/Button_1.vue";
 import InputPass from "../Inputs/Input-pass.vue";
 import SVG_basket_red from "../ComponentsSVG/SVG_basket_red.vue";
-import api from "../../http_client/index.js";
 import OrgEditInputsGroup from "./Shared/OrgEditInputsGroup.vue";
+import StoreEventSystem from "../../store/storeEventSystem.js";
+import StoreEvents from "../../store/storeEventSystem.js";
 
 export default {
 	name: "OrgRegistration",
@@ -116,29 +117,39 @@ export default {
 	},
 	methods : {
 		...mapActions({
-			setUserOrg : "updateUserOrganizationModel"
+			setUserOrg : "updateUserOrganizationModel",
+			EditUserOrganization : "EditUserOrganization"
 		}),
 		async organizationRegistration(){
 			if(!this.isOrgRegistrationEnabled)
 				return;
 			let payload = {
+				id : this.getUser.organization_model.id,
 				name : this.organization.name,
 				website : this.organization.site,
 				description: this.organization.description,
 				address: this.organization.description
 			}
-			await api.organizations.editOrganization(this.getUser.organization_model.id, payload)
+			this.EditUserOrganization(payload);
+			/*await api.organizations.editOrganization(this.getUser.organization_model.id, payload)
 				.then(res=>{
 					console.log(res);
 					this.setUserOrg(res.data);
+					this.$router.push("/organization");
 				})
 				.catch(err=>{
 					console.log(err);
-			})
+			})*/
 		},
 		checkIsOrgActive(){
-			if(this.getUserOrganization.activated)
+			if(this.user && this.getUser.organization_model && this.getUser.organization_model.activated)
 				this.$router.push("/organization");
+		},
+		OnReg(data){
+			if(data instanceof Error){
+				this.$toast.error(this.$t("general.errorMessage"));
+				return;
+			}
 		}
 	},
 	computed : {
@@ -153,11 +164,15 @@ export default {
 		}
 	},
 	watch : {
-		getUserOrganization(newVal){
+		"getUser.organization_model"(newVal){
 			this.checkIsOrgActive();
 		}
 	},
+	beforeUnmount() {
+		StoreEvents.unsubscribe(StoreEventSystem.events.onUserOrganizationUpdate, this.OnReg)
+	},
 	beforeMount() {
+		StoreEvents.subscribe(StoreEventSystem.events.onUserOrganizationUpdate, this.OnReg)
 		this.checkIsOrgActive();
 		this.organization.name = this.getUser.organization_model.name
 	}

@@ -14,6 +14,9 @@ export default function changelogs(instance){
       return instance.get("changelogs/search/", {
         params: payload
       });
+    },
+    locationChangelogVisibilityToggle(id){
+      return instance.put(`changelogs/visibility/${id}`)
     }
   }
 }

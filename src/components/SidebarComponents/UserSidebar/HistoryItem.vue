@@ -61,7 +61,7 @@
 							<span class="font-normal">
 							{{$t("general.in")}}
 						</span>
-<!--							{{ReportAddressFull(log.location)}}-->
+							{{log.user.organization_model.name}}
 						</div>
 
 					</div>

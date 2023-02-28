@@ -54,14 +54,14 @@
 						</Expander>
 					</div>
 
-					<div class="text-h3 mobile:text-h4
-							tablet:text-h4 text-gray-c-500 font-semibold">
+					<router-link :to="getLocationOverviewRoute(log.location)" class="text-h3 mobile:text-h4
+							tablet:text-h4 text-gray-c-500 font-semibold cursor-pointer">
 						{{ log.user.username }}
 						<span class="font-normal">
 							{{$t("general.in")}}
 						</span>
 						{{ReportAddressFull(log.location)}}
-					</div>
+					</router-link>
 
 				</div>
 				<div class="order-2 comp:order-3">
@@ -156,6 +156,16 @@ export default {
 		},
 		toggleRecordVisibility(id){
 			this.$emit("record-visibility-toggle", id);
+		},
+		getLocationOverviewRoute(log){
+			let url = "/main/overview"
+			if(!log)
+				return url;
+			if(log.id)
+				url = `/main/overview?id=${log.id}`
+			if(log.position)
+				url += `&lat=${log.position.lat}&lng=${log.position.lng}`
+			return url;
 		}
 	}
 }

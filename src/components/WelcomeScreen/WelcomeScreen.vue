@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-nowrap flex-col justify-between h-full overflow-y-auto gap-6">
+  <div class="flex flex-nowrap flex-col justify-between h-full overflow-y-auto-custom gap-6">
     <Header class="shrink-0 grow-0"/>
     <div class="flex flex-col justify-center items-center
         w-[600px] mx-auto
@@ -50,7 +50,7 @@
         <p class="mt-2 font-normal">{{ $t('welcomeScreen.secondExample') }}</p>
       </div>-->
     </div>
-		<footer class="mt-[30px] py-6 mobile:py-5 px-4 gap-6 mobile:gap-3 flex items-center flex-wrap justify-center">
+		<footer class="py-6 mobile:py-5 px-4 gap-6 mobile:gap-3 flex items-center flex-wrap justify-center">
 			<div class="flex gap-6 flex-nowrap text-h4 text-blue-c-500 font-semibold break-words">
 				<a :href="AboutUrl" target="_blank">{{$t("footer.about")}}</a>
 				<a href="https://dimblog.wixsite.com/project-dim" target="_blank">{{$t("footer.blog")}}</a>

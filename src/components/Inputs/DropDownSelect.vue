@@ -11,7 +11,7 @@
 		</div>
 		<div class="relative">
 			<transition name="drop">
-				<ul class="drop-container overflow-y-auto-custom" v-if="isDropped">
+				<ul class="drop-container overflow-y-auto-custom z-10" v-if="isDropped">
 					<li v-for="item in options" class="drop-item" @click="SetSelectedItem(item)"
 							:class="SelectedItemClass(item)">
 						{{item.text}}
@@ -27,7 +27,7 @@ export default {
 	name: "DropDownSelect",
 	props : {
 		modelValue : Object,
-		options : Array
+		options : Array,
 	},
 	data () {
 		return {

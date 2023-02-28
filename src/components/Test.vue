@@ -1,5 +1,5 @@
 <template>
-	<div class="overflow-y-auto">
+	<div class="overflow-y-auto h-full p-6">
 		<h1 class="w-full py-2 text-2xl text-center">Welcome to test screen</h1>
 		<button-text-1 @click="Test1">
 			Test
@@ -8,21 +8,11 @@
 			ShowModal
 		</button-text-1>
 
-<!--		<div class="flex flex-nowrap p-10 gap-10 break-all">
-				<OrgEditInputsGroup v-if="modalVisible" v-model="organization" class="w-1/2"/>
-			<div class="w-1/2">
-				{{OrgStr}}
-			</div>
-		</div>-->
-
-		<div class="flex flex-nowrap p-10 gap-10 break-all">
-			<div class="w-1/2">
-			<ChangeMailNameInputs class="mb-6" v-model="userData" @validation="onValidation"/>
-			<ChangePassInputs  v-model="userData" @validation="onValidation"/>
-			</div>
-			<div class="w-1/2">
-				{{userData}}
-			</div>
+		<div>
+			<VueDatePicker locale="ua" :enable-time-picker="false"  placeholder="Date" utc auto-apply close-on-auto-apply  v-model="date" :range="true"/>
+		</div>
+		<div>
+			{{dateStr}}
 		</div>
 	</div>
 </template>
@@ -34,10 +24,12 @@ import InputSuggest from "./Inputs/suggestionInput/Input-suggestion.vue";
 import OrgEditInputsGroup from "./OrganizationLeader/Shared/OrgEditInputsGroup.vue";
 import ChangePassInputs from "./User/ChangePassInputs.vue";
 import ChangeMailNameInputs from "./User/ChangeMailNameInputs.vue";
+import VueDatePicker from "@vuepic/vue-datepicker";
 
 export default {
   name: "Test",
   components: {
+		VueDatePicker,
 		ChangeMailNameInputs,
 		ChangePassInputs,
 		OrgEditInputsGroup,
@@ -46,6 +38,7 @@ export default {
 	},
   data(){
     return {
+			date : undefined,
       mess : "Message",
 			modalVisible : false,
 			items: [
@@ -95,6 +88,16 @@ export default {
 	computed : {
 		OrgStr(){
 			return JSON.stringify(this.organization)
+		},
+		dateStr(){
+			if(!this.date)
+				return ""
+			return new Date(this.date[0]).toDateString() + "\n\r" + new Date(this.date[1]).toDateString();
+		}
+	},
+	watch : {
+		date(newVal){
+			console.log(newVal)
 		}
 	}
 }

@@ -4,7 +4,9 @@
 		<div class="h-full w-5">
 			<SVG_search class="mt-0.5 w-full h-auto fill-gray-c-500"/>
 		</div>
-		<input @focusin="OnFocus(true)" @focusout="OnFocus(false)" :placeholder="placeholder" type="text" class="outline-none w-full" v-model="modelValue">
+		<input @focusin="OnFocus(true)" @focusout="OnFocus(false)"
+					 :placeholder="placeholder" type="text" class="outline-none w-full"
+					 v-model="modelValue">
 	</label>
 </template>
 
@@ -25,6 +27,11 @@ export default {
 	methods : {
 		OnFocus(value){
 			this.isFocused = value;
+		},
+	},
+	watch : {
+		modelValue(val){
+			this.$emit("update:modelValue",val)
 		}
 	}
 }

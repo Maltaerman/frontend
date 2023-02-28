@@ -8,7 +8,7 @@ export  default {
     },
     GetPathParam(paramName){
       return this.$route.params[paramName] ?? undefined;
-    }
+    },
   },
   computed : {
     ...mapGetters({

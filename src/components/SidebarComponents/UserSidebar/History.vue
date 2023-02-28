@@ -26,6 +26,8 @@ export default {
     sortChangedLogs(){
       this.isLoader = true;
       let result = this.changeLogs.reduce((dates, log)=>{
+				if(log.hidden)
+					return dates;
         let date = log.created_at.split("T")[0];
         if(!dates[date])
           dates[date] = []

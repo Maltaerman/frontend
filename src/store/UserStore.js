@@ -23,6 +23,9 @@ export default {
     },
     setLocalization(state, lang){
       state.lang = lang;
+    },
+    setUserOrganizationModel(state, model){
+      state.loggedUserInfo.organziation_model = model
     }
   },
   getters : {
@@ -82,11 +85,17 @@ export default {
       await api.organizations.editOrganization(payload.id, payload)
         .then(res => {
           context.commit("setUserOrganization", res.data);
-          StoreEvents.invoke(StoreEventSystem.events.onUserOrganizationUpdate, res.data);
+          context.commit("setUserOrganizationModel", {
+            id : res.data.id,
+            name : res.data.name,
+            activated : res.data.activated,
+            disabled : res.data.disabled
+          })
+          StoreEvents.invoke(StoreEvents.events.onUserOrganizationUpdate, res.data);
         })
         .catch(err => {
           console.log(err)
-          StoreEvents.invoke(StoreEventSystem.events.onUserOrganizationUpdate, err);
+          StoreEvents.invoke(StoreEvents.events.onUserOrganizationUpdate, err);
         });
     },
     //  payload : {
@@ -97,19 +106,19 @@ export default {
       await api.user.UpdateUserData(payload)
         .then(res=>{
           context.commit("setLoggedUserInfo", res.data)
-          StoreEvents.invoke(StoreEventSystem.events.onUserDataUpdate, res.data);
+          StoreEvents.invoke(StoreEvents.events.onUserDataUpdate, res.data);
         })
         .catch(err=>{
-          StoreEvents.invoke(StoreEventSystem.events.onUserDataUpdate, err);
+          StoreEvents.invoke(StoreEvents.events.onUserDataUpdate, err);
         })
     },
     async updateUserPassword(context, payload){
       await api.user.UpdateUserPass(payload)
         .then(res=>{
-          StoreEvents.invoke(StoreEventSystem.events.onUserPasswordUpdate, res.data);
+          StoreEvents.invoke(StoreEvents.events.onUserPasswordUpdate, res.data);
         })
         .catch(err=>{
-          StoreEvents.invoke(StoreEventSystem.events.onUserPasswordUpdate, err);
+          StoreEvents.invoke(StoreEvents.events.onUserPasswordUpdate, err);
         })
     },
     async GetOrganizationChangeLog(context, payload){

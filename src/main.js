@@ -11,6 +11,9 @@ import ResizeTextarea from 'resize-textarea-vue3';
 import Info from "/src/components/pluginComponents/toast";
 import SimpleTypehead from "vue3-simple-typeahead";
 
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
 const app = createApp(App);
 
 //TODO адреса та номер телефону найближчого відділку поліції
@@ -32,10 +35,11 @@ app.use(VueGoogleMaps,{
 app.use(ResizeTextarea);
 app.use(Info);
 app.use(SimpleTypehead);
+
 ComponentsList.forEach(component=>{
   app.component(component.name, component);
 })
-
+app.component('VueDatePicker', VueDatePicker);
 /*
 if(window.Cypress){
   window.app = app;
