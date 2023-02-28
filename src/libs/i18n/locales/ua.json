@@ -23,6 +23,12 @@
     "settings" : "Налаштування",
     "requests" : "Запити"
   },
+  "roles": {
+    "user": "User",
+    "aidWorker": "Aid worker",
+    "organizationAdmin": "Organization adminstrator",
+    "platformAdmin": "Platform adminstrator"
+  },
   "userSideBar": {
     "choose-location": "Виберіть на карті місце, яке Вас цікавить.",
     "choose-location-button": "Виберіть адресу для запиту",

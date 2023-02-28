@@ -23,6 +23,12 @@
     "settings" : "Settings",
     "requests" : "Requests"
   },
+  "roles": {
+    "user": "User",
+    "aidWorker": "Aid worker",
+    "organizationAdmin": "Organization adminstrator",
+    "platformAdmin": "Platform adminstrator"
+  },
   "userSideBar": {
     "choose-location": "Choose a location of interest.",
     "choose-location-button": "Choose an address for request.",

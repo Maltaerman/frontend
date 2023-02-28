@@ -10,16 +10,18 @@
 		</div>
 		<div class="flex row flex-wrap gap-4 justify-start  my-4 mb-4 ">
 			<!-- Need to be reusable becasue its gonna be used in table roles -->
-			<OrganizationDropdown :statuses-list="statusesList" :active-status-filter-value="activeStatusFilterValue"  @statusFilterChange ="onStatusFilterChange"/>
+			<OrganizationDropdown :statuses-list="statusesList" :active-filter-value="activeStatusFilterValue"
+				@filterChange="onStatusFilterChange" />
 			<div class="flex flex-wrap justify-start  min-w-screen">
 				<div class="border font-normal
-									rounded-lg outline-none text-h3
-									hover:border-blue-c-400 focus:border-blue-c-500
-									disabled:bg-gray-c-100 disabled:hover:border-gray-c-300
-									disabled:text-gray-c-500 flex overflow-hidden px-5 flex items-center min-w-[400px] mobile:min-w-full" :class="{
-										'border-blue-c-500': isInputFocused,
-										'border-gray-c-300': !isInputFocused
-									}" @focusin="OnDivFocus(true)" @focusout="OnDivFocus(false)" @click="ActivateInput">
+													rounded-lg outline-none text-h3
+													hover:border-blue-c-400 focus:border-blue-c-500
+													disabled:bg-gray-c-100 disabled:hover:border-gray-c-300
+													disabled:text-gray-c-500 flex overflow-hidden px-5 flex items-center min-w-[400px] mobile:min-w-full"
+					:class="{
+						'border-blue-c-500': isInputFocused,
+						'border-gray-c-300': !isInputFocused
+					}" @focusin="OnDivFocus(true)" @focusout="OnDivFocus(false)" @click="ActivateInput">
 
 					<svg class="fill-gray-c-500" width="18" height="18" viewBox="0 0 18 18"
 						xmlns="http://www.w3.org/2000/svg">
@@ -33,8 +35,8 @@
 
 					<input ref="inp" class="w-full outline-none px-4 py-2 bg-transparent text-h3"
 						@focusin="OnInputFocus(true)" @focusout="OnInputFocus(false)" @click.stop
-						:placeholder="$t('dashboard.organizationSearchPlaceholder')"
-						v-model="searchController.SearchedOrgName" id="inpOrgSearch" />
+						:placeholder="$t('dashboard.organizationSearchPlaceholder')" v-model="searchedParticipantValue"
+						id="inpOrgSearch" />
 				</div>
 
 			</div>
@@ -42,20 +44,20 @@
 
 
 		<!-- Table of organizations -->
-		<div class="mt-4 overflow-x-auto" v-if="organization.participants.length > 0">
-			<table class="w-full mobile:w-[720px]">
+		<div class="mt-4  mobile:w-auto overflow-x-scroll" v-if="organization.participants.length > 0">
+			<table class="table-auto w-full  min-w-[699px]">
 				<thead>
-					<tr class="bg-gray-c-100 text-gray-c-400 text-h3">
-						<th class="table-col-head">
+					<tr class="bg-gray-c-100 text-gray-c-400 text-h3 h-[58px]">
+						<th class="w-12 table-col-head">
+							No
+						</th>
+						<th class="w-1/5 table-col-head">
 							{{ $t('organizationProfile.name') }}
 						</th>
-						<th class="table-col-head">
-							{{ $t('organizationProfile.email') }}
-						</th>
-						<th class="table-col-head">
+						<th class="w-1/5 table-col-head">
 							{{ $t('organizationProfile.role') }}
 						</th>
-						<th class="px-2 py-[17px] font-semibold text-center">
+						<th class="w-32 px-4 py-[17px] font-semibold text-center">
 							{{ $t('organizationProfile.status') }}
 						</th>
 						<th class="table-col-head">
@@ -66,16 +68,20 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="shadow-cs2" v-for="worker in visibleParitcipantsList">
+					<tr class="shadow-cs2 h-[58px]" v-for="worker in visibleParitcipantsList">
+						<td class="table-col-row-item">{{ worker.id + 1 }}</td>
 						<td class="table-col-row-item">
-							<span v-if="worker.username">{{ worker.username }}</span>
-							<span v-else>-</span>
+							<!-- <span v-if="worker.username">{{ worker.username }}</span>
+							
+							<span v-else>-</span> -->
+							<div class="font-semibold text-base text-gray-c-800 truncate text-ellipsis overflow-hidden">{{
+								worker.username }}</div>
+							<div class=" font-text-xs text-subtitle text-gray-c-600">{{ worker.email }}</div>
 						</td>
+
 						<td class="table-col-row-item">
-							<span>{{ worker.email || '-' }}</span>
-						</td>
-						<td class="table-col-row-item">
-							<span>{{ worker.organizationRole }}</span>
+							<OrganizationDropdown :is-table-view="true" :statuses-list="rolesList"
+								:active-filter-value="worker.organizationRole" @filterChange="onWorkerRoleChange(worker)" />
 
 						</td>
 						<td>
@@ -202,6 +208,7 @@ import TelInput from '../Inputs/TelInput.vue';
 import InputSuggestion from '../Inputs/suggestionInput/Input-suggestion.vue';
 import { ORGANIZATION_STATUSES } from './constants';
 import OrganizationDropdown from './shared/OrganizationDropdown.vue';
+import userRoles from '../mixins/userRoles';
 
 export default {
 	name: "OrganizationProfile",
@@ -221,7 +228,7 @@ export default {
 		InputSuggestion,
 		OrganizationDropdown
 	},
-	mixins: [dateFormatter],
+	mixins: [dateFormatter, userRoles],
 	data() {
 		return {
 			organization: null,
@@ -232,12 +239,13 @@ export default {
 			organizationParticipantsVisibleList: [],
 			activeStatusFilterValue: 'All statuses',
 			defaultStatusFilterValue: 'All statuses',
-			searchController: {
-				SearchedOrgName: "",
-				SearchedOrganizationsList: [],
-				isSearchedOrgResult: false,
-				cancelController: null
-			},
+			searchedParticipantValue: "",
+			// searchController: {
+			// 	SearchedOrgName: "",
+			// 	SearchedOrganizationsList: [],
+			// 	isSearchedOrgResult: false,
+			// 	cancelController: null
+			// },
 			isInputFocused: false,
 			editingOrgSite: "",
 			invitedUsersList: [""],
@@ -387,7 +395,7 @@ export default {
 					})
 				})
 		},
-		onStatusFilterChange({selectedStatus}) {
+		onStatusFilterChange({ selectedStatus }) {
 			console.log(selectedStatus)
 			this.activeStatusFilterValue = selectedStatus
 		},
@@ -407,23 +415,38 @@ export default {
 					this.isLoaderVisible = false;
 					this.$toast.error(this.$t("organizationProfile.userRemovedError", { userName: worker.username }))
 				})
+		},
+		filterParticipants(participants) {
+			const filteredParticipants = participants.filter(worker => this.GetCurrentUserStatusText(worker.email_confirmed, worker.is_active) === this.activeStatusFilterValue)
+			return filteredParticipants
+		},
+		searchParticipants(participants) {
+			const searchedParticipants = participants.filter(({ username, email, full_name }) => {
+				const valuesToSearchIn = Object.values({ username, email, full_name })
+				return valuesToSearchIn.find(value => value.toLowerCase().includes(this.searchedParticipantValue.toLowerCase()))
+			})
+
+			return searchedParticipants
 		}
 	},
 	computed: {
 
 		visibleParitcipantsList() {
-			switch (this.activeStatusFilterValue) {
-				case this.defaultStatusFilterValue:
-					return this.organization.participants
-
+			console.log(this.organization.participants)
+			const {searchParticipants, filterParticipants, organization, activeStatusFilterValue, defaultStatusFilterValue } = this
+			switch (activeStatusFilterValue) {
+				case defaultStatusFilterValue:
+					return searchParticipants(organization.participants)
 				default:
-					return this.organization.participants.filter(worker => this.GetCurrentUserStatusText(worker.email_confirmed, worker.is_active) === this.activeStatusFilterValue)
+					return searchParticipants(filterParticipants(organization.participants))
 			}
 		},
+		rolesList() {
+			return Object.keys(this.userRoles)
+		},
 		statusesList() {
-			const roles = this.organization.participants.map(worker => this.GetCurrentUserStatusText(worker.email_confirmed, worker.is_active))
-
-			return [this.defaultStatusFilterValue, ... new Set(roles)]
+			const statuses = this.organization.participants.map(worker => this.GetCurrentUserStatusText(worker.email_confirmed, worker.is_active))
+			return [this.defaultStatusFilterValue, ... new Set(statuses)]
 		},
 		isAddInviteButtVisible() {
 			return this.invitedUsersList.length < 5
