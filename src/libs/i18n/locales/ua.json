@@ -97,10 +97,12 @@
     "address" : "Адреса"
   },
   "organizationProfile": {
+    "addEmployee": "Запросити працівника",
+    "aidWorkers": "Працівники гуманітарних організацій",
     "organization": "Організація",
     "creationDate": "Долучилися:",
     "employees": "Працівники",
-    "addEmployee": "Запросити працівника",
+    "newInvitation": "нове Запрошення",
     "employeeEnvelope": "Надішліть запрошення майбутнім працівникам. Вони отримають запрошення на пошту.",
     "addMore": "Додати більше",
     "sendInvite": "Відправити запрошення",

@@ -250,7 +250,7 @@ export default {
 			return this.getUser.username
 		},
 		userOrganization(){
-			return this.getUser.organization_model.name
+			return this.getUser.organization_model?.name
 		},
 		isDashboardPage(){
 
