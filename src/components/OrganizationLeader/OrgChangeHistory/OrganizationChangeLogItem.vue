@@ -66,13 +66,16 @@
 				</div>
 				<div class="order-2 comp:order-3">
 					<button class="group hide-button" @click="toggleRecordVisibility(log.id)">
-
-						<SVG_eye v-if="log.hidden" class="hide-button-svg"/>
+						<div class="relative">
+							<div class="w-0.5 bg-blue-c-500 h-full"></div>
+							<SVG_eye class="hide-button-svg"/>
+						</div>
+<!--						<SVG_eye v-if="log.hidden" class="hide-button-svg"/>-->
 						<div v-if="log.hidden" class="whitespace-nowrap hidden comp:block">
 							{{$t("OrganizationChangeLog.showRecord")}}
 						</div>
 
-						<SVG_eye_crossed v-if="!log.hidden" class="hide-button-svg"/>
+<!--						<SVG_eye_crossed v-if="!log.hidden" class="hide-button-svg"/>-->
 						<div v-if="!log.hidden" class="whitespace-nowrap hidden comp:block">
 							{{$t("OrganizationChangeLog.hideRecord")}}
 						</div>

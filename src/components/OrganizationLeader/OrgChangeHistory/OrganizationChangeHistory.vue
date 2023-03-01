@@ -9,10 +9,11 @@
 			<drop-down-select class="w-full comp:max-w-[320px] shrink grow"
 												v-model="selectedAidWorker"
 												:options="aidWorkerDropSuggestion"/>
-			<VueDatePicker locale="ua" :enable-time-picker="false"  placeholder="Date"
+			<VueDatePicker :locale="$i18n.locale" :enable-time-picker="false"  placeholder="Date"
 										 auto-apply close-on-auto-apply :range="true" class="w-full min-w-[260px] text-h3"
 											v-model="dateInterval"
 										 :max-date="new Date()"
+										 input-class-name="date-input-org-change-history"
 			/>
 		</div>
 		<div class="mb-6 flex justify-end">
@@ -54,6 +55,7 @@ export default {
 	},
 	methods : {
 		...mapActions({
+			//dates in seconds
 			GetOrganizationChangeLog : "GetOrganizationChangeLog"
 		}),
 		updateWorkerSuggestion(){
@@ -153,6 +155,11 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+.date-input-org-change-history{
+	height: 100%;
+}
+.dp__input_wrap{
+	height: 44px;
+}
 </style>

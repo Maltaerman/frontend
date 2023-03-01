@@ -126,20 +126,11 @@ export default {
 			let payload = {
 				id : this.getUser.organization_model.id,
 				name : this.organization.name,
-				website : this.organization.site,
+				website : this.organization.website,
 				description: this.organization.description,
-				address: this.organization.description
+				address: this.organization.address
 			}
 			this.EditUserOrganization(payload);
-			/*await api.organizations.editOrganization(this.getUser.organization_model.id, payload)
-				.then(res=>{
-					console.log(res);
-					this.setUserOrg(res.data);
-					this.$router.push("/organization");
-				})
-				.catch(err=>{
-					console.log(err);
-			})*/
 		},
 		checkIsOrgActive(){
 			if(this.user && this.getUser.organization_model && this.getUser.organization_model.activated)

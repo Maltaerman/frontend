@@ -50,6 +50,7 @@ import ChangeMailNameInputs from "../../User/ChangeMailNameInputs.vue";
 import ChangePassInputs from "../../User/ChangePassInputs.vue";
 import Button2 from "../../Buttons/Button_2.vue";
 import StoreEvents from "../../../store/storeEventSystem.js";
+import {popScopeId} from "vue";
 export default {
 	name: "OrganizationSettings",
 	components: {
@@ -107,6 +108,16 @@ export default {
 				id : this.organization.id,
 				name : this.organization.name
 			}
+			if(this.organization.name !== this.userOrganization.name)
+				payload["name"] = this.organization.name;
+			if(this.organization.website !== this.userOrganization.website)
+				payload["website"] = this.organization.website;
+			if(this.organization.description !== this.userOrganization.description)
+				payload["description"] = this.organization.description;
+			if(this.organization.address !== this.userOrganization.address)
+				payload["address"] = this.organization.address;
+			if(this.organization.logo !== this.userOrganization.logo)
+				payload["logo"] = this.organization.logo;
 			this.editOrganization(payload);
 		},
 		setIsPassValid(value){
