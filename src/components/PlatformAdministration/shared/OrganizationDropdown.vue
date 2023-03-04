@@ -27,7 +27,7 @@
 				<li v-for="filter in filterList" @click="selectFilter(filter)" @click.stop="ToggleDrop(false)"
 					class="block px-4 py-2 text-gray-c-800 hover:text-blue-c-500 hover:bg-blue-c-100 hover:text-blue-c-500">
 					<img v-if="isTableView" class="inline-block w-5 h-5 mb-0.5 mr-1.5 text-gray-c-800" :src=getUserRoleIcon(filter) alt="">
-					{{ filter }}
+					{{ filter.text }}
 				</li>
 			</ul>
 
@@ -76,7 +76,7 @@ export default {
 		},
 		selectFilter(selectedFilter) {
 			this.isDropped = !this.isDropped
-			this.$emit('filterChange', { selectedFilter })
+			this.$emit('filterChange',  selectedFilter )
 		},
 	},
 
