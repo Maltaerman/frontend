@@ -26,8 +26,8 @@
   "roles": {
     "user": "User",
     "aidWorker": "Aid worker",
-    "organizationAdmin": "Organization adminstrator",
-    "platformAdmin": "Platform adminstrator"
+    "organizationAdmin": "Organization leader",
+    "platformAdmin": "Platform administrator"
   },
   "userSideBar": {
     "choose-location": "Choose a location of interest.",
@@ -201,6 +201,7 @@
     "pending": "Pending",
     "error": "Error",
     "user": "User",
+    "all": "All Statuses",
     "deleteSuccess": "was successfully deleted",
     "deleteError": "There was an error deleting",
     "exists": "exists",

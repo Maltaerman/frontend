@@ -1,14 +1,12 @@
 <template>
 	<div class="max-h-[42px] min-w-screen">
 		<div class="flex-none" @mouseleave="ToggleDrop(false)" @focusout="ToggleDrop(false)">
-			<button @click.stop="isDropped = !isDropped"
-				class="flex flex-row justify-between  w-[168px] h-[42px] mobile:w-full  items-center  w-48 px-2 text-gray-700 bg-white border-1  
+			<button @click.stop="isDropped = !isDropped" class="flex flex-row justify-between  w-[168px] h-[42px] mobile:w-full  items-center  w-48 px-2 text-gray-700 bg-white border-1  
 				
-				border border-gray-c-300 rounded-md shadow focus:outline-none focus:border-blue-500"
-				:class="{
-					'tableView': isTableView}"
-				>
-			
+						border border-gray-c-300 rounded-md shadow focus:outline-none focus:border-blue-500" :class="{
+							'tableView': isTableView
+						}">
+
 				<span class="select-none">{{ activeFilterValue }}</span>
 
 				<img src="/src/assets/dropdown-arrow.svg" class="w-3.5 h-2   transition-all duration-300" :class="{
@@ -18,19 +16,18 @@
 			</button>
 
 			<ul id="options"
-				class="w-48 bg-white  absolute rounded-lg shadow-xl fixed  w-[278px] overflow-hidden cursor-pointer transition-all duration-300"
+				class="w-48 bg-white  absolute rounded-lg shadow-xl fixed  ] overflow-hidden cursor-pointer transition-all duration-300"
 				:class="{
 					'h-0': !isDropped,
 					'h-[206px]': isDropped & !isTableView,
-					'tableView': isTableView,
+					'tableView w-[278px': isTableView,
 					'h-[166px]': isDropped & isTableView
-					
-				}">
-				<li v-for="status in statusesList" @click="selectStatusesFilter(status)" @click.stop="ToggleDrop(false)"
-					class="
-										block px-4 py-2 text-gray-c-800 hover:text-blue-c-500 hover:bg-blue-c-100 hover:text-blue-c-500">
 
-					{{ status }}
+				}">
+				<li v-for="filter in filterList" @click="selectFilter(filter)" @click.stop="ToggleDrop(false)"
+					class="block px-4 py-2 text-gray-c-800 hover:text-blue-c-500 hover:bg-blue-c-100 hover:text-blue-c-500">
+					<img v-if="isTableView" class="inline-block w-5 h-5 mb-0.5 mr-1.5 text-gray-c-800" :src=getUserRoleIcon(filter) alt="">
+					{{ filter }}
 				</li>
 			</ul>
 
@@ -39,10 +36,13 @@
 </template>
 
 <script>
+import userRoles from '../../mixins/userRoles'
+import OrgLeaderIcon from '../../../assets/Org-leader.svg?url'
+import User from '../../../assets/User.svg?url'
 export default {
 	name: 'OrganizationDropdown',
 	props: {
-		statusesList: {
+		filterList: {
 			type: Array,
 
 		},
@@ -54,19 +54,29 @@ export default {
 			default: false
 		}
 	},
+	mixins: [userRoles],
 	data() {
 		return {
 			isDropped: false,
-
 		}
 	},
 	methods: {
+		 getUserRoleIcon(role){
+
+			const mappedRole = this.mapRoleDisplayTextToValue(role)
+			switch (mappedRole) {
+				case this.rolesDisplayText["Organization leader"]:
+					return OrgLeaderIcon
+				default:
+					return User
+			}
+		},
 		ToggleDrop(boolean) {
 			this.isDropped = boolean
 		},
-		selectStatusesFilter(selectedStatus) {
+		selectFilter(selectedFilter) {
 			this.isDropped = !this.isDropped
-			this.$emit('filterChange', { selectedStatus })
+			this.$emit('filterChange', { selectedFilter })
 		},
 	},
 
@@ -74,8 +84,7 @@ export default {
 </script>
 
 <style>
-
-.tableView{
+.tableView {
 	width: 300px;
 }
 </style>
