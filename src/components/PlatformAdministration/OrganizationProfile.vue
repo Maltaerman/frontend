@@ -10,14 +10,14 @@
 		</div>
 		<div class="flex row flex-wrap gap-4 justify-start  my-4 mb-4 ">
 			<!-- Need to be reusable becasue its gonna be used in table roles -->
-			<OrganizationDropdown :filter-list="statusesList"
-				:active-filter-value="activeStatusFilterValue.text" @filterChange="onStatusFilterChange" />
+			<OrganizationDropdown :filter-list="statusesList" :active-filter-value="activeStatusFilterValue.text"
+				@filterChange="onStatusFilterChange" />
 			<div class="flex flex-wrap justify-start  min-w-screen">
 				<div class="border font-normal
-																	rounded-lg outline-none text-h3
-																	hover:border-blue-c-400 focus:border-blue-c-500
-																	disabled:bg-gray-c-100 disabled:hover:border-gray-c-300
-																	disabled:text-gray-c-500 flex overflow-hidden px-5 flex items-center min-w-[400px] mobile:min-w-full"
+							rounded-lg outline-none text-h3
+							hover:border-blue-c-400 focus:border-blue-c-500
+							disabled:bg-gray-c-100 disabled:hover:border-gray-c-300
+							disabled:text-gray-c-500 flex overflow-hidden px-5 flex items-center min-w-[400px] mobile:min-w-full"
 					:class="{
 						'border-blue-c-500': isInputFocused,
 						'border-gray-c-300': !isInputFocused
@@ -238,8 +238,8 @@ export default {
 			editingOrgName: "",
 			organizationStatusFilters: [],
 			organizationParticipantsVisibleList: [],
-			activeStatusFilterValue:  { value:"all", text: this.$t(`general.all`) },
-			defaultStatusFilterValue: { value:"all", text: this.$t(`general.all`) },
+			activeStatusFilterValue: { value: "all", text: this.$t(`general.all`) },
+			defaultStatusFilterValue: { value: "all", text: this.$t(`general.all`) },
 			searchedParticipantValue: "",
 			isInputFocused: false,
 			editingOrgSite: "",
@@ -395,16 +395,15 @@ export default {
 					})
 				})
 		},
-		onStatusFilterChange( selectedFilter ) {
-			console.log(selectedFilter)
-
+		onStatusFilterChange(selectedFilter) {
 			this.activeStatusFilterValue = selectedFilter
 			this.updateParticipantsVisibleList()
 		},
-		onWorkerRoleChange({ selectedFilter: newRole }, workerData) {
+		onWorkerRoleChange(selectedFilter, workerData) {
+			const { value: newRole } = selectedFilter
 			const workerId = this.organization.participants.findIndex(worker => worker.full_name === workerData.full_name)
 			const worker = this.organization.participants[workerId]
-			worker.organizationRole = this.mapRoleDisplayTextToValue(newRole)
+			worker.organizationRole = newRole
 			this.organization.participants.splice(workerId, 1, worker)
 			this.updateParticipantsVisibleList()
 			console.log('TODO integrate it with api endpoint')
@@ -429,7 +428,7 @@ export default {
 		},
 		filterParticipants(participants) {
 			return participants.filter(worker => this.GetCurrentUserStatus(worker.email_confirmed, worker.is_active) === this.activeStatusFilterValue.value)
-	},
+		},
 		searchParticipants(participants) {
 			const searchedParticipants = participants.filter(({ username, email, full_name }) => {
 				const valuesToSearchIn = Object.values({ username, email, full_name })
@@ -451,14 +450,14 @@ export default {
 	},
 	computed: {
 		rolesList() {
-			return Object.keys(this.userRoles).map(role => this.getRoleTextToDisplay(role))
+			return Object.keys(this.userRoles).map(role => ({ value: role, text: this.$t(`roles.${role}`) }))
 		},
 		statusesList() {
 			const { participants } = this.organization
 			const statuses = participants.map(({ email_confirmed, is_active }) => ({
 				value: this.GetCurrentUserStatus(email_confirmed, is_active),
 				text: this.GetCurrentUserStatusText(email_confirmed, is_active)
-			  })
+			})
 			)
 			return [this.defaultStatusFilterValue, ... new Set(statuses)]
 		},

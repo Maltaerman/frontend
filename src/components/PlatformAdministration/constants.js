@@ -4,3 +4,10 @@ export const ORGANIZATION_STATUSES =  {
     DISABLED: 'disabled',
     BANNED: 'banned',
 }
+
+export const PARTICIPANT_STATUSES = {
+    ACTIVE: 'active',
+    BANNED: 'banned',
+    PENDING: 'pending',
+    ERROR: 'error',
+}

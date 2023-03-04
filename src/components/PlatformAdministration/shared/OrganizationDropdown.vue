@@ -6,8 +6,8 @@
 						border border-gray-c-300 rounded-md shadow focus:outline-none focus:border-blue-500" :class="{
 							'tableView': isTableView
 						}">
-
-				<span class="select-none">{{ activeFilterValue }}</span>
+				
+				<span class="select-none"><img v-if="isTableView" class="inline-block w-4 h-4 mb-0.5 mr-1.5 text-gray-c-800" :src=getUserRoleIcon(activeFilterValue) alt="">{{ activeFilterValue }}</span>
 
 				<img src="/src/assets/dropdown-arrow.svg" class="w-3.5 h-2   transition-all duration-300" :class="{
 					'rotate-0': !isDropped,
@@ -26,7 +26,7 @@
 				}">
 				<li v-for="filter in filterList" @click="selectFilter(filter)" @click.stop="ToggleDrop(false)"
 					class="block px-4 py-2 text-gray-c-800 hover:text-blue-c-500 hover:bg-blue-c-100 hover:text-blue-c-500">
-					<img v-if="isTableView" class="inline-block w-5 h-5 mb-0.5 mr-1.5 text-gray-c-800" :src=getUserRoleIcon(filter) alt="">
+					<img v-if="isTableView" class="inline-block w-4 h-4 mb-0.5 mr-1.5 text-gray-c-800" :src=getUserRoleIcon(filter) alt="">
 					{{ filter.text }}
 				</li>
 			</ul>
