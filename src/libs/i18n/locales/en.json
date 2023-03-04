@@ -121,7 +121,8 @@
     "userRemovedError" : "Error deleting user {userName}",
     "deleteUserTitle" : "User deleting",
     "deleteUserQuestion" : "Are you sure you want to delete user {userName}?",
-    "maxInviteMess" : "No more than 5 invitations at a time"
+    "maxInviteMess" : "No more than 5 invitations at a time",
+    "role":"Role"
   },
   "userSettings": {
     "header": "Settings",

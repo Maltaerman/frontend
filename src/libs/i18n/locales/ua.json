@@ -24,10 +24,10 @@
     "requests" : "Запити"
   },
   "roles": {
-    "user": "User",
-    "aidWorker": "Aid worker",
-    "organizationAdmin": "Organization adminstrator",
-    "platformAdmin": "Platform adminstrator"
+    "user": "Користувача",
+    "aidWorker": "Працівник допомоги",
+    "organizationAdmin": "Адміністратор організації",
+    "platformAdmin": "Адміністратор платформи"
   },
   "userSideBar": {
     "choose-location": "Виберіть на карті місце, яке Вас цікавить.",
@@ -120,7 +120,8 @@
     "userRemovedError" : "Помилка видалення користувача {userName}",
     "deleteUserTitle" : "Видалення користувача",
     "deleteUserQuestion" : "Ви дійсно хочете видалити користувача {userName}?",
-    "maxInviteMess" : "Не більше 5 запрошень за раз"
+    "maxInviteMess" : "Не більше 5 запрошень за раз",
+    "role":"Роль"
   },
   "userSettings": {
     "header": "Налаштування",
@@ -200,6 +201,7 @@
     "pending": "В очікуванні",
     "error": "Помилка",
     "user": "Користувача",
+    "all": "Всі статуси",
     "deleteSuccess": "видалено успішно",
     "deleteError": "Помилка видалення",
     "exists": "вже існує",
