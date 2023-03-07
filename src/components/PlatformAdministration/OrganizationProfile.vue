@@ -17,11 +17,10 @@
 							rounded-lg outline-none text-h3
 							hover:border-blue-c-400 focus:border-blue-c-500
 							disabled:bg-gray-c-100 disabled:hover:border-gray-c-300
-							disabled:text-gray-c-500 flex overflow-hidden px-5 flex items-center min-w-[400px] mobile:min-w-full"
-					:class="{
-						'border-blue-c-500': isInputFocused,
-						'border-gray-c-300': !isInputFocused
-					}" @focusin="OnDivFocus(true)" @focusout="OnDivFocus(false)" @click="ActivateInput">
+							disabled:text-gray-c-500 flex overflow-hidden px-5 flex items-center min-w-[400px] mobile:min-w-full" :class="{
+								'border-blue-c-500': isInputFocused,
+								'border-gray-c-300': !isInputFocused
+							}" @focusin="OnDivFocus(true)" @focusout="OnDivFocus(false)" @click="ActivateInput">
 
 					<svg class="fill-gray-c-500" width="18" height="18" viewBox="0 0 18 18"
 						xmlns="http://www.w3.org/2000/svg">
@@ -81,7 +80,7 @@
 
 						<td class="table-col-row-item">
 							<OrganizationDropdown :is-table-view="true" :filter-list="rolesList"
-								:active-filter-value="getRoleTextToDisplay(worker.organizationRole)"
+								:active-filter-value="getRoleTextToDisplay(worker.role)"
 								@filterChange="onWorkerRoleChange($event, worker)" />
 
 						</td>
@@ -399,14 +398,22 @@ export default {
 			this.activeStatusFilterValue = selectedFilter
 			this.updateParticipantsVisibleList()
 		},
-		onWorkerRoleChange(selectedFilter, workerData) {
+		async onWorkerRoleChange(selectedFilter, workerData) {
 			const { value: newRole } = selectedFilter
 			const workerId = this.organization.participants.findIndex(worker => worker.full_name === workerData.full_name)
 			const worker = this.organization.participants[workerId]
-			worker.organizationRole = newRole
-			this.organization.participants.splice(workerId, 1, worker)
+			worker.role = newRole
+			await api.user.changeRole(worker).then((res) => {
+				console.log(res)
+				const updatedWorkerData = res.data;
+				this.organization.participants.splice(workerId, 1, updatedWorkerData)
+			}).catch(err => {
+				this.$toast.error(this.$t("general.errorMessage"), {
+					duration: false,
+					onClose: () => this.$router.push("/admin/organizations")
+				})
+			})
 			this.updateParticipantsVisibleList()
-			console.log('TODO integrate it with api endpoint')
 
 		},
 		ToggleDrop(boolean) {
