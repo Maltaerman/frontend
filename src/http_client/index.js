@@ -13,10 +13,10 @@ import guest from "./guest.js";
 }*/
 
 const api = {
-    locations: locations(instance),
-    user: user(instance),
-    organizations : organizations(instance),
-    guest : guest(instance)
-}
+  locations: locations(instance),
+  user: user(instance),
+  organizations: organizations(instance),
+  guest: guest(instance),
+};
 
 export default api;

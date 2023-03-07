@@ -13,5 +13,5 @@ export default [
   SVG_fuel_station,
   SVG_hospital,
   SVG_status_list,
-  SVG_building_condition
-]
+  SVG_building_condition,
+];

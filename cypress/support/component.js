@@ -14,13 +14,13 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
-import '../../src/index.css'
+import "./commands";
+import "../../src/index.css";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-import { mount } from 'cypress/vue'
+import { mount } from "cypress/vue";
 
 // Cypress.Commands.add('mount', mount)
 

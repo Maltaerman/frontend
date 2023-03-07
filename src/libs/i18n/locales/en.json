@@ -1,27 +1,27 @@
 {
   "welcomeScreen": {
     "helperText": "Our partner organizations report if buildings are damaged, have stable electricity, water, etc.",
-    "searchAddress" : "Search for your address",
+    "searchAddress": "Search for your address",
     "examples": "Examples",
     "firstExample": "Nezalezhnosti Ave, Kharkiv, Kharkivs'ka oblast, Ukraine, 61000",
     "secondExample": "Bekhterevs'kyi Ln, Kyiv, Ukraine, 02000",
-    "requestError" : "Unable to process request at {address}. Enter a more accurate address.",
-    "recentlyReports" : "Recently completed reports"
+    "requestError": "Unable to process request at {address}. Enter a more accurate address.",
+    "recentlyReports": "Recently completed reports"
   },
-  "footer" : {
-    "about" : "About us",
+  "footer": {
+    "about": "About us",
     "blog": "Blog",
     "support": "Support us",
-    "ngo" : "NGO \"ЦИФРОВА ПЛАТФОРМА ДІМ\"",
-    "code" : "RN: 44815141"
+    "ngo": "NGO \"ЦИФРОВА ПЛАТФОРМА ДІМ\"",
+    "code": "RN: 44815141"
   },
   "header": {
     "login": "Log in",
     "logout": "Log out",
     "map": "Map",
     "dashboard": "Dashboard",
-    "settings" : "Settings",
-    "requests" : "Requests"
+    "settings": "Settings",
+    "requests": "Requests"
   },
   "userSideBar": {
     "choose-location": "Choose a location of interest.",
@@ -45,8 +45,8 @@
     "takeRequest": "Review",
     "addToMyList": "Add to \"My requests\"",
     "myRequest": "My request",
-    "expireIn" : "Expires in less than {hours} hours",
-    "expireMessage" : "Requests will be automatically removed from this page 48 hours after they are added."
+    "expireIn": "Expires in less than {hours} hours",
+    "expireMessage": "Requests will be automatically removed from this page 48 hours after they are added."
   },
   "reportTools": {
     "header": "Report status",
@@ -71,11 +71,11 @@
     "intact": "INTACT",
     "damaged": "DAMAGED",
     "noData": "NO DATA",
-    "descriptionDeleted" : "Description deleted",
-    "city" : "City",
-    "street" : "Street",
-    "streetNumber" : "Street number",
-    "currentAddress" : "Current address"
+    "descriptionDeleted": "Description deleted",
+    "city": "City",
+    "street": "Street",
+    "streetNumber": "Street number",
+    "currentAddress": "Current address"
   },
   "dashboard": {
     "admin": "Administrator",
@@ -91,7 +91,7 @@
     "organizationName": "Organization name",
     "namePlaceholder": "Name",
     "website": "Website",
-    "organizationExist" : "The organization \"{orgName}\" is already registered!",
+    "organizationExist": "The organization \"{orgName}\" is already registered!",
     "organizationAddSuccess": "You have successfully added a {orgName} organization!"
   },
   "organizationProfile": {
@@ -108,12 +108,12 @@
     "status": "Status",
     "lastActivity": "Last activity",
     "deleteOrganization": "Delete organization",
-    "orgUpdateSuccess" : "Organization {orgName} updated successfully",
-    "userRemovedSuccess" : "User {userName} was deleted successfully",
-    "userRemovedError" : "Error deleting user {userName}",
-    "deleteUserTitle" : "User deleting",
-    "deleteUserQuestion" : "Are you sure you want to delete user {userName}?",
-    "maxInviteMess" : "No more than 5 invitations at a time"
+    "orgUpdateSuccess": "Organization {orgName} updated successfully",
+    "userRemovedSuccess": "User {userName} was deleted successfully",
+    "userRemovedError": "Error deleting user {userName}",
+    "deleteUserTitle": "User deleting",
+    "deleteUserQuestion": "Are you sure you want to delete user {userName}?",
+    "maxInviteMess": "No more than 5 invitations at a time"
   },
   "userSettings": {
     "header": "Settings",
@@ -122,8 +122,8 @@
     "change-password": "Change password...",
     "password": "Password",
     "new-password": "New password",
-    "userDataUpdatedSuccessMess" : "Data update successful",
-    "userDataUpdatedErrorMess" : "Error updating data"
+    "userDataUpdatedSuccessMess": "Data update successful",
+    "userDataUpdatedErrorMess": "Error updating data"
   },
   "login": {
     "header": "Login",
@@ -134,42 +134,42 @@
     "understood": "Understood, thank you.",
     "organizationBlocked": "Unfortunately you cannot submit any more reports, because your organization was blocked.",
     "organizationBlockedInfo": "We will inform you as soon as the problem will be solved. We thank you for your service.",
-    "passResetReqSend" : "Password reset request sent. Check your mail.",
-    "mailNotExist" : "The account with this mail is not registered.",
-    "passResetLinkInvalid" : "The link is not valid. Re-initialize the password recovery operation."
+    "passResetReqSend": "Password reset request sent. Check your mail.",
+    "mailNotExist": "The account with this mail is not registered.",
+    "passResetLinkInvalid": "The link is not valid. Re-initialize the password recovery operation."
   },
   "userRegistration": {
-    "greeting" : "Welcome to DIM!",
-    "ownProfile" : "Create your profile",
+    "greeting": "Welcome to DIM!",
+    "ownProfile": "Create your profile",
     "name": "Name",
-    "fullName" : "Full name",
+    "fullName": "Full name",
     "email": "E-mail",
     "password": "Password",
-    "newPassConf" : "Password confirm",
-    "passRepeatPlaceholder" : "Repeat password",
-    "createProfile" : "Create profile",
-    "userMailExist" : "User with mail {userMail} already registered.",
-    "userRegSuccess" : "You have successfully created an account and can log in.",
-    "terms" : {
-      "part1" : "I accept the terms of",
-      "part2" : "The User Agreement",
-      "part3" : "and",
-      "part4" : "Privacy Policy"
+    "newPassConf": "Password confirm",
+    "passRepeatPlaceholder": "Repeat password",
+    "createProfile": "Create profile",
+    "userMailExist": "User with mail {userMail} already registered.",
+    "userRegSuccess": "You have successfully created an account and can log in.",
+    "terms": {
+      "part1": "I accept the terms of",
+      "part2": "The User Agreement",
+      "part3": "and",
+      "part4": "Privacy Policy"
     }
   },
   "validations": {
-    "default" : "Field is not valid",
+    "default": "Field is not valid",
     "minLength": "Minimal length is {amount} characters.",
     "minNameLength": "Minimal name length is {amount} characters.",
-    "mailNotValid" : "Email is not valid",
-    "passNotValid" : "The password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter and one number",
-    "passNotEquals" :"Passwords do not match",
-    "credentialsError" : "Email or password is incorrect.",
-    "codeNotValid" : "Code is not valid.",
-    "numNotValid" : "Number is not valid."
+    "mailNotValid": "Email is not valid",
+    "passNotValid": "The password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter and one number",
+    "passNotEquals": "Passwords do not match",
+    "credentialsError": "Email or password is incorrect.",
+    "codeNotValid": "Code is not valid.",
+    "numNotValid": "Number is not valid."
   },
   "general": {
-    "confirm" : "Confirm",
+    "confirm": "Confirm",
     "close": "Close",
     "save": "Save",
     "send": "Send",
@@ -200,7 +200,7 @@
     "deleted": "Deleted",
     "success": "Successfully",
     "edited": "Edited",
-    "unknown" : "Unknown"
+    "unknown": "Unknown"
   },
   "tooltips": {
     "water": "Water",
@@ -210,47 +210,47 @@
     "fuelStation": "Fuel station",
     "carEntrance": "Car entrance"
   },
-  "notFoundAddress" : {
-    "noDBItem" : "Unfortunately, \"{address}\" is not in our database",
-    "tips" : "You may want to provide a more precise address.\nYou can also request information at this address and our team will try to get there as soon as possible.",
-    "modalSuccessMess" : "Request to \"{address}\" sent successfully.",
-    "modalErrRequestExist" : "The request for this address is already under consideration.",
-    "sendRequest" : "Send request",
-    "requestExist" : "Request in review",
-    "modalErrReqInWork" : "The request is already being processed by another user"
+  "notFoundAddress": {
+    "noDBItem": "Unfortunately, \"{address}\" is not in our database",
+    "tips": "You may want to provide a more precise address.\nYou can also request information at this address and our team will try to get there as soon as possible.",
+    "modalSuccessMess": "Request to \"{address}\" sent successfully.",
+    "modalErrRequestExist": "The request for this address is already under consideration.",
+    "sendRequest": "Send request",
+    "requestExist": "Request in review",
+    "modalErrReqInWork": "The request is already being processed by another user"
   },
-  "removeOrgModal" : {
-    "successMess" : "Organization \"{orgName}\" was successfully deleted.",
-    "errorMess" : "An error occurred while deleting the organization \"{orgName}\"."
+  "removeOrgModal": {
+    "successMess": "Organization \"{orgName}\" was successfully deleted.",
+    "errorMess": "An error occurred while deleting the organization \"{orgName}\"."
   },
-  "month" : {
-    "jan" : "January",
-    "feb" : "February",
-    "mar" : "March",
-    "apr" : "April",
-    "may" : "May",
-    "jun" : "June",
-    "jul" : "July",
-    "aug" : "August",
-    "sep" : "September",
-    "oct" : "October",
-    "nov" : "November",
-    "dec" : "December"
+  "month": {
+    "jan": "January",
+    "feb": "February",
+    "mar": "March",
+    "apr": "April",
+    "may": "May",
+    "jun": "June",
+    "jul": "July",
+    "aug": "August",
+    "sep": "September",
+    "oct": "October",
+    "nov": "November",
+    "dec": "December"
   },
-  "day" : {
-    "today" : "Today",
-    "tomorrow" : "Tomorrow",
-    "yesterday" : "Yesterday"
+  "day": {
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "yesterday": "Yesterday"
   },
-  "addressReqModal" : {
-    "step1Title" : "Enter number",
-    "step1Tips" : "Please leave your phone number to confirm your request.",
-    "step1Button" : "Get Code",
-    "step2Title" : "Enter code",
-    "step2Tips" : "Please enter 6-digits code that we send to {telNum}.",
-    "step2Button" : "Send request",
-    "codeExpires" : "Code expires in:",
-    "sendCodeAgain" : "Send code again",
-    "markerError" : "Unable to send request. Specify a more precise location on the map."
+  "addressReqModal": {
+    "step1Title": "Enter number",
+    "step1Tips": "Please leave your phone number to confirm your request.",
+    "step1Button": "Get Code",
+    "step2Title": "Enter code",
+    "step2Tips": "Please enter 6-digits code that we send to {telNum}.",
+    "step2Button": "Send request",
+    "codeExpires": "Code expires in:",
+    "sendCodeAgain": "Send code again",
+    "markerError": "Unable to send request. Specify a more precise location on the map."
   }
 }
