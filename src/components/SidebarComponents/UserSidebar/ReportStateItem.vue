@@ -29,13 +29,13 @@
 </template>
 
 <script>
-import reportItemFlags from "../../mixins/reportItemFlags.js";
-import SVG_status_list from "../../ComponentsSVG/SVG_status_list.vue";
-import dateFormatter from "../../mixins/dateFormatter.js";
-import Expander from "../../Other/Expander.vue";
+import reportItemFlags from '../../mixins/reportItemFlags.js'
+import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
+import dateFormatter from '../../mixins/dateFormatter.js'
+import Expander from '../../Other/Expander.vue'
 
 export default {
-  name: "ReportStateItem",
+  name: 'ReportStateItem',
   components: { SVG_status_list, Expander },
   mixins: [reportItemFlags, dateFormatter],
   props: {
@@ -44,7 +44,7 @@ export default {
     description: String,
     update: [String, Date],
   },
-};
+}
 </script>
 
 <style scoped></style>

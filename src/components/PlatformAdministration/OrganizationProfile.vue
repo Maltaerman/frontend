@@ -20,7 +20,7 @@
               d="M0.292893 13.7071C-0.0976311 13.3166 -0.0976312 12.6834 0.292893 12.2929L5.58579 7L0.292893 1.70711C-0.0976317 1.31658 -0.0976317 0.683417 0.292893 0.292893C0.683417 -0.0976315 1.31658 -0.0976315 1.70711 0.292893L8.41421 7L1.70711 13.7071C1.31658 14.0976 0.683418 14.0976 0.292893 13.7071Z"
             />
           </svg>
-          {{ $t("organizationProfile.organization") }}
+          {{ $t('organizationProfile.organization') }}
         </span>
       </router-link>
     </div>
@@ -43,7 +43,7 @@
         </div>
         <div class="mt-4 text-body-1 mobile:text-center">
           <p class="font-semibold mb-1">
-            {{ $t("organizationProfile.creationDate") }}
+            {{ $t('organizationProfile.creationDate') }}
           </p>
           <p class="text-gray-c-600">{{ GetOrgJoinDate() }}</p>
         </div>
@@ -68,7 +68,7 @@
               fill="#2E60B3"
             />
           </svg>
-          {{ $t("general.edit") }}
+          {{ $t('general.edit') }}
         </button-text-1>
         <button-text-1 color="red" class="p-2 h-min" @click="RemoveClick">
           <svg
@@ -89,14 +89,14 @@
               d="M13.364 2.04988C13.7545 1.65936 13.7545 1.02619 13.364 0.635667C12.9734 0.245142 12.3403 0.245142 11.9497 0.635667L7.00003 5.58537L2.05033 0.635667C1.6598 0.245142 1.02664 0.245142 0.636113 0.635667C0.245589 1.02619 0.245589 1.65936 0.636113 2.04988L5.58582 6.99959L0.636033 11.9494C0.245509 12.3399 0.245508 12.9731 0.636033 13.3636C1.02656 13.7541 1.65972 13.7541 2.05025 13.3636L7.00003 8.4138L11.9498 13.3636C12.3403 13.7541 12.9735 13.7541 13.364 13.3636C13.7546 12.9731 13.7546 12.3399 13.364 11.9494L8.41425 6.99959L13.364 2.04988Z"
             />
           </svg>
-          {{ $t("general.delete") }}
+          {{ $t('general.delete') }}
         </button-text-1>
       </div>
     </div>
 
     <div class="flex flex-wrap gap-4 items-center">
       <div class="text-body-2 font-semibold mobile:grow h-min">
-        {{ $t("organizationProfile.employees") }} ({{
+        {{ $t('organizationProfile.employees') }} ({{
           organization.participants.length
         }})
       </div>
@@ -109,7 +109,7 @@
           src="/src/assets/Organizations/addUser.svg"
           alt=""
         />
-        <span>{{ $t("organizationProfile.addEmployee") }}</span>
+        <span>{{ $t('organizationProfile.addEmployee') }}</span>
       </button-1>
     </div>
 
@@ -121,16 +121,16 @@
         <thead>
           <tr class="bg-gray-c-100 text-gray-c-400 text-h3">
             <th class="table-col-head">
-              {{ $t("organizationProfile.name") }}
+              {{ $t('organizationProfile.name') }}
             </th>
             <th class="table-col-head">
-              {{ $t("organizationProfile.email") }}
+              {{ $t('organizationProfile.email') }}
             </th>
             <th class="px-2 py-[17px] font-semibold text-center">
-              {{ $t("organizationProfile.status") }}
+              {{ $t('organizationProfile.status') }}
             </th>
             <th class="table-col-head">
-              {{ $t("organizationProfile.lastActivity") }}
+              {{ $t('organizationProfile.lastActivity') }}
             </th>
             <th></th>
           </tr>
@@ -204,7 +204,7 @@
       <div class="flex flex-col gap-4 mt-4 mb-6">
         <div>
           <p class="text-h4 text-gray-c-500">
-            {{ $t("dashboard.organizationName") }}
+            {{ $t('dashboard.organizationName') }}
           </p>
           <input1
             v-model="editingOrgName"
@@ -213,7 +213,9 @@
           />
         </div>
         <div>
-          <p class="text-h4 text-gray-c-500">{{ $t("dashboard.website") }}</p>
+          <p class="text-h4 text-gray-c-500">
+            {{ $t('dashboard.website') }}
+          </p>
           <input1
             v-model="editingOrgSite"
             class="w-full mt-1 outline-none"
@@ -224,10 +226,10 @@
 
       <div class="flex gap-4">
         <button2 class="w-full" @click.stop="CloseEditModal">
-          {{ $t("general.cancel") }}
+          {{ $t('general.cancel') }}
         </button2>
         <button-1 class="w-full" @click.stop="EditOrg">
-          {{ $t("general.edit") }}
+          {{ $t('general.edit') }}
         </button-1>
       </div>
       <Loader v-if="isEditModalLoaderVisible" class="rounded-lg" />
@@ -252,10 +254,10 @@
         <img src="/src/assets/close.svg" />
       </button>
       <div class="text-h2 text-center font-semibold">
-        {{ $t("organizationProfile.addEmployee") }}
+        {{ $t('organizationProfile.addEmployee') }}
       </div>
       <div class="text-h3 text-gray-c-600 mt-2 mb-4">
-        {{ $t("organizationProfile.employeeEnvelope") }}
+        {{ $t('organizationProfile.employeeEnvelope') }}
       </div>
       <div class="flex flex-col gap-4 mt-4 mb-2">
         <input1
@@ -292,7 +294,7 @@
               d="M8 1C8 0.447715 7.55228 0 7 0C6.44772 0 6 0.447715 6 1V6H1C0.447715 6 0 6.44771 0 7C0 7.55228 0.447715 8 1 8H6V13C6 13.5523 6.44772 14 7 14C7.55229 14 8 13.5523 8 13V8H13C13.5523 8 14 7.55228 14 7C14 6.44772 13.5523 6 13 6H8V1Z"
             />
           </svg>
-          {{ $t("organizationProfile.addMore") }}
+          {{ $t('organizationProfile.addMore') }}
         </button-text-1>
       </div>
 
@@ -301,7 +303,7 @@
         :disabled="!isSendInviteButtEnable"
         @click.stop="SendUserInvites"
       >
-        {{ $t("organizationProfile.sendInvite") }}
+        {{ $t('organizationProfile.sendInvite') }}
       </button-1>
       <Loader v-if="isUserInviteModalLoaderVisible" class="rounded-lg" />
     </div>
@@ -327,20 +329,20 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import ButtonText1 from "../Buttons/Button_text_1.vue";
-import dateFormatter from "../mixins/dateFormatter.js";
-import ButtonTag from "../Buttons/ButtonTag.vue";
-import ModalTemplate from "../Modals/ModalTemplate.vue";
-import input1 from "../Inputs/Input-1.vue";
-import Button2 from "../Buttons/Button_2.vue";
-import Loader from "../Loader.vue";
-import api from "../../http_client/index.js";
-import RemoveOrgModal from "./RemoveOrgModal.vue";
-import ConfirmModal from "../Modals/ConfirmModal.vue";
+import { mapActions, mapGetters } from 'vuex'
+import ButtonText1 from '../Buttons/Button_text_1.vue'
+import dateFormatter from '../mixins/dateFormatter.js'
+import ButtonTag from '../Buttons/ButtonTag.vue'
+import ModalTemplate from '../Modals/ModalTemplate.vue'
+import input1 from '../Inputs/Input-1.vue'
+import Button2 from '../Buttons/Button_2.vue'
+import Loader from '../Loader.vue'
+import api from '../../http_client/index.js'
+import RemoveOrgModal from './RemoveOrgModal.vue'
+import ConfirmModal from '../Modals/ConfirmModal.vue'
 
 export default {
-  name: "OrganizationProfile",
+  name: 'OrganizationProfile',
   components: {
     ConfirmModal,
     Button2,
@@ -357,180 +359,182 @@ export default {
       organization: null,
       isEditModalVisible: false,
       isEditModalLoaderVisible: false,
-      editingOrgName: "",
-      editingOrgSite: "",
-      invitedUsersList: [""],
+      editingOrgName: '',
+      editingOrgSite: '',
+      invitedUsersList: [''],
       isUserInviteModalVisible: false,
       isUserInviteModalLoaderVisible: false,
       isRemovedModalVisible: false,
       isLoaderVisible: true,
       onErrorMessageClose: () => {},
       ConfirmModal: {
-        question: "",
-        title: "",
+        question: '',
+        title: '',
         accept: () => {},
         decline: () => {},
         visible: false,
       },
-    };
+    }
   },
   computed: {
     isAddInviteButtVisible() {
-      return this.invitedUsersList.length < 5;
+      return this.invitedUsersList.length < 5
     },
     isSendInviteButtEnable() {
-      return this.invitedUsersList.some((x) => x.length > 6);
+      return this.invitedUsersList.some((x) => x.length > 6)
     },
   },
   created() {
-    this.getOrganization();
+    this.getOrganization()
   },
   methods: {
     GetOrgJoinDate() {
-      return this.GetDateString(this.organization.created_at);
+      return this.GetDateString(this.organization.created_at)
     },
     GetCurrentUserStatusStyle(mailConf, isActive) {
-      if (mailConf && isActive) return "positive";
-      else if (mailConf && !isActive) return "negative";
-      else if (!mailConf && !isActive) return "inactive";
-      else return "negative";
+      if (mailConf && isActive) return 'positive'
+      else if (mailConf && !isActive) return 'negative'
+      else if (!mailConf && !isActive) return 'inactive'
+      else return 'negative'
     },
     GetCurrentUserStatusText(mailConf, isActive) {
-      if (mailConf && isActive) return this.$t("general.active");
-      else if (mailConf && !isActive) return this.$t("general.banned");
-      else if (!mailConf && !isActive) return this.$t("general.pending");
-      else return this.$t("general.error");
+      if (mailConf && isActive) return this.$t('general.active')
+      else if (mailConf && !isActive) return this.$t('general.banned')
+      else if (!mailConf && !isActive) return this.$t('general.pending')
+      else return this.$t('general.error')
     },
     ShowEditModal() {
-      this.editingOrgName = this.organization.name;
-      this.editingOrgSite = this.organization.website;
-      this.isEditModalVisible = true;
+      this.editingOrgName = this.organization.name
+      this.editingOrgSite = this.organization.website
+      this.isEditModalVisible = true
     },
     CloseEditModal() {
-      this.isEditModalVisible = false;
-      this.isEditModalLoaderVisible = false;
-      this.editingOrgName = "";
-      this.editingOrgSite = "";
+      this.isEditModalVisible = false
+      this.isEditModalLoaderVisible = false
+      this.editingOrgName = ''
+      this.editingOrgSite = ''
     },
     AddUserInvite() {
-      if (this.invitedUsersList.length < 5) this.invitedUsersList.push("");
-      else this.$toast.info(this.$t("organizationProfile.maxInviteMess"));
+      if (this.invitedUsersList.length < 5) this.invitedUsersList.push('')
+      else this.$toast.info(this.$t('organizationProfile.maxInviteMess'))
     },
     ShowUserInviteModal() {
       if (!this.invitedUsersList || this.invitedUsersList.length <= 0)
-        this.invitedUsersList = [""];
-      this.isUserInviteModalVisible = true;
+        this.invitedUsersList = ['']
+      this.isUserInviteModalVisible = true
     },
     CloseUserInviteModal() {
-      this.isUserInviteModalVisible = false;
-      this.isUserInviteModalLoaderVisible = false;
+      this.isUserInviteModalVisible = false
+      this.isUserInviteModalLoaderVisible = false
     },
     async EditOrg() {
-      this.isEditModalLoaderVisible = true;
+      this.isEditModalLoaderVisible = true
 
       await api.organizations
         .editOrganization(
           this.organization.id,
           this.editingOrgName,
           this.editingOrgSite,
-          ""
+          ''
         )
         .then((res) => {
-          this.organization = res.data;
-          this.CloseEditModal();
+          this.organization = res.data
+          this.CloseEditModal()
           this.$toast.success(
-            this.$t("organizationProfile.orgUpdateSuccess", {
+            this.$t('organizationProfile.orgUpdateSuccess', {
               orgNane: this.organization.name,
             })
-          );
+          )
         })
         .catch((err) => {
-          let ErrorMessage = this.$t("general.errorMessage");
+          let ErrorMessage = this.$t('general.errorMessage')
           if (err.response.status == 400)
-            ErrorMessage = this.$t("dashboard.organizationExist", {
+            ErrorMessage = this.$t('dashboard.organizationExist', {
               orgName: this.createOrgName,
-            });
-          this.CloseEditModal();
-          this.$toast.error(ErrorMessage);
-        });
+            })
+          this.CloseEditModal()
+          this.$toast.error(ErrorMessage)
+        })
     },
     async SendUserInvites() {
-      this.isUserInviteModalLoaderVisible = true;
+      this.isUserInviteModalLoaderVisible = true
       await api.organizations
         .sendUserInvite(this.organization.id, this.invitedUsersList)
         .then((res) => {
-          console.log(res);
-          this.organization = res.data;
-          this.CloseUserInviteModal();
-          this.invitedUsersList = [""];
-          this.$toast.success(this.$t("organizationProfile.successInvite"));
+          console.log(res)
+          this.organization = res.data
+          this.CloseUserInviteModal()
+          this.invitedUsersList = ['']
+          this.$toast.success(this.$t('organizationProfile.successInvite'))
         })
         .catch((err) => {
-          this.CloseUserInviteModal();
-          this.$toast.error(this.$t("general.errorMessage"));
+          this.CloseUserInviteModal()
+          this.$toast.error(this.$t('general.errorMessage'))
           //throw err
-        });
+        })
     },
     RemoveClick() {
-      this.isRemovedModalVisible = true;
+      this.isRemovedModalVisible = true
     },
     closeRemoveModal() {
-      this.isRemovedModalVisible = false;
+      this.isRemovedModalVisible = false
     },
     onRemoveSuccess() {
-      this.$router.push("/admin/organizations");
+      this.$router.push('/admin/organizations')
     },
     showRemoveUserConfirm(worker) {
       this.ConfirmModal.question = this.$t(
-        "organizationProfile.deleteUserQuestion",
-        { userName: worker.username }
-      );
-      this.ConfirmModal.title = this.$t("organizationProfile.deleteUserTitle");
-      this.ConfirmModal.accept = () => this.removeWorker(worker);
-      this.ConfirmModal.decline = () => (this.ConfirmModal.visible = false);
-      this.ConfirmModal.visible = true;
+        'organizationProfile.deleteUserQuestion',
+        {
+          userName: worker.username,
+        }
+      )
+      this.ConfirmModal.title = this.$t('organizationProfile.deleteUserTitle')
+      this.ConfirmModal.accept = () => this.removeWorker(worker)
+      this.ConfirmModal.decline = () => (this.ConfirmModal.visible = false)
+      this.ConfirmModal.visible = true
     },
     async getOrganization() {
-      this.isLoaderVisible = true;
+      this.isLoaderVisible = true
       await api.organizations
         .getOrgById(this.$route.params.id)
         .then((res) => {
-          this.organization = res.data;
-          this.isLoaderVisible = false;
+          this.organization = res.data
+          this.isLoaderVisible = false
         })
         .catch((err) => {
-          this.isLoaderVisible = false;
-          this.$toast.error(this.$t("general.errorMessage"), {
+          this.isLoaderVisible = false
+          this.$toast.error(this.$t('general.errorMessage'), {
             duration: false,
-            onClose: () => this.$router.push("/admin/organizations"),
-          });
-        });
+            onClose: () => this.$router.push('/admin/organizations'),
+          })
+        })
     },
     async removeWorker(worker) {
-      this.ConfirmModal.visible = false;
-      this.isLoaderVisible = true;
+      this.ConfirmModal.visible = false
+      this.isLoaderVisible = true
       await api.organizations
         .removeOrganizationMember(this.organization.id, worker.id)
         .then((res) => {
-          this.organization.participants = res.data.participants;
-          this.isLoaderVisible = false;
+          this.organization.participants = res.data.participants
+          this.isLoaderVisible = false
           this.$toast.success(
-            this.$t("organizationProfile.userRemovedSuccess", {
+            this.$t('organizationProfile.userRemovedSuccess', {
               userName: worker.username,
             })
-          );
+          )
         })
         .catch((err) => {
-          this.isLoaderVisible = false;
+          this.isLoaderVisible = false
           this.$toast.error(
-            this.$t("organizationProfile.userRemovedError", {
+            this.$t('organizationProfile.userRemovedError', {
               userName: worker.username,
             })
-          );
-        });
+          )
+        })
     },
   },
-};
+}
 </script>
 
 <style scoped>

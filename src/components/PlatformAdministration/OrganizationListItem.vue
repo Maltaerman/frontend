@@ -24,13 +24,13 @@
         class="p-1 text-h3 text-blue-c-500 cursor-pointer hover:bg-blue-c-100 w-full text-left"
         @click.stop="goToOrgProfile"
       >
-        {{ $t("general.details") }}
+        {{ $t('general.details') }}
       </button>
       <button
         class="p-1 text-h3 text-red-c-500 cursor-pointer hover:bg-blue-c-100 w-full text-left"
         @click="removeOrg"
       >
-        {{ $t("general.delete") }}
+        {{ $t('general.delete') }}
       </button>
     </div>
 
@@ -62,40 +62,40 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex'
 
 export default {
-  name: "OrganizationListItem",
+  name: 'OrganizationListItem',
   props: {
     organization: {
       //required : true,
       type: Object,
     },
   },
-  emits: ["remove"],
+  emits: ['remove'],
   data() {
     return {
       isMenuVisible: false,
-    };
+    }
   },
   methods: {
-    ...mapActions(["setSelectedOrganization"]),
+    ...mapActions(['setSelectedOrganization']),
     ShowMenu() {
-      this.isMenuVisible = !this.isMenuVisible;
+      this.isMenuVisible = !this.isMenuVisible
     },
     HideMenu() {
-      this.isMenuVisible = false;
+      this.isMenuVisible = false
     },
     goToOrgProfile() {
       //console.log("Go to org profile")
-      this.setSelectedOrganization(this.organization);
-      this.$router.push(`/admin/organization-profile/${this.organization.id}`);
+      this.setSelectedOrganization(this.organization)
+      this.$router.push(`/admin/organization-profile/${this.organization.id}`)
     },
     removeOrg() {
-      this.$emit("remove", this.organization);
+      this.$emit('remove', this.organization)
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

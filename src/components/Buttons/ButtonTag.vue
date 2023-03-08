@@ -15,21 +15,21 @@
 
 <script>
 export default {
-  name: "ButtonTag",
+  name: 'ButtonTag',
   props: {
     buttonState: {
       type: String,
-      default: "default",
+      default: 'default',
       validator: function (value) {
         return [
-          "default",
-          "positive",
-          "negative",
-          "no-data",
-          "inactive",
-        ].includes(value);
+          'default',
+          'positive',
+          'negative',
+          'no-data',
+          'inactive',
+        ].includes(value)
       },
     },
   },
-};
+}
 </script>

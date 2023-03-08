@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "TabItemButton",
+  name: 'TabItemButton',
   props: {
     targetTabValue: String,
     currentTabValue: String,
@@ -17,14 +17,14 @@ export default {
   computed: {
     styles() {
       return {
-        "text-blue-c-500 border-blue-c-500 border-b-2":
+        'text-blue-c-500 border-blue-c-500 border-b-2':
           this.targetTabValue == this.currentTabValue,
-        "text-gray-c-500 border-gray-c-500 border-b":
+        'text-gray-c-500 border-gray-c-500 border-b':
           this.targetTabValue != this.currentTabValue,
-      };
+      }
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

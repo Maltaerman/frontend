@@ -17,7 +17,7 @@
       <div
         class="mb-6 text-h1 mobile:text-h2 mobile:text-center relative font-semibold"
       >
-        {{ $t("userSettings.header") }}
+        {{ $t('userSettings.header') }}
         <img
           class="w-min h-min absolute top-0 mobile:right-0 hidden mobile:block"
           src="/close.svg"
@@ -29,22 +29,24 @@
         class="w-[100px] absolute top-7 right-4 mobile:hidden py-2"
         @click="closeModal"
       >
-        {{ $t("general.close") }}
+        {{ $t('general.close') }}
       </button-text1>
       <!--    FORM-->
       <div
         class="text-h4 text-gray-c-500 w-full"
-        :class="{ 'mobile:flex mobile:flex-col-reverse': isPassChangeVisible }"
+        :class="{
+          'mobile:flex mobile:flex-col-reverse': isPassChangeVisible,
+        }"
       >
         <div :class="{ 'mobile:hidden': isPassChangeVisible }">
-          <label for="setting-name">{{ $t("userSettings.name") }}</label>
+          <label for="setting-name">{{ $t('userSettings.name') }}</label>
           <input-1
             v-model="username"
             inp-id="setting-name"
             :placeholder="$t('userSettings.name')"
             class="block text-black mt-1 mb-6"
           />
-          <label for="setting-mail">{{ $t("userSettings.email") }}</label>
+          <label for="setting-mail">{{ $t('userSettings.email') }}</label>
           <input-1
             v-model="email"
             inp-id="setting-mail"
@@ -63,7 +65,7 @@
             :disabled="saveButDisable"
             @click="updateUserData"
           >
-            {{ $t("general.save") }}
+            {{ $t('general.save') }}
           </Button1>
           <ButtonOptions
             id="updatePassword"
@@ -71,12 +73,12 @@
             :checked="isPassChangeVisible"
             @valueChange="changePassVisibility"
           >
-            {{ $t("userSettings.change-password") }}
+            {{ $t('userSettings.change-password') }}
           </ButtonOptions>
         </div>
 
         <div v-show="isPassChangeVisible" id="passChangeBlock">
-          <label for="setting-pass">{{ $t("userSettings.password") }}</label>
+          <label for="setting-pass">{{ $t('userSettings.password') }}</label>
           <input-pass
             v-model="oldPass"
             inp-id="setting-pass"
@@ -84,7 +86,7 @@
             class="text-black mt-1 mb-6"
           />
           <label for="setting-new-pass">{{
-            $t("userSettings.new-password")
+            $t('userSettings.new-password')
           }}</label>
           <input-pass
             v-model="newPass"
@@ -99,7 +101,7 @@
               :disabled="isChangePassButtonDisabled"
               @click="updateUserPassword"
             >
-              {{ $t("general.save") }}
+              {{ $t('general.save') }}
             </button1>
             <ButtonOptions
               :button-color="'blue'"
@@ -107,7 +109,7 @@
               :checked="isPassChangeVisible"
               @valueChange="changePassVisibility"
             >
-              {{ $t("userSettings.change-password") }}
+              {{ $t('userSettings.change-password') }}
             </ButtonOptions>
           </div>
         </div>
@@ -117,18 +119,18 @@
 </template>
 
 <script>
-import ButtonText1 from "./Buttons/Button_text_1.vue";
-import Input1 from "./Inputs/Input-1.vue";
-import InputPass from "./Inputs/Input-pass.vue";
-import ButtonOptions from "./Buttons/Button-options.vue";
-import ModalTemplate from "./Modals/ModalTemplate.vue";
-import Button1 from "./Buttons/Button_1.vue";
-import { mapGetters, mapMutations } from "vuex";
-import api from "../http_client/index.js";
-import Loader from "./Loader.vue";
+import ButtonText1 from './Buttons/Button_text_1.vue'
+import Input1 from './Inputs/Input-1.vue'
+import InputPass from './Inputs/Input-pass.vue'
+import ButtonOptions from './Buttons/Button-options.vue'
+import ModalTemplate from './Modals/ModalTemplate.vue'
+import Button1 from './Buttons/Button_1.vue'
+import { mapGetters, mapMutations } from 'vuex'
+import api from '../http_client/index.js'
+import Loader from './Loader.vue'
 
 export default {
-  name: "UserSetting",
+  name: 'UserSetting',
   components: {
     Loader,
     Button1,
@@ -144,123 +146,123 @@ export default {
       default: false,
     },
   },
-  emits: ["close"],
+  emits: ['close'],
   data() {
     return {
       isPassChangeVisible: false,
       isSaveButtonDisabled: true,
       isChangePassButtonDisabled: true,
       isShowLoader: false,
-      oldPass: "",
-      newPass: "",
-      username: "",
-      email: "",
-    };
+      oldPass: '',
+      newPass: '',
+      username: '',
+      email: '',
+    }
   },
   methods: {
-    ...mapMutations(["setLoggedUserInfo"]),
+    ...mapMutations(['setLoggedUserInfo']),
     closeModal() {
-      this.isPassChangeVisible = false;
-      this.$emit("close");
+      this.isPassChangeVisible = false
+      this.$emit('close')
     },
     changePassVisibility(isVisible) {
-      this.isPassChangeVisible = isVisible;
+      this.isPassChangeVisible = isVisible
     },
     updateSaveButDisable() {
       if (
         this.username !== this.getUser.username ||
         this.email !== this.getUser.email
       )
-        this.isSaveButtonDisabled = false;
-      else this.isSaveButtonDisabled = true;
+        this.isSaveButtonDisabled = false
+      else this.isSaveButtonDisabled = true
     },
     updateSavePassDisable() {
       if (this.oldPass.length >= 8 && this.newPass.length >= 8)
-        this.isChangePassButtonDisabled = false;
-      else this.isChangePassButtonDisabled = true;
+        this.isChangePassButtonDisabled = false
+      else this.isChangePassButtonDisabled = true
     },
     async updateUserData() {
       let updatedData = {
         username: this.username,
         email: this.email,
-        full_name: "",
-      };
-      this.isShowLoader = true;
+        full_name: '',
+      }
+      this.isShowLoader = true
       await api.user
         .UpdateUserData(updatedData)
         .then((res) => {
-          this.setLoggedUserInfo(res.data);
+          this.setLoggedUserInfo(res.data)
           this.$toast.success(
-            this.$t("userSettings.userDataUpdatedSuccessMess")
-          );
+            this.$t('userSettings.userDataUpdatedSuccessMess')
+          )
         })
         .catch((err) => {
-          this.$toast.error(this.$t("userSettings.userDataUpdatedErrorMess"));
+          this.$toast.error(this.$t('userSettings.userDataUpdatedErrorMess'))
         })
         .finally(() => {
-          this.isShowLoader = false;
-        });
+          this.isShowLoader = false
+        })
     },
     async updateUserPassword() {
       let updatedPass = {
         old_password: this.oldPass,
         new_password: this.newPass,
-      };
-      console.log(updatedPass);
-      this.isShowLoader = true;
+      }
+      console.log(updatedPass)
+      this.isShowLoader = true
       await api.user
         .UpdateUserPass(updatedPass)
         .then((res) => {
           this.$toast.success(
-            this.$t("userSettings.userDataUpdatedSuccessMess")
-          );
+            this.$t('userSettings.userDataUpdatedSuccessMess')
+          )
         })
         .catch((err) => {
-          this.$toast.error(this.$t("userSettings.userDataUpdatedErrorMess"));
+          this.$toast.error(this.$t('userSettings.userDataUpdatedErrorMess'))
         })
         .finally(() => {
-          this.newPass = "";
-          this.oldPass = "";
-          this.isShowLoader = false;
-        });
+          this.newPass = ''
+          this.oldPass = ''
+          this.isShowLoader = false
+        })
     },
   },
   computed: {
-    ...mapGetters(["getUser"]),
+    ...mapGetters(['getUser']),
     saveButDisable() {
       return (
         this.username === this.getUser.username &&
         this.email === this.getUser.email
-      );
+      )
     },
   },
   watch: {
     getUser(newValue) {
       if (this.getUser) {
-        this.username = this.getUser.username;
-        this.email = this.getUser.email;
+        this.username = this.getUser.username
+        this.email = this.getUser.email
       }
     },
     username(newVal) {
-      this.updateSaveButDisable();
+      this.updateSaveButDisable()
     },
     email(newVal) {
-      this.updateSaveButDisable();
+      this.updateSaveButDisable()
     },
     newPass(newVal) {
-      this.updateSavePassDisable();
+      this.updateSavePassDisable()
     },
     oldPass(newVal) {
-      this.updateSavePassDisable();
+      this.updateSavePassDisable()
     },
   },
   mounted() {
     if (this.getUser) {
-      this.username = this.getUser.username;
-      this.email = this.getUser.email;
+      this.username = this.getUser.username
+      this.email = this.getUser.email
     }
   },
-};
+}
 </script>
 
 <style scoped></style>

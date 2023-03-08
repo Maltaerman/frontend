@@ -1,11 +1,11 @@
 class Event {
   constructor() {
-    this.queue = {};
+    this.queue = {}
   }
 
   $on(name, callback) {
-    this.queue[name] = this.queue[name] || [];
-    this.queue[name].push(callback);
+    this.queue[name] = this.queue[name] || []
+    this.queue[name].push(callback)
   }
 
   $off(name, callback) {
@@ -16,19 +16,19 @@ class Event {
           break
         }
       }*/
-      this.queue[name] = this.queue[name].filter((e) => e !== callback);
+      this.queue[name] = this.queue[name].filter((e) => e !== callback)
     }
   }
 
   $emit(name, data) {
     if (this.queue[name]) {
       this.queue[name].forEach(function (callback) {
-        callback(data);
-      });
+        callback(data)
+      })
     }
   }
 }
 
-const event = new Event();
+const event = new Event()
 
-export default event;
+export default event

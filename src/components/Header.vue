@@ -92,7 +92,7 @@
               />
             </svg>
             <p class="h-min hidden mobile:block mobile:grow">
-              {{ $t("header.settings") }}
+              {{ $t('header.settings') }}
             </p>
           </div>
 
@@ -129,7 +129,7 @@
               />
             </svg>
             <p class="h-min hidden mobile:block mobile:grow">
-              {{ $t("header.requests") }}
+              {{ $t('header.requests') }}
             </p>
           </div>
 
@@ -157,7 +157,7 @@
               <!--									<img src="/src/assets/Organizations/List.svg" class="h-4 ml-1 w-auto">-->
             </div>
             <p class="h-min hidden mobile:block">
-              {{ $t("dashboard.organizations") }}
+              {{ $t('dashboard.organizations') }}
             </p>
           </div>
         </div>
@@ -202,7 +202,7 @@
             </svg>
 
             <span class="mobile:hidden">
-              {{ $t("header.map") }}
+              {{ $t('header.map') }}
             </span>
           </button>
         </router-link>
@@ -252,7 +252,7 @@
             </svg>
 
             <span class="mobile:hidden">
-              {{ $t("header.dashboard") }}
+              {{ $t('header.dashboard') }}
             </span>
           </button>
         </router-link>
@@ -265,7 +265,7 @@
         role="link"
         @click="showLogInModal"
       >
-        {{ $t("header.login") }}
+        {{ $t('header.login') }}
       </button-text-1>
       <button-text1
         v-if="isAuth"
@@ -273,7 +273,7 @@
         class="h-min my-auto"
         @click="logOut"
       >
-        {{ $t("header.logout") }}
+        {{ $t('header.logout') }}
       </button-text1>
     </div>
     <!--			#region Modals-->
@@ -289,14 +289,14 @@
 </template>
 
 <script>
-import UserSetting from "./UserSetting.vue";
-import { mapActions, mapGetters, mapMutations } from "vuex";
-import ButtonText1 from "./Buttons/Button_text_1.vue";
-import userRoles from "./mixins/userRoles.js";
-import LocalizationDropDown from "./Other/LocalizationDropDown.vue";
+import UserSetting from './UserSetting.vue'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
+import ButtonText1 from './Buttons/Button_text_1.vue'
+import userRoles from './mixins/userRoles.js'
+import LocalizationDropDown from './Other/LocalizationDropDown.vue'
 
 export default {
-  name: "Header",
+  name: 'Header',
   components: {
     LocalizationDropDown,
     ButtonText1,
@@ -309,93 +309,93 @@ export default {
       default: false,
     },
   },
-  emits: ["settingClose"],
+  emits: ['settingClose'],
   data: function () {
     return {
       isLoginModal: false,
       isSettingModal: false,
       isMenuVisibleOnMobile: false,
-    };
+    }
   },
   methods: {
-    ...mapMutations(["setLoggedUserInfo", "setLoggedUserCredentials"]),
-    ...mapActions(["getRequestsCount"]),
+    ...mapMutations(['setLoggedUserInfo', 'setLoggedUserCredentials']),
+    ...mapActions(['getRequestsCount']),
 
     showLogInModal() {
-      this.isMenuVisibleOnMobile = false;
-      this.isLoginModal = true;
+      this.isMenuVisibleOnMobile = false
+      this.isLoginModal = true
     },
     showSettingModal() {
-      this.isMenuVisibleOnMobile = false;
-      this.isSettingModal = true;
+      this.isMenuVisibleOnMobile = false
+      this.isSettingModal = true
     },
     closeModal() {
-      this.isLoginModal = false;
-      this.isSettingModal = false;
-      this.$emit("settingClose", false);
+      this.isLoginModal = false
+      this.isSettingModal = false
+      this.$emit('settingClose', false)
     },
     logOut() {
-      this.setLoggedUserInfo(null);
-      this.setLoggedUserCredentials(null);
-      this.isMenuVisibleOnMobile = false;
-      this.$router.push("/");
+      this.setLoggedUserInfo(null)
+      this.setLoggedUserCredentials(null)
+      this.isMenuVisibleOnMobile = false
+      this.$router.push('/')
     },
     goToMain() {
-      this.isMenuVisibleOnMobile = false;
-      this.$router.push("/");
+      this.isMenuVisibleOnMobile = false
+      this.$router.push('/')
     },
     goToRequests() {
-      this.getRequestsCount();
-      this.isMenuVisibleOnMobile = false;
-      this.$router.push("/main/requests");
+      this.getRequestsCount()
+      this.isMenuVisibleOnMobile = false
+      this.$router.push('/main/requests')
     },
     goToOrgList() {
-      this.isMenuVisibleOnMobile = false;
-      this.$router.push("/admin/organizations");
+      this.isMenuVisibleOnMobile = false
+      this.$router.push('/admin/organizations')
     },
     toggleMenu() {
-      this.closeModal();
-      this.isMenuVisibleOnMobile = !this.isMenuVisibleOnMobile;
+      this.closeModal()
+      this.isMenuVisibleOnMobile = !this.isMenuVisibleOnMobile
     },
   },
   computed: {
     ...mapGetters([
-      "getUser",
-      "isAuth",
-      "getRole",
-      "getUserOrganization",
-      "RequestsCount",
+      'getUser',
+      'isAuth',
+      'getRole',
+      'getUserOrganization',
+      'RequestsCount',
     ]),
     userName() {
-      return this.getUser.username;
+      return this.getUser.username
     },
     userOrganization() {
-      return this.getUser.organization_model.name;
+      return this.getUser.organization_model.name
     },
     isAdminPage() {
-      return this.$route.matched.some((x) => x.path == "/admin");
+      return this.$route.matched.some((x) => x.path == '/admin')
     },
     currentUserIconLink() {
       switch (this.getRole) {
         case this.userRoles.aidWorker:
-          return "/userIcons/User.svg";
+          return '/userIcons/User.svg'
         case this.userRoles.platformAdmin:
-          return "/userIcons/platform-adm.svg";
-          break;
+          return '/userIcons/platform-adm.svg'
+          break
         default:
-          return "/userIcons/User.svg";
+          return '/userIcons/User.svg'
       }
     },
     isPlatformAdmin() {
-      return this.isAuth && this.getRole === this.userRoles.platformAdmin;
+      return this.isAuth && this.getRole === this.userRoles.platformAdmin
     },
   },
   watch: {
     isShowSetting: function (newValue) {
-      if (newValue === true) this.showSettingModal();
+      if (newValue === true) this.showSettingModal()
     },
   },
-};
+}
 </script>
 
 <style scoped>

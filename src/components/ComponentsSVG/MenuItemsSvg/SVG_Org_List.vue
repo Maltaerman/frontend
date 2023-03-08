@@ -16,8 +16,8 @@
 
 <script>
 export default {
-  name: "SVGOrgList",
-};
+  name: 'SVGOrgList',
+}
 </script>
 
 <style scoped></style>

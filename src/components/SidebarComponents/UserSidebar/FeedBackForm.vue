@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="text-gray-c-500">
-      {{ $t("userSideBar.formHelperText") }}
+      {{ $t('userSideBar.formHelperText') }}
     </p>
     <div class="h-min">
       <textarea
@@ -31,23 +31,23 @@
 
 <script>
 export default {
-  name: "FeedBackForm",
+  name: 'FeedBackForm',
   data: function () {
     return {
-      issueMessage: "",
-    };
+      issueMessage: '',
+    }
   },
   computed: {
     isDisabled() {
-      return this.issueMessage.length < 10;
+      return this.issueMessage.length < 10
     },
   },
   methods: {
     Show(string) {
-      alert(string);
+      alert(string)
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

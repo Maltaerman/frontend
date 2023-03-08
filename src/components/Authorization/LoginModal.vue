@@ -39,7 +39,7 @@
             v-if="state === states.login"
             class="text-h2 font-semibold py-1 text-center mobile:text-h2-m tablet:text-h2-m w-full"
           >
-            {{ $t("login.header") }}
+            {{ $t('login.header') }}
             <div>
               <Input-1
                 ref="emailInput"
@@ -55,7 +55,7 @@
                 class="font-semibold block my-3"
                 @click="toPassReset"
               >
-                {{ $t("login.resetPassword") }}
+                {{ $t('login.resetPassword') }}
               </button-text-1>
               <button-1
                 id="loginButton"
@@ -63,7 +63,7 @@
                 :disabled="isLoginButtonDisabled"
                 @click="login"
               >
-                {{ $t("login.logIn") }}
+                {{ $t('login.logIn') }}
               </button-1>
             </div>
           </div>
@@ -87,20 +87,20 @@
               </div>
               <div class="px-4">
                 <p class="font-semibold text-blue-c-500">
-                  {{ $t("login.organizationBlocked") }}
+                  {{ $t('login.organizationBlocked') }}
                 </p>
                 <p class="py-2">
-                  {{ $t("general.cause") }}
+                  {{ $t('general.cause') }}
                   <span class="font-semibold text-red-c-500">{{
                     logInErrorMessage
                   }}</span>
                 </p>
-                <p>{{ $t("login.organizationBlockedInfo") }}</p>
+                <p>{{ $t('login.organizationBlockedInfo') }}</p>
               </div>
             </div>
 
             <button1 class="w-full mt-6" @click="toDefaultState">{{
-              $t("login.understood")
+              $t('login.understood')
             }}</button1>
           </div>
           <div
@@ -108,7 +108,7 @@
             class="text-h2 font-semibold py-1 text-center mobile:text-h2-m tablet:text-h2-m w-full flex flex-col"
           >
             <div class="shrink-0 grow-0">
-              {{ $t("login.resetPasswordTitle") }}
+              {{ $t('login.resetPasswordTitle') }}
             </div>
             <div class="grow grid content-center">
               <Input-1
@@ -126,7 +126,7 @@
                   class="block w-full"
                   @click="toLogin"
                 >
-                  {{ $t("general.cancel") }}
+                  {{ $t('general.cancel') }}
                 </button-2>
                 <button-1
                   id="resetPassButton"
@@ -134,7 +134,7 @@
                   :disabled="!isPassResetMailValid"
                   @click="ResetPasswordRequest"
                 >
-                  {{ $t("general.confirm") }}
+                  {{ $t('general.confirm') }}
                 </button-1>
               </div>
             </div>
@@ -146,14 +146,14 @@
   </teleport>
 </template>
 <script>
-import api from "../../http_client/index.js";
-import { mapMutations, mapGetters, mapActions } from "vuex";
-import Button1 from "../Buttons/Button_1.vue";
-import Loader from "../Loader.vue";
-import regex from "../mixins/regex.js";
+import api from '../../http_client/index.js'
+import { mapMutations, mapGetters, mapActions } from 'vuex'
+import Button1 from '../Buttons/Button_1.vue'
+import Loader from '../Loader.vue'
+import regex from '../mixins/regex.js'
 
 export default {
-  name: "LoginModal",
+  name: 'LoginModal',
   components: { Button1, Loader },
   mixins: [regex],
   props: {
@@ -168,146 +168,146 @@ export default {
   },
   data() {
     return {
-      email: "",
-      pass: "",
-      passResetMail: "",
+      email: '',
+      pass: '',
+      passResetMail: '',
       isClosedClick: false,
-      logInErrorMessage: "",
+      logInErrorMessage: '',
       isLoaderVisible: false,
-      state: "login",
+      state: 'login',
       states: {
-        login: "login",
-        error: "error",
-        passReset: "reset",
+        login: 'login',
+        error: 'error',
+        passReset: 'reset',
       },
-    };
+    }
   },
   methods: {
-    ...mapMutations(["setLoggedUserCredentials", "setLoggedUserInfo"]),
-    ...mapActions(["GetUserOrganization"]),
+    ...mapMutations(['setLoggedUserCredentials', 'setLoggedUserInfo']),
+    ...mapActions(['GetUserOrganization']),
     hide() {
-      this.isClosedClick = true;
+      this.isClosedClick = true
       setTimeout(() => {
-        this.isClosedClick = false;
-        this.toDefaultState();
-        this.closeFunc();
-      }, 400);
+        this.isClosedClick = false
+        this.toDefaultState()
+        this.closeFunc()
+      }, 400)
     },
     async login() {
       if (!this.isLoginButtonDisabled) {
-        this.isLoaderVisible = true;
-        let credentials = new FormData();
-        credentials.append("username", this.email);
-        credentials.append("password", this.pass);
+        this.isLoaderVisible = true
+        let credentials = new FormData()
+        credentials.append('username', this.email)
+        credentials.append('password', this.pass)
         await api.user
           .LogIn(credentials)
           .then(async (res) => {
-            this.setLoggedUserCredentials(res.data);
-            await this.getInfo();
+            this.setLoggedUserCredentials(res.data)
+            await this.getInfo()
           })
           .catch((err) => {
-            let mess = "";
+            let mess = ''
             switch (err.response.status) {
               case 400:
-                mess = this.$t("validations.credentialsError");
-                break;
+                mess = this.$t('validations.credentialsError')
+                break
               default:
-                mess = this.$t("general.errorMessage");
-                break;
+                mess = this.$t('general.errorMessage')
+                break
             }
-            this.toError(mess);
-            this.isLoaderVisible = false;
-          });
+            this.toError(mess)
+            this.isLoaderVisible = false
+          })
       }
     },
     async getInfo() {
       if (!this.getToken) {
-        this.toError(this.$t("general.errorMessage"));
+        this.toError(this.$t('general.errorMessage'))
       }
       await api.user
         .GetInfo()
         .then((res) => {
-          this.setLoggedUserInfo(res.data);
+          this.setLoggedUserInfo(res.data)
           //this.GetUserOrganization();
         })
         .catch((err) => {
-          this.toError(err);
+          this.toError(err)
         })
         .finally(() => {
-          this.isLoaderVisible = false;
-        });
+          this.isLoaderVisible = false
+        })
     },
     async ResetPasswordRequest() {
       if (!this.isPassResetMailValid) {
-        this.$toast.error(this.$t("validations.mailNotValid"));
-        return;
+        this.$toast.error(this.$t('validations.mailNotValid'))
+        return
       }
-      this.isLoaderVisible = true;
+      this.isLoaderVisible = true
       await api.user
         .PassResetRequest(this.passResetMail)
         .then((res) => {
-          this.isLoaderVisible = false;
+          this.isLoaderVisible = false
           if (res.status === 200) {
             this.$toast.success(
-              this.$t("login.passResetReqSend"),
+              this.$t('login.passResetReqSend'),
               this.$toast.options(false, true, this.hide)
-            );
+            )
           }
         })
         .catch((err) => {
-          this.isLoaderVisible = false;
-          let errMess = "";
+          this.isLoaderVisible = false
+          let errMess = ''
           switch (err.response.status) {
             case 400:
-              errMess = this.$t("login.mailNotExist");
-              break;
+              errMess = this.$t('login.mailNotExist')
+              break
             default:
-              errMess = this.$t("general.errorMessage");
-              break;
+              errMess = this.$t('general.errorMessage')
+              break
           }
-          this.$toast.error(errMess, this.$toast.options(false, true));
-        });
+          this.$toast.error(errMess, this.$toast.options(false, true))
+        })
     },
     toDefaultState() {
-      this.email = "";
-      this.pass = "";
-      this.logInErrorMessage = "";
-      this.isLoaderVisible = false;
-      this.toLogin();
+      this.email = ''
+      this.pass = ''
+      this.logInErrorMessage = ''
+      this.isLoaderVisible = false
+      this.toLogin()
     },
     toPassReset() {
-      this.state = this.states.passReset;
+      this.state = this.states.passReset
     },
     toLogin() {
-      this.state = this.states.login;
+      this.state = this.states.login
     },
     toError(message) {
-      this.logInErrorMessage = message;
-      this.state = this.states.error;
+      this.logInErrorMessage = message
+      this.state = this.states.error
     },
   },
   computed: {
-    ...mapGetters(["getToken", "isAuth"]),
+    ...mapGetters(['getToken', 'isAuth']),
     isLoginButtonDisabled() {
-      return this.email.length <= 0 || this.pass.length <= 0;
+      return this.email.length <= 0 || this.pass.length <= 0
     },
     isPassResetMailValid() {
-      return this.isMail(this.passResetMail);
+      return this.isMail(this.passResetMail)
     },
   },
   watch: {
     isAuth(newValue) {
-      if (newValue) this.hide();
+      if (newValue) this.hide()
     },
     state(newVal) {
       switch (newVal) {
         case this.states.login:
-          this.passResetMail = "";
-          break;
+          this.passResetMail = ''
+          break
       }
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

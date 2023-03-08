@@ -13,7 +13,7 @@
         <div
           class="text-gray-c-500 font-normal pt-2.5 text-h3 mobile:text-h4 tablet:text-h4"
         >
-          {{ new Date(log.created_at).toTimeString().split(" ")[0] }}
+          {{ new Date(log.created_at).toTimeString().split(' ')[0] }}
         </div>
 
         <div class="w-4/5 mobile:pr-6">
@@ -74,13 +74,13 @@
 </template>
 
 <script>
-import SVG_status_list from "../../ComponentsSVG/SVG_status_list.vue";
-import Expander from "../../Other/Expander.vue";
-import dynamicContent from "../../mixins/dynamicContent.js";
-import reportItemFlags from "../../mixins/reportItemFlags.js";
-import dateFormatter from "../../mixins/dateFormatter.js";
+import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
+import Expander from '../../Other/Expander.vue'
+import dynamicContent from '../../mixins/dynamicContent.js'
+import reportItemFlags from '../../mixins/reportItemFlags.js'
+import dateFormatter from '../../mixins/dateFormatter.js'
 export default {
-  name: "HistoryItem",
+  name: 'HistoryItem',
   components: {
     Expander,
     SVG_status_list,
@@ -95,10 +95,10 @@ export default {
   },
   methods: {
     getDate(strDate) {
-      return this.GetDayDateString(strDate).replace(" ", ", ");
+      return this.GetDayDateString(strDate).replace(' ', ', ')
     },
     getChangedLogs(log) {
-      let result = [];
+      let result = []
       if (!log.old_flags) {
         Object.keys(log.new_flags).forEach((flag) => {
           result.push({
@@ -106,9 +106,9 @@ export default {
             old_value: null,
             new_value: log.new_flags[flag].flag,
             description: log.new_flags.description,
-          });
-        });
-        return result;
+          })
+        })
+        return result
       }
 
       Object.keys(log.old_flags).map((flag) => {
@@ -117,14 +117,14 @@ export default {
             flag: flag,
             old_value: log.old_flags[flag].flag,
             new_value: log.new_flags[flag].flag,
-            description: "",
-          });
+            description: '',
+          })
         }
 
         if (
           log.old_flags[flag].description !== log.new_flags[flag].description
         ) {
-          let el = result.find((el) => el.flag == flag);
+          let el = result.find((el) => el.flag == flag)
           if (!el) {
             result.push({
               flag: flag,
@@ -133,18 +133,18 @@ export default {
               description:
                 log.new_flags[flag].description.length > 0
                   ? log.new_flags[flag].description
-                  : this.$t("reportTools.descriptionDeleted"),
-            });
+                  : this.$t('reportTools.descriptionDeleted'),
+            })
           } else {
-            el.description = log.new_flags[flag].description;
+            el.description = log.new_flags[flag].description
           }
         }
-      });
+      })
       //console.log(result);
-      return result;
+      return result
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

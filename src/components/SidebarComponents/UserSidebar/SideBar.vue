@@ -18,7 +18,7 @@
         :current-tab-value="selectedTabItem"
         @click="setSelectedTab('Overview')"
       >
-        {{ $t("userSideBar.overview") }}
+        {{ $t('userSideBar.overview') }}
       </TabItemButton>
       <TabItemButton
         class="w-full"
@@ -26,7 +26,7 @@
         :current-tab-value="selectedTabItem"
         @click="setSelectedTab(`History`)"
       >
-        {{ $t("userSideBar.change-history") }}
+        {{ $t('userSideBar.change-history') }}
       </TabItemButton>
     </div>
     <div class="pt-6 grow">
@@ -42,14 +42,14 @@
 </template>
 
 <script>
-import Overview from "./Overview.vue";
-import History from "./History.vue";
-import { mapState } from "vuex";
-import NotFound from "./NotFound.vue";
-import TabItemButton from "../../Other/TabItemButton.vue";
+import Overview from './Overview.vue'
+import History from './History.vue'
+import { mapState } from 'vuex'
+import NotFound from './NotFound.vue'
+import TabItemButton from '../../Other/TabItemButton.vue'
 
 export default {
-  name: "SideBar",
+  name: 'SideBar',
   components: {
     TabItemButton,
     History,
@@ -61,38 +61,38 @@ export default {
   },
   data: function () {
     return {
-      selectedTabItem: "Overview",
-    };
+      selectedTabItem: 'Overview',
+    }
   },
   methods: {
     setSelectedTab(tabName) {
-      this.selectedTabItem = tabName;
+      this.selectedTabItem = tabName
     },
   },
   computed: {
     ...mapState({
-      selectedMarkerData: "selectedMarkerData",
+      selectedMarkerData: 'selectedMarkerData',
     }),
     selectedMarkerAddress() {
-      let address = "";
+      let address = ''
       if (this.selectedMarkerData.address)
-        address += `${this.selectedMarkerData.address}, `;
+        address += `${this.selectedMarkerData.address}, `
       if (this.selectedMarkerData.street_number)
-        address += `${this.selectedMarkerData.street_number}, `;
+        address += `${this.selectedMarkerData.street_number}, `
       if (this.selectedMarkerData.index)
-        address += `${this.selectedMarkerData.index}, `;
+        address += `${this.selectedMarkerData.index}, `
       if (this.selectedMarkerData.city)
-        address += `${this.selectedMarkerData.city}`;
-      let trim = 0;
+        address += `${this.selectedMarkerData.city}`
+      let trim = 0
       for (let i = address.length - 1; i <= 0; i--) {
-        if (address[i] === " " || address[i] === ",") trim++;
-        else break;
+        if (address[i] === ' ' || address[i] === ',') trim++
+        else break
       }
-      address = address.substring(0, address.length - trim);
-      return address.length > 0 ? address : this.$t("general.error");
+      address = address.substring(0, address.length - trim)
+      return address.length > 0 ? address : this.$t('general.error')
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

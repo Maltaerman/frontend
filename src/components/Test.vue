@@ -13,56 +13,56 @@
 </template>
 
 <script>
-import UserInviteModal from "./Modals/UserInviteModal.vue";
-import InputSuggest from "./Inputs/suggestionInput/Input-suggestion.vue";
+import UserInviteModal from './Modals/UserInviteModal.vue'
+import InputSuggest from './Inputs/suggestionInput/Input-suggestion.vue'
 
 export default {
-  name: "Test",
+  name: 'Test',
   components: {
     InputSuggest,
     UserInviteModal,
   },
   data() {
     return {
-      mess: "Message",
+      mess: 'Message',
       modalVisible: false,
       items: [
-        "Golden Retriever t",
-        "Cat",
-        "Cat",
-        "Cat",
-        "Cat",
-        "Cat",
-        "Cat",
-        "Cat",
-        "Squirrel",
-        "Golden Retriever t",
-        "Cat",
-        "Squirrel",
-        "Golden Retriever t",
-        "Cat",
-        "Squirrel",
+        'Golden Retriever t',
+        'Cat',
+        'Cat',
+        'Cat',
+        'Cat',
+        'Cat',
+        'Cat',
+        'Cat',
+        'Squirrel',
+        'Golden Retriever t',
+        'Cat',
+        'Squirrel',
+        'Golden Retriever t',
+        'Cat',
+        'Squirrel',
       ],
-    };
+    }
   },
   methods: {
     Test1() {
-      this.items = null;
+      this.items = null
     },
     Test2() {
-      this.modalVisible = true;
+      this.modalVisible = true
     },
     HideModal() {
-      this.modalVisible = false;
+      this.modalVisible = false
     },
     close() {
-      this.$toast.clear();
+      this.$toast.clear()
     },
     changeMessage() {
-      this.mess = "qwertyyyyy";
+      this.mess = 'qwertyyyyy'
     },
   },
-};
+}
 </script>
 
 <style>

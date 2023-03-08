@@ -12,18 +12,18 @@
       class="float-right text-blue-500 font-medium ml-1 mb-1"
       @click="Expand"
     >
-      <span v-if="!isExpanded">{{ $t("general.details") }}</span>
-      <span v-else>{{ $t("general.close") }}</span>
+      <span v-if="!isExpanded">{{ $t('general.details') }}</span>
+      <span v-else>{{ $t('general.close') }}</span>
     </button>
     <slot></slot>
   </div>
 </template>
 
 <script>
-import helper from "../mixins/helper.js";
+import helper from '../mixins/helper.js'
 
 export default {
-  name: "Expander",
+  name: 'Expander',
   mixins: [helper],
   props: {
     defaultHeight: {
@@ -35,18 +35,18 @@ export default {
     return {
       isExpanded: false,
       isMinimizeEl: false,
-    };
+    }
   },
   mounted() {
-    if (!this.$refs.desc) this.isMinimizeEl = true;
-    else this.isMinimizeEl = this.getLineCount(this.$refs.desc) > 5;
+    if (!this.$refs.desc) this.isMinimizeEl = true
+    else this.isMinimizeEl = this.getLineCount(this.$refs.desc) > 5
   },
   methods: {
     Expand() {
-      this.isExpanded = !this.isExpanded;
+      this.isExpanded = !this.isExpanded
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

@@ -39,12 +39,12 @@
 </template>
 
 <script>
-import removeElement from "./remove-helper.js";
-import messageTypes from "./messageTypes.js";
-import eventSystem from "./event-system.js";
+import removeElement from './remove-helper.js'
+import messageTypes from './messageTypes.js'
+import eventSystem from './event-system.js'
 
 export default {
-  name: "Toaster",
+  name: 'Toaster',
   props: {
     message: String,
     isCloseOnBg: {
@@ -56,7 +56,7 @@ export default {
       required: true,
       default: messageTypes.info,
       validator(value) {
-        return Object.keys(messageTypes).includes(value);
+        return Object.keys(messageTypes).includes(value)
       },
     },
     onClose: {
@@ -72,51 +72,51 @@ export default {
     return {
       isAct: true,
       timeoutID: 0,
-    };
+    }
   },
   computed: {
     textStyle() {
       return {
-        "text-green-c-500": this.type === messageTypes.success,
-        "text-red-c-500": this.type === messageTypes.error,
-        "text-blue-c-500": this.type === messageTypes.info,
-        "text-red-c-300": this.type === messageTypes.warning,
-      };
+        'text-green-c-500': this.type === messageTypes.success,
+        'text-red-c-500': this.type === messageTypes.error,
+        'text-blue-c-500': this.type === messageTypes.info,
+        'text-red-c-300': this.type === messageTypes.warning,
+      }
     },
     types() {
-      return messageTypes;
+      return messageTypes
     },
   },
   mounted() {
-    eventSystem.$on("toast-close", this.close);
-    if (typeof this.duration === "number" && this.duration > 0) {
-      this.timeoutID = setTimeout(this.close, this.duration);
+    eventSystem.$on('toast-close', this.close)
+    if (typeof this.duration === 'number' && this.duration > 0) {
+      this.timeoutID = setTimeout(this.close, this.duration)
     }
   },
   updated() {
     //beforeUnmount hook don't call. I don't know why
-    if (!this.isAct) eventSystem.$off("toast-close", this.close);
+    if (!this.isAct) eventSystem.$off('toast-close', this.close)
   },
   beforeUnmount() {
-    eventSystem.$off("toast-close", this.close);
+    eventSystem.$off('toast-close', this.close)
   },
   methods: {
     bgClose() {
       if (this.isCloseOnBg) {
-        clearTimeout(this.timeoutID);
-        this.close();
+        clearTimeout(this.timeoutID)
+        this.close()
       }
     },
     close(arg = []) {
-      this.isAct = false;
-      this.onClose();
-      removeElement(this.$el);
+      this.isAct = false
+      this.onClose()
+      removeElement(this.$el)
     },
     isType(type) {
-      return type === this.type;
+      return type === this.type
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

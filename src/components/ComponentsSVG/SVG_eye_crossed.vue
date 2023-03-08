@@ -18,7 +18,7 @@
 </template>
 <script>
 export default {
-  name: "SVGBuildingCondition",
+  name: 'SVGBuildingCondition',
   props: {
     class: String,
     width: Number,
@@ -30,18 +30,18 @@ export default {
         width: 22,
         height: 20,
       },
-    };
+    }
   },
   computed: {
     viewBox() {
-      return `0 0 ${this.c_width} ${this.c_height}`;
+      return `0 0 ${this.c_width} ${this.c_height}`
     },
     c_width() {
-      return this.width > 0 ? this.width : this.defaultData.width;
+      return this.width > 0 ? this.width : this.defaultData.width
     },
     c_height() {
-      return this.height > 0 ? this.width : this.defaultData.height;
+      return this.height > 0 ? this.width : this.defaultData.height
     },
   },
-};
+}
 </script>

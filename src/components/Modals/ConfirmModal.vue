@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: "ConfirmModal",
+  name: 'ConfirmModal',
   props: {
     isVisible: {
       default: false,
@@ -47,7 +47,7 @@ export default {
     },
     title: {
       type: String,
-      default: "",
+      default: '',
     },
     question: {
       type: String,
@@ -68,25 +68,25 @@ export default {
     acceptButtonTextC() {
       return this.acceptButtonText
         ? this.acceptButtonText
-        : this.$t("general.confirm");
+        : this.$t('general.confirm')
     },
     cancelButtonTextC() {
       return this.cancelButtonText
         ? this.cancelButtonText
-        : this.$t("general.cancel");
+        : this.$t('general.cancel')
     },
   },
   methods: {
     cancelButtonClick() {
-      this.cancelButtonFunc();
-      this.closeFunc();
+      this.cancelButtonFunc()
+      this.closeFunc()
     },
     acceptButtonClick() {
-      this.acceptButtonFunc();
-      this.closeFunc();
+      this.acceptButtonFunc()
+      this.closeFunc()
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

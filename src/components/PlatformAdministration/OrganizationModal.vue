@@ -15,12 +15,12 @@
         @click="closeThisModal"
       />
       <div class="text-h2 text-center font-semibold">
-        {{ $t("dashboard.addOrganization") }}
+        {{ $t('dashboard.addOrganization') }}
       </div>
       <div class="flex flex-col gap-4 mt-4 mb-6">
         <div>
           <label for="inpRegNewOrgName" class="text-h4 text-gray-c-500">{{
-            $t("dashboard.organizationName")
+            $t('dashboard.organizationName')
           }}</label>
           <input1
             v-model="organization.createOrgName"
@@ -31,7 +31,7 @@
         </div>
         <div>
           <label for="inpRegNewOrgSite" class="text-h4 text-gray-c-500">{{
-            $t("dashboard.website")
+            $t('dashboard.website')
           }}</label>
           <input1
             v-model="organization.createOrgSite"
@@ -46,7 +46,7 @@
         :disabled="isOrgCreateButtDisabled"
         @click.stop="addOrganization"
       >
-        {{ $t("general.save") }}
+        {{ $t('general.save') }}
       </button-1>
       <Loader v-if="isLoaderVisible" />
     </div>
@@ -54,9 +54,9 @@
 </template>
 
 <script>
-import ModalTemplate from "../Modals/ModalTemplate.vue";
-import Input1 from "../Inputs/Input-1.vue";
-import StringFormatter from "../mixins/StringFormatter";
+import ModalTemplate from '../Modals/ModalTemplate.vue'
+import Input1 from '../Inputs/Input-1.vue'
+import StringFormatter from '../mixins/StringFormatter'
 export default {
   components: {
     ModalTemplate,
@@ -76,29 +76,29 @@ export default {
       type: Boolean,
     },
   },
-  emits: ["addOrganization"],
+  emits: ['addOrganization'],
   data() {
     return {
       organization: {
-        createOrgName: "",
-        createOrgSite: "",
+        createOrgName: '',
+        createOrgSite: '',
       },
-    };
+    }
   },
   computed: {
     isOrgCreateButtDisabled() {
-      return this.TrimTurbo(this.organization.createOrgName).length < 3;
+      return this.TrimTurbo(this.organization.createOrgName).length < 3
     },
   },
   methods: {
     closeThisModal() {
-      console.log("joł");
-      this.closeCreateOrgModal();
+      console.log('joł')
+      this.closeCreateOrgModal()
     },
     addOrganization() {
-      console.log("adding from modal");
-      this.$emit("addOrganization", this.organization);
+      console.log('adding from modal')
+      this.$emit('addOrganization', this.organization)
     },
   },
-};
+}
 </script>

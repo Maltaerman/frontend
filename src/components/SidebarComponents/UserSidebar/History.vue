@@ -10,33 +10,33 @@
 </template>
 
 <script>
-import HistoryItem from "./HistoryItem.vue";
-import { mapActions, mapState } from "vuex";
-import Loader from "../../Loader.vue";
+import HistoryItem from './HistoryItem.vue'
+import { mapActions, mapState } from 'vuex'
+import Loader from '../../Loader.vue'
 
 export default {
-  name: "History",
+  name: 'History',
   components: { Loader, HistoryItem },
   data() {
     return {
       sortedChangedLogs: [],
       isLoader: false,
-    };
+    }
   },
   methods: {
     ...mapActions({
-      updateSelectedMarkerHistory: "getSelectedDataHistory",
+      updateSelectedMarkerHistory: 'getSelectedDataHistory',
     }),
     sortChangedLogs() {
-      this.isLoader = true;
+      this.isLoader = true
       let result = this.changeLogs.reduce((dates, log) => {
-        let date = log.created_at.split("T")[0];
-        if (!dates[date]) dates[date] = [];
-        dates[date].push(log);
-        return dates;
-      }, {});
-      this.sortedChangedLogs = result;
-      this.isLoader = false;
+        let date = log.created_at.split('T')[0]
+        if (!dates[date]) dates[date] = []
+        dates[date].push(log)
+        return dates
+      }, {})
+      this.sortedChangedLogs = result
+      this.isLoader = false
     },
   },
   computed: {
@@ -60,17 +60,17 @@ export default {
   },
   watch: {
     selectedMarkerData() {
-      this.updateSelectedMarkerHistory();
+      this.updateSelectedMarkerHistory()
     },
     changeLogs() {
-      this.sortChangedLogs();
+      this.sortChangedLogs()
     },
   },
   mounted() {
-    this.updateSelectedMarkerHistory();
-    this.sortChangedLogs();
+    this.updateSelectedMarkerHistory()
+    this.sortChangedLogs()
   },
-};
+}
 </script>
 
 <style scoped></style>

@@ -50,68 +50,88 @@
 </template>
 
 <script>
-import regex from "../mixins/regex.js";
+import regex from '../mixins/regex.js'
 export default {
-  name: "TelInput",
+  name: 'TelInput',
   mixins: [regex],
   props: {
     modelValue: String,
   },
-  emits: ["validation", "update:modelValue", "enter-click"],
+  emits: ['validation', 'update:modelValue', 'enter-click'],
   data() {
     return {
       code: {
-        code: "ua",
-        value: "+380",
-        flag: "/Flags/UA_flag.svg",
+        code: 'ua',
+        value: '+380',
+        flag: '/Flags/UA_flag.svg',
         numLength: 9,
       },
       availableCode: [
-        { code: "ua", value: "+380", flag: "/Flags/UA_flag.svg", numLength: 9 },
-        { code: "pl", value: "+48", flag: "/Flags/PL_flag.svg", numLength: 9 },
-        { code: "uk", value: "+44", flag: "/Flags/UK_flag.svg", numLength: 10 },
-        { code: "us", value: "+1", flag: "/Flags/USA_flag.svg", numLength: 10 },
+        {
+          code: 'ua',
+          value: '+380',
+          flag: '/Flags/UA_flag.svg',
+          numLength: 9,
+        },
+        {
+          code: 'pl',
+          value: '+48',
+          flag: '/Flags/PL_flag.svg',
+          numLength: 9,
+        },
+        {
+          code: 'uk',
+          value: '+44',
+          flag: '/Flags/UK_flag.svg',
+          numLength: 10,
+        },
+        {
+          code: 'us',
+          value: '+1',
+          flag: '/Flags/USA_flag.svg',
+          numLength: 10,
+        },
       ],
       isDropped: false,
-      inp: "",
-      number: "",
-    };
+      inp: '',
+      number: '',
+    }
   },
   watch: {
     inp(newVal) {
-      if (this.onlyDigitsRegex.test(newVal) || newVal === "") {
-        this.number = newVal;
-        this.$emit("update:modelValue", `${this.code.value}${this.number}`);
-      } else this.inp = this.number;
-      this.numValidation();
+      if (this.onlyDigitsRegex.test(newVal) || newVal === '') {
+        this.number = newVal
+        this.$emit('update:modelValue', `${this.code.value}${this.number}`)
+      } else this.inp = this.number
+      this.numValidation()
     },
     code(newVal) {
-      this.numValidation();
+      this.numValidation()
     },
   },
   mounted() {
-    this.$refs.tel.focus();
+    this.$refs.tel.focus()
   },
   methods: {
     ToggleDrop(bool) {
-      this.isDropped = bool;
+      this.isDropped = bool
     },
     setCode(code) {
-      this.code = this.availableCode.find((x) => x.code === code);
+      this.code = this.availableCode.find((x) => x.code === code)
     },
     numValidation() {
       //let regex = new RegExp(`[0-9]{${this.code.numLength}}`);
       let isValid =
         this.onlyDigitsRegex.test(this.number) &&
-        this.number.length === this.code.numLength;
-      this.$emit("validation", isValid);
+        this.number.length === this.code.numLength
+      this.$emit('validation', isValid)
     },
     keyAction(e) {
-      if (!e.keyCode) return;
-      if (e.keyCode === 13) this.$emit("enter-click");
+      if (!e.keyCode) return
+      if (e.keyCode === 13) this.$emit('enter-click')
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

@@ -5,7 +5,7 @@
     <div class="p-6">
       <div v-if="notFoundedMarkerData">
         <p class="font-semibold text-4xl">
-          {{ $t("notFoundAddress.noDBItem", { address: Address }) }}
+          {{ $t('notFoundAddress.noDBItem', { address: Address }) }}
         </p>
         <div class="mt-2.5">
           <div v-if="notFoundedMarkerData.id" class="flex items-center gap-2">
@@ -24,17 +24,17 @@
               />
             </svg>
             <p class="text-h3 text-green-c-500 font-semibold">
-              {{ $t("notFoundAddress.requestExist") }}
+              {{ $t('notFoundAddress.requestExist') }}
             </p>
           </div>
           <div v-else class="text-gray-c-500">
-            {{ $t("notFoundAddress.tips") }}
+            {{ $t('notFoundAddress.tips') }}
           </div>
         </div>
       </div>
       <div v-else>
         <p class="font-semibold text-4xl">
-          {{ $t("userSideBar.choose-location") }}
+          {{ $t('userSideBar.choose-location') }}
         </p>
       </div>
       <button-1
@@ -49,18 +49,18 @@
             isRoleHaveAccess(getRole, userRoles.aidWorker)
           "
         >
-          {{ $t("aidWorkerSideBar.takeRequest") }}
+          {{ $t('aidWorkerSideBar.takeRequest') }}
         </span>
         <span v-else-if="notFoundedMarkerData">
-          {{ $t("notFoundAddress.sendRequest") }}
+          {{ $t('notFoundAddress.sendRequest') }}
         </span>
         <span v-else>
-          {{ $t("userSideBar.choose-location-button") }}
+          {{ $t('userSideBar.choose-location-button') }}
         </span>
       </button-1>
       <div v-if="recentReports.length > 0" class="w-full">
         <div class="font-semibold mb-2 bg-white z-10">
-          {{ $t("welcomeScreen.recentlyReports") }}
+          {{ $t('welcomeScreen.recentlyReports') }}
         </div>
         <WelcomeScreenReportList
           :reports-list="recentReports"
@@ -81,18 +81,18 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from "vuex";
-import api from "../../../http_client/index.js";
-import Loader from "../../Loader.vue";
-import FeedBackForm from "./FeedBackForm.vue";
-import userRoles from "../../mixins/userRoles.js";
-import SendReportRequestModal from "../../Modals/SendReportRequestModal.vue";
-import Footer from "./Footer.vue";
-import dynamicContent from "../../mixins/dynamicContent.js";
-import WelcomeScreenReportList from "../../WelcomeScreen/WelcomeScreenReportList.vue";
+import { mapActions, mapGetters, mapMutations } from 'vuex'
+import api from '../../../http_client/index.js'
+import Loader from '../../Loader.vue'
+import FeedBackForm from './FeedBackForm.vue'
+import userRoles from '../../mixins/userRoles.js'
+import SendReportRequestModal from '../../Modals/SendReportRequestModal.vue'
+import Footer from './Footer.vue'
+import dynamicContent from '../../mixins/dynamicContent.js'
+import WelcomeScreenReportList from '../../WelcomeScreen/WelcomeScreenReportList.vue'
 
 export default {
-  name: "NotFound",
+  name: 'NotFound',
   components: {
     WelcomeScreenReportList,
     Footer,
@@ -106,62 +106,62 @@ export default {
       isLoader: false,
       isRequestModalView: false,
       recentReports: [],
-    };
+    }
   },
   computed: {
     ...mapGetters({
-      getRequestMarkers: "getRequestMarkers",
-      notFoundedMarkerData: "notFoundedMarker",
+      getRequestMarkers: 'getRequestMarkers',
+      notFoundedMarkerData: 'notFoundedMarker',
     }),
     buttonDisabled() {
-      if (this.notFoundedMarkerData === null) return true;
+      if (this.notFoundedMarkerData === null) return true
       else if (
         this.notFoundedMarkerData.id &&
         this.getRole === this.userRoles.user
       )
-        return true;
-      else return false;
+        return true
+      else return false
     },
     Address() {
       if (this.notFoundedMarkerData)
         return this.notFoundedMarkerData.id
           ? this.ReportAddressFull(this.notFoundedMarkerData)
-          : this.notFoundedMarkerData.address;
+          : this.notFoundedMarkerData.address
     },
   },
   methods: {
     ...mapActions({
-      setUnreviewedMarkers: "setUnreviewedMarkers",
-      setNotFoundMarker: "setNotFoundMarker",
-      setSelectedRequest: "setSelectedRequest",
+      setUnreviewedMarkers: 'setUnreviewedMarkers',
+      setNotFoundMarker: 'setNotFoundMarker',
+      setSelectedRequest: 'setSelectedRequest',
     }),
     ...mapMutations({
-      setSelectedMarker: "setSelectedMarker",
+      setSelectedMarker: 'setSelectedMarker',
     }),
     // its for existed requests
     async reviewNotFoundMarker() {
-      if (!this.notFoundedMarkerData.id) return;
-      this.isLoader = true;
+      if (!this.notFoundedMarkerData.id) return
+      this.isLoader = true
       await api.locations
         .getLocationById(this.notFoundedMarkerData.id)
         .then((res) => {
-          this.GetExistedRequestInWork(res.data);
+          this.GetExistedRequestInWork(res.data)
         })
         .catch((err) => {
-          this.isLoader = false;
-          this.$toast.error(this.$t("general.errorMessage"));
-        });
+          this.isLoader = false
+          this.$toast.error(this.$t('general.errorMessage'))
+        })
     },
     GetExistedRequestInWork(request) {
       if (request.reported_by && request.reported_by !== this.getUser.id) {
-        this.$toast.error(this.$t("notFoundAddress.modalErrReqInWork"), {
+        this.$toast.error(this.$t('notFoundAddress.modalErrReqInWork'), {
           duration: false,
-        });
-        return;
+        })
+        return
       }
-      this.setSelectedRequest(request);
-      this.isLoader = false;
-      this.$router.push("/main/submit-report");
+      this.setSelectedRequest(request)
+      this.isLoader = false
+      this.$router.push('/main/submit-report')
     },
     //
     //Resent reports
@@ -169,44 +169,46 @@ export default {
       await api.locations
         .getRecentReports(20)
         .then((res) => {
-          this.recentReports = res.data ?? [];
+          this.recentReports = res.data ?? []
         })
         .catch((err) => {
-          console.error(err);
-        });
+          console.error(err)
+        })
     },
     RecentReportClick(report) {
-      this.setSelectedMarker(report);
+      this.setSelectedMarker(report)
       this.$router.replace({
-        path: "/main/overview",
+        path: '/main/overview',
         query: { id: report.id, ...report.position },
-      });
+      })
     },
     //
 
     //Reporting unrequested location
     async reviewNotExistedMarker() {
-      if (!this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker))
-        return;
-      this.isLoader = true;
-      let position = { ...this.notFoundedMarkerData.position };
+      if (!this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker)) return
+      this.isLoader = true
+      let position = { ...this.notFoundedMarkerData.position }
       await api.locations
         .getGeocodingOSM(this.notFoundedMarkerData.position)
         .then((res) => {
           if (res.data) {
-            this.createNotRequestedReport({ ...position, ...res.data });
-          } else throw new Error();
+            this.createNotRequestedReport({
+              ...position,
+              ...res.data,
+            })
+          } else throw new Error()
         })
         .catch((err) => {
-          this.$toast.error(this.$t("general.errorMessage"));
+          this.$toast.error(this.$t('general.errorMessage'))
         })
         .finally(() => {
-          this.isLoader = false;
-        });
+          this.isLoader = false
+        })
     },
     createNotRequestedReport(reportData) {
-      this.setSelectedRequest(reportData);
-      this.$router.push("/main/submit-report");
+      this.setSelectedRequest(reportData)
+      this.$router.push('/main/submit-report')
     },
     //
 
@@ -215,22 +217,22 @@ export default {
         this.notFoundedMarkerData.id &&
         this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker)
       )
-        this.reviewNotFoundMarker();
+        this.reviewNotFoundMarker()
       else if (
         !this.notFoundedMarkerData.id &&
         this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker)
       )
-        this.reviewNotExistedMarker();
-      else this.isRequestModalView = true;
+        this.reviewNotExistedMarker()
+      else this.isRequestModalView = true
     },
     closeReqModal() {
-      this.isRequestModalView = false;
+      this.isRequestModalView = false
     },
   },
   created() {
-    this.GetRecentReports();
+    this.GetRecentReports()
   },
-};
+}
 </script>
 
 <style scoped></style>

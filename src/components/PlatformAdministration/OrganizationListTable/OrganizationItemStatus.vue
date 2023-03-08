@@ -12,59 +12,59 @@
       >
         <SVG_eye_crossed class="fill-green-c-500"></SVG_eye_crossed>
       </div>
-      <span class="capitalize"> {{ status || "Disabled" }}</span>
+      <span class="capitalize"> {{ status || 'Disabled' }}</span>
     </div>
   </div>
 </template>
 
 <script>
-import SVG_eye_crossed from "../../ComponentsSVG/SVG_eye_crossed.vue";
-import { ORGANIZATION_STATUSES } from "./constants";
+import SVG_eye_crossed from '../../ComponentsSVG/SVG_eye_crossed.vue'
+import { ORGANIZATION_STATUSES } from './constants'
 export default {
-  name: "OrganizationItemStatus",
+  name: 'OrganizationItemStatus',
   components: {
     SVG_eye_crossed,
   },
   props: {
     status: {
       type: String,
-      default: "",
+      default: '',
     },
   },
   data() {
     return {
       ORGANIZATION_STATUSES,
-    };
+    }
   },
   methods: {
     getOrganizationStatus() {
-      const { ACTIVE, PENDING, DISABLED } = this.ORGANIZATION_STATUSES;
+      const { ACTIVE, PENDING, DISABLED } = this.ORGANIZATION_STATUSES
       switch (this.status) {
         case ACTIVE:
           return {
             staus: ACTIVE,
-            color: "border-green-c-200",
-            textColor: "text-green-c-500",
-          };
+            color: 'border-green-c-200',
+            textColor: 'text-green-c-500',
+          }
         case PENDING:
           return {
             staus: ACTIVE,
-            color: "border-gray-c-200",
-            textColor: "text-gray-c-500",
-          };
+            color: 'border-gray-c-200',
+            textColor: 'text-gray-c-500',
+          }
         case DISABLED:
           return {
             staus: ACTIVE,
-            color: "border-gray-c-300",
-            textColor: "text-gray-c-500",
-            backgroundColor: "fill-gray-c-200",
-          };
+            color: 'border-gray-c-300',
+            textColor: 'text-gray-c-500',
+            backgroundColor: 'fill-gray-c-200',
+          }
         default:
-          break;
+          break
       }
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped></style>

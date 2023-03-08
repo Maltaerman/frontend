@@ -8,7 +8,7 @@
     >
       <img src="/src/assets/fullLogo.svg" class="inline-block w-[310px]" />
       <p class="text-gray-c-500 mt-6 text-justify">
-        {{ $t("welcomeScreen.helperText") }}
+        {{ $t('welcomeScreen.helperText') }}
       </p>
       <div
         class="mx-[2.5%] w-full border bg-white rounded-xl border-gray-c-300 border-[2px] h-10 flex flex-nowrap mt-6 mb-9"
@@ -50,7 +50,7 @@
 
       <div v-if="recentReports.length > 0" class="w-full">
         <div class="font-semibold mb-2 bg-white z-10">
-          {{ $t("welcomeScreen.recentlyReports") }}
+          {{ $t('welcomeScreen.recentlyReports') }}
         </div>
         <WelcomeScreenReportList
           :reports-list="recentReports"
@@ -73,34 +73,34 @@
         class="flex gap-6 flex-nowrap text-h4 text-blue-c-500 font-semibold break-words"
       >
         <a href="https://about.projectdim.org" target="_blank">{{
-          $t("footer.about")
+          $t('footer.about')
         }}</a>
         <a href="https://dimblog.wixsite.com/project-dim" target="_blank">{{
-          $t("footer.blog")
+          $t('footer.blog')
         }}</a>
         <a href="https://about.projectdim.org/" target="_blank"
-          >❤ {{ $t("footer.support") }}</a
+          >❤ {{ $t('footer.support') }}</a
         >
       </div>
       <div
         class="flex gap-4 flex-nowrap text-h4 text-gray-c-400 font-semibold mobile:text-b3"
       >
-        <p>{{ $t("footer.ngo") }}</p>
-        <p>{{ $t("footer.code") }}</p>
+        <p>{{ $t('footer.ngo') }}</p>
+        <p>{{ $t('footer.code') }}</p>
       </div>
     </footer>
   </div>
 </template>
 
 <script>
-import Header from "../Header.vue";
-import Test from "../Test.vue";
-import { mapState, mapActions, mapMutations } from "vuex";
-import SVG_building_condition from "../ComponentsSVG/SVG_building_condition.vue";
-import WelcomeScreenReportList from "./WelcomeScreenReportList.vue";
-import api from "../../http_client/index.js";
+import Header from '../Header.vue'
+import Test from '../Test.vue'
+import { mapState, mapActions, mapMutations } from 'vuex'
+import SVG_building_condition from '../ComponentsSVG/SVG_building_condition.vue'
+import WelcomeScreenReportList from './WelcomeScreenReportList.vue'
+import api from '../../http_client/index.js'
 export default {
-  name: "WelcomeScreen",
+  name: 'WelcomeScreen',
   components: {
     WelcomeScreenReportList,
     SVG_building_condition,
@@ -112,68 +112,70 @@ export default {
       searchRequest: null,
       isInputFocused: false,
       recentReports: [],
-    };
+    }
   },
   methods: {
     ...mapActions({
-      GetMarkerByCoords: "GetMarkerByCoords",
-      getMarkerById: "getMarkerById",
+      GetMarkerByCoords: 'GetMarkerByCoords',
+      getMarkerById: 'getMarkerById',
     }),
     ...mapMutations({
-      setSelectedMarker: "setSelectedMarker",
+      setSelectedMarker: 'setSelectedMarker',
     }),
     OnInputFocus(arg) {
-      this.isInputFocused = arg;
+      this.isInputFocused = arg
     },
     ClearSearchRequest() {
-      let autocomplete = document.getElementById("autocomplete");
-      autocomplete.value = "";
+      let autocomplete = document.getElementById('autocomplete')
+      autocomplete.value = ''
     },
     GetMarker(arg) {
-      let payload = {};
+      let payload = {}
       try {
-        payload = this.coordsFormatter(arg.geometry.location);
-        console.log(payload);
+        payload = this.coordsFormatter(arg.geometry.location)
+        console.log(payload)
       } catch {
         this.$toast.error(
-          this.$t("welcomeScreen.requestError", { address: arg.name ?? "" })
-        );
-        return;
+          this.$t('welcomeScreen.requestError', {
+            address: arg.name ?? '',
+          })
+        )
+        return
       }
-      this.GetMarkerByCoords({ position: payload, name: arg.name });
-      this.$router.push("/main/overview");
+      this.GetMarkerByCoords({ position: payload, name: arg.name })
+      this.$router.push('/main/overview')
     },
     RecentReportClick(report) {
-      this.setSelectedMarker(report);
+      this.setSelectedMarker(report)
       this.$router.replace({
-        path: "/main/overview",
+        path: '/main/overview',
         query: { id: report.id, ...report.position },
-      });
+      })
     },
     async GetRecentReports() {
       await api.locations
         .getRecentReports(20)
         .then((res) => {
-          this.recentReports = res.data ?? [];
+          this.recentReports = res.data ?? []
         })
         .catch((err) => {
-          console.error(err);
-        });
+          console.error(err)
+        })
     },
     coordsFormatter(coords) {
-      let res = {};
-      if (typeof coords.lat == "function") res.lat = coords.lat();
-      else if (typeof coords.lat == "number") res.lat = coords.lat;
-      else if (typeof coords.lat == "string") res.lat = Number(coords.lat);
+      let res = {}
+      if (typeof coords.lat == 'function') res.lat = coords.lat()
+      else if (typeof coords.lat == 'number') res.lat = coords.lat
+      else if (typeof coords.lat == 'string') res.lat = Number(coords.lat)
 
-      if (typeof coords.lng == "function") res.lng = coords.lng();
-      else if (typeof coords.lng == "number") res.lng = coords.lng;
-      else if (typeof coords.lng == "string") res.lng = Number(coords.lng);
-      return res;
+      if (typeof coords.lng == 'function') res.lng = coords.lng()
+      else if (typeof coords.lng == 'number') res.lng = coords.lng
+      else if (typeof coords.lng == 'string') res.lng = Number(coords.lng)
+      return res
     },
   },
   computed: {
-    ...mapState(["selectedMarkerData", "notFoundedMarkerData"]),
+    ...mapState(['selectedMarkerData', 'notFoundedMarkerData']),
   },
   /*watch : {
 		selectedMarkerData: function (newVal){
@@ -188,7 +190,7 @@ export default {
   mounted() {
     //if(this.selectedMarkerData !==null || this.notFoundedMarkerData !==null)
     //	this.$router.replace("/main");
-    this.GetRecentReports();
+    this.GetRecentReports()
   },
-};
+}
 </script>

@@ -18,10 +18,10 @@
 </template>
 
 <script>
-import routerHelper from "../mixins/routerHelper.js";
+import routerHelper from '../mixins/routerHelper.js'
 
 export default {
-  name: "MenuItemLink",
+  name: 'MenuItemLink',
   mixins: [routerHelper],
   props: {
     to: {
@@ -31,28 +31,28 @@ export default {
   },
   watch: {
     $route(to, from) {
-      this.updateSVG();
+      this.updateSVG()
     },
   },
   mounted() {
-    this.updateSVG();
+    this.updateSVG()
   },
   methods: {
     updateSVG() {
-      let imgSvg = this.$refs.image_container.firstElementChild;
-      if (imgSvg.tagName === "svg") {
-        imgSvg.classList.add("w-full", "h-full", "group-hover:fill-blue-c-400");
+      let imgSvg = this.$refs.image_container.firstElementChild
+      if (imgSvg.tagName === 'svg') {
+        imgSvg.classList.add('w-full', 'h-full', 'group-hover:fill-blue-c-400')
         if (this.isPathMatched(this.to)) {
-          imgSvg.classList.add("fill-blue-c-500");
-          imgSvg.classList.remove("fill-gray-c-500");
+          imgSvg.classList.add('fill-blue-c-500')
+          imgSvg.classList.remove('fill-gray-c-500')
         } else {
-          imgSvg.classList.add("fill-gray-c-500");
-          imgSvg.classList.remove("fill-blue-c-500");
+          imgSvg.classList.add('fill-gray-c-500')
+          imgSvg.classList.remove('fill-blue-c-500')
         }
       }
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

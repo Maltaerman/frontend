@@ -55,10 +55,10 @@
 </template>
 
 <script>
-import regex from "../mixins/regex.js";
+import regex from '../mixins/regex.js'
 
 export default {
-  name: "InputPass",
+  name: 'InputPass',
   mixins: [regex],
   props: {
     modelValue: String,
@@ -68,54 +68,54 @@ export default {
     validationFunc: {
       type: Function,
       default: function () {
-        return this.isPass(this.modelValue);
+        return this.isPass(this.modelValue)
       },
     },
     disabled: false,
   },
-  emits: ["validation", "update:modelValue"],
+  emits: ['validation', 'update:modelValue'],
   data() {
     return {
       isInputFocused: false,
-      inputType: "password",
+      inputType: 'password',
       isValidStyle: true,
-    };
+    }
   },
   computed: {
     placeholderC() {
       return this.placeholder
         ? this.placeholder
-        : this.$t("userSettings.password");
+        : this.$t('userSettings.password')
     },
     validationMessageC() {
       return this.validationMessage
         ? this.validationMessage
-        : this.$t("validations.default");
+        : this.$t('validations.default')
     },
   },
   methods: {
     toggleInputType() {
-      this.inputType = this.inputType === "password" ? "text" : "password";
-      this.$refs.pass.focus();
+      this.inputType = this.inputType === 'password' ? 'text' : 'password'
+      this.$refs.pass.focus()
     },
     OnInputFocus(arg) {
-      this.isInputFocused = arg;
-      if (!arg) this.isValidStyle = this.validation("");
+      this.isInputFocused = arg
+      if (!arg) this.isValidStyle = this.validation('')
     },
     OnDivFocus(arg) {
-      this.isInputFocused = arg;
-      if (arg) this.$refs.pass.focus();
+      this.isInputFocused = arg
+      if (arg) this.$refs.pass.focus()
     },
     OnValueChange(event) {
-      this.validation(event.target.value);
-      this.$emit("update:modelValue", event.target.value);
+      this.validation(event.target.value)
+      this.$emit('update:modelValue', event.target.value)
     },
     validation(value) {
-      let isPassValid = this.validationFunc();
-      this.$emit("validation", isPassValid);
-      if (isPassValid) this.isValidStyle = true;
-      return isPassValid;
+      let isPassValid = this.validationFunc()
+      this.$emit('validation', isPassValid)
+      if (isPassValid) this.isValidStyle = true
+      return isPassValid
     },
   },
-};
+}
 </script>

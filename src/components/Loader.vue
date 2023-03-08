@@ -16,8 +16,8 @@
 
 <script>
 export default {
-  name: "Loader",
-};
+  name: 'Loader',
+}
 </script>
 
 <style scoped></style>

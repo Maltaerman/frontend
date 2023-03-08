@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "ModalTemplate",
+  name: 'ModalTemplate',
   props: {
     isModalVisible: {
       type: Boolean,
@@ -33,10 +33,10 @@ export default {
   },
   methods: {
     hide() {
-      if (this.isHideOnClick) this.closeFunc();
+      if (this.isHideOnClick) this.closeFunc()
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

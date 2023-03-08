@@ -1,18 +1,18 @@
 export default function (instance) {
   return {
     LogIn(payload) {
-      return instance.post("/auth/login/token", payload, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      return instance.post('/auth/login/token', payload, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
     },
     GetInfo() {
-      return instance.get("/users/me");
+      return instance.get('/users/me')
     },
     UpdateUserData(payload) {
-      return instance.put("/users/info", payload);
+      return instance.put('/users/info', payload)
     },
     UpdateUserPass(payload) {
-      return instance.put("/users/password", payload);
+      return instance.put('/users/password', payload)
     },
     RegistrationTokenConfirm(
       username,
@@ -31,25 +31,25 @@ export default function (instance) {
           organization,
           password,
         }
-      );
+      )
     },
     VerifyRegistrationToken(access_token) {
       return instance.get(`/users/verify`, {
         params: { access_token },
-      });
+      })
     },
     PassResetRequest(user_email) {
-      return instance.put(`users/password-reset?user_email=${user_email}`);
+      return instance.put(`users/password-reset?user_email=${user_email}`)
     },
     PassResetConfirm(access_token, new_password) {
-      return instance.put("/users/confirm-reset", {
+      return instance.put('/users/confirm-reset', {
         access_token,
         new_password,
-      });
+      })
     },
     // organization is organization.id
     SendInvite({ email, organization }) {
-      return instance.post("/users/invite", { email, organization });
+      return instance.post('/users/invite', { email, organization })
     },
-  };
+  }
 }

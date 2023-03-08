@@ -48,7 +48,7 @@
           class="w-full"
           @click="ResetPass"
         >
-          {{ $t("general.confirm") }}
+          {{ $t('general.confirm') }}
         </button-1>
       </div>
     </div>
@@ -57,13 +57,13 @@
 </template>
 
 <script>
-import regex from "../mixins/regex.js";
-import Header from "../Header.vue";
-import InputPass from "../Inputs/Input-pass.vue";
-import api from "../../http_client/index.js";
+import regex from '../mixins/regex.js'
+import Header from '../Header.vue'
+import InputPass from '../Inputs/Input-pass.vue'
+import api from '../../http_client/index.js'
 
 export default {
-  name: "PasswordReset",
+  name: 'PasswordReset',
   components: {
     Header,
     InputPass,
@@ -71,63 +71,63 @@ export default {
   mixins: [regex],
   data() {
     return {
-      pass: "",
-      passConfirm: "",
+      pass: '',
+      passConfirm: '',
       isPassValid: false,
       isLoaderVisible: false,
       access_token: undefined,
-    };
+    }
   },
   computed: {
     isButtonDisabled() {
-      return !this.isPassValid || !this.isPassEquals();
+      return !this.isPassValid || !this.isPassEquals()
     },
   },
   mounted() {
-    this.GetIsResetAvailable();
+    this.GetIsResetAvailable()
   },
   methods: {
     onPassValid(value) {
-      this.isPassValid = value;
+      this.isPassValid = value
     },
     isPassEquals() {
-      return this.pass === this.passConfirm;
+      return this.pass === this.passConfirm
     },
     onCompleted() {
-      this.$router.push("/welcome");
+      this.$router.push('/welcome')
     },
     GetIsResetAvailable() {
       if (!this.$route.query.access_token) {
         this.$toast.error(
-          "Некоректне посилання.",
+          'Некоректне посилання.',
           this.$toast.options(false, false, this.onCompleted)
-        );
-        return;
+        )
+        return
       }
-      this.access_token = this.$route.query.access_token;
+      this.access_token = this.$route.query.access_token
     },
     //TODO Localization
     async ResetPass() {
-      this.isLoaderVisible = true;
+      this.isLoaderVisible = true
       await api.user
         .PassResetConfirm(this.access_token, this.pass)
         .then((res) => {
-          console.log(res);
-          this.isLoaderVisible = false;
+          console.log(res)
+          this.isLoaderVisible = false
           this.$toast.success(
-            "Пароль успішно змінено",
+            'Пароль успішно змінено',
             this.$toast.options(false, false, this.onCompleted)
-          );
+          )
         })
         .catch((err) => {
-          console.error(err);
-          this.isLoaderVisible = false;
+          console.error(err)
+          this.isLoaderVisible = false
 
-          this.$toast.error("Error", this.$toast.options(false, false));
-        });
+          this.$toast.error('Error', this.$toast.options(false, false))
+        })
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

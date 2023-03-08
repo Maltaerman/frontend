@@ -8,8 +8,8 @@
 
 <script>
 export default {
-  name: "Button3",
-};
+  name: 'Button3',
+}
 </script>
 
 <style scoped></style>

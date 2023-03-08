@@ -1,41 +1,41 @@
-import WelcomeScreen from "../components/WelcomeScreen/WelcomeScreen.vue";
-import MainScreen from "../components/MainScreen.vue";
-import Test from "../components/Test.vue";
-import SideBar from "../components/SidebarComponents/UserSidebar/SideBar.vue";
-import SideBarAidWorker from "../components/SidebarComponents/AidWorkerSidebar/SideBarAidWorker.vue";
-import ReportTools from "../components/SidebarComponents/AidWorkerSidebar/ReportTools.vue";
-import RequestCompletedPreview from "../components/SidebarComponents/AidWorkerSidebar/RequestCompletedPreview.vue";
-import { store } from "../store/mainStore.js";
-import { createRouter, createWebHistory } from "vue-router";
-import MainPlatformAdministration from "../components/PlatformAdministration/MainPlatformAdministration.vue";
-import OrganizationsList from "../components/PlatformAdministration/OrganizationsList.vue";
-import OrganizationProfile from "../components/PlatformAdministration/OrganizationProfile.vue";
-import UserRegistration from "../components/Authorization/UserRegistration.vue";
-import userRoles from "../components/mixins/userRoles.js";
-import PasswordReset from "../components/Authorization/PasswordReset.vue";
+import WelcomeScreen from '../components/WelcomeScreen/WelcomeScreen.vue'
+import MainScreen from '../components/MainScreen.vue'
+import Test from '../components/Test.vue'
+import SideBar from '../components/SidebarComponents/UserSidebar/SideBar.vue'
+import SideBarAidWorker from '../components/SidebarComponents/AidWorkerSidebar/SideBarAidWorker.vue'
+import ReportTools from '../components/SidebarComponents/AidWorkerSidebar/ReportTools.vue'
+import RequestCompletedPreview from '../components/SidebarComponents/AidWorkerSidebar/RequestCompletedPreview.vue'
+import { store } from '../store/mainStore.js'
+import { createRouter, createWebHistory } from 'vue-router'
+import MainPlatformAdministration from '../components/PlatformAdministration/MainPlatformAdministration.vue'
+import OrganizationsList from '../components/PlatformAdministration/OrganizationsList.vue'
+import OrganizationProfile from '../components/PlatformAdministration/OrganizationProfile.vue'
+import UserRegistration from '../components/Authorization/UserRegistration.vue'
+import userRoles from '../components/mixins/userRoles.js'
+import PasswordReset from '../components/Authorization/PasswordReset.vue'
 
 const mainRouter = [
   {
-    path: "/",
-    alias: ["/welcome"],
+    path: '/',
+    alias: ['/welcome'],
     component: WelcomeScreen,
   },
   {
-    path: "/main",
+    path: '/main',
     component: MainScreen,
     children: [
       {
-        path: "overview",
-        alias: [""],
+        path: 'overview',
+        alias: [''],
         component: SideBar,
       },
       {
-        path: "requests",
+        path: 'requests',
         component: SideBarAidWorker,
         meta: { requiresAuth: true },
       },
       {
-        path: "submit-report",
+        path: 'submit-report',
         component: ReportTools,
         meta: {
           requiresAuth: true,
@@ -43,7 +43,7 @@ const mainRouter = [
         },
       },
       {
-        path: "submit-report-preview",
+        path: 'submit-report-preview',
         component: RequestCompletedPreview,
         meta: {
           requiresAuth: true,
@@ -53,7 +53,7 @@ const mainRouter = [
     ],
   },
   {
-    path: "/admin",
+    path: '/admin',
     component: MainPlatformAdministration,
     meta: {
       requiresAuth: true,
@@ -61,8 +61,8 @@ const mainRouter = [
     },
     children: [
       {
-        path: "organizations",
-        alias: [""],
+        path: 'organizations',
+        alias: [''],
         component: OrganizationsList,
         meta: {
           requiresAuth: true,
@@ -70,7 +70,7 @@ const mainRouter = [
         },
       },
       {
-        path: "organization-profile/:id",
+        path: 'organization-profile/:id',
         component: OrganizationProfile,
         meta: {
           requiresAuth: true,
@@ -80,45 +80,45 @@ const mainRouter = [
     ],
   },
   {
-    path: "/registration",
+    path: '/registration',
     component: UserRegistration,
   },
   {
-    path: "/password-reset",
+    path: '/password-reset',
     component: PasswordReset,
   },
-  { path: "/test", component: Test },
+  { path: '/test', component: Test },
   {
-    path: "/:pathMatch(.*)*",
+    path: '/:pathMatch(.*)*',
     redirect: (to) => {
       return {
-        path: "/main",
-      };
+        path: '/main',
+      }
     },
   },
-];
+]
 export const Router = createRouter({
   routes: mainRouter,
   history: createWebHistory(),
   scrollBehavior(to, from, savedPosition) {
-    return { top: 0 };
+    return { top: 0 }
   },
-});
+})
 
 Router.beforeEach((to, form) => {
   if (to.meta.requiresAuth && !store.getters.isAuth) {
     return {
-      path: "/main",
-    };
+      path: '/main',
+    }
   }
   if (to.meta.selectedRequest && !store.getters.getSelectedLocationRequest) {
     if (store.getters.isAuth) {
-      return "/main/requests";
-    } else return "/main";
+      return '/main/requests'
+    } else return '/main'
   }
   //FIXME
   /*if(to.meta.minRole && !userRoles.methods.isRoleHaveAccess(store.getters.getRole))
     return {
       path : "/"
     }*/
-});
+})

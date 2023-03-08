@@ -4,15 +4,15 @@
     <div class="grow flex items-center justify-center p-4 overflow-y-auto">
       <div class="w-[480px] mobile:w-full">
         <div class="text-center text-h1 font-semibold mb-9 text-gray-c-800">
-          {{ $t("userRegistration.greeting") }}
+          {{ $t('userRegistration.greeting') }}
         </div>
         <div class="text-center text-body-2 font-semibold mb-6">
-          {{ $t("userRegistration.ownProfile") }}
+          {{ $t('userRegistration.ownProfile') }}
         </div>
         <div>
           <div class="mb-6">
             <label for="user-name" class="block mb-1 text-h4 text-gray-c-500">
-              {{ $t("userRegistration.name") }}
+              {{ $t('userRegistration.name') }}
             </label>
             <input-1
               v-model="userName"
@@ -29,7 +29,7 @@
           </div>
           <div class="mb-6">
             <label for="user-mail" class="block mb-1 text-h4 text-gray-c-500">
-              {{ $t("userRegistration.email") }}
+              {{ $t('userRegistration.email') }}
             </label>
             <input-1
               v-model="userMail"
@@ -45,7 +45,7 @@
           </div>
           <div class="mb-6">
             <label for="user-pass" class="block mb-1 text-h4 text-gray-c-500">
-              {{ $t("userRegistration.password") }}
+              {{ $t('userRegistration.password') }}
             </label>
             <input-pass
               v-model="pass"
@@ -61,7 +61,7 @@
               for="user-pass-conf"
               class="block mb-1 text-h4 text-gray-c-500"
             >
-              {{ $t("userRegistration.newPassConf") }}
+              {{ $t('userRegistration.newPassConf') }}
             </label>
             <input-pass
               v-model="passConfirm"
@@ -82,13 +82,13 @@
             type="checkbox"
           />
           <div>
-            {{ $t("userRegistration.terms.part1") }}
+            {{ $t('userRegistration.terms.part1') }}
             <a tabindex="5" href="" class="link-1" target="_blank">
-              {{ $t("userRegistration.terms.part2") }}
+              {{ $t('userRegistration.terms.part2') }}
             </a>
-            {{ $t("userRegistration.terms.part3") }}
+            {{ $t('userRegistration.terms.part3') }}
             <a tabindex="6" href="" class="link-1" target="_blank">
-              {{ $t("userRegistration.terms.part4") }}
+              {{ $t('userRegistration.terms.part4') }}
             </a>
           </div>
         </div>
@@ -99,7 +99,7 @@
           :disabled="!isRegEnabled"
           @click="CreateUser"
         >
-          {{ $t("userRegistration.createProfile") }}
+          {{ $t('userRegistration.createProfile') }}
         </button-1>
       </div>
     </div>
@@ -107,15 +107,15 @@
   <Loader v-if="isLoaderVisible" class="z-[9999]" />
 </template>
 <script>
-import Header from "../Header.vue";
-import input1 from "../Inputs/Input-1.vue";
-import InputPass from "../Inputs/Input-pass.vue";
-import Button1 from "../Buttons/Button_1.vue";
-import regex from "../mixins/regex.js";
-import Loader from "../Loader.vue";
-import api from "../../http_client/index.js";
+import Header from '../Header.vue'
+import input1 from '../Inputs/Input-1.vue'
+import InputPass from '../Inputs/Input-pass.vue'
+import Button1 from '../Buttons/Button_1.vue'
+import regex from '../mixins/regex.js'
+import Loader from '../Loader.vue'
+import api from '../../http_client/index.js'
 export default {
-  name: "UserRegistration",
+  name: 'UserRegistration',
   components: {
     Loader,
     Button1,
@@ -127,17 +127,17 @@ export default {
   data() {
     return {
       isTermsAccept: false,
-      userName: "",
-      userMail: "",
-      pass: "",
-      passConfirm: "",
+      userName: '',
+      userMail: '',
+      pass: '',
+      passConfirm: '',
       organizationId: -1,
       isNameValid: false,
       isMailValid: false,
       isPassValid: false,
       isLoaderVisible: false,
       access_token: undefined,
-    };
+    }
   },
   computed: {
     isRegEnabled() {
@@ -147,30 +147,30 @@ export default {
         this.isPassValid &&
         this.isPassEquals() &&
         this.isTermsAccept
-      );
+      )
     },
   },
   mounted() {
-    this.GetUserRegInfo();
+    this.GetUserRegInfo()
   },
   methods: {
     onNameValidate(value) {
-      this.isNameValid = value;
+      this.isNameValid = value
     },
     onMailValidate(value) {
-      this.isMailValid = value;
+      this.isMailValid = value
     },
     onPassValid(value) {
-      this.isPassValid = value;
+      this.isPassValid = value
     },
     isPassEquals() {
-      return this.pass === this.passConfirm;
+      return this.pass === this.passConfirm
     },
     onRegSuccess() {
-      this.$router.push("/welcome");
+      this.$router.push('/welcome')
     },
     async CreateUser() {
-      this.isLoaderVisible = true;
+      this.isLoaderVisible = true
       await api.user
         .RegistrationTokenConfirm(
           this.userName,
@@ -181,57 +181,57 @@ export default {
           this.access_token
         )
         .then((res) => {
-          console.log(res);
-          this.isLoaderVisible = false;
-          this.$toast.success(this.$t("userRegistration.userRegSuccess"), {
+          console.log(res)
+          this.isLoaderVisible = false
+          this.$toast.success(this.$t('userRegistration.userRegSuccess'), {
             onClose: this.onRegSuccess,
-          });
+          })
         })
         .catch((err) => {
-          this.isLoaderVisible = false;
-          let errMess = this.$t("general.errorMessage");
+          this.isLoaderVisible = false
+          let errMess = this.$t('general.errorMessage')
           if (err.response.status === 400)
-            errMess = this.$t("userRegistration.userMailExist", {
+            errMess = this.$t('userRegistration.userMailExist', {
               userMail: this.userMail,
-            });
-          this.$toast.error(errMess, this.$toast.options(false, false));
-        });
+            })
+          this.$toast.error(errMess, this.$toast.options(false, false))
+        })
     },
     //TODO localization
     async GetUserRegInfo() {
       if (!this.$route.query.access_token) {
         this.$toast.error(
-          "Некоректне посилання.",
+          'Некоректне посилання.',
           this.$toast.options(false, false, this.onRegSuccess)
-        );
-        return;
+        )
+        return
       }
-      this.access_token = this.$route.query.access_token;
-      this.$toast.wait("Wait.");
+      this.access_token = this.$route.query.access_token
+      this.$toast.wait('Wait.')
       await api.user
         .VerifyRegistrationToken(this.access_token)
         .then((res) => {
-          console.log(res.data);
+          console.log(res.data)
           //FIXME сигнатура поля зміниться
-          this.organizationId = res.data.organization;
-          this.userMail = res.data.email;
-          this.isMailValid = true;
-          this.$toast.clear();
+          this.organizationId = res.data.organization
+          this.userMail = res.data.email
+          this.isMailValid = true
+          this.$toast.clear()
         })
         .catch((err) => {
-          let errorMess = "Error";
-          this.$toast.clear();
-          if (err.response.status === 422) errorMess = "Token is not valid";
+          let errorMess = 'Error'
+          this.$toast.clear()
+          if (err.response.status === 422) errorMess = 'Token is not valid'
           else if (err.response.status === 400)
-            errorMess = "Token is either not valid or expired.";
+            errorMess = 'Token is either not valid or expired.'
           this.$toast.error(
             errorMess,
             this.$toast.options(false, false, this.onRegSuccess)
-          );
-        });
+          )
+        })
     },
   },
-};
+}
 </script>
 <style scoped>
 @tailwind base;

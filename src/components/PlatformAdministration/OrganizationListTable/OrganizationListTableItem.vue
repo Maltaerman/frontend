@@ -52,13 +52,13 @@
           class="p-1 text-h3 text-blue-c-500 cursor-pointer hover:bg-blue-c-100 w-full text-left"
           @click.stop="goToOrgProfile"
         >
-          {{ $t("general.details") }}
+          {{ $t('general.details') }}
         </button>
         <button
           class="p-1 text-h3 text-red-c-500 cursor-pointer hover:bg-blue-c-100 w-full text-left"
           @click="removeOrg"
         >
-          {{ $t("general.delete") }}
+          {{ $t('general.delete') }}
         </button>
       </div>
     </td>
@@ -66,10 +66,10 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import OrganizationListStatus from "./OrganizationItemStatus.vue";
+import { mapActions } from 'vuex'
+import OrganizationListStatus from './OrganizationItemStatus.vue'
 export default {
-  name: "OrganizationListTableItem",
+  name: 'OrganizationListTableItem',
   components: {
     OrganizationListStatus,
   },
@@ -78,34 +78,35 @@ export default {
       type: Object,
       default: {},
     },
+    listITems: {},
   },
   data() {
     return {
       isMenuVisible: false,
       organizationStatuses: {
-        ACTIVE: "active",
-        PENDING: "pending",
-        DISABLED: "disabled",
+        ACTIVE: 'active',
+        PENDING: 'pending',
+        DISABLED: 'disabled',
       },
-    };
+    }
   },
   methods: {
-    ...mapActions(["setSelectedOrganization"]),
+    ...mapActions(['setSelectedOrganization']),
     ShowMenu() {
-      this.isMenuVisible = !this.isMenuVisible;
+      this.isMenuVisible = !this.isMenuVisible
     },
     HideMenu() {
-      this.isMenuVisible = false;
+      this.isMenuVisible = false
     },
     goToOrgProfile() {
-      this.setSelectedOrganization(this.organization);
-      this.$router.push(`/admin/organization-profile/${this.organization.id}`);
+      this.setSelectedOrganization(this.organization)
+      this.$router.push(`/admin/organization-profile/${this.organization.id}`)
     },
     removeOrg() {
-      this.$emit("remove", this.organization);
+      this.$emit('remove', this.organization)
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped></style>

@@ -13,14 +13,14 @@
 </template>
 
 <script>
-import SideBar from "./SidebarComponents/UserSidebar/SideBar.vue";
-import NotFound from "./SidebarComponents/UserSidebar/NotFound.vue";
-import GoogleMap from "./MapComponents/GoogleMap.vue";
-import Header from "./Header.vue";
-import { mapGetters, mapState } from "vuex";
+import SideBar from './SidebarComponents/UserSidebar/SideBar.vue'
+import NotFound from './SidebarComponents/UserSidebar/NotFound.vue'
+import GoogleMap from './MapComponents/GoogleMap.vue'
+import Header from './Header.vue'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
-  name: "MainScreen",
+  name: 'MainScreen',
   components: {
     Header,
     SideBar,
@@ -29,29 +29,29 @@ export default {
   },
   computed: {
     ...mapGetters({
-      selectedReport: "selectedReport",
-      notFoundedMarker: "notFoundedMarker",
+      selectedReport: 'selectedReport',
+      notFoundedMarker: 'notFoundedMarker',
     }),
   },
   watch: {
     notFoundedMarker(newVal) {
       if (newVal) {
         this.$router.replace({
-          path: "/main/overview",
+          path: '/main/overview',
           query: { id: newVal.id, ...newVal.position },
-        });
+        })
       }
     },
     selectedReport(newVal) {
       if (newVal) {
         this.$router.replace({
-          path: "/main/overview",
+          path: '/main/overview',
           query: { id: newVal.id, ...newVal.position },
-        });
+        })
       }
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

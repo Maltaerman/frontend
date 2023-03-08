@@ -13,20 +13,20 @@ export default {
       nameRegex: new RegExp(/^[a-zA-ZА-Яа-я]{3,}$/),
       // Only digits
       onlyDigitsRegex: new RegExp(/^\d+$/),
-    };
+    }
   },
   methods: {
     isMail(mail) {
       //console.log(`Mail is ${this.mailRegex.test(mail)}`)
-      return this.mailRegex.test(mail);
+      return this.mailRegex.test(mail)
     },
     isPass(pass) {
       //console.log(`Pass is ${this.passRegex.test(pass)}`)
-      return this.passRegex.test(pass);
+      return this.passRegex.test(pass)
     },
     isName(name) {
       //return this.nameRegex.test(name)
-      return name.length >= 3;
+      return name.length >= 3
     },
   },
-};
+}

@@ -18,17 +18,17 @@
 
 <script>
 export default {
-  name: "ReportRadio",
+  name: 'ReportRadio',
   props: {
     label: Object,
     checkedOp: String,
   },
   methods: {
     updateModel(option) {
-      this.$emit("update:modelValue", option);
+      this.$emit('update:modelValue', option)
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

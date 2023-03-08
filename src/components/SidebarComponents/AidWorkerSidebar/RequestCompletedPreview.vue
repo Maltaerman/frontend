@@ -18,7 +18,7 @@
       <p
         class="text-white text-h3 font-semibold align-middle grid content-center"
       >
-        {{ $t("reportTools.makePublic") }}
+        {{ $t('reportTools.makePublic') }}
       </p>
       <Button2
         class="flex flex-nowrap items-center gap-1"
@@ -26,7 +26,7 @@
       >
         <img src="/completed.svg" class="inline-block" />
         <p>
-          {{ $t("general.publish") }}
+          {{ $t('general.publish') }}
         </p>
       </Button2>
     </div>
@@ -42,7 +42,7 @@
       </h1>
 
       <h3 class="font-semibold text-h2 mobile:text-h2-m">
-        {{ $t("userSideBar.general-status") }}
+        {{ $t('userSideBar.general-status') }}
       </h3>
 
       <!--	#region  Build status v2-->
@@ -60,7 +60,7 @@
 
       <router-link to="/main/submit-report">
         <button-1 v-if="isAuth" class="mt-4 w-full">
-          {{ $t("userSideBar.reportButton") }}
+          {{ $t('userSideBar.reportButton') }}
         </button-1>
       </router-link>
     </div>
@@ -69,18 +69,18 @@
 </template>
 
 <script>
-import SVG_status_list from "../../ComponentsSVG/SVG_status_list.vue";
-import { mapGetters, mapMutations, mapState } from "vuex";
-import Button2 from "../../Buttons/Button_2.vue";
-import api from "../../../http_client/index.js";
-import ModalTemplate from "../../Modals/ModalTemplate.vue";
-import AwaitModal from "../../Modals/AwaitModal.vue";
-import reportItemFlags from "../../mixins/reportItemFlags.js";
-import ReportStateItem from "../UserSidebar/ReportStateItem.vue";
-import Footer from "../UserSidebar/Footer.vue";
+import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
+import { mapGetters, mapMutations, mapState } from 'vuex'
+import Button2 from '../../Buttons/Button_2.vue'
+import api from '../../../http_client/index.js'
+import ModalTemplate from '../../Modals/ModalTemplate.vue'
+import AwaitModal from '../../Modals/AwaitModal.vue'
+import reportItemFlags from '../../mixins/reportItemFlags.js'
+import ReportStateItem from '../UserSidebar/ReportStateItem.vue'
+import Footer from '../UserSidebar/Footer.vue'
 
 export default {
-  name: "RequestCompletedPreview",
+  name: 'RequestCompletedPreview',
   components: {
     Footer,
     ReportStateItem,
@@ -92,11 +92,11 @@ export default {
   mixins: [reportItemFlags],
   data: function () {
     return {
-      issueMessage: "",
+      issueMessage: '',
       isLeaveModalVisible: false,
       isPageLeaveConfirmed: false,
-      targetLeaveRef: "",
-    };
+      targetLeaveRef: '',
+    }
   },
   computed: {
     ...mapState({
@@ -104,24 +104,24 @@ export default {
       requestedMarker: (state) => state.reports.selectedLocationRequest,
     }),
     ...mapGetters({
-      isAuth: "isAuth",
-      selectedReport: "selectedReport",
-      getReviewedMarkers: "getReviewedMarkers",
-      getRequestMarkers: "getRequestMarkers",
+      isAuth: 'isAuth',
+      selectedReport: 'selectedReport',
+      getReviewedMarkers: 'getReviewedMarkers',
+      getRequestMarkers: 'getRequestMarkers',
     }),
     isDisabled() {
-      return this.issueMessage.length < 10;
+      return this.issueMessage.length < 10
     },
   },
   methods: {
     ...mapMutations({
-      setSelectedMarker: "setSelectedMarker",
-      setReviewedMarkerList: "setReviewedMarkerList",
-      setUnreviewedMarkers: "setUnreviewedMarkers",
+      setSelectedMarker: 'setSelectedMarker',
+      setReviewedMarkerList: 'setReviewedMarkerList',
+      setUnreviewedMarkers: 'setUnreviewedMarkers',
     }),
     async SaveAndPublish() {
-      this.$toast.wait(this.$t("general.publishing"));
-      let payload = { ...this.requestedMarker };
+      this.$toast.wait(this.$t('general.publishing'))
+      let payload = { ...this.requestedMarker }
       /*{
 				street_number : this.requestedMarker.street_number,
 				address : this.requestedMarker.address,
@@ -131,27 +131,27 @@ export default {
 
       let requestSender = this.requestedMarker.id
         ? api.locations.submitLocationReport
-        : api.locations.addReportByAdmin;
+        : api.locations.addReportByAdmin
 
       if (this.requestedMarker.id) {
-        requestSender = api.locations.submitLocationReport;
+        requestSender = api.locations.submitLocationReport
         payload = {
           location_id: this.requestedMarker.id,
           ...this.requestedMarker.reports,
           ...payload,
-        };
+        }
       } else {
-        requestSender = api.locations.addReportByAdmin;
+        requestSender = api.locations.addReportByAdmin
         payload = {
           reports: { ...this.requestedMarker.reports },
           ...payload,
-        };
+        }
       }
 
       await requestSender(payload)
         .then((res) => {
-          this.$toast.clear();
-          this.setSelectedMarker(res.data);
+          this.$toast.clear()
+          this.setSelectedMarker(res.data)
 
           /*console.log(res.data)
 					console.log(this.getReviewedMarkers)*/
@@ -164,56 +164,59 @@ export default {
               location_id: res.data.id,
               position: res.data.position,
               status: res.data.status,
-            };
+            }
             this.setReviewedMarkerList([
               ...this.getReviewedMarkers,
               newMapMarker,
-            ]);
+            ])
           }
           //
           // Remove request marker from requested markers if it there
           this.setUnreviewedMarkers(
             this.getRequestMarkers.filter((x) => x.location_id !== res.data.id)
-          );
-          this.$toast.success(this.$t("general.dataPublished"), {
+          )
+          this.$toast.success(this.$t('general.dataPublished'), {
             onClose: this.closeResultModal,
-          });
+          })
         })
         .catch((err) => {
-          this.$toast.clear();
-          this.$toast.error(this.$t("general.errorMessage"));
-          console.error(err);
-        });
+          this.$toast.clear()
+          this.$toast.error(this.$t('general.errorMessage'))
+          console.error(err)
+        })
     },
     closeResultModal() {
-      this.isPageLeaveConfirmed = true;
+      this.isPageLeaveConfirmed = true
       this.$router.push({
-        path: "/main/overview",
-        query: { id: this.selectedReport.id, ...this.selectedReport.position },
-      });
+        path: '/main/overview',
+        query: {
+          id: this.selectedReport.id,
+          ...this.selectedReport.position,
+        },
+      })
     },
     closeLeavePageConfirmModal() {
-      this.isLeaveModalVisible = false;
+      this.isLeaveModalVisible = false
     },
     ModalAccept() {
-      this.isPageLeaveConfirmed = true;
-      this.$router.push(this.targetLeaveRef);
+      this.isPageLeaveConfirmed = true
+      this.$router.push(this.targetLeaveRef)
     },
     ModalCancel() {
-      this.isPageLeaveConfirmed = false;
-      this.targetLeaveRef = "";
+      this.isPageLeaveConfirmed = false
+      this.targetLeaveRef = ''
     },
   },
   beforeRouteLeave(to, from, next) {
-    if (to.fullPath == "/main/submit-report") {
-      to.params = { previewUpdating: true };
-      next();
-    } else if (this.isPageLeaveConfirmed) next();
+    if (to.fullPath == '/main/submit-report') {
+      to.params = { previewUpdating: true }
+      next()
+    } else if (this.isPageLeaveConfirmed) next()
     else {
-      this.isLeaveModalVisible = true;
-      this.targetLeaveRef = to.fullPath;
-      next(false);
+      this.isLeaveModalVisible = true
+      this.targetLeaveRef = to.fullPath
+      next(false)
     }
   },
-};
+}
 </script>

@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: "InputSuggest",
+  name: 'InputSuggest',
   props: {
     suggestion: Array,
     maxSuggestionVisible: {
@@ -35,44 +35,44 @@ export default {
       type: Function,
       default: function (item) {
         try {
-          return item.toString();
+          return item.toString()
         } catch {
-          return "itemProjectionFunction error";
+          return 'itemProjectionFunction error'
         }
       },
     },
     placeholder: String,
   },
-  emits: ["select-item", "update:modelValue", "on-focus", "on-blur"],
+  emits: ['select-item', 'update:modelValue', 'on-focus', 'on-blur'],
   data() {
-    return {};
+    return {}
   },
   computed: {
     isBorderRounded() {
-      if (this.suggestion && this.suggestion.length > 0) return false;
-      else return true;
+      if (this.suggestion && this.suggestion.length > 0) return false
+      else return true
     },
     suggestionC() {
       return this.suggestion
         ? this.suggestion.slice(0, this.maxSuggestionVisible)
-        : [];
+        : []
     },
   },
   methods: {
     onInputEventHandler(e) {
-      this.$emit("update:modelValue", e.input);
+      this.$emit('update:modelValue', e.input)
     },
     selectItemEventHandler(item) {
-      this.$emit("select-item", item);
+      this.$emit('select-item', item)
     },
     onFocusEventHandler() {
-      this.$emit("on-focus");
+      this.$emit('on-focus')
     },
     onBlurEventHandler() {
-      this.$emit("on-blur");
+      this.$emit('on-blur')
     },
   },
-};
+}
 </script>
 
 <style>

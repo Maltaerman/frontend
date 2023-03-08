@@ -17,7 +17,7 @@
           />
         </div>
         <p class="w-min text-h3 text-gray-c-600 font-semibold">
-          {{ $t("dashboard.admin") }}
+          {{ $t('dashboard.admin') }}
         </p>
       </div>
 
@@ -27,7 +27,7 @@
             <SVG_Org_List />
           </template>
           <template #text>
-            {{ $t("dashboard.organizations") }}
+            {{ $t('dashboard.organizations') }}
           </template>
         </MenuItemLink>
         <!--				<MenuItemLink to="/admin/roles">
@@ -49,7 +49,7 @@
           <p
             class="h-min text-gray-c-500 group-hover:text-blue-c-400 font-semibold"
           >
-            {{ $t("dashboard.settings") }}
+            {{ $t('dashboard.settings') }}
           </p>
         </div>
       </div>
@@ -61,13 +61,13 @@
 </template>
 
 <script>
-import Header from "../Header.vue";
-import RouterHelper from "../mixins/routerHelper.js";
-import MenuItemLink from "../SidebarComponents/MenuItemLink.vue";
-import SVG_Org_List from "../ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue";
-import SVG_settings from "../ComponentsSVG/SVG_settings.vue";
+import Header from '../Header.vue'
+import RouterHelper from '../mixins/routerHelper.js'
+import MenuItemLink from '../SidebarComponents/MenuItemLink.vue'
+import SVG_Org_List from '../ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue'
+import SVG_settings from '../ComponentsSVG/SVG_settings.vue'
 export default {
-  name: "MainPlatformAdministration",
+  name: 'MainPlatformAdministration',
   components: {
     SVG_settings,
     SVG_Org_List,
@@ -78,19 +78,19 @@ export default {
   data() {
     return {
       isSettingModalVisible: false,
-    };
+    }
   },
   methods: {
     showSettings() {
       // Тупо, але так треба, бо потрібно затрігерити
       // watch в Header при повторному присвоєні true
-      this.isSettingModalVisible = true;
+      this.isSettingModalVisible = true
     },
     hideSettings(value) {
-      this.isSettingModalVisible = value;
+      this.isSettingModalVisible = value
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

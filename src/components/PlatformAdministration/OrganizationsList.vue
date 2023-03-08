@@ -2,7 +2,7 @@
   <div class="p-9 mobile:py-6 mobile:px-4 h-full overflow-y-auto">
     <div class="flex row flex-wrap justify-between">
       <h1 class="font-semibold text-gray-c-800 text-h1 mobile:text-h1-m">
-        {{ $t("dashboard.organizations") }}
+        {{ $t('dashboard.organizations') }}
       </h1>
       <button-1
         class="block flex items-center mobile:w-full justify-center h-[46px]"
@@ -12,7 +12,7 @@
           src="/src/assets/plus.svg"
           class="inline-block mr-2.5 mobile:mt-0.5"
         />
-        <p>{{ $t("dashboard.addOrganization") }}</p>
+        <p>{{ $t('dashboard.addOrganization') }}</p>
       </button-1>
     </div>
     <div v-if="organizationsList.length <= 0" class="mt-[215px]">
@@ -21,14 +21,14 @@
         src="/src/assets/Organizations/Picture.png"
       />
       <p class="text-body-1 text-center mt-5 mb-6">
-        {{ $t("dashboard.organizationListEmpty") }}
+        {{ $t('dashboard.organizationListEmpty') }}
       </p>
       <button-1
         class="block mx-auto flex items-center"
         @click="showAddOrgModal"
       >
         <img src="/src/assets/plus.svg" class="inline-block mr-2.5" />
-        <p>{{ $t("dashboard.addOrganization") }}</p>
+        <p>{{ $t('dashboard.addOrganization') }}</p>
       </button-1>
     </div>
     <div v-else class="mt-9">
@@ -84,20 +84,21 @@
             v-if="searchController.SearchedOrganizationsList.length <= 0"
             class="h-min"
           >
-            {{ $t("dashboard.forRequest") }} "{{
+            {{ $t('dashboard.forRequest') }} "{{
               searchController.SearchedOrgName
-            }}" {{ $t("dashboard.noMatches") }}
+            }}"
+            {{ $t('dashboard.noMatches') }}
           </div>
           <div
             v-if="searchController.SearchedOrganizationsList.length > 0"
             class="h-min"
           >
-            {{ $t("dashboard.requestResult") }} "{{
+            {{ $t('dashboard.requestResult') }} "{{
               searchController.SearchedOrgName
             }}".
           </div>
           <button-1 class="block mobile:grow w-min" @click="ResetSearchResult">
-            {{ $t("general.refresh") }}
+            {{ $t('general.refresh') }}
           </button-1>
         </div>
       </div>
@@ -134,21 +135,21 @@
 </template>
 
 <script>
-import OrganizationListItem from "./OrganizationListItem.vue";
-import OrganizationListTable from "./OrganizationListTable/OrganizationListTable.vue";
-import api from "../../http_client/index.js";
-import ModalTemplate from "../Modals/ModalTemplate.vue";
-import Input1 from "../Inputs/Input-1.vue";
-import Loader from "../Loader.vue";
-import Button1 from "../Buttons/Button_1.vue";
-import RemoveOrgModal from "./RemoveOrgModal.vue";
-import StringFormatter from "../mixins/StringFormatter.js";
-import axios from "axios";
-import UserInviteModal from "../Modals/UserInviteModal.vue";
-import OrganizationModal from "./OrganizationModal.vue";
+import OrganizationListItem from './OrganizationListItem.vue'
+import OrganizationListTable from './OrganizationListTable/OrganizationListTable.vue'
+import api from '../../http_client/index.js'
+import ModalTemplate from '../Modals/ModalTemplate.vue'
+import Input1 from '../Inputs/Input-1.vue'
+import Loader from '../Loader.vue'
+import Button1 from '../Buttons/Button_1.vue'
+import RemoveOrgModal from './RemoveOrgModal.vue'
+import StringFormatter from '../mixins/StringFormatter.js'
+import axios from 'axios'
+import UserInviteModal from '../Modals/UserInviteModal.vue'
+import OrganizationModal from './OrganizationModal.vue'
 
 export default {
-  name: "OrganizationsList",
+  name: 'OrganizationsList',
   components: {
     UserInviteModal,
     RemoveOrgModal,
@@ -176,42 +177,42 @@ export default {
       currentLastPage: 1,
       pageMax: -1,
       isAutoPaginationOn: true,
-      createOrgSite: "",
-      createOrgName: "",
+      createOrgSite: '',
+      createOrgName: '',
       isLoaderVisible: false,
       removedOrganization: null,
-      status: ["active", "pending", "disabled"],
+      status: ['active', 'pending', 'disabled'],
       searchController: {
-        SearchedOrgName: "",
+        SearchedOrgName: '',
         SearchedOrganizationsList: [],
         isSearchedOrgResult: false,
         cancelController: null,
       },
-    };
+    }
   },
   computed: {
     isOrgCreateButtDisabled() {
-      return this.TrimTurbo(this.createOrgName).length < 3;
+      return this.TrimTurbo(this.createOrgName).length < 3
     },
     visibleOrganizationsList() {
       return this.searchController.isSearchedOrgResult
         ? this.searchController.SearchedOrganizationsList
-        : this.organizationsList;
+        : this.organizationsList
     },
   },
   watch: {
-    "searchController.SearchedOrgName": {
+    'searchController.SearchedOrgName': {
       immediate: true,
       handler(newVal) {
-        if (!newVal) this.ResetSearchResult();
-        this.OrganizationAutoSearch();
+        if (!newVal) this.ResetSearchResult()
+        this.OrganizationAutoSearch()
       },
     },
   },
   mounted() {
     let options = {
       threshold: 0,
-    };
+    }
     let callback = (entries, observer) => {
       if (
         entries[0].isIntersecting &&
@@ -219,114 +220,117 @@ export default {
         this.pageMax < 0 &&
         this.isAutoPaginationOn
       ) {
-        this.GetOrganizationList(++this.currentLastPage);
+        this.GetOrganizationList(++this.currentLastPage)
       }
-    };
-    let observer = new IntersectionObserver(callback, options);
-    observer.observe(this.$refs.scrollObserver);
+    }
+    let observer = new IntersectionObserver(callback, options)
+    observer.observe(this.$refs.scrollObserver)
 
-    this.GetOrganizationList(this.currentLastPage);
+    this.GetOrganizationList(this.currentLastPage)
   },
   methods: {
     OnInputFocus(value) {
-      this.isInputFocused = value;
+      this.isInputFocused = value
     },
     OnDivFocus(arg) {
-      this.isInputFocused = arg;
-      if (arg) this?.$refs?.inp?.focus();
+      this.isInputFocused = arg
+      if (arg) this?.$refs?.inp?.focus()
     },
     ActivateInput() {
-      this.$refs.inp.select();
+      this.$refs.inp.select()
     },
     showAddOrgModal() {
-      this.modals.createOrgModalVisible = true;
+      this.modals.createOrgModalVisible = true
     },
     closeCreateOrgModal() {
-      this.createOrgName = "";
-      this.createOrgSite = "";
-      this.modals.createOrgModalVisible = false;
+      this.createOrgName = ''
+      this.createOrgSite = ''
+      this.modals.createOrgModalVisible = false
     },
     ResetSearchResult() {
-      this.searchController.SearchedOrgName = "";
-      this.searchController.SearchedOrganizationsList = [];
-      this.searchController.isSearchedOrgResult = false;
-      this.isAutoPaginationOn = true;
+      this.searchController.SearchedOrgName = ''
+      this.searchController.SearchedOrganizationsList = []
+      this.searchController.isSearchedOrgResult = false
+      this.isAutoPaginationOn = true
     },
     onRemoveClick(org) {
-      this.removedOrganization = org;
-      this.modals.removeOrgModalVisible = true;
+      this.removedOrganization = org
+      this.modals.removeOrgModalVisible = true
     },
     closeRemoveModal() {
-      this.modals.removeOrgModalVisible = false;
+      this.modals.removeOrgModalVisible = false
     },
     onRemoveSuccess() {
       this.organizationsList = this.organizationsList.filter(
         (x) => x.id !== this.removedOrganization.id
-      );
+      )
     },
     async GetOrganizationList(page) {
-      this.isLoaderVisible = true;
+      this.isLoaderVisible = true
       //await new Promise(resolve => setTimeout(resolve, 5000))
       await api.organizations
         .getOrganizationList(page, this.limit)
         .then((res) => {
           if (res.data.length === 0) {
-            this.pageMax = --this.currentLastPage;
+            this.pageMax = --this.currentLastPage
           } else if (res.data.length < this.limit) {
-            this.pageMax = this.currentLastPage;
+            this.pageMax = this.currentLastPage
           }
           this.organizationsList = [...this.organizationsList, ...res.data].map(
-            (org, idx) => ({ ...org, status: this.status[idx % 3] })
-          );
+            (org, idx) => ({
+              ...org,
+              status: this.status[idx % 3],
+            })
+          )
         })
         .catch((err) => {
-          console.error(err);
+          console.error(err)
         })
         .finally(() => {
-          this.isLoaderVisible = false;
-        });
+          this.isLoaderVisible = false
+        })
     },
     onAddOrganization({ createOrgName, createOrgSite }) {
-      this.createOrgName = createOrgName;
-      this.createOrgSite = createOrgSite;
-      this.addOrganizations();
+      this.createOrgName = createOrgName
+      this.createOrgSite = createOrgSite
+      this.addOrganizations()
     },
     async addOrganizations() {
-      console.log("wiisz mje?");
-      console.log(this.TrimTurbo(this.createOrgName).length < 3);
+      console.log('wiisz mje?')
+      console.log(this.TrimTurbo(this.createOrgName).length < 3)
       if (this.TrimTurbo(this.createOrgName).length < 3) {
-        return;
+        return
       }
-      this.createOrgName = this.TrimTurbo(this.createOrgName);
-      this.modals.createOrgModalLoaderVisible = true;
+      this.createOrgName = this.TrimTurbo(this.createOrgName)
+      this.modals.createOrgModalLoaderVisible = true
       await api.organizations
         .createOrganization(this.createOrgName, this.createOrgSite)
         .then((res) => {
-          this.organizationsList = [res.data, ...this.organizationsList];
-          this.closeCreateOrgModal();
+          this.organizationsList = [res.data, ...this.organizationsList]
+          this.closeCreateOrgModal()
           this.$toast.success(
-            this.$t("dashboard.organizationAddSuccess", {
+            this.$t('dashboard.organizationAddSuccess', {
               orgName: this.createOrgName,
             })
-          );
+          )
         })
         .catch((err) => {
-          let errMess = this.$t("general.errorMessage");
+          let errMess = this.$t('general.errorMessage')
           if (err.response.status == 400)
-            errMess = this.$t("dashboard.organizationExist", {
+            errMess = this.$t('dashboard.organizationExist', {
               orgName: this.createOrgName,
-            });
-          this.closeCreateOrgModal();
-          this.$toast.error(errMess);
+            })
+          this.closeCreateOrgModal()
+          this.$toast.error(errMess)
         })
         .finally(() => {
-          this.modals.createOrgModalLoaderVisible = false;
-        });
+          this.modals.createOrgModalLoaderVisible = false
+        })
     },
     async GetOrganizationByName() {
       if (this.searchController.SearchedOrgName.length < 3) {
-        this.$toast.error(this.$t("validations.minLength", { amount: 3 }));
-        return;
+        this.$toast.error(this.$t('validations.minLength', { amount: 3 }))
+        return
       }
       /*await http_client.organizations.getOrganizationByName(this.searchController.SearchedOrgName,
 				{signal : this.searchController.cancelController.signal}
@@ -336,37 +340,37 @@ export default {
           cancelToken: this.searchController.cancelController.token,
         })
         .then((res) => {
-          this.isAutoPaginationOn = false;
-          this.searchController.isSearchedOrgResult = true;
-          this.searchController.SearchedOrganizationsList = res.data;
-          console.log(this.searchController.SearchedOrganizationsList);
+          this.isAutoPaginationOn = false
+          this.searchController.isSearchedOrgResult = true
+          this.searchController.SearchedOrganizationsList = res.data
+          console.log(this.searchController.SearchedOrganizationsList)
         })
         .catch((err) => {
           if (axios.isCancel(err)) {
-            console.log("Canceled");
-            return;
+            console.log('Canceled')
+            return
           }
-          this.ResetSearchResult();
-          this.$toast.error(this.$t("general.errorMessage"));
-          throw err;
-        });
+          this.ResetSearchResult()
+          this.$toast.error(this.$t('general.errorMessage'))
+          throw err
+        })
     },
     OrganizationAutoSearch() {
-      if (this.searchController.SearchedOrgName.length < 3) return;
+      if (this.searchController.SearchedOrgName.length < 3) return
       if (this.searchController.cancelController) {
-        this.searchController.cancelController.cancel("Request updated");
+        this.searchController.cancelController.cancel('Request updated')
       }
-      this.searchController.cancelController = axios.CancelToken.source();
-      this.GetOrganizationByName();
+      this.searchController.cancelController = axios.CancelToken.source()
+      this.GetOrganizationByName()
     },
     ShowUserInviteModal() {
-      this.modals.userInvite = true;
+      this.modals.userInvite = true
     },
     CloseUserInviteModal() {
-      this.modals.userInvite = false;
+      this.modals.userInvite = false
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

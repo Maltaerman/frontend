@@ -18,7 +18,11 @@
         <OrganizationListTableItem
           v-for="(organization, index) in organizationsList"
           :key="`org${index}`"
-          :organization="{ ...organization, place: 'Kyiv, Ukraine', avatar }"
+          :organization="{
+            ...organization,
+            place: 'Kyiv, Ukraine',
+            avatar,
+          }"
           @remove="onRemoveOrg"
         />
       </tbody>
@@ -27,10 +31,10 @@
 </template>
 
 <script>
-import OrganizationListTableItem from "./OrganizationListTableItem.vue";
-import avatar from "../../../assets/Organizations/avatar.svg";
+import OrganizationListTableItem from './OrganizationListTableItem.vue'
+import avatar from '../../../assets/Organizations/avatar.svg'
 export default {
-  name: "OrganizationListTable",
+  name: 'OrganizationListTable',
   components: {
     OrganizationListTableItem,
   },
@@ -40,25 +44,25 @@ export default {
       default: [],
     },
   },
-  emits: ["remove"],
+  emits: ['remove'],
   data() {
     return {
       avatar,
-    };
+    }
   },
   methods: {
     ShowMenu() {
-      this.isMenuVisible = !this.isMenuVisible;
+      this.isMenuVisible = !this.isMenuVisible
     },
     HideMenu() {
-      this.isMenuVisible = false;
+      this.isMenuVisible = false
     },
     OnInputFocus(value) {
-      this.isInputFocused = value;
+      this.isInputFocused = value
     },
     onRemoveOrg(organization) {
-      this.$emit("remove", organization);
+      this.$emit('remove', organization)
     },
   },
-};
+}
 </script>

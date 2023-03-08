@@ -18,12 +18,12 @@
 
 <script>
 export default {
-  name: "ButtonOptions",
+  name: 'ButtonOptions',
   props: {
     buttonColor: {
       type: String,
       validator(value) {
-        return ["red", "blue"].includes(value);
+        return ['red', 'blue'].includes(value)
       },
     },
     checked: {
@@ -31,25 +31,25 @@ export default {
       default: false,
     },
   },
-  emits: ["valueChange"],
+  emits: ['valueChange'],
   data() {
     return {
       isChecked: false,
-    };
+    }
   },
   mounted() {
-    this.isChecked = this.checked;
+    this.isChecked = this.checked
   },
   updated() {
-    this.isChecked = this.checked;
+    this.isChecked = this.checked
   },
   methods: {
     toggleValue() {
-      this.isChecked = !this.isChecked;
-      this.$emit("valueChange", this.isChecked);
+      this.isChecked = !this.isChecked
+      this.$emit('valueChange', this.isChecked)
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

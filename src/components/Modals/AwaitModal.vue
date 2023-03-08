@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: "AwaitModal",
+  name: 'AwaitModal',
   props: {
     isVisible: {
       type: Boolean,
@@ -33,10 +33,10 @@ export default {
   },
   updated() {
     if (this.closeTimeout > 0) {
-      setTimeout(this.closeFunc, this.closeTimeout);
+      setTimeout(this.closeFunc, this.closeTimeout)
     }
   },
-};
+}
 </script>
 
 <style scoped></style>

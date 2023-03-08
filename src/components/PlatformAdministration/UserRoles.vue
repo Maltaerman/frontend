@@ -4,8 +4,8 @@
 
 <script>
 export default {
-  name: "UserRoles",
-};
+  name: 'UserRoles',
+}
 </script>
 
 <style scoped></style>

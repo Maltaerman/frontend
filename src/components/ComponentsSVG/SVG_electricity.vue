@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: "SVGElectricity",
+  name: 'SVGElectricity',
   props: {
     class: String,
     width: Number,
@@ -43,20 +43,20 @@ export default {
         width: 14,
         height: 22,
       },
-    };
+    }
   },
   computed: {
     viewBox() {
-      return `0 0 ${this.c_width} ${this.c_height}`;
+      return `0 0 ${this.c_width} ${this.c_height}`
     },
     c_width() {
-      return this.width > 0 ? this.width : this.defaultData.width;
+      return this.width > 0 ? this.width : this.defaultData.width
     },
     c_height() {
-      return this.height > 0 ? this.width : this.defaultData.height;
+      return this.height > 0 ? this.width : this.defaultData.height
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

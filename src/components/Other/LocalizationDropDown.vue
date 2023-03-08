@@ -50,36 +50,40 @@
 
 <script>
 //FIXME opened height = available lang amount multiple list item height, in this case 58px
-import { mapMutations } from "vuex";
+import { mapMutations } from 'vuex'
 
 export default {
-  name: "LocalizationDropDown",
+  name: 'LocalizationDropDown',
   data() {
     return {
-      lang: { code: "ua", value: "Українська", flag: "/Flags/UA_flag.svg" },
+      lang: {
+        code: 'ua',
+        value: 'Українська',
+        flag: '/Flags/UA_flag.svg',
+      },
       availableLang: [
-        { code: "ua", value: "Українська", flag: "/Flags/UA_flag.svg" },
-        { code: "en", value: "English", flag: "/Flags/USA_flag.svg" },
+        { code: 'ua', value: 'Українська', flag: '/Flags/UA_flag.svg' },
+        { code: 'en', value: 'English', flag: '/Flags/USA_flag.svg' },
       ],
       isDropped: false,
-    };
+    }
   },
   methods: {
-    ...mapMutations(["setLocalization"]),
+    ...mapMutations(['setLocalization']),
     ToggleDrop(bool) {
-      this.isDropped = bool;
+      this.isDropped = bool
     },
     setLang(item) {
-      this.lang = item;
-      this.$i18n.locale = item.code;
-      this.setLocalization(item.code);
-      this.isDropped = false;
+      this.lang = item
+      this.$i18n.locale = item.code
+      this.setLocalization(item.code)
+      this.isDropped = false
     },
   },
   mounted() {
-    this.lang = this.availableLang.find((x) => x.code === this.$i18n.locale);
+    this.lang = this.availableLang.find((x) => x.code === this.$i18n.locale)
   },
-};
+}
 </script>
 
 <style scoped></style>

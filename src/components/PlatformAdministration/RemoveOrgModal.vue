@@ -17,13 +17,13 @@
           <img src="/src/assets/close.svg" />
         </button>
         <div class="text-s1 mb-2">
-          {{ $t("organizationProfile.deleteOrganization") }}
+          {{ $t('organizationProfile.deleteOrganization') }}
         </div>
         <div class="text-s1 text-red-c-500 underline">
           "{{ organization.name }}"
         </div>
         <div class="text-h3 text-gray-c-600 my-2">
-          {{ $t("general.toDeleteType") }}
+          {{ $t('general.toDeleteType') }}
           <span class="text-h3 text-center text-gray-c-800 font-semibold">
             {{ organization.name.trim() }}
           </span>
@@ -45,12 +45,12 @@
 </template>
 
 <script>
-import ModalTemplate from "../Modals/ModalTemplate.vue";
-import input1 from "../Inputs/Input-1.vue";
-import Loader from "../Loader.vue";
-import api from "../../http_client/index.js";
+import ModalTemplate from '../Modals/ModalTemplate.vue'
+import input1 from '../Inputs/Input-1.vue'
+import Loader from '../Loader.vue'
+import api from '../../http_client/index.js'
 export default {
-  name: "RemoveOrgModal",
+  name: 'RemoveOrgModal',
   components: {
     ModalTemplate,
     input1,
@@ -63,67 +63,67 @@ export default {
     onRemoveFailed: Function,
     closeFunc: Function,
   },
-  emits: ["on-remove-success", "on-remove-failed"],
+  emits: ['on-remove-success', 'on-remove-failed'],
   data() {
     return {
-      inputValue: "",
+      inputValue: '',
       isModalVisible: true,
       isLoaderVisible: false,
-    };
+    }
   },
   computed: {
     isRemoveAvailable() {
-      return this.organization.name.trim() === this.inputValue;
+      return this.organization.name.trim() === this.inputValue
     },
   },
   methods: {
     closeThisComponent() {
-      (this.isModalVisible = true),
+      ;(this.isModalVisible = true),
         (this.isLoaderVisible = false),
-        this.closeFunc();
+        this.closeFunc()
     },
     closeSuccess() {
-      this.onRemoveSuccess();
-      this.closeThisComponent();
+      this.onRemoveSuccess()
+      this.closeThisComponent()
     },
     closeError() {
-      this.onRemoveFailed();
-      this.closeThisComponent();
+      this.onRemoveFailed()
+      this.closeThisComponent()
     },
     async removeOrg() {
-      this.isLoaderVisible = true;
+      this.isLoaderVisible = true
       await api.organizations
         .removeOrganization(this.organization.id)
         .then((res) => {
-          this.isModalVisible = false;
-          this.isLoaderVisible = false;
+          this.isModalVisible = false
+          this.isLoaderVisible = false
           this.$toast.success(
-            this.$t("removeOrgModal.successMess", {
+            this.$t('removeOrgModal.successMess', {
               orgName: this.organization.name,
             }),
             {
               duration: false,
               onClose: this.closeSuccess,
             }
-          );
+          )
         })
         .catch((err) => {
-          this.isModalVisible = false;
-          this.isLoaderVisible = false;
+          this.isModalVisible = false
+          this.isLoaderVisible = false
           this.$toast.error(
-            this.$t("removeOrgModal.errorMess", {
+            this.$t('removeOrgModal.errorMess', {
               orgName: this.organization.name,
             }),
             {
               duration: false,
               onClose: this.closeError,
             }
-          );
+          )
         })
-        .finally(() => {});
+        .finally(() => {})
     },
   },
-};
+}
 </script>
 
 <style scoped>

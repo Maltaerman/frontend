@@ -57,13 +57,13 @@
 </template>
 
 <script>
-import dateFormatter from "../mixins/dateFormatter.js";
-import SVG_building_condition from "../ComponentsSVG/SVG_building_condition.vue";
-import dynamicContent from "../mixins/dynamicContent.js";
-import reportItemFlags from "../mixins/reportItemFlags.js";
+import dateFormatter from '../mixins/dateFormatter.js'
+import SVG_building_condition from '../ComponentsSVG/SVG_building_condition.vue'
+import dynamicContent from '../mixins/dynamicContent.js'
+import reportItemFlags from '../mixins/reportItemFlags.js'
 
 export default {
-  name: "WelcomeScreenReportList",
+  name: 'WelcomeScreenReportList',
   components: {
     SVG_building_condition,
   },
@@ -78,53 +78,53 @@ export default {
       default: [],
     },
   },
-  emits: ["report-click"],
+  emits: ['report-click'],
   data() {
     return {
       lastVisibleItemIndex: 0,
       visibleElements: [],
       animId: 0,
       cycles: 0,
-    };
+    }
   },
   computed: {
     itemHeight() {
-      if (document.body.clientWidth <= 480) return "64px";
-      else return "67px";
+      if (document.body.clientWidth <= 480) return '64px'
+      else return '67px'
     },
   },
   mounted() {
-    this.startAnimation();
+    this.startAnimation()
   },
   beforeUnmount() {
-    clearInterval(this.animId);
+    clearInterval(this.animId)
   },
   methods: {
     GetVisibleElements() {
-      this.lastVisibleItemIndex++;
+      this.lastVisibleItemIndex++
       this.cycles = Math.trunc(
         this.lastVisibleItemIndex / this.reportsList.length
-      );
+      )
 
       let index =
-        this.lastVisibleItemIndex - this.cycles * this.reportsList.length;
-      if (this.visibleElements.length >= 3) this.visibleElements.splice(0, 1);
-      this.visibleElements.push(this.reportsList[index]);
+        this.lastVisibleItemIndex - this.cycles * this.reportsList.length
+      if (this.visibleElements.length >= 3) this.visibleElements.splice(0, 1)
+      this.visibleElements.push(this.reportsList[index])
     },
     startAnimation() {
-      clearInterval(this.animId);
+      clearInterval(this.animId)
       for (let i = 0; i < this.reportsList.length; i++) {
-        this.visibleElements.push(this.reportsList[i]);
-        this.lastVisibleItemIndex = i;
-        if (i == 2) break;
+        this.visibleElements.push(this.reportsList[i])
+        this.lastVisibleItemIndex = i
+        if (i == 2) break
       }
-      this.animId = setInterval(this.GetVisibleElements, this.delay);
+      this.animId = setInterval(this.GetVisibleElements, this.delay)
     },
     OnReportClick(report) {
-      this.$emit("report-click", report);
+      this.$emit('report-click', report)
     },
   },
-};
+}
 </script>
 
 <style scoped>
