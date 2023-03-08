@@ -11,7 +11,9 @@
             Organization
           </th>
           <th class="w-24 text-center text-base font-medium">Aid Workers</th>
-          <th class="text-base font-medium pl-4" colspan="2">Status</th>
+          <th
+class="text-base font-medium pl-4"
+colspan="2">Status</th>
         </tr>
       </thead>
       <tbody class="text-sm divide-y divide-gray-100">
@@ -31,8 +33,9 @@
 </template>
 
 <script>
-import OrganizationListTableItem from './OrganizationListTableItem.vue'
 import avatar from '../../../assets/Organizations/avatar.svg'
+
+import OrganizationListTableItem from './OrganizationListTableItem.vue'
 export default {
   name: 'OrganizationListTable',
   components: {

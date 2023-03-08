@@ -11,31 +11,33 @@
         </div>
         <div>
           <div class="mb-6">
-            <label for="user-pass" class="block mb-1 text-h4 text-gray-c-500">
+            <label
+class="block mb-1 text-h4 text-gray-c-500"
+for="user-pass">
               Новий пароль
             </label>
             <input-pass
               v-model="pass"
-              tabindex="3"
-              :validation-message="$t('validations.passNotValid')"
               class="outline-none"
               inp-id="user-pass"
+              tabindex="3"
+              :validation-message="$t('validations.passNotValid')"
               @validation="onPassValid"
             />
           </div>
           <div class="mb-6">
             <label
-              for="user-pass-conf"
               class="block mb-1 text-h4 text-gray-c-500"
+              for="user-pass-conf"
             >
               Повторіть новий пароль
             </label>
             <input-pass
               v-model="passConfirm"
-              tabindex="4"
               class="outline-none"
               inp-id="user-pass-conf"
               :placeholder="$t('userRegistration.passRepeatPlaceholder')"
+              tabindex="4"
               :validation-func="isPassEquals"
               :validation-message="$t('validations.passNotEquals')"
             />
@@ -43,9 +45,9 @@
         </div>
 
         <button-1
+          class="w-full"
           :disabled="isButtonDisabled"
           tabindex="7"
-          class="w-full"
           @click="ResetPass"
         >
           {{ $t('general.confirm') }}
@@ -53,14 +55,16 @@
       </div>
     </div>
   </div>
-  <Loader v-if="isLoaderVisible" class="z-[9999]" />
+  <Loader
+v-if="isLoaderVisible"
+class="z-[9999]" />
 </template>
 
 <script>
-import regex from '../mixins/regex.js'
+import api from '../../http_client/index.js'
 import Header from '../Header.vue'
 import InputPass from '../Inputs/Input-pass.vue'
-import api from '../../http_client/index.js'
+import regex from '../mixins/regex.js'
 
 export default {
   name: 'PasswordReset',

@@ -14,16 +14,16 @@
     >
       <TabItemButton
         class="w-full"
-        target-tab-value="Overview"
         :current-tab-value="selectedTabItem"
+        target-tab-value="Overview"
         @click="setSelectedTab('Overview')"
       >
         {{ $t('userSideBar.overview') }}
       </TabItemButton>
       <TabItemButton
         class="w-full"
-        target-tab-value="History"
         :current-tab-value="selectedTabItem"
+        target-tab-value="History"
         @click="setSelectedTab(`History`)"
       >
         {{ $t('userSideBar.change-history') }}
@@ -42,11 +42,13 @@
 </template>
 
 <script>
-import Overview from './Overview.vue'
-import History from './History.vue'
 import { mapState } from 'vuex'
-import NotFound from './NotFound.vue'
+
 import TabItemButton from '../../Other/TabItemButton.vue'
+
+import History from './History.vue'
+import NotFound from './NotFound.vue'
+import Overview from './Overview.vue'
 
 export default {
   name: 'SideBar',

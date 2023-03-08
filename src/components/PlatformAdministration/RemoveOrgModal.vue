@@ -1,10 +1,10 @@
 <template>
   <div v-if="isVisible">
     <ModalTemplate
-      :is-modal-visible="isModalVisible"
-      :is-hide-on-click="true"
-      :close-func="closeThisComponent"
       class-list="grid place-items-center px-4"
+      :close-func="closeThisComponent"
+      :is-hide-on-click="true"
+      :is-modal-visible="isModalVisible"
     >
       <div
         class="bg-white w-[480px] rounded-lg relative mobile:w-full relative p-6 mx-auto max-h-screen overflow-y-auto"
@@ -29,26 +29,30 @@
           </span>
         </div>
 
-        <input-1 v-model="inputValue" class="w-full" />
+        <input-1
+v-model="inputValue"
+class="w-full" />
 
         <button-1
-          :disabled="!isRemoveAvailable"
           class="w-full mt-6"
+          :disabled="!isRemoveAvailable"
           @click.stop="removeOrg"
         >
           Видалити
         </button-1>
-        <Loader v-if="isLoaderVisible" class="rounded-lg" />
+        <Loader
+v-if="isLoaderVisible"
+class="rounded-lg" />
       </div>
     </ModalTemplate>
   </div>
 </template>
 
 <script>
-import ModalTemplate from '../Modals/ModalTemplate.vue'
+import api from '../../http_client/index.js'
 import input1 from '../Inputs/Input-1.vue'
 import Loader from '../Loader.vue'
-import api from '../../http_client/index.js'
+import ModalTemplate from '../Modals/ModalTemplate.vue'
 export default {
   name: 'RemoveOrgModal',
   components: {
@@ -79,8 +83,8 @@ export default {
   methods: {
     closeThisComponent() {
       ;(this.isModalVisible = true),
-        (this.isLoaderVisible = false),
-        this.closeFunc()
+      (this.isLoaderVisible = false),
+      this.closeFunc()
     },
     closeSuccess() {
       this.onRemoveSuccess()

@@ -3,8 +3,8 @@
     <div class="flex flex-nowrap relative cursor-pointer group">
       <div class="mr-1.5 my-auto h-6 w-8">
         <SVG_status_list
-          :icon="flag"
           :class-list="getSVGColorClass(flag, flagValue)"
+          :icon="flag"
         />
       </div>
       <p
@@ -13,7 +13,9 @@
       >
         {{ GetStatusTranslation(flagValue) }}
       </p>
-      <p v-if="update" class="text-gray-c-500 my-auto font-normal px-1">
+      <p
+v-if="update"
+class="text-gray-c-500 my-auto font-normal px-1">
         {{ GetDateTimeShort(update) }}
       </p>
 
@@ -29,10 +31,10 @@
 </template>
 
 <script>
-import reportItemFlags from '../../mixins/reportItemFlags.js'
 import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
-import dateFormatter from '../../mixins/dateFormatter.js'
 import Expander from '../../Other/Expander.vue'
+import dateFormatter from '../../mixins/dateFormatter.js'
+import reportItemFlags from '../../mixins/reportItemFlags.js'
 
 export default {
   name: 'ReportStateItem',

@@ -3,7 +3,9 @@
   <button-text-1 @click="Test1"> Test </button-text-1>
   <button-text-1 @click="Test2"> ShowModal </button-text-1>
 
-  <InputSuggest class="bg-red-c-500 px-2 mb-2" :suggestion="items" />
+  <InputSuggest
+class="bg-red-c-500 px-2 mb-2"
+:suggestion="items" />
   <div class="bg-green-700 h-10 w-full"></div>
   <user-invite-modal
     :close-func="HideModal"
@@ -13,8 +15,8 @@
 </template>
 
 <script>
-import UserInviteModal from './Modals/UserInviteModal.vue'
 import InputSuggest from './Inputs/suggestionInput/Input-suggestion.vue'
+import UserInviteModal from './Modals/UserInviteModal.vue'
 
 export default {
   name: 'Test',

@@ -12,9 +12,10 @@ const UserRegistration = () => import('../components/Authorization/UserRegistrat
 const PasswordReset = () => import('../components/Authorization/PasswordReset.vue')
 const UserRoles = () => import('../components/PlatformAdministration/UserRoles.vue')
 
-import { store } from '../store/mainStore.js'
 import { createRouter, createWebHistory } from 'vue-router'
+
 import userRoles from '../components/mixins/userRoles.js'
+import { store } from '../store/mainStore.js'
 
 const mainRouter = [
   {

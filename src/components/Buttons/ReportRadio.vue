@@ -1,10 +1,12 @@
 <template>
-  <label v-for="option in label.options" class="cursor-pointer">
+  <label
+v-for="option in label.options"
+class="cursor-pointer">
     <input
-      type="radio"
+      :checked="checkedOp === option.value"
       class="peer sr-only"
       :name="label.name"
-      :checked="checkedOp === option.value"
+      type="radio"
       @change="updateModel(option.value)"
     />
     <div

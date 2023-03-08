@@ -5,8 +5,8 @@
       :ref="`inp${n - 1}`"
       class="input-1 text-center max-w-[62px]"
       placeholder="X"
-      @input="OnInput(n - 1)"
       @focusin="onFocusGet(n - 1)"
+      @input="OnInput(n - 1)"
       @keyup="keyAction"
     />
   </div>

@@ -1,14 +1,14 @@
 <template>
   <ConfirmModal
+    :accept-button-func="PageLeaveAccepted"
+    :accept-button-text="$t('reportTools.acceptButtonText')"
+    :cancel-button-func="PageLeaveCanceled"
+    :cancel-button-text="$t('reportTools.cancelButtonText')"
+    :close-func="closeLeavePageConfirmModal"
     :is-bg-click-close="false"
     :is-visible="isLeaveModalVisible"
-    :cancel-button-text="$t('reportTools.cancelButtonText')"
-    :accept-button-text="$t('reportTools.acceptButtonText')"
-    :title="$t('general.dataNotSaved')"
     :question="$t('reportTools.beforeLeaveMessage')"
-    :close-func="closeLeavePageConfirmModal"
-    :accept-button-func="PageLeaveAccepted"
-    :cancel-button-func="PageLeaveCanceled"
+    :title="$t('general.dataNotSaved')"
   />
   <div class="py-4 px-6 overflow-y-auto h-full">
     <div class="flex flex-wrap justify-between mb-2">
@@ -16,7 +16,9 @@
         <span class="align-middle">{{ $t('reportTools.header') }}</span>
       </div>
       <div class="flex gap-2 h-[42px] mobile:w-full">
-        <button-3 class="min-w-[80px] mobile:grow" @click="GoBack">
+        <button-3
+class="min-w-[80px] mobile:grow"
+@click="GoBack">
           {{ $t('general.cancel') }}
         </button-3>
         <button-1
@@ -39,8 +41,8 @@
         </div>
         <input1
           v-model="updatedReport.city"
-          :placeholder="$t('reportTools.city')"
           class="w-full rounded-xl"
+          :placeholder="$t('reportTools.city')"
           :validation-func="AddressValidation"
           validation-message="Мінімальна довжина 2 символи"
         />
@@ -51,8 +53,8 @@
         </div>
         <input1
           v-model="updatedReport.address"
-          :placeholder="$t('reportTools.street')"
           class="w-full rounded-xl"
+          :placeholder="$t('reportTools.street')"
           :validation-func="AddressValidation"
           validation-message="Мінімальна довжина 2 символи"
         />
@@ -63,8 +65,8 @@
         </div>
         <input1
           v-model="updatedReport.street_number"
-          :placeholder="$t('reportTools.streetNumber')"
           class="w-full rounded-xl"
+          :placeholder="$t('reportTools.streetNumber')"
         />
       </label>
     </div>
@@ -81,8 +83,8 @@
         <div class="flex flex-wrap gap-2">
           <ReportRadio
             v-model="updatedReport.reports[label.name].flag"
-            :label="label"
             :checked-op="updatedReport.reports[label.name].flag"
+            :label="label"
           />
         </div>
       </div>
@@ -97,15 +99,16 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-import Button3 from '../../Buttons/Button_3.vue'
-import Button1 from '../../Buttons/Button_1.vue'
+
 import ButtonTag from '../../Buttons/ButtonTag.vue'
-import ModalTemplate from '../../Modals/ModalTemplate.vue'
-import ConfirmModal from '../../Modals/ConfirmModal.vue'
-import helper from '../../mixins/helper.js'
+import Button1 from '../../Buttons/Button_1.vue'
+import Button3 from '../../Buttons/Button_3.vue'
 import ReportRadio from '../../Buttons/ReportRadio.vue'
-import reportItemFlags from '../../mixins/reportItemFlags.js'
 import Input1 from '../../Inputs/Input-1.vue'
+import ConfirmModal from '../../Modals/ConfirmModal.vue'
+import ModalTemplate from '../../Modals/ModalTemplate.vue'
+import helper from '../../mixins/helper.js'
+import reportItemFlags from '../../mixins/reportItemFlags.js'
 
 export default {
   name: 'ReportTools',

@@ -10,9 +10,11 @@
 </template>
 
 <script>
-import HistoryItem from './HistoryItem.vue'
 import { mapActions, mapState } from 'vuex'
+
 import Loader from '../../Loader.vue'
+
+import HistoryItem from './HistoryItem.vue'
 
 export default {
   name: 'History',

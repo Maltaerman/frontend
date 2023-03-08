@@ -13,14 +13,14 @@
       </textarea>
       <button
         id="issueMessSendButt"
-        :disabled="isDisabled"
+        class="block border rounded-lg px-[50px] py-2 font-medium"
         :class="{
           'bg-gray-c-200 text-gray-c-400': isDisabled,
           'bg-gray-c-200 text-gray-c-600 ': !isDisabled,
           'hover:text-gray-c-500 active:bg-gray-c-300 active:text-gray-c-600':
             !isDisabled,
         }"
-        class="block border rounded-lg px-[50px] py-2 font-medium"
+        :disabled="isDisabled"
         @click="Show(issueMessage)"
       >
         Відправити

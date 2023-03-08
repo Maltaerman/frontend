@@ -1,16 +1,16 @@
 <template>
   <ModalTemplate
-    :is-modal-visible="isVisible"
+    class-list="grid items-center px-6"
     :close-func="cancelButtonClick"
     :is-hide-on-click="isBgClickClose"
-    class-list="grid items-center px-6"
+    :is-modal-visible="isVisible"
   >
     <div
       class="bg-white w-[480px] mx-auto mobile:w-full relative p-6 rounded-lg"
     >
       <img
-        src="/src/assets/close.svg"
         class="absolute top-6 right-6 cursor-pointer"
+        src="/src/assets/close.svg"
         @click="cancelButtonClick"
       />
       <div class="text-h2 text-center font-semibold">{{ title }}</div>
@@ -18,10 +18,14 @@
         {{ question }}
       </div>
       <div class="flex gap-4 flex-nowrap">
-        <button-2 class="w-full" @click="cancelButtonClick">
+        <button-2
+class="w-full"
+@click="cancelButtonClick">
           {{ cancelButtonTextC }}
         </button-2>
-        <button-1 class="w-full" @click="acceptButtonClick">
+        <button-1
+class="w-full"
+@click="acceptButtonClick">
           {{ acceptButtonTextC }}
         </button-1>
       </div>

@@ -1,17 +1,17 @@
 <template>
   <ModalTemplate
     class-list="grid place-items-center p-4"
-    :is-modal-visible="isVisible"
     :close-func="closeThisModal"
     :is-hide-on-click="true"
+    :is-modal-visible="isVisible"
   >
     <div
       class="bg-white w-[480px] mx-auto mobile:w-full relative p-6 rounded-lg"
       @click.stop
     >
       <img
-        src="/src/assets/close.svg"
         class="absolute top-6 right-6 cursor-pointer"
+        src="/src/assets/close.svg"
         @click="closeThisModal"
       />
       <div class="text-h2 text-center font-semibold">
@@ -19,24 +19,28 @@
       </div>
       <div class="flex flex-col gap-4 mt-4 mb-6">
         <div>
-          <label for="inpRegNewOrgName" class="text-h4 text-gray-c-500">{{
+          <label
+class="text-h4 text-gray-c-500"
+for="inpRegNewOrgName">{{
             $t('dashboard.organizationName')
           }}</label>
           <input1
             v-model="organization.createOrgName"
-            inp-id="inpRegNewOrgName"
             class="w-full mt-1"
+            inp-id="inpRegNewOrgName"
             :placeholder="$t('dashboard.namePlaceholder')"
           />
         </div>
         <div>
-          <label for="inpRegNewOrgSite" class="text-h4 text-gray-c-500">{{
+          <label
+class="text-h4 text-gray-c-500"
+for="inpRegNewOrgSite">{{
             $t('dashboard.website')
           }}</label>
           <input1
             v-model="organization.createOrgSite"
-            inp-id="inpRegNewOrgSite"
             class="w-full mt-1"
+            inp-id="inpRegNewOrgSite"
             placeholder="organization.com"
           />
         </div>
@@ -54,8 +58,8 @@
 </template>
 
 <script>
-import ModalTemplate from '../Modals/ModalTemplate.vue'
 import Input1 from '../Inputs/Input-1.vue'
+import ModalTemplate from '../Modals/ModalTemplate.vue'
 import StringFormatter from '../mixins/StringFormatter'
 export default {
   components: {

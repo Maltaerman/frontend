@@ -2,8 +2,8 @@
   <div class="flex flex-nowrap gap-2">
     <div
       class="relative w-[140px]"
-      @mouseleave="ToggleDrop(false)"
       @focusout="ToggleDrop(false)"
+      @mouseleave="ToggleDrop(false)"
     >
       <button
         id="dropButton"
@@ -11,15 +11,17 @@
         @click="ToggleDrop(!isDropped)"
       >
         <img
-          src="/src/assets/dropdown-arrow.svg"
           class="w-3.5 h-2 transition-all duration-300"
           :class="{
             'rotate-0': !isDropped,
             'rotate-180': isDropped,
           }"
+          src="/src/assets/dropdown-arrow.svg"
         />
         <div class="flex items-center gap-2 pr-3">
-          <img :src="code.flag" class="w-6 h-4" />
+          <img
+class="w-6 h-4"
+:src="code.flag" />
           <div id="current-code">{{ code.value }}</div>
         </div>
       </button>
@@ -40,12 +42,18 @@
           }"
           @click.stop="setCode(codeItem.code)"
         >
-          <img :src="codeItem.flag" class="w-6 h-4" />
+          <img
+class="w-6 h-4"
+:src="codeItem.flag" />
           <div>{{ codeItem.value }}</div>
         </div>
       </div>
     </div>
-    <input ref="tel" v-model="inp" class="input-1" @keyup="keyAction" />
+    <input
+ref="tel"
+v-model="inp"
+class="input-1"
+@keyup="keyAction" />
   </div>
 </template>
 

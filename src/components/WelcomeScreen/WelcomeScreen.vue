@@ -6,7 +6,9 @@
     <div
       class="flex flex-col justify-center items-center w-[600px] mx-auto mobile:text-h4 mobile:w-full text-h3 grow shrink px-4"
     >
-      <img src="/src/assets/fullLogo.svg" class="inline-block w-[310px]" />
+      <img
+class="inline-block w-[310px]"
+src="/src/assets/fullLogo.svg" />
       <p class="text-gray-c-500 mt-6 text-justify">
         {{ $t('welcomeScreen.helperText') }}
       </p>
@@ -17,23 +19,23 @@
         <div class="w-[44px] cursor-pointer rounded-xl">
           <img
             alt="search"
-            src="/search.svg"
             class="h-full w-full object-scale-down"
+            src="/search.svg"
           />
         </div>
         <GMapAutocomplete
           id="autocomplete"
           ref="autocomplete"
           v-model="searchRequest"
-          :placeholder="$t('welcomeScreen.searchAddress')"
           class="w-full bg-transparent outline-none block text-h3"
           :options="{
             fields: [`geometry`, `name`],
           }"
+          :placeholder="$t('welcomeScreen.searchAddress')"
           :select-first-on-enter="true"
-          @place_changed="GetMarker"
           @focusin="OnInputFocus(true)"
           @focusout="OnInputFocus(false)"
+          @place_changed="GetMarker"
         />
         <div
           class="w-[40px] cursor-pointer rounded-xl"
@@ -41,21 +43,23 @@
         >
           <img
             id="close-button"
-            src="/close.svg"
             alt="close"
             class="h-full w-full object-scale-down"
+            src="/close.svg"
           />
         </div>
       </div>
 
-      <div v-if="recentReports.length > 0" class="w-full">
+      <div
+v-if="recentReports.length > 0"
+class="w-full">
         <div class="font-semibold mb-2 bg-white z-10">
           {{ $t('welcomeScreen.recentlyReports') }}
         </div>
         <WelcomeScreenReportList
-          :reports-list="recentReports"
-          :delay="5000"
           class="w-full"
+          :delay="5000"
+          :reports-list="recentReports"
           @report-click="RecentReportClick"
         />
       </div>
@@ -72,13 +76,19 @@
       <div
         class="flex gap-6 flex-nowrap text-h4 text-blue-c-500 font-semibold break-words"
       >
-        <a href="https://about.projectdim.org" target="_blank">{{
+        <a
+href="https://about.projectdim.org"
+target="_blank">{{
           $t('footer.about')
         }}</a>
-        <a href="https://dimblog.wixsite.com/project-dim" target="_blank">{{
+        <a
+href="https://dimblog.wixsite.com/project-dim"
+target="_blank">{{
           $t('footer.blog')
         }}</a>
-        <a href="https://about.projectdim.org/" target="_blank"
+        <a
+href="https://about.projectdim.org/"
+target="_blank"
           >❤ {{ $t('footer.support') }}</a
         >
       </div>
@@ -93,12 +103,15 @@
 </template>
 
 <script>
+import { mapState, mapActions, mapMutations } from 'vuex'
+
+import api from '../../http_client/index.js'
+import SVG_building_condition from '../ComponentsSVG/SVG_building_condition.vue'
 import Header from '../Header.vue'
 import Test from '../Test.vue'
-import { mapState, mapActions, mapMutations } from 'vuex'
-import SVG_building_condition from '../ComponentsSVG/SVG_building_condition.vue'
+
 import WelcomeScreenReportList from './WelcomeScreenReportList.vue'
-import api from '../../http_client/index.js'
+
 export default {
   name: 'WelcomeScreen',
   components: {

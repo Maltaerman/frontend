@@ -8,26 +8,30 @@
           {{ $t('notFoundAddress.noDBItem', { address: Address }) }}
         </p>
         <div class="mt-2.5">
-          <div v-if="notFoundedMarkerData.id" class="flex items-center gap-2">
+          <div
+v-if="notFoundedMarkerData.id"
+class="flex items-center gap-2">
             <svg
-              width="23"
-              height="22"
               class="fill-green-c-500"
-              viewBox="0 0 23 22"
               fill="none"
+              height="22"
+              viewBox="0 0 23 22"
+              width="23"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill-rule="evenodd"
                 clip-rule="evenodd"
                 d="M0.5 11C0.5 4.92487 5.42487 0 11.5 0C17.5751 0 22.5 4.92487 22.5 11C22.5 17.0751 17.5751 22 11.5 22C5.42487 22 0.5 17.0751 0.5 11ZM11.5 2C6.52944 2 2.5 6.02944 2.5 11C2.5 15.9706 6.52944 20 11.5 20C16.4706 20 20.5 15.9706 20.5 11C20.5 6.02944 16.4706 2 11.5 2ZM17.2071 7.29289C17.5976 7.68342 17.5976 8.31658 17.2071 8.70711L10.2071 15.7071C9.81658 16.0976 9.18342 16.0976 8.79289 15.7071L5.79289 12.7071C5.40237 12.3166 5.40237 11.6834 5.79289 11.2929C6.18342 10.9024 6.81658 10.9024 7.20711 11.2929L9.5 13.5858L15.7929 7.29289C16.1834 6.90237 16.8166 6.90237 17.2071 7.29289Z"
+                fill-rule="evenodd"
               />
             </svg>
             <p class="text-h3 text-green-c-500 font-semibold">
               {{ $t('notFoundAddress.requestExist') }}
             </p>
           </div>
-          <div v-else class="text-gray-c-500">
+          <div
+v-else
+class="text-gray-c-500">
             {{ $t('notFoundAddress.tips') }}
           </div>
         </div>
@@ -58,14 +62,16 @@
           {{ $t('userSideBar.choose-location-button') }}
         </span>
       </button-1>
-      <div v-if="recentReports.length > 0" class="w-full">
+      <div
+v-if="recentReports.length > 0"
+class="w-full">
         <div class="font-semibold mb-2 bg-white z-10">
           {{ $t('welcomeScreen.recentlyReports') }}
         </div>
         <WelcomeScreenReportList
-          :reports-list="recentReports"
-          :delay="5000"
           class="w-full"
+          :delay="5000"
+          :reports-list="recentReports"
           @report-click="RecentReportClick"
         />
       </div>
@@ -74,22 +80,25 @@
     <Footer />
     <Loader v-if="isLoader" />
     <SendReportRequestModal
-      :is-modal-visible="isRequestModalView"
       :close-func="closeReqModal"
+      :is-modal-visible="isRequestModalView"
     />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
+
 import api from '../../../http_client/index.js'
 import Loader from '../../Loader.vue'
-import FeedBackForm from './FeedBackForm.vue'
-import userRoles from '../../mixins/userRoles.js'
 import SendReportRequestModal from '../../Modals/SendReportRequestModal.vue'
-import Footer from './Footer.vue'
-import dynamicContent from '../../mixins/dynamicContent.js'
 import WelcomeScreenReportList from '../../WelcomeScreen/WelcomeScreenReportList.vue'
+import dynamicContent from '../../mixins/dynamicContent.js'
+import userRoles from '../../mixins/userRoles.js'
+
+import FeedBackForm from './FeedBackForm.vue'
+import Footer from './Footer.vue'
+
 
 export default {
   name: 'NotFound',

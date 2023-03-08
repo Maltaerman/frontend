@@ -1,15 +1,19 @@
 import './index.css'
+import VueGoogleMaps from '@fawmi/vue-google-maps'
+import ResizeTextarea from 'resize-textarea-vue3'
 import { createApp } from 'vue'
+import SimpleTypehead from 'vue3-simple-typeahead'
+
 import App from './App.vue'
 import { store } from './store/mainStore.js'
 //import { Router } from "./router/mainRouter.js";
 import { Router } from './router/dynamicRouter.js'
 import i18n from './libs/i18n/index.js'
-import VueGoogleMaps from '@fawmi/vue-google-maps'
 import ComponentsList from './components/ComponentsList.js'
-import ResizeTextarea from 'resize-textarea-vue3'
+
+
 import Info from '/src/components/pluginComponents/toast'
-import SimpleTypehead from 'vue3-simple-typeahead'
+
 
 const app = createApp(App)
 

@@ -61,11 +61,11 @@
 </template>
 
 <script>
-import Header from '../Header.vue'
-import RouterHelper from '../mixins/routerHelper.js'
-import MenuItemLink from '../SidebarComponents/MenuItemLink.vue'
 import SVG_Org_List from '../ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue'
 import SVG_settings from '../ComponentsSVG/SVG_settings.vue'
+import Header from '../Header.vue'
+import MenuItemLink from '../SidebarComponents/MenuItemLink.vue'
+import RouterHelper from '../mixins/routerHelper.js'
 export default {
   name: 'MainPlatformAdministration',
   components: {

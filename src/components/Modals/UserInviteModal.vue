@@ -1,9 +1,9 @@
 <template>
   <modal-template
-    :is-modal-visible="isModalVisible"
+    :class-list="`grid place-content-center px-2`"
     :close-func="close"
     :is-hide-on-click="isHideOnClick"
-    :class-list="`grid place-content-center px-2`"
+    :is-modal-visible="isModalVisible"
   >
     <transition name="modal-anim">
       <div
@@ -11,7 +11,9 @@
         class="bg-white w-[480px] rounded-lg relative mobile:w-full relative p-6 mx-auto max-h-screen"
         @click.stop
       >
-        <button class="absolute top-6 right-6 cursor-pointer" @click="close">
+        <button
+class="absolute top-6 right-6 cursor-pointer"
+@click="close">
           <img src="/src/assets/close.svg" />
         </button>
         <div class="text-h2 text-center font-semibold">
@@ -24,17 +26,17 @@
         <div class="flex flex-col gap-4 mt-4 mb-2">
           <input-suggest
             v-model.trim="requestedOrg"
-            :placeholder="$t('dashboard.organizationSearchPlaceholder')"
             :item-projection-function="suggestionProjection"
+            :placeholder="$t('dashboard.organizationSearchPlaceholder')"
             :suggestion="suggestionsC"
             @select-item="setSelectedItem"
           />
           <input1
             v-model.trim="mail"
-            placeholder="E-mail"
             class="outline-none"
-            validation-type="mail"
+            placeholder="E-mail"
             :validation-message="$t('validations.mailNotValid')"
+            validation-type="mail"
           />
         </div>
 
@@ -52,11 +54,12 @@
 </template>
 
 <script>
-import ModalTemplate from './ModalTemplate.vue'
-import input1 from '../Inputs/Input-1.vue'
 import api from '../../http_client/index.js'
-import regex from '../mixins/regex.js'
+import input1 from '../Inputs/Input-1.vue'
 import InputSuggest from '../Inputs/suggestionInput/Input-suggestion.vue'
+import regex from '../mixins/regex.js'
+
+import ModalTemplate from './ModalTemplate.vue'
 export default {
   name: 'UserInviteModal',
   components: { InputSuggest, ModalTemplate, input1 },

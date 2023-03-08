@@ -42,17 +42,17 @@
           <label for="setting-name">{{ $t('userSettings.name') }}</label>
           <input-1
             v-model="username"
+            class="block text-black mt-1 mb-6"
             inp-id="setting-name"
             :placeholder="$t('userSettings.name')"
-            class="block text-black mt-1 mb-6"
           />
           <label for="setting-mail">{{ $t('userSettings.email') }}</label>
           <input-1
             v-model="email"
-            inp-id="setting-mail"
-            :placeholder="$t('userSettings.email')"
             class="text-black mt-1"
             disabled
+            inp-id="setting-mail"
+            :placeholder="$t('userSettings.email')"
           />
         </div>
 
@@ -77,22 +77,24 @@
           </ButtonOptions>
         </div>
 
-        <div v-show="isPassChangeVisible" id="passChangeBlock">
+        <div
+v-show="isPassChangeVisible"
+id="passChangeBlock">
           <label for="setting-pass">{{ $t('userSettings.password') }}</label>
           <input-pass
             v-model="oldPass"
+            class="text-black mt-1 mb-6"
             inp-id="setting-pass"
             :placeholder="$t('userSettings.password')"
-            class="text-black mt-1 mb-6"
           />
           <label for="setting-new-pass">{{
             $t('userSettings.new-password')
           }}</label>
           <input-pass
             v-model="newPass"
+            class="text-black mt-1"
             inp-id="setting-new-pass"
             :placeholder="$t('userSettings.new-password')"
-            class="text-black mt-1"
           />
 
           <div class="flex flex-row-reverse gap-3 py-6">
@@ -105,8 +107,8 @@
             </button1>
             <ButtonOptions
               :button-color="'blue'"
-              class="hidden mobile:block"
               :checked="isPassChangeVisible"
+              class="hidden mobile:block"
               @valueChange="changePassVisibility"
             >
               {{ $t('userSettings.change-password') }}
@@ -119,15 +121,20 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
+import api from '../http_client/index.js'
+
+import ButtonOptions from './Buttons/Button-options.vue'
+import Button1 from './Buttons/Button_1.vue'
 import ButtonText1 from './Buttons/Button_text_1.vue'
 import Input1 from './Inputs/Input-1.vue'
 import InputPass from './Inputs/Input-pass.vue'
-import ButtonOptions from './Buttons/Button-options.vue'
-import ModalTemplate from './Modals/ModalTemplate.vue'
-import Button1 from './Buttons/Button_1.vue'
-import { mapGetters, mapMutations } from 'vuex'
-import api from '../http_client/index.js'
 import Loader from './Loader.vue'
+import ModalTemplate from './Modals/ModalTemplate.vue'
+
+
+
 
 export default {
   name: 'UserSetting',

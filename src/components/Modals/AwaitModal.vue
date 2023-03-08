@@ -1,12 +1,16 @@
 <template>
   <ModalTemplate
-    :is-modal-visible="isVisible"
     class-list="grid place-items-center mobile:px-6"
     :close-func="closeFunc"
     :is-hide-on-click="false"
+    :is-modal-visible="isVisible"
   >
-    <div class="bg-white rounded-lg p-6 w-[480px] mobile:w-full" @click.stop>
-      <img src="/src/assets/Loader.svg" class="animate-spin mx-auto" />
+    <div
+class="bg-white rounded-lg p-6 w-[480px] mobile:w-full"
+@click.stop>
+      <img
+class="animate-spin mx-auto"
+src="/src/assets/Loader.svg" />
       <p class="text-h2 text-center mt-4 font-semibold">
         {{ message }}
       </p>

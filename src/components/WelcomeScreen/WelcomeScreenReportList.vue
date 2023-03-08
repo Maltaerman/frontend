@@ -1,8 +1,8 @@
 <template>
   <transition-group
+    class="flex flex-col flex-nowrap overflow-hidden container-height"
     name="report-appear"
     tag="div"
-    class="flex flex-col flex-nowrap overflow-hidden container-height"
   >
     <div
       v-for="report in visibleElements"
@@ -57,8 +57,8 @@
 </template>
 
 <script>
-import dateFormatter from '../mixins/dateFormatter.js'
 import SVG_building_condition from '../ComponentsSVG/SVG_building_condition.vue'
+import dateFormatter from '../mixins/dateFormatter.js'
 import dynamicContent from '../mixins/dynamicContent.js'
 import reportItemFlags from '../mixins/reportItemFlags.js'
 

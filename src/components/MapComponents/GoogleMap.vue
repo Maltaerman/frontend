@@ -1,5 +1,7 @@
 <template>
-  <div id="mapContainer" class="h-full relative">
+  <div
+id="mapContainer"
+class="h-full relative">
     <div class="absolute w-full mobile:top-3.5 top-6 z-10">
       <div
         class="border bg-white rounded-xl border-2 h-10 flex flex-nowrap mobile:mx-4 mx-[30px]"
@@ -9,27 +11,31 @@
         }"
       >
         <div class="w-[44px] cursor-pointer rounded-xl">
-          <img src="/search.svg" class="h-full w-full object-scale-down" />
+          <img
+class="h-full w-full object-scale-down"
+src="/search.svg" />
         </div>
         <GMapAutocomplete
           id="autocomplete"
           ref="autocomplete"
-          :placeholder="$t('welcomeScreen.searchAddress')"
           class="w-full bg-transparent outline-none block text-h3"
-          :select-first-on-enter="true"
           :options="{
             fields: [`geometry`, `name`],
           }"
+          :placeholder="$t('welcomeScreen.searchAddress')"
+          :select-first-on-enter="true"
           :v-model="searchRequest"
-          @place_changed="setPlace"
           @focusin="OnInputFocus(true)"
           @focusout="OnInputFocus(false)"
+          @place_changed="setPlace"
         />
         <div
           class="w-[40px] cursor-pointer rounded-xl"
           @click="ClearSearchRequest"
         >
-          <img src="/close.svg" class="h-full w-full object-scale-down" />
+          <img
+class="h-full w-full object-scale-down"
+src="/close.svg" />
         </div>
       </div>
     </div>
@@ -38,10 +44,8 @@
     <GMapMap
       ref="map"
       :center="currentMapCenter"
-      :zoom="currentMapZoom"
-      map-type-id="roadmap"
-      style="width: 100%; height: 100%"
       :click="true"
+      map-type-id="roadmap"
       :options="{
         zoomControl: false,
         mapTypeControl: false,
@@ -72,22 +76,26 @@
           },
         ],
       }"
-      @zoom_changed="OnMapZoomChanged"
+      style="width: 100%; height: 100%"
+      :zoom="currentMapZoom"
       @center_changed="OnMapCenterChanged"
       @click="ClickHandler"
+      @zoom_changed="OnMapZoomChanged"
     >
       <GMapMarker
         key="customMarker"
-        :v-if="isClickMarker"
+        :clickable="false"
         :draggable="false"
-        :position="ClickMarkerCoords"
         :icon="{
           url: '/map-marker.svg',
           scaledSize: { width: 40, height: 40 },
         }"
-        :clickable="false"
+        :position="ClickMarkerCoords"
+        :v-if="isClickMarker"
       />
       <GMapCluster
+        :max-zoom="13"
+        :minimum-cluster-size="2"
         :styles="[
           {
             textColor: 'black',
@@ -100,18 +108,16 @@
             boxShadow: '2px 2px 10px 0px rgba(115, 118, 128, 0.11)',
           },
         ]"
-        :minimum-cluster-size="2"
         :zoom-on-click="true"
-        :max-zoom="13"
       >
         <!--      Зелені маркера -->
         <GMapMarker
           v-for="(m, index) in reviewedMarkers"
           :key="index"
-          :position="m.position"
-          icon="/map-pin.svg"
           :clickable="true"
           :draggable="false"
+          icon="/map-pin.svg"
+          :position="m.position"
           @click="getMarkerInfo(m)"
         />
         <!--      Сині маркера -->
@@ -119,19 +125,19 @@
           v-for="(m, index) in requestedMarkers"
           v-if="getRole !== userRoles.user"
           :key="index"
-          :position="m.position"
-          icon="/question-map-pin.svg"
           :clickable="isRoleHaveAccess(getRole, userRoles.aidWorker)"
           :draggable="false"
+          icon="/question-map-pin.svg"
+          :position="m.position"
           @click="getRequestedMarkerInfo(m)"
         />
       </GMapCluster>
     </GMapMap>
     <img
       v-if="isLoaderVisible"
-      src="/src/assets/Loader.svg"
-      class="block absolute bottom-6 right-6 w-8 h-8 animate-spin"
       alt="Loader..."
+      class="block absolute bottom-6 right-6 w-8 h-8 animate-spin"
+      src="/src/assets/Loader.svg"
     />
   </div>
 </template>
@@ -139,8 +145,9 @@
 <script>
 import axios from 'axios'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-import userRoles from '../mixins/userRoles.js'
+
 import routerHelper from '../mixins/routerHelper.js'
+import userRoles from '../mixins/userRoles.js'
 
 export default {
   name: 'GoogleMap',

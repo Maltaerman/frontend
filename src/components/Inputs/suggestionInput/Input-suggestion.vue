@@ -2,18 +2,18 @@
   <div class="relative">
     <vue3-simple-typeahead
       id="typeahead_id"
-      :placeholder="placeholder"
-      :items="suggestionC"
-      :min-input-length="1"
       :class="{
         'rounded-xl': isBorderRounded,
         'rounded-tl-xl rounded-tr-xl': !isBorderRounded,
       }"
       :item-projection="itemProjectionFunction"
+      :items="suggestionC"
+      :min-input-length="1"
+      :placeholder="placeholder"
+      @onBlur="onBlurEventHandler"
+      @onFocus="onFocusEventHandler"
       @onInput="onInputEventHandler"
       @selectItem="selectItemEventHandler"
-      @onFocus="onFocusEventHandler"
-      @onBlur="onBlurEventHandler"
     >
       <template #list-item-text="slot">
         <span v-html="slot.boldMatchText(slot.itemProjection(slot.item))" />
