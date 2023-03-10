@@ -53,7 +53,7 @@
 							{{ $t('organizationProfile.email') }}
 						</th>
 						<th class="table-col-head">
-							{{ $t('organizationProfile.role') }}
+							{{ $t('Roles.Role') }}
 						</th>
 						<th class="px-2 py-[17px] font-semibold text-center">
 							{{ $t('organizationProfile.status') }}
@@ -185,23 +185,23 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import ButtonText1 from "../Buttons/Button_text_1.vue";
-import dateFormatter from "../mixins/dateFormatter.js";
-import ButtonTag from "../Buttons/ButtonTag.vue";
-import ModalTemplate from "../Modals/ModalTemplate.vue";
-import input1 from "../Inputs/Input-1.vue"
-import Button2 from "../Buttons/Button_2.vue";
-import Loader from "../Loader.vue";
-import api from "../../http_client/index.js";
-import RemoveOrgModal from "./RemoveOrgModal.vue";
-import ConfirmModal from "../Modals/ConfirmModal.vue";
-import CodeInput from '../Inputs/CodeInput.vue';
-import Input1 from '../Inputs/Input-1.vue';
-import InputPass from '../Inputs/Input-pass.vue';
-import TelInput from '../Inputs/TelInput.vue';
-import InputSuggestion from '../Inputs/suggestionInput/Input-suggestion.vue';
-import { ORGANIZATION_STATUSES } from './constants';
-import OrganizationDropdown from './shared/OrganizationDropdown.vue';
+import ButtonText1 from "../../Buttons/Button_text_1.vue";
+import dateFormatter from "../../mixins/dateFormatter.js";
+import ButtonTag from "../../Buttons/ButtonTag.vue";
+import ModalTemplate from "../../Modals/ModalTemplate.vue";
+import input1 from "../../Inputs/Input-1.vue"
+import Button2 from "../../Buttons/Button_2.vue";
+import Loader from "../../Loader.vue";
+import api from "../../../http_client/index.js";
+import RemoveOrgModal from "../RemoveOrgModal.vue";
+import ConfirmModal from "../../Modals/ConfirmModal.vue";
+import CodeInput from '../../Inputs/CodeInput.vue';
+import Input1 from '../../Inputs/Input-1.vue';
+import InputPass from '../../Inputs/Input-pass.vue';
+import TelInput from '../../Inputs/TelInput.vue';
+import InputSuggestion from '../../Inputs/suggestionInput/Input-suggestion.vue';
+import { ORGANIZATION_STATUSES } from '../constants.js';
+import OrganizationDropdown from './OrganizationDropdown.vue';
 
 export default {
 	name: "OrganizationProfile",
@@ -382,7 +382,7 @@ export default {
 		},
 		async getOrganization() {
 			this.isLoaderVisible = true;
-			await api.organizations.getOrgById(this.$route.params.id)
+			await api.organizations.getOrganizationsById(this.$route.params.id)
 				.then(res => {
 					this.organization = res.data;
 					this.isLoaderVisible = false;

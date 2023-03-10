@@ -160,6 +160,6 @@ export default {
 	height: 100%;
 }
 .dp__input_wrap{
-	height: 44px;
+	height: 40px;
 }
 </style>

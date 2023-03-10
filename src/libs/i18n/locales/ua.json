@@ -98,11 +98,11 @@
   },
   "organizationProfile": {
     "addEmployee": "Запросити працівника",
-    "aidWorkers": "Працівники гуманітарних організацій",
+    "aidWorkers": "Волотери",
     "organization": "Організація",
     "creationDate": "Долучилися:",
     "employees": "Працівники",
-    "newInvitation": "нове Запрошення",
+    "newInvitation": "Нове запрошення",
     "employeeEnvelope": "Надішліть запрошення майбутнім працівникам. Вони отримають запрошення на пошту.",
     "addMore": "Додати більше",
     "sendInvite": "Відправити запрошення",
@@ -218,7 +218,8 @@
     "email" : "E-mail",
     "emails" : "E-mails",
     "loading" : "Завантаження",
-    "in" : "в"
+    "in" : "в",
+    "all" : "Всі"
   },
   "tooltips": {
     "water": "Вода",

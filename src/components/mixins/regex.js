@@ -8,13 +8,16 @@ export default {
       //Name Validation
       nameRegex : new RegExp(/^[a-zA-ZА-Яа-я]{3,}$/),
       // Only digits
-      onlyDigitsRegex : new RegExp(/^\d+$/)
+      onlyDigitsRegex : new RegExp(/^[0-9]+$/)
     }
   },
   methods : {
     isMail(mail){
       //console.log(`Mail is ${this.mailRegex.test(mail)}`)
       return this.mailRegex.test(mail);
+    },
+    isDigits(str){
+      return this.onlyDigitsRegex.test(str);
     },
     isPass(pass){
       //console.log(`Pass is ${this.passRegex.test(pass)}`)

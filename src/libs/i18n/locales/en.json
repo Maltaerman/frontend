@@ -103,7 +103,7 @@
     "organization": "Organization",
     "creationDate": "Created:",
     "employees": "Employees",
-    "newInvitation": "New Invitation",
+    "newInvitation": "New invitation",
     "employeeEnvelope": "Send an invite to future employees. They will receive it via email.",
     "addMore": "Add more",
     "sendInvite": "Send invite",
@@ -218,7 +218,8 @@
     "email" : "E-mail",
     "emails" : "E-mails",
     "loading" : "Loading",
-    "in" : "in"
+    "in" : "in",
+    "all" : "All"
   },
   "tooltips": {
     "water": "Water",

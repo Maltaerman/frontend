@@ -7,7 +7,7 @@ const ReportTools = () => import("../components/SidebarComponents/AidWorkerSideb
 const RequestCompletedPreview = () => import("../components/SidebarComponents/AidWorkerSidebar/RequestCompletedPreview.vue");
 const MainPlatformAdministration = () => import("../components/PlatformAdministration/MainPlatformAdministration.vue");
 const OrganizationsList = () => import("../components/PlatformAdministration/OrganizationsList.vue");
-const OrganizationProfile = () => import("../components/PlatformAdministration/OrganizationProfile.vue");
+const OrganizationProfile = () => import("../components/PlatformAdministration/shared/OrganizationProfile.vue");
 const UserRegistration = () => import("../components/Authorization/UserRegistration.vue");
 const PasswordReset = () => import("../components/Authorization/PasswordReset.vue");
 const UserRolesList = () => import("../components/PlatformAdministration/Roles/UserRolesList.vue");

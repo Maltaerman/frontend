@@ -1,8 +1,13 @@
 <template>
-	<label class="input-1 block flex flex-nowrap gap-2"
-	:class="{'border-blue-c-500' : isFocused}">
+	<label class="input-1 block flex flex-nowrap gap-2 border"
+	:class="{
+		'border-blue-c-500' : isFocused,
+		'border-gray-c-300' : !isFocused
+	}">
 		<div class="h-full w-5">
-			<SVG_search class="mt-0.5 w-full h-auto fill-gray-c-500"/>
+			<SVG_search class="mt-0.5 w-full h-auto" :class="{
+		'fill-blue-c-500' : isFocused,
+		'fill-gray-c-500' : !isFocused}"/>
 		</div>
 		<input @focusin="OnFocus(true)" @focusout="OnFocus(false)"
 					 :placeholder="placeholder" type="text" class="outline-none w-full"

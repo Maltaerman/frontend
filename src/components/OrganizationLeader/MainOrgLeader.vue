@@ -96,7 +96,7 @@ export default {
 				})
 				.catch(err=>{
 					this.$toast.clear();
-					this.$toast.error(this.$t('general.errorMessage'))
+					this.$toast.error(this.$t('general.errorMessage')+cssac)
 				})
 		},
 		UpdateUserOrgInStore(org){

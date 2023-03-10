@@ -69,12 +69,6 @@
 			<Loader v-show="isLoaderVisible" />
 		</div>
 
-<!--		<OrganizationModal
-		:is-visible="modals.createOrgModalVisible" 
-		:close-create-org-modal="closeCreateOrgModal" 
-		@addOrganization="onAddOrganization"
-		:is-loader-visible="modals.createOrgModalLoaderVisible"/>-->
-		<!--    #endregion-->
 
 		<OrgInviteModal
 		:is-visible="modals.createOrgModalVisible"
