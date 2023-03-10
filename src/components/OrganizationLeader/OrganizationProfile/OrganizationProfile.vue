@@ -12,8 +12,7 @@
 		</div>
 		<div class="flex row flex-wrap gap-4 justify-start mb-4">
 			<!-- Need to be reusable becasue its gonna be used in table roles -->
-			<OrganizationDropdown :statuses-list="statusesList" :active-status-filter-value="activeStatusFilterValue"  @statusFilterChange ="onStatusFilterChange"/>
-			<drop-down-select v-model="selectedDropOption" :options="dropdownOptions"/>
+			<DropDownSelect v-model="selectedDropOption" :options="dropdownOptions" class="max-h-[42px] min-w-[150px]"/>
 			<InputSearch class="comp:max-w-[400px]"  v-model="query" :placeholder="$t('dashboard.organizationSearchPlaceholder')"/>
 		</div>
 
@@ -304,8 +303,8 @@ export default {
 					item :	t,
 				}
 			});
-			console.log(options)
-			return [this.dropdownDefault, ...new Set(options)]
+			console.log([this.dropdownDefault, ...options])
+			return [this.dropdownDefault, ...options]
 		}
 	},
 	watch : {

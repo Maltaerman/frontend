@@ -10,16 +10,17 @@
 		</div>
 		<div class="flex row flex-wrap gap-4 justify-start  my-4 mb-4 ">
 			<!-- Need to be reusable becasue its gonna be used in table roles -->
-			<OrganizationDropdown :statuses-list="statusesList" :active-status-filter-value="activeStatusFilterValue"  @statusFilterChange ="onStatusFilterChange"/>
+			<OrganizationDropdown :filter-list="statusesList" :active-filter-value="activeStatusFilterValue.text"
+				@filterChange="onStatusFilterChange" />
 			<div class="flex flex-wrap justify-start  min-w-screen">
 				<div class="border font-normal
-									rounded-lg outline-none text-h3
-									hover:border-blue-c-400 focus:border-blue-c-500
-									disabled:bg-gray-c-100 disabled:hover:border-gray-c-300
-									disabled:text-gray-c-500 flex overflow-hidden px-5 flex items-center min-w-[400px] mobile:min-w-full" :class="{
-										'border-blue-c-500': isInputFocused,
-										'border-gray-c-300': !isInputFocused
-									}" @focusin="OnDivFocus(true)" @focusout="OnDivFocus(false)" @click="ActivateInput">
+							rounded-lg outline-none text-h3
+							hover:border-blue-c-400 focus:border-blue-c-500
+							disabled:bg-gray-c-100 disabled:hover:border-gray-c-300
+							disabled:text-gray-c-500 flex overflow-hidden px-5 flex items-center min-w-[400px] mobile:min-w-full" :class="{
+								'border-blue-c-500': isInputFocused,
+								'border-gray-c-300': !isInputFocused
+							}" @focusin="OnDivFocus(true)" @focusout="OnDivFocus(false)" @click="ActivateInput">
 
 					<svg class="fill-gray-c-500" width="18" height="18" viewBox="0 0 18 18"
 						xmlns="http://www.w3.org/2000/svg">
@@ -33,8 +34,8 @@
 
 					<input ref="inp" class="w-full outline-none px-4 py-2 bg-transparent text-h3"
 						@focusin="OnInputFocus(true)" @focusout="OnInputFocus(false)" @click.stop
-						:placeholder="$t('dashboard.organizationSearchPlaceholder')"
-						v-model="searchController.SearchedOrgName" id="inpOrgSearch" />
+						:placeholder="$t('dashboard.organizationSearchPlaceholder')" v-model="searchedParticipantValue"
+						@input="updateParticipantsVisibleList" id="inpOrgSearch" />
 				</div>
 
 			</div>
@@ -42,40 +43,48 @@
 
 
 		<!-- Table of organizations -->
-		<div class="mt-4 overflow-x-auto" v-if="organization.participants.length > 0">
-			<table class="w-full mobile:w-[720px]">
+		<div class="mt-4 mr-4 mobile:w-auto overflow-x-scroll" v-if="organization.participants.length > 0">
+			<table class="table-auto w-full  min-w-[799px]">
 				<thead>
-					<tr class="bg-gray-c-100 text-gray-c-400 text-h3">
-						<th class="table-col-head">
-							{{ $t('organizationProfile.name') }}
+					<tr class="bg-gray-c-100 text-gray-c-400 text-h3 h-[58px]">
+						<th class="w-12 table-col-head">
+							No
 						</th>
-						<th class="table-col-head">
-							{{ $t('organizationProfile.email') }}
+						<th class="w-1/5 table-col-head">
+							{{ $t('organizationProfile.name') }}
 						</th>
 						<th class="table-col-head">
 							{{ $t('Roles.Role') }}
 						</th>
-						<th class="px-2 py-[17px] font-semibold text-center">
+						<th class="w-1/5 table-col-head">
+							{{ $t('organizationProfile.role') }}
+						</th>
+						<th class="w-32 px-4 py-[17px] font-semibold text-center">
 							{{ $t('organizationProfile.status') }}
 						</th>
 						<th class="table-col-head">
 							{{ $t('organizationProfile.lastActivity') }}
 						</th>
-						<th>
+						<th class="min-w-16">
 						</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="shadow-cs2" v-for="worker in visibleParitcipantsList">
+					<tr class="shadow-cs2 h-[58px]" v-for="worker in organizationParticipantsVisibleList">
+						<td class="table-col-row-item">{{ worker.id + 1 }}</td>
 						<td class="table-col-row-item">
-							<span v-if="worker.username">{{ worker.username }}</span>
-							<span v-else>-</span>
+							<!-- <span v-if="worker.username">{{ worker.username }}</span>
+
+							<span v-else>-</span> -->
+							<div class="font-semibold text-base text-gray-c-800 truncate text-ellipsis overflow-hidden">{{
+								worker.username }}</div>
+							<div class=" font-text-xs text-subtitle text-gray-c-600">{{ worker.email }}</div>
 						</td>
+
 						<td class="table-col-row-item">
-							<span>{{ worker.email || '-' }}</span>
-						</td>
-						<td class="table-col-row-item">
-							<span>{{ worker.organizationRole }}</span>
+							<OrganizationDropdown :is-table-view="true" :filter-list="rolesList"
+								:active-filter-value="getRoleTextToDisplay(worker.role)"
+								@filterChange="onWorkerRoleChange($event, worker)" />
 
 						</td>
 						<td>
@@ -85,11 +94,11 @@
 							</button-tag>
 						</td>
 
-						<td class="table-col-row-item">
+						<td class="table-col-row-item min-w-[120px]">
 							<span v-if="worker.last_activity">{{ GetDateTime(worker.last_activity) }}</span>
 							<span v-else>-</span>
 						</td>
-						<td>
+						<td class="min-w-[20px]">
 							<button class="mx-auto block" @click="showRemoveUserConfirm(worker)">
 								<img src="/src/assets/delete.svg">
 							</button>
@@ -184,7 +193,6 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
 import ButtonText1 from "../../Buttons/Button_text_1.vue";
 import dateFormatter from "../../mixins/dateFormatter.js";
 import ButtonTag from "../../Buttons/ButtonTag.vue";
@@ -200,8 +208,9 @@ import Input1 from '../../Inputs/Input-1.vue';
 import InputPass from '../../Inputs/Input-pass.vue';
 import TelInput from '../../Inputs/TelInput.vue';
 import InputSuggestion from '../../Inputs/suggestionInput/Input-suggestion.vue';
-import { ORGANIZATION_STATUSES } from '../constants.js';
-import OrganizationDropdown from './OrganizationDropdown.vue';
+import OrganizationDropdown from "./OrganizationDropdown.vue";
+import userRoles from '../../mixins/userRoles';
+import { PARTICIPANT_STATUSES } from '../constants'
 
 export default {
 	name: "OrganizationProfile",
@@ -221,23 +230,19 @@ export default {
 		InputSuggestion,
 		OrganizationDropdown
 	},
-	mixins: [dateFormatter],
+	mixins: [dateFormatter, userRoles],
 	data() {
 		return {
 			organization: null,
+			participants: [],
 			isEditModalVisible: false,
 			isEditModalLoaderVisible: false,
 			editingOrgName: "",
 			organizationStatusFilters: [],
 			organizationParticipantsVisibleList: [],
-			activeStatusFilterValue: 'All statuses',
-			defaultStatusFilterValue: 'All statuses',
-			searchController: {
-				SearchedOrgName: "",
-				SearchedOrganizationsList: [],
-				isSearchedOrgResult: false,
-				cancelController: null
-			},
+			activeStatusFilterValue: { value: "all", text: this.$t(`general.all`) },
+			defaultStatusFilterValue: { value: "all", text: this.$t(`general.all`) },
+			searchedParticipantValue: "",
 			isInputFocused: false,
 			editingOrgSite: "",
 			invitedUsersList: [""],
@@ -294,6 +299,16 @@ export default {
 			else
 				return this.$t('general.error');
 		},
+		GetCurrentUserStatus(mailConf, isActive) {
+			if (mailConf && isActive)
+				return PARTICIPANT_STATUSES.ACTIVE
+			else if (mailConf && !isActive)
+				return PARTICIPANT_STATUSES.BANNED
+			else if (!mailConf && !isActive)
+				return PARTICIPANT_STATUSES.PENDING
+			else
+				return PARTICIPANT_STATUSES.ERROR
+		},
 		ShowEditModal() {
 			this.editingOrgName = this.organization.name;
 			this.editingOrgSite = this.organization.website
@@ -311,10 +326,6 @@ export default {
 			else
 				this.$toast.info(this.$t("organizationProfile.maxInviteMess"))
 		},
-		// showDropdownOptions() {
-		// 	document.getElementById("options").classList.toggle("hidden");
-		// 	// this.isDropped= !this.isDropped
-		// },
 		ShowUserInviteModal() {
 			if (!this.invitedUsersList || this.invitedUsersList.length <= 0)
 				this.invitedUsersList = [""]
@@ -353,7 +364,6 @@ export default {
 			this.isUserInviteModalLoaderVisible = true;
 			await api.organizations.sendUserInvite(this.organization.id, this.invitedUsersList)
 				.then(res => {
-					console.log(res)
 					this.organization = res.data;
 					this.CloseUserInviteModal()
 					this.invitedUsersList = [""];
@@ -395,9 +405,27 @@ export default {
 					})
 				})
 		},
-		onStatusFilterChange({selectedStatus}) {
-			console.log(selectedStatus)
-			this.activeStatusFilterValue = selectedStatus
+		onStatusFilterChange(selectedFilter) {
+			this.activeStatusFilterValue = selectedFilter
+			this.updateParticipantsVisibleList()
+		},
+		async onWorkerRoleChange(selectedFilter, workerData) {
+			const { value: newRole } = selectedFilter
+			const workerId = this.organization.participants.findIndex(worker => worker.full_name === workerData.full_name)
+			const worker = this.organization.participants[workerId]
+			worker.role = newRole
+			await api.user.changeRole(worker).then((res) => {
+				console.log(res)
+				const updatedWorkerData = res.data;
+				this.organization.participants.splice(workerId, 1, updatedWorkerData)
+			}).catch(err => {
+				this.$toast.error(this.$t("general.errorMessage"), {
+					duration: false,
+					onClose: () => this.$router.push("/admin/organizations")
+				})
+			})
+			this.updateParticipantsVisibleList()
+
 		},
 		ToggleDrop(boolean) {
 			this.isDropped = boolean
@@ -415,23 +443,41 @@ export default {
 					this.isLoaderVisible = false;
 					this.$toast.error(this.$t("organizationProfile.userRemovedError", { userName: worker.username }))
 				})
+		},
+		filterParticipants(participants) {
+			return participants.filter(worker => this.GetCurrentUserStatus(worker.email_confirmed, worker.is_active) === this.activeStatusFilterValue.value)
+		},
+		searchParticipants(participants) {
+			const searchedParticipants = participants.filter(({ username, email, full_name }) => {
+				const valuesToSearchIn = Object.values({ username, email, full_name })
+				return valuesToSearchIn.find(value => value.toLowerCase().includes(this.searchedParticipantValue.toLowerCase()))
+			})
+			return searchedParticipants
+		},
+		updateParticipantsVisibleList() {
+			const { searchParticipants, filterParticipants, organization, activeStatusFilterValue, defaultStatusFilterValue } = this
+			switch (activeStatusFilterValue) {
+				case defaultStatusFilterValue:
+					this.organizationParticipantsVisibleList = searchParticipants(organization.participants)
+					break
+				default:
+					this.organizationParticipantsVisibleList = searchParticipants(filterParticipants(organization.participants))
+					break
+			}
 		}
 	},
 	computed: {
-
-		visibleParitcipantsList() {
-			switch (this.activeStatusFilterValue) {
-				case this.defaultStatusFilterValue:
-					return this.organization.participants
-
-				default:
-					return this.organization.participants.filter(worker => this.GetCurrentUserStatusText(worker.email_confirmed, worker.is_active) === this.activeStatusFilterValue)
-			}
+		rolesList() {
+			return Object.keys(this.userRoles).map(role => ({ value: role, text: this.$t(`roles.${role}`) }))
 		},
 		statusesList() {
-			const roles = this.organization.participants.map(worker => this.GetCurrentUserStatusText(worker.email_confirmed, worker.is_active))
-
-			return [this.defaultStatusFilterValue, ... new Set(roles)]
+			const { participants } = this.organization
+			const statuses = participants.map(({ email_confirmed, is_active }) => ({
+				value: this.GetCurrentUserStatus(email_confirmed, is_active),
+				text: this.GetCurrentUserStatusText(email_confirmed, is_active)
+			})
+			)
+			return [this.defaultStatusFilterValue, ... new Set(statuses)]
 		},
 		isAddInviteButtVisible() {
 			return this.invitedUsersList.length < 5
@@ -440,8 +486,9 @@ export default {
 			return this.invitedUsersList.some(x => x.length > 6);
 		}
 	},
-	created() {
-		this.getOrganization();
+	async created() {
+		await this.getOrganization();
+		this.organizationParticipantsVisibleList = this.organization.participants
 	}
 }
 </script>

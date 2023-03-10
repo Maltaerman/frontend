@@ -23,6 +23,12 @@
     "settings" : "Settings",
     "requests" : "Requests"
   },
+  "roles": {
+    "user": "User",
+    "aidWorker": "Aid worker",
+    "organizationAdmin": "Organization leader",
+    "platformAdmin": "Platform administrator"
+  },
   "userSideBar": {
     "choose-location": "Choose a location of interest.",
     "choose-location-button": "Choose an address for request.",
@@ -121,7 +127,8 @@
     "maxInviteMess" : "No more than 5 invitations at a time",
     "logo" : "Logo",
     "choseFile" : "Choose file",
-    "organizationSettings" : "Organization settings"
+    "organizationSettings" : "Organization settings",
+    "role":"Role"
   },
   "userSettings": {
     "header": "Settings",

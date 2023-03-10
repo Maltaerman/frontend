@@ -23,6 +23,12 @@
     "settings" : "Налаштування",
     "requests" : "Запити"
   },
+  "roles": {
+    "user": "Користувача",
+    "aidWorker": "Працівник допомоги",
+    "organizationAdmin": "Адміністратор організації",
+    "platformAdmin": "Адміністратор платформи"
+  },
   "userSideBar": {
     "choose-location": "Виберіть на карті місце, яке Вас цікавить.",
     "choose-location-button": "Виберіть адресу для запиту",
@@ -118,9 +124,7 @@
     "deleteUserTitle" : "Видалення користувача",
     "deleteUserQuestion" : "Ви дійсно хочете видалити користувача {userName}?",
     "maxInviteMess" : "Не більше 5 запрошень за раз",
-    "logo" : "Логотип",
-    "choseFile" : "Оберіть файл",
-    "organizationSettings" : "Налаштування організації"
+    "role":"Роль"
   },
   "userSettings": {
     "header": "Налаштування",
