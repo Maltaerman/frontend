@@ -4,14 +4,20 @@
       class="flex gap-6 pb-2 flex-nowrap text-h4 text-blue-c-500 font-semibold break-words shadow-cs2 justify-between"
     >
       <div class="flex flex-nowrap gap-6">
-        <a href="https://about.projectdim.org/" target="_blank">{{
+        <a
+href="https://about.projectdim.org/"
+target="_blank">{{
           $t('footer.about')
         }}</a>
-        <a href="https://dimblog.wixsite.com/project-dim" target="_blank">{{
+        <a
+href="https://dimblog.wixsite.com/project-dim"
+target="_blank">{{
           $t('footer.blog')
         }}</a>
       </div>
-      <a href="https://about.projectdim.org/" target="_blank"
+      <a
+href="https://about.projectdim.org/"
+target="_blank"
         >❤ {{ $t('footer.support') }}</a
       >
     </div>
@@ -26,7 +32,7 @@
 
 <script>
 export default {
-  name: 'Footer',
+  name: 'SidebarFooter',
 }
 </script>
 

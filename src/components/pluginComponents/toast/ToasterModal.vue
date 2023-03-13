@@ -30,7 +30,9 @@
           class="animate-spin mx-auto"
           src="/src/assets/Loader.svg"
         />
-        <p class="text-h2 text-center mt-5 font-semibold" :class="textStyle">
+        <p
+class="text-h2 text-center mt-5 font-semibold"
+:class="textStyle">
           {{ message }}
         </p>
       </div>
@@ -46,10 +48,13 @@ import removeElement from './remove-helper.js'
 export default {
   name: 'ToasterModal',
   props: {
-    message: String,
+    message: {
+      type: String,
+      default: '',
+    },
     isCloseOnBg: {
       type: Boolean,
-      default: '',
+      default: false,
     },
     type: {
       type: String,

@@ -9,10 +9,14 @@
     <div>
       <div class="flex justify-between mb-3">
         <div class="text-h4 text-gray-c-500">
-          <span v-if="!isExpired" class="capitalize">
+          <span
+v-if="!isExpired"
+class="capitalize">
             {{ GetDayDateString(locationRequest.created_at) }}
           </span>
-          <span v-else class="text-red-c-500">
+          <span
+v-else
+class="text-red-c-500">
             {{
               $t('aidWorkerSideBar.expireIn', {
                 hours: expireInHours,
@@ -22,7 +26,9 @@
         </div>
         <div class="text-h4 text-gray-c-500">
           {{ locationRequest.city }}
-          <img class="inline-block" src="/Marker-gray.svg" />
+          <img
+class="inline-block"
+src="/Marker-gray.svg" />
           {{
             locationRequest.distance
               ? locationRequest.distance.toFixed(0) + ' km'
@@ -34,7 +40,9 @@
         class="text-h3 text-blue-c-500 font-semibold pb-2 shadow-cs2 cursor-pointer"
         @click="setSelectedRequest(locationRequest)"
       >
-        <img class="inline-block mr-1" src="/Marker-blue.svg" />
+        <img
+class="inline-block mr-1"
+src="/Marker-blue.svg" />
         {{ markerAddress }}
       </div>
       <div class="flex justify-between mt-4 items-baseline">
@@ -62,7 +70,9 @@
           v-else-if="isMyRequest && itemUsageTabName === 'requestsList'"
           class="text-h3 font-medium text-blue-c-500 p-2"
         >
-          <img class="inline-block mr-2" src="/completed2.svg" />
+          <img
+class="inline-block mr-2"
+src="/completed2.svg" />
           {{ $t('aidWorkerSideBar.myRequest') }}
         </div>
       </div>

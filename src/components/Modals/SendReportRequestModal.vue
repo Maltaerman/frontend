@@ -10,7 +10,9 @@
         :class="{ 'animate-disappear': isClosedClick }"
         @click.stop
       >
-        <button class="absolute top-6 right-6 h-4 w-4" @click="hide">
+        <button
+          class="absolute top-6 right-6 h-4 w-4"
+          @click="hide">
           <svg
             fill="none"
             height="14"
@@ -33,8 +35,12 @@
             />
           </svg>
         </button>
-        <transition mode="out-in" name="modal-anim">
-          <div v-if="step === steps.numEnter" class="w-full text-center">
+        <transition
+          mode="out-in"
+          name="modal-anim">
+          <div
+            v-if="step === steps.numEnter"
+            class="w-full text-center">
             <div class="text-body-2 font-semibold">
               {{ $t('addressReqModal.step1Title') }}
             </div>
@@ -55,7 +61,9 @@
               {{ $t('addressReqModal.step1Button') }}
             </button-1>
           </div>
-          <div v-else-if="step === steps.codeEnter" class="w-full text-center">
+          <div
+            v-else-if="step === steps.codeEnter"
+            class="w-full text-center">
             <div class="text-body-2 font-semibold">
               {{ $t('addressReqModal.step2Title') }}
             </div>
@@ -78,7 +86,9 @@
             <div
               class="mt-4 text-body-1 text-gray-c-500 h-[42px] flex justify-center place-items-center"
             >
-              <transition mode="out-in" name="modal-anim">
+              <transition
+                mode="out-in"
+                name="modal-anim">
                 <div v-if="codeExpiredIn > 0">
                   {{ $t('addressReqModal.codeExpires') }}
                   <span class="font-semibold text-blue-c-500">
@@ -106,14 +116,13 @@
 import { mapGetters, mapMutations } from 'vuex'
 
 import api from '../../http_client/index.js'
-import Button2 from '../Buttons/Button_2.vue'
 import CodeInput from '../Inputs/CodeInput.vue'
-import Input1 from '../Inputs/Input-1.vue'
 import TelInput from '../Inputs/TelInput.vue'
 import regex from '../mixins/regex.js'
+
 export default {
   name: 'SendReportRequestModal',
-  components: { TelInput, CodeInput, Button2, Input1 },
+  components: { TelInput, CodeInput },
   mixins: [regex],
   props: {
     isModalVisible: {
@@ -141,6 +150,33 @@ export default {
       onClose: () => {},
       intervalId: 0,
     }
+  },
+  computed: {
+    ...mapGetters({
+      notFoundedMarker: 'notFoundedMarker',
+      getRequestMarkers: 'getRequestMarkers',
+    }),
+    timer() {
+      let min = Math.trunc(this.codeExpiredIn / 60)
+      let sec = Math.round(this.codeExpiredIn % 60)
+      min = min > 9 ? min : `0${min}`
+      sec = sec > 9 ? sec : `0${sec}`
+      return `${min}:${sec}`
+    },
+    step2Tips() {
+      return this.$t('addressReqModal.step2Tips', { telNum: this.telNum })
+    },
+    isCodeValid() {
+      /*/\d{6}/.test(this.code)*/
+      return (
+        this.onlyDigitsRegex.test(this.code) &&
+        this.code.length === 6 &&
+        this.codeExpiredIn > 0
+      )
+    },
+  },
+  beforeUnmount() {
+    clearInterval(this.intervalId)
   },
   methods: {
     ...mapMutations({
@@ -326,38 +362,11 @@ export default {
       //this.sendRequestDev();
     },
   },
-  computed: {
-    ...mapGetters({
-      notFoundedMarker: 'notFoundedMarker',
-      getRequestMarkers: 'getRequestMarkers',
-    }),
-    timer() {
-      let min = Math.trunc(this.codeExpiredIn / 60)
-      let sec = Math.round(this.codeExpiredIn % 60)
-      min = min > 9 ? min : `0${min}`
-      sec = sec > 9 ? sec : `0${sec}`
-      return `${min}:${sec}`
-    },
-    step2Tips() {
-      return this.$t('addressReqModal.step2Tips', { telNum: this.telNum })
-    },
-    isCodeValid() {
-      /*/\d{6}/.test(this.code)*/
-      return (
-        this.onlyDigitsRegex.test(this.code) &&
-        this.code.length === 6 &&
-        this.codeExpiredIn > 0
-      )
-    },
-  },
   /*watch : {
 		code(newVal){
 			console.log(`code is ${newVal}`)
 		}
 	}*/
-  beforeUnmount() {
-    clearInterval(this.intervalId)
-  },
 }
 </script>
 

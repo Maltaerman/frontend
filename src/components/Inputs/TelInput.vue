@@ -19,7 +19,9 @@
           src="/src/assets/dropdown-arrow.svg"
         />
         <div class="flex items-center gap-2 pr-3">
-          <img class="w-6 h-4" :src="code.flag" />
+          <img
+            class="w-6 h-4"
+            :src="code.flag" />
           <div id="current-code">{{ code.value }}</div>
         </div>
       </button>
@@ -33,19 +35,27 @@
         }"
       >
         <div
-          v-for="codeItem in availableCode"
+          v-for="[codeItem, index] in availableCode"
+          :key="index"
           class="w-full h-[58px] flex text-h3 items-center text-gray-c-500 font-semibold p-2 gap-2 hover:bg-blue-c-200 mobile:shadow-cs3 cursor-pointer"
           :class="{
             'bg-blue-c-100 text-blue-c-400': codeItem.code == code.code,
           }"
           @click.stop="setCode(codeItem.code)"
         >
-          <img class="w-6 h-4" :src="codeItem.flag" />
+          <img
+            class="w-6 h-4"
+            :src="codeItem.flag" 
+            />
           <div>{{ codeItem.value }}</div>
         </div>
       </div>
     </div>
-    <input ref="tel" v-model="inp" class="input-1" @keyup="keyAction" />
+    <input
+      ref="tel"
+      v-model="inp"
+      class="input-1"
+      @keyup="keyAction" />
   </div>
 </template>
 
@@ -55,7 +65,7 @@ export default {
   name: 'TelInput',
   mixins: [regex],
   props: {
-    modelValue: String,
+    modelValue: { type: String, default: '' },
   },
   emits: ['validation', 'update:modelValue', 'enter-click'],
   data() {
@@ -105,7 +115,7 @@ export default {
       } else this.inp = this.number
       this.numValidation()
     },
-    code(newVal) {
+    code() {
       this.numValidation()
     },
   },

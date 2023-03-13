@@ -34,8 +34,12 @@
             <p class="text-h2 font-semibold text-gray-c-800">
               {{ organization.name }}
             </p>
-            <p v-if="organization.website" class="text-h3 text-blue-c-500">
-              <a :href="`http://${organization.website}`" target="_blank">
+            <p
+v-if="organization.website"
+class="text-h3 text-blue-c-500">
+              <a
+:href="`http://${organization.website}`"
+target="_blank">
                 {{ organization.website }}
               </a>
             </p>
@@ -70,7 +74,10 @@
           </svg>
           {{ $t('general.edit') }}
         </button-text-1>
-        <button-text-1 class="p-2 h-min" color="red" @click="RemoveClick">
+        <button-text-1
+class="p-2 h-min"
+color="red"
+@click="RemoveClick">
           <svg
             class="inline-block mt-[-3px] mr-1.5 fill-red-c-500"
             height="14"
@@ -136,7 +143,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="worker in organization.participants" class="shadow-cs2">
+          <tr
+v-for="worker in organization.participants"
+class="shadow-cs2">
             <td class="table-col-row-item">
               <span v-if="worker.username">{{ worker.username }}</span>
               <span v-else>-</span>
@@ -225,14 +234,20 @@
       </div>
 
       <div class="flex gap-4">
-        <button2 class="w-full" @click.stop="CloseEditModal">
+        <button2
+class="w-full"
+@click.stop="CloseEditModal">
           {{ $t('general.cancel') }}
         </button2>
-        <button-1 class="w-full" @click.stop="EditOrg">
+        <button-1
+class="w-full"
+@click.stop="EditOrg">
           {{ $t('general.edit') }}
         </button-1>
       </div>
-      <BaseLoader v-if="isEditModalLoaderVisible" class="rounded-lg" />
+      <BaseLoader
+v-if="isEditModalLoaderVisible"
+class="rounded-lg" />
     </div>
   </ModalTemplate>
   <!--	-->
@@ -305,7 +320,9 @@
       >
         {{ $t('organizationProfile.sendInvite') }}
       </button-1>
-      <BaseLoader v-if="isUserInviteModalLoaderVisible" class="rounded-lg" />
+      <BaseLoader
+v-if="isUserInviteModalLoaderVisible"
+class="rounded-lg" />
     </div>
   </ModalTemplate>
   <!---->

@@ -1,7 +1,8 @@
 <template>
   <div class="flex flex-nowrap justify-center mobile:gap-2 gap-4">
     <input
-      v-for="n in digitAmount"
+      v-for="(n, index) in digitAmount"
+      :key="index"
       :ref="`inp${n - 1}`"
       class="input-1 text-center max-w-[62px]"
       placeholder="X"

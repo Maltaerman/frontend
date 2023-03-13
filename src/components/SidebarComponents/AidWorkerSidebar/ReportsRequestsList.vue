@@ -1,13 +1,14 @@
 <template>
   <div ref="viewport" class="p-6">
-    <ReportRequestListItem
-      v-for="item in unreviewedMarkers"
-      v-if="unreviewedMarkers.length > 0"
-      :key="`request${item.id}`"
-      item-usage-tab-name="requestsList"
-      :location-request="item"
-      @add-to-my-list="OnAddToMyList"
-    />
+    <div v-if="unreviewedMarkers.length > 0">
+      <ReportRequestListItem
+        v-for="item in unreviewedMarkers"
+        :key="`request${item.id}`"
+        item-usage-tab-name="requestsList"
+        :location-request="item"
+        @add-to-my-list="OnAddToMyList"
+      />
+    </div>
     <div v-else class="mt-6 text-center text-h3 text-gray-c-800">
       {{ $t('aidWorkerSideBar.allListEmpty') }}
     </div>
@@ -52,9 +53,9 @@ export default {
   data() {
     return {
       /*unreviewedMarkers: [],
-			page: 0,
-			pageMax: -1,
-			isLoaderVisible : false*/
+      page: 0,
+      pageMax: -1,
+      isLoaderVisible : false*/
     }
   },
   mounted() {

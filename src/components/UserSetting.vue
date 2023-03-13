@@ -77,7 +77,9 @@
           </ButtonOptions>
         </div>
 
-        <div v-show="isPassChangeVisible" id="passChangeBlock">
+        <div
+v-show="isPassChangeVisible"
+id="passChangeBlock">
           <label for="setting-pass">{{ $t('userSettings.password') }}</label>
           <input-pass
             v-model="oldPass"

@@ -75,7 +75,7 @@ export default {
     },
     reportsList: {
       type: Array,
-      default: [],
+      default: () => [],
     },
   },
   emits: ['report-click'],

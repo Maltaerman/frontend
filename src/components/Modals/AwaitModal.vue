@@ -5,8 +5,12 @@
     :is-hide-on-click="false"
     :is-modal-visible="isVisible"
   >
-    <div class="bg-white rounded-lg p-6 w-[480px] mobile:w-full" @click.stop>
-      <img class="animate-spin mx-auto" src="/src/assets/Loader.svg" />
+    <div
+class="bg-white rounded-lg p-6 w-[480px] mobile:w-full"
+@click.stop>
+      <img
+class="animate-spin mx-auto"
+src="/src/assets/Loader.svg" />
       <p class="text-h2 text-center mt-4 font-semibold">
         {{ message }}
       </p>

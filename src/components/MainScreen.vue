@@ -1,5 +1,5 @@
 <template>
-  <Header />
+  <AppHeader />
   <div
     class="flex h-[calc(100vh-62px)] comp:h-[calc(100vh-74px)] mobile:flex-col tablet:flex-col mobile:overflow-y-auto tablet:overflow-y-auto"
   >
@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
-import Header from './Header.vue'
+import AppHeader from './AppHeader.vue'
 import GoogleMap from './MapComponents/GoogleMap.vue'
 import NotFound from './SidebarComponents/UserSidebar/NotFound.vue'
 import SideBar from './SidebarComponents/UserSidebar/SideBar.vue'
@@ -23,7 +23,7 @@ import SideBar from './SidebarComponents/UserSidebar/SideBar.vue'
 export default {
   name: 'MainScreen',
   components: {
-    Header,
+    AppHeader,
     SideBar,
     NotFound,
     GoogleMap,

@@ -11,7 +11,9 @@
       :location-request="item"
       @remove-from-my-list="OnRemoveFromMyList"
     />
-    <div v-else class="mt-6 text-center text-h3 text-gray-c-800">
+    <div
+v-else
+class="mt-6 text-center text-h3 text-gray-c-800">
       {{ $t('aidWorkerSideBar.myListEmpty') }}
     </div>
     <BaseLoader v-show="isLoaderVisible" />

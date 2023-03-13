@@ -19,7 +19,9 @@
       </div>
       <div class="flex flex-col gap-4 mt-4 mb-6">
         <div>
-          <label class="text-h4 text-gray-c-500" for="inpRegNewOrgName">{{
+          <label
+class="text-h4 text-gray-c-500"
+for="inpRegNewOrgName">{{
             $t('dashboard.organizationName')
           }}</label>
           <input1
@@ -30,7 +32,9 @@
           />
         </div>
         <div>
-          <label class="text-h4 text-gray-c-500" for="inpRegNewOrgSite">{{
+          <label
+class="text-h4 text-gray-c-500"
+for="inpRegNewOrgSite">{{
             $t('dashboard.website')
           }}</label>
           <input1

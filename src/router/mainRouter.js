@@ -10,7 +10,6 @@ import ReportTools from '../components/SidebarComponents/AidWorkerSidebar/Report
 import RequestCompletedPreview from '../components/SidebarComponents/AidWorkerSidebar/RequestCompletedPreview.vue'
 import SideBarAidWorker from '../components/SidebarComponents/AidWorkerSidebar/SideBarAidWorker.vue'
 import SideBar from '../components/SidebarComponents/UserSidebar/SideBar.vue'
-import Test from '../components/Test.vue'
 import WelcomeScreen from '../components/WelcomeScreen/WelcomeScreen.vue'
 import userRoles from '../components/mixins/userRoles.js'
 import { store } from '../store/mainStore.js'
@@ -88,7 +87,7 @@ const mainRouter = [
     path: '/password-reset',
     component: PasswordReset,
   },
-  { path: '/test', component: Test },
+  { path: '/test', component: BaseTest },
   {
     path: '/:pathMatch(.*)*',
     redirect: (to) => {

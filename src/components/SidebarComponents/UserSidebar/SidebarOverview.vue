@@ -1,6 +1,8 @@
 <template>
   <div class="h-full flex flex-col justify-between">
-    <div id="Overview" class="px-6 mobile:px-4 pb-6 mobile:pb-2">
+    <div
+id="SidebarOverview"
+class="px-6 mobile:px-4 pb-6 mobile:pb-2">
       <h3 class="font-semibold text-h2 mobile:text-h2-m">
         {{ $t('userSideBar.general-status') }}
       </h3>
@@ -24,7 +26,7 @@
         {{ $t('userSideBar.reportButton') }}
       </button-1>
     </div>
-    <Footer />
+    <SidebarFooter />
   </div>
 </template>
 
@@ -35,13 +37,13 @@ import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
 import Expander from '../../Other/Expander.vue'
 import reportItemFlags from '../../mixins/reportItemFlags.js'
 
-import Footer from './Footer.vue'
 import ReportStateItem from './ReportStateItem.vue'
+import SidebarFooter from './SidebarFooter.vue'
 
 export default {
-  name: 'Overview',
+  name: 'SidebarOverview',
   components: {
-    Footer,
+    SidebarFooter,
     ReportStateItem,
     Expander,
     SVG_status_list,

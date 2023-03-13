@@ -2,11 +2,13 @@
   <div
     class="flex flex-nowrap flex-col justify-between h-full overflow-y-auto gap-6"
   >
-    <Header class="shrink-0 grow-0" />
+    <AppHeader class="shrink-0 grow-0" />
     <div
       class="flex flex-col justify-center items-center w-[600px] mx-auto mobile:text-h4 mobile:w-full text-h3 grow shrink px-4"
     >
-      <img class="inline-block w-[310px]" src="/src/assets/fullLogo.svg" />
+      <img
+        class="inline-block w-[310px]"
+        src="/src/assets/fullLogo.svg" />`
       <p class="text-gray-c-500 mt-6 text-justify">
         {{ $t('welcomeScreen.helperText') }}
       </p>
@@ -48,7 +50,9 @@
         </div>
       </div>
 
-      <div v-if="recentReports.length > 0" class="w-full">
+      <div
+        v-if="recentReports.length > 0"
+        class="w-full">
         <div class="font-semibold mb-2 bg-white z-10">
           {{ $t('welcomeScreen.recentlyReports') }}
         </div>
@@ -72,13 +76,19 @@
       <div
         class="flex gap-6 flex-nowrap text-h4 text-blue-c-500 font-semibold break-words"
       >
-        <a href="https://about.projectdim.org" target="_blank">{{
+        <a
+          href="https://about.projectdim.org"
+          target="_blank">{{
           $t('footer.about')
         }}</a>
-        <a href="https://dimblog.wixsite.com/project-dim" target="_blank">{{
+        <a
+          href="https://dimblog.wixsite.com/project-dim"
+          target="_blank">{{
           $t('footer.blog')
         }}</a>
-        <a href="https://about.projectdim.org/" target="_blank"
+        <a
+          href="https://about.projectdim.org/"
+          target="_blank"
           >❤ {{ $t('footer.support') }}</a
         >
       </div>
@@ -93,12 +103,10 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 
 import api from '../../http_client/index.js'
-import SVG_building_condition from '../ComponentsSVG/SVG_building_condition.vue'
-import Header from '../Header.vue'
-import Test from '../Test.vue'
+import AppHeader from '../AppHeader.vue'
 
 import WelcomeScreenReportList from './WelcomeScreenReportList.vue'
 
@@ -106,9 +114,15 @@ export default {
   name: 'WelcomeScreen',
   components: {
     WelcomeScreenReportList,
-    SVG_building_condition,
-    Header,
-    Test,
+    AppHeader,
+  },
+  computed: {
+    ...mapState(['selectedMarkerData', 'notFoundedMarkerData']),
+  },
+  mounted() {
+    //if(this.selectedMarkerData !==null || this.notFoundedMarkerData !==null)
+    //	this.$router.replace("/main");
+    this.GetRecentReports()
   },
   data: function () {
     return {
@@ -176,24 +190,6 @@ export default {
       else if (typeof coords.lng == 'string') res.lng = Number(coords.lng)
       return res
     },
-  },
-  computed: {
-    ...mapState(['selectedMarkerData', 'notFoundedMarkerData']),
-  },
-  /*watch : {
-		selectedMarkerData: function (newVal){
-			if(newVal !== null)
-				this.$router.push("/main/overview");
-		},
-		notFoundedMarkerData: function (newVal){
-			if(newVal !== null)
-				this.$router.push("/main/overview");
-		}
-	},*/
-  mounted() {
-    //if(this.selectedMarkerData !==null || this.notFoundedMarkerData !==null)
-    //	this.$router.replace("/main");
-    this.GetRecentReports()
   },
 }
 </script>

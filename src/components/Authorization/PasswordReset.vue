@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col h-screen">
-    <Header class="grow-0 shrink-0" />
+    <AppHeader class="grow-0 shrink-0" />
     <div class="grow flex items-center justify-center p-4 overflow-y-auto">
       <div class="w-[480px] mobile:w-full">
         <div class="text-center text-h1 font-semibold mb-9 text-gray-c-800">
@@ -11,7 +11,9 @@
         </div>
         <div>
           <div class="mb-6">
-            <label class="block mb-1 text-h4 text-gray-c-500" for="user-pass">
+            <label
+class="block mb-1 text-h4 text-gray-c-500"
+for="user-pass">
               Новий пароль
             </label>
             <input-pass
@@ -53,19 +55,21 @@
       </div>
     </div>
   </div>
-  <BaseLoader v-if="isLoaderVisible" class="z-[9999]" />
+  <BaseLoader
+v-if="isLoaderVisible"
+class="z-[9999]" />
 </template>
 
 <script>
 import api from '../../http_client/index.js'
-import Header from '../Header.vue'
+import AppHeader from '../AppHeader.vue'
 import InputPass from '../Inputs/Input-pass.vue'
 import regex from '../mixins/regex.js'
 
 export default {
   name: 'PasswordReset',
   components: {
-    Header,
+    AppHeader,
     InputPass,
   },
   mixins: [regex],

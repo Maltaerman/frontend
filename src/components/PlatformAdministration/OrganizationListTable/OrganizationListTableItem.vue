@@ -1,5 +1,7 @@
 <template>
-  <tr class="h-[56px]" @mouseleave="HideMenu">
+  <tr
+class="h-[56px]"
+@mouseleave="HideMenu">
     <td class="flex max-content row pl-4 items-end pt-1">
       <div
         class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 mr-5"

@@ -29,7 +29,9 @@
           </span>
         </div>
 
-        <input-1 v-model="inputValue" class="w-full" />
+        <input-1
+          v-model="inputValue"
+          class="w-full" />
 
         <button-1
           class="w-full mt-6"
@@ -38,7 +40,10 @@
         >
           Видалити
         </button-1>
-        <BaseLoader v-if="isLoaderVisible" class="rounded-lg" />
+        <BaseLoader
+          v-if="isLoaderVisible"
+          class="rounded-lg" 
+        /> 
       </div>
     </ModalTemplate>
   </div>
@@ -57,11 +62,11 @@ export default {
     BaseLoader,
   },
   props: {
-    organization: Object,
-    isVisible: false,
-    onRemoveSuccess: Function,
-    onRemoveFailed: Function,
-    closeFunc: Function,
+    organization: { type: Object, default: () => {} },
+    isVisible: { type: Boolean, default: false },
+    onRemoveSuccess: { type: Function, default: () => {} },
+    onRemoveFailed: { type: Function, default: () => {} },
+    closeFunc: { type: Function, default: () => {} },
   },
   emits: ['on-remove-success', 'on-remove-failed'],
   data() {
@@ -79,8 +84,8 @@ export default {
   methods: {
     closeThisComponent() {
       ;(this.isModalVisible = true),
-        (this.isLoaderVisible = false),
-        this.closeFunc()
+      (this.isLoaderVisible = false),
+      this.closeFunc()
     },
     closeSuccess() {
       this.onRemoveSuccess()
@@ -94,7 +99,7 @@ export default {
       this.isLoaderVisible = true
       await api.organizations
         .removeOrganization(this.organization.id)
-        .then((res) => {
+        .then(() => {
           this.isModalVisible = false
           this.isLoaderVisible = false
           this.$toast.success(
@@ -107,7 +112,7 @@ export default {
             }
           )
         })
-        .catch((err) => {
+        .catch(() => {
           this.isModalVisible = false
           this.isLoaderVisible = false
           this.$toast.error(

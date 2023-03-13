@@ -61,17 +61,17 @@ export default {
   name: 'InputPass',
   mixins: [regex],
   props: {
-    modelValue: String,
-    placeholder: String,
-    inpId: String,
-    validationMessage: String,
+    modelValue: { type: String, default: '' },
+    placeholder: { type: String, default: '' },
+    inpId: { type: String, default: '' },
+    validationMessage: { type: String, default: '' },
     validationFunc: {
       type: Function,
       default: function () {
         return this.isPass(this.modelValue)
       },
     },
-    disabled: false,
+    disabled: {type: Boolean, default: false},
   },
   emits: ['validation', 'update:modelValue'],
   data() {

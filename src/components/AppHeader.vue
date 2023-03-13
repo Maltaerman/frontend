@@ -3,7 +3,9 @@
     class="w-full mobile:h-[62px] tablet:h-[62px] comp:h-[74px] mobile:px-4 mobile:py-2.5 tablet:px-4 tablet:py-2.5 comp:px-6 comp:py-0 sticky mobile:top-0 bg-white flex items-center gap-3 mobile:justify-between shadow-cs2 z-[1000]"
   >
     <div class="w-min h-full place-content-center hidden mobile:grid">
-      <div class="w-6 h-5 py-1" @click="toggleMenu">
+      <div
+class="w-6 h-5 py-1"
+@click="toggleMenu">
         <div class="bg-black w-full h-0.5 rounded-xl"></div>
         <div class="bg-black w-full h-0.5 rounded-xl my-1"></div>
         <div class="bg-black w-full h-0.5 rounded-xl"></div>
@@ -29,7 +31,9 @@
         class="cursor-pointer h-min my-auto mobile:my-0 mobile:h-[76px] mobile:p-4 mobile:shadow-cs2 mobile:grid mobile:content-center"
         @click="goToMain"
       >
-        <div v-if="isAuth" class="flex text-h4 items-center">
+        <div
+v-if="isAuth"
+class="flex text-h4 items-center">
           <img
             class="mobile:h-6 tablet:h-6 h-10 w-auto mr-4 mobile:hidden"
             src="/src/assets/Logo_2.svg"
@@ -165,7 +169,9 @@
     </div>
 
     <div class="flex flex-nowrap gap-3">
-      <div v-if="isPlatformAdmin" class="h-min font-medium text-gray-c-600">
+      <div
+v-if="isPlatformAdmin"
+class="h-min font-medium text-gray-c-600">
         <router-link to="/main">
           <button
             class="px-3 py-2 rounded-l-lg border"
@@ -277,7 +283,9 @@
       </button-text1>
     </div>
     <!--			#region Modals-->
-    <LoginModal :close-func="closeModal" :is-modal-visible="isLoginModal">
+    <LoginModal
+:close-func="closeModal"
+:is-modal-visible="isLoginModal">
     </LoginModal>
     <UserSetting
       v-if="isAuth"
@@ -297,7 +305,7 @@ import UserSetting from './UserSetting.vue'
 import userRoles from './mixins/userRoles.js'
 
 export default {
-  name: 'Header',
+  name: 'AppHeader',
   components: {
     LocalizationDropDown,
     ButtonText1,
@@ -378,13 +386,13 @@ export default {
     },
     currentUserIconLink() {
       switch (this.getRole) {
-        case this.userRoles.aidWorker:
-          return '/userIcons/User.svg'
-        case this.userRoles.platformAdmin:
-          return '/userIcons/platform-adm.svg'
-          break
-        default:
-          return '/userIcons/User.svg'
+      case this.userRoles.aidWorker:
+        return '/userIcons/User.svg'
+      case this.userRoles.platformAdmin:
+        return '/userIcons/platform-adm.svg'
+        break
+      default:
+        return '/userIcons/User.svg'
       }
     },
     isPlatformAdmin() {

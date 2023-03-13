@@ -24,14 +24,18 @@
         class="flex flex-nowrap items-center gap-1"
         @click="SaveAndPublish"
       >
-        <img class="inline-block" src="/completed.svg" />
+        <img
+          class="inline-block"
+          src="/completed.svg" />
         <p>
           {{ $t('general.publish') }}
         </p>
       </Button2>
     </div>
 
-    <div id="RequestPreview" class="px-6 mobile:px-4 pb-4 mobile:pb-2 grow">
+    <div
+      id="RequestPreview"
+      class="px-6 mobile:px-4 pb-4 mobile:pb-2 grow">
       <h1 class="font-semibold my-6 text-h1 mobile:text-h1-m tablet:text-h1-m">
         {{ requestedMarker.address }},
         <span v-if="requestedMarker.street_number">
@@ -59,12 +63,14 @@
       <!--	  #endRegion-->
 
       <router-link to="/main/submit-report">
-        <button-1 v-if="isAuth" class="mt-4 w-full">
+        <button-1
+          v-if="isAuth"
+          class="mt-4 w-full">
           {{ $t('userSideBar.reportButton') }}
         </button-1>
       </router-link>
     </div>
-    <Footer />
+    <SidebarFooter />
   </div>
 </template>
 
@@ -73,24 +79,29 @@ import { mapGetters, mapMutations, mapState } from 'vuex'
 
 import api from '../../../http_client/index.js'
 import Button2 from '../../Buttons/Button_2.vue'
-import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
-import AwaitModal from '../../Modals/AwaitModal.vue'
-import ModalTemplate from '../../Modals/ModalTemplate.vue'
 import reportItemFlags from '../../mixins/reportItemFlags.js'
-import Footer from '../UserSidebar/Footer.vue'
 import ReportStateItem from '../UserSidebar/ReportStateItem.vue'
+import SidebarFooter from '../UserSidebar/SidebarFooter.vue'
 
 export default {
   name: 'RequestCompletedPreview',
   components: {
-    Footer,
+    SidebarFooter,
     ReportStateItem,
-    AwaitModal,
-    ModalTemplate,
     Button2,
-    SVG_status_list,
   },
   mixins: [reportItemFlags],
+  beforeRouteLeave(to, from, next) {
+    if (to.fullPath == '/main/submit-report') {
+      to.params = { previewUpdating: true }
+      next()
+    } else if (this.isPageLeaveConfirmed) next()
+    else {
+      this.isLeaveModalVisible = true
+      this.targetLeaveRef = to.fullPath
+      next(false)
+    }
+  },
   data: function () {
     return {
       issueMessage: '',
@@ -207,17 +218,6 @@ export default {
       this.isPageLeaveConfirmed = false
       this.targetLeaveRef = ''
     },
-  },
-  beforeRouteLeave(to, from, next) {
-    if (to.fullPath == '/main/submit-report') {
-      to.params = { previewUpdating: true }
-      next()
-    } else if (this.isPageLeaveConfirmed) next()
-    else {
-      this.isLeaveModalVisible = true
-      this.targetLeaveRef = to.fullPath
-      next(false)
-    }
   },
 }
 </script>

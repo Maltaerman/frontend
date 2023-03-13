@@ -1,6 +1,6 @@
 const WelcomeScreen = () => import('../components/WelcomeScreen/WelcomeScreen.vue')
 const MainScreen = () => import('../components/MainScreen.vue')
-const Test = () => import('../components/Test.vue')
+const BaseTest = () => import('../components/BaseTest.vue')
 const SideBar = () => import('../components/SidebarComponents/UserSidebar/SideBar.vue')
 const SideBarAidWorker = () => import('../components/SidebarComponents/AidWorkerSidebar/SideBarAidWorker.vue')
 const ReportTools = () => import('../components/SidebarComponents/AidWorkerSidebar/ReportTools.vue')
@@ -98,10 +98,10 @@ const mainRouter = [
     path: '/password-reset',
     component: PasswordReset,
   },
-  { path: '/test', component: Test },
+  { path: '/test', component: BaseTest },
   {
     path: '/:pathMatch(.*)*',
-    redirect: (to) => {
+    redirect: () => {
       return {
         path: '/main',
       }

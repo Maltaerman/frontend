@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col h-screen">
-    <Header class="grow-0 shrink-0" />
+    <AppHeader class="grow-0 shrink-0" />
     <div class="grow flex items-center justify-center p-4 overflow-y-auto">
       <div class="w-[480px] mobile:w-full">
         <div class="text-center text-h1 font-semibold mb-9 text-gray-c-800">
@@ -11,7 +11,9 @@
         </div>
         <div>
           <div class="mb-6">
-            <label class="block mb-1 text-h4 text-gray-c-500" for="user-name">
+            <label
+class="block mb-1 text-h4 text-gray-c-500"
+for="user-name">
               {{ $t('userRegistration.name') }}
             </label>
             <input-1
@@ -28,7 +30,9 @@
             />
           </div>
           <div class="mb-6">
-            <label class="block mb-1 text-h4 text-gray-c-500" for="user-mail">
+            <label
+class="block mb-1 text-h4 text-gray-c-500"
+for="user-mail">
               {{ $t('userRegistration.email') }}
             </label>
             <input-1
@@ -44,7 +48,9 @@
             />
           </div>
           <div class="mb-6">
-            <label class="block mb-1 text-h4 text-gray-c-500" for="user-pass">
+            <label
+class="block mb-1 text-h4 text-gray-c-500"
+for="user-pass">
               {{ $t('userRegistration.password') }}
             </label>
             <input-pass
@@ -83,11 +89,19 @@
           />
           <div>
             {{ $t('userRegistration.terms.part1') }}
-            <a class="link-1" href="" tabindex="5" target="_blank">
+            <a
+class="link-1"
+href=""
+tabindex="5"
+target="_blank">
               {{ $t('userRegistration.terms.part2') }}
             </a>
             {{ $t('userRegistration.terms.part3') }}
-            <a class="link-1" href="" tabindex="6" target="_blank">
+            <a
+class="link-1"
+href=""
+tabindex="6"
+target="_blank">
               {{ $t('userRegistration.terms.part4') }}
             </a>
           </div>
@@ -104,13 +118,15 @@
       </div>
     </div>
   </div>
-  <BaseLoader v-if="isLoaderVisible" class="z-[9999]" />
+  <BaseLoader
+v-if="isLoaderVisible"
+class="z-[9999]" />
 </template>
 <script>
 import api from '../../http_client/index.js'
+import AppHeader from '../AppHeader.vue'
 import BaseLoader from '../BaseLoader.vue'
 import Button1 from '../Buttons/Button_1.vue'
-import Header from '../Header.vue'
 import input1 from '../Inputs/Input-1.vue'
 import InputPass from '../Inputs/Input-pass.vue'
 import regex from '../mixins/regex.js'
@@ -120,7 +136,7 @@ export default {
     BaseLoader,
     Button1,
     InputPass,
-    Header,
+    AppHeader,
     input1,
   },
   mixins: [regex],

@@ -11,7 +11,9 @@
         class="bg-white w-[480px] rounded-lg relative mobile:w-full relative p-6 mx-auto max-h-screen"
         @click.stop
       >
-        <button class="absolute top-6 right-6 cursor-pointer" @click="close">
+        <button
+class="absolute top-6 right-6 cursor-pointer"
+@click="close">
           <img src="/src/assets/close.svg" />
         </button>
         <div class="text-h2 text-center font-semibold">

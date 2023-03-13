@@ -109,15 +109,15 @@ export default {
     validate() {
       let isValueValid = true
       switch (this.validationType) {
-        case 'mail':
-          isValueValid = this.isMail(this.modelValue)
-          break
-        case 'name':
-          isValueValid = this.isName(this.modelValue)
-          break
-        default:
-          isValueValid = this.validationFunc(this.modelValue)
-          break
+      case 'mail':
+        isValueValid = this.isMail(this.modelValue)
+        break
+      case 'name':
+        isValueValid = this.isName(this.modelValue)
+        break
+      default:
+        isValueValid = this.validationFunc(this.modelValue)
+        break
       }
       if (isValueValid) this.isValidStyle = true
       this.$emit('validation', isValueValid)

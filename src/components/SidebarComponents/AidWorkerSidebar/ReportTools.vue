@@ -16,7 +16,9 @@
         <span class="align-middle">{{ $t('reportTools.header') }}</span>
       </div>
       <div class="flex gap-2 h-[42px] mobile:w-full">
-        <button-3 class="min-w-[80px] mobile:grow" @click="GoBack">
+        <button-3
+class="min-w-[80px] mobile:grow"
+@click="GoBack">
           {{ $t('general.cancel') }}
         </button-3>
         <button-1
@@ -96,7 +98,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import ButtonTag from '../../Buttons/ButtonTag.vue'
 import Button1 from '../../Buttons/Button_1.vue'
@@ -120,6 +122,16 @@ export default {
     Button3,
   },
   mixins: [helper, reportItemFlags],
+  beforeRouteLeave(to, from, next) {
+    if (this.isEqual2(this.getSelectedLocationRequest, this.updatedReport))
+      next()
+    if (this.isPageLeaveConfirmed) next()
+    else {
+      this.isLeaveModalVisible = true
+      this.targetLeaveRef = to.fullPath
+      next(false)
+    }
+  },
   data() {
     return {
       updatedReport: {},
@@ -196,16 +208,6 @@ export default {
         )
       }
     },
-  },
-  beforeRouteLeave(to, from, next) {
-    if (this.isEqual2(this.getSelectedLocationRequest, this.updatedReport))
-      next()
-    if (this.isPageLeaveConfirmed) next()
-    else {
-      this.isLeaveModalVisible = true
-      this.targetLeaveRef = to.fullPath
-      next(false)
-    }
   },
   created() {
     if (this.getSelectedLocationRequest)

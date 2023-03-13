@@ -14,6 +14,14 @@ export default {
   computed: {
     ...mapGetters(['isAuth']),
   },
+  watch: {
+    isAuth: function () {
+      this.UpdateRequestCount()
+    },
+  },
+  created() {
+    this.UpdateRequestCount()
+  },
   methods: {
     ...mapActions(['getRequestsCount']),
     ...mapGetters(['getLocalization']),
@@ -23,14 +31,6 @@ export default {
         setTimeout(this.UpdateRequestCount, this.UpdateRequestCountTimeout)
       }
     },
-  },
-  watch: {
-    isAuth: function (newValue) {
-      this.UpdateRequestCount()
-    },
-  },
-  created() {
-    this.UpdateRequestCount()
   },
 }
 </script>

@@ -17,7 +17,7 @@ import BaseLoader from '../../BaseLoader.vue'
 import HistoryItem from './HistoryItem.vue'
 
 export default {
-  name: 'History',
+  name: 'SidebarHistory',
   components: { BaseLoader, HistoryItem },
   data() {
     return {

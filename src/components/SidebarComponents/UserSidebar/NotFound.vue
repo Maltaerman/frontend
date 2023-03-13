@@ -8,7 +8,9 @@
           {{ $t('notFoundAddress.noDBItem', { address: Address }) }}
         </p>
         <div class="mt-2.5">
-          <div v-if="notFoundedMarkerData.id" class="flex items-center gap-2">
+          <div
+v-if="notFoundedMarkerData.id"
+class="flex items-center gap-2">
             <svg
               class="fill-green-c-500"
               fill="none"
@@ -27,7 +29,9 @@
               {{ $t('notFoundAddress.requestExist') }}
             </p>
           </div>
-          <div v-else class="text-gray-c-500">
+          <div
+v-else
+class="text-gray-c-500">
             {{ $t('notFoundAddress.tips') }}
           </div>
         </div>
@@ -58,7 +62,9 @@
           {{ $t('userSideBar.choose-location-button') }}
         </span>
       </button-1>
-      <div v-if="recentReports.length > 0" class="w-full">
+      <div
+v-if="recentReports.length > 0"
+class="w-full">
         <div class="font-semibold mb-2 bg-white z-10">
           {{ $t('welcomeScreen.recentlyReports') }}
         </div>
@@ -71,7 +77,7 @@
       </div>
       <!--			<FeedBackForm/>-->
     </div>
-    <Footer />
+    <SidebarFooter />
     <BaseLoader v-if="isLoader" />
     <SendReportRequestModal
       :close-func="closeReqModal"
@@ -91,13 +97,13 @@ import dynamicContent from '../../mixins/dynamicContent.js'
 import userRoles from '../../mixins/userRoles.js'
 
 import FeedBackForm from './FeedBackForm.vue'
-import Footer from './Footer.vue'
+import SidebarFooter from './SidebarFooter.vue'
 
 export default {
   name: 'NotFound',
   components: {
     WelcomeScreenReportList,
-    Footer,
+    SidebarFooter,
     SendReportRequestModal,
     FeedBackForm,
     BaseLoader,

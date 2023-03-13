@@ -1,5 +1,5 @@
 <template>
-  <Header
+  <AppHeader
     :is-show-setting="isSettingModalVisible"
     @settingClose="hideSettings"
   />
@@ -61,9 +61,9 @@
 </template>
 
 <script>
+import AppHeader from '../AppHeader.vue'
 import SVG_Org_List from '../ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue'
 import SVG_settings from '../ComponentsSVG/SVG_settings.vue'
-import Header from '../Header.vue'
 import MenuItemLink from '../SidebarComponents/MenuItemLink.vue'
 import RouterHelper from '../mixins/routerHelper.js'
 export default {
@@ -72,7 +72,7 @@ export default {
     SVG_settings,
     SVG_Org_List,
     MenuItemLink,
-    Header,
+    AppHeader,
   },
   mixins: [RouterHelper],
   data() {
@@ -83,7 +83,7 @@ export default {
   methods: {
     showSettings() {
       // Тупо, але так треба, бо потрібно затрігерити
-      // watch в Header при повторному присвоєні true
+      // watch в AppHeader при повторному присвоєні true
       this.isSettingModalVisible = true
     },
     hideSettings(value) {
