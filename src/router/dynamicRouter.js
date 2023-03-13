@@ -111,12 +111,13 @@ const mainRouter = [
 export const Router = createRouter({
   history: createWebHistory(),
   routes: mainRouter,
+  // eslint-disable-next-line no-unused-vars
   scrollBehavior: function (to, _from, savedPosition) {
     return savedPosition || { top: 0, left: 0 }
   },
 })
 
-Router.beforeEach((to, form) => {
+Router.beforeEach((to) => {
   if (to.meta.requiresAuth && !store.getters.isAuth) {
     return {
       path: '/main',

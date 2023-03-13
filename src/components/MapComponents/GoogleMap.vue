@@ -1,7 +1,5 @@
 <template>
-  <div
-id="mapContainer"
-class="h-full relative">
+  <div id="mapContainer" class="h-full relative">
     <div class="absolute w-full mobile:top-3.5 top-6 z-10">
       <div
         class="border bg-white rounded-xl border-2 h-10 flex flex-nowrap mobile:mx-4 mx-[30px]"
@@ -11,9 +9,7 @@ class="h-full relative">
         }"
       >
         <div class="w-[44px] cursor-pointer rounded-xl">
-          <img
-class="h-full w-full object-scale-down"
-src="/search.svg" />
+          <img class="h-full w-full object-scale-down" src="/search.svg" />
         </div>
         <GMapAutocomplete
           id="autocomplete"
@@ -33,9 +29,7 @@ src="/search.svg" />
           class="w-[40px] cursor-pointer rounded-xl"
           @click="ClearSearchRequest"
         >
-          <img
-class="h-full w-full object-scale-down"
-src="/close.svg" />
+          <img class="h-full w-full object-scale-down" src="/close.svg" />
         </div>
       </div>
     </div>

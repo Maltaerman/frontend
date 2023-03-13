@@ -1,19 +1,15 @@
-import './index.css'
 import VueGoogleMaps from '@fawmi/vue-google-maps'
 import ResizeTextarea from 'resize-textarea-vue3'
 import { createApp } from 'vue'
 import SimpleTypehead from 'vue3-simple-typeahead'
 
 import App from './App.vue'
-import { store } from './store/mainStore.js'
-//import { Router } from "./router/mainRouter.js";
-import { Router } from './router/dynamicRouter.js'
-import i18n from './libs/i18n/index.js'
 import ComponentsList from './components/ComponentsList.js'
-
-
-import Info from '/src/components/pluginComponents/toast'
-
+import ToasterModal from './components/pluginComponents/toast/ToasterModal.vue'
+import './index.css'
+import i18n from './libs/i18n/index.js'
+import { Router } from './router/dynamicRouter.js'
+import { store } from './store/mainStore.js'
 
 const app = createApp(App)
 
@@ -33,7 +29,7 @@ app.use(VueGoogleMaps, {
   },
 })
 app.use(ResizeTextarea)
-app.use(Info)
+app.use(ToasterModal)
 app.use(SimpleTypehead)
 ComponentsList.forEach((component) => {
   app.component(component.name, component)

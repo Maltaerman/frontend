@@ -1,8 +1,6 @@
 <template>
   <div class="h-full flex flex-col justify-between">
-    <div
-id="Overview"
-class="px-6 mobile:px-4 pb-6 mobile:pb-2">
+    <div id="Overview" class="px-6 mobile:px-4 pb-6 mobile:pb-2">
       <h3 class="font-semibold text-h2 mobile:text-h2-m">
         {{ $t('userSideBar.general-status') }}
       </h3>

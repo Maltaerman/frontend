@@ -29,9 +29,7 @@
           </span>
         </div>
 
-        <input-1
-v-model="inputValue"
-class="w-full" />
+        <input-1 v-model="inputValue" class="w-full" />
 
         <button-1
           class="w-full mt-6"
@@ -40,9 +38,7 @@ class="w-full" />
         >
           Видалити
         </button-1>
-        <Loader
-v-if="isLoaderVisible"
-class="rounded-lg" />
+        <BaseLoader v-if="isLoaderVisible" class="rounded-lg" />
       </div>
     </ModalTemplate>
   </div>
@@ -50,15 +46,15 @@ class="rounded-lg" />
 
 <script>
 import api from '../../http_client/index.js'
+import BaseLoader from '../BaseLoader.vue'
 import input1 from '../Inputs/Input-1.vue'
-import Loader from '../Loader.vue'
 import ModalTemplate from '../Modals/ModalTemplate.vue'
 export default {
   name: 'RemoveOrgModal',
   components: {
     ModalTemplate,
     input1,
-    Loader,
+    BaseLoader,
   },
   props: {
     organization: Object,
@@ -83,8 +79,8 @@ export default {
   methods: {
     closeThisComponent() {
       ;(this.isModalVisible = true),
-      (this.isLoaderVisible = false),
-      this.closeFunc()
+        (this.isLoaderVisible = false),
+        this.closeFunc()
     },
     closeSuccess() {
       this.onRemoveSuccess()

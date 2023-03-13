@@ -1,7 +1,5 @@
 <template>
-  <div
-ref="viewport"
-class="p-6">
+  <div ref="viewport" class="p-6">
     <ReportRequestListItem
       v-for="item in unreviewedMarkers"
       v-if="unreviewedMarkers.length > 0"
@@ -10,16 +8,11 @@ class="p-6">
       :location-request="item"
       @add-to-my-list="OnAddToMyList"
     />
-    <div
-v-else
-class="mt-6 text-center text-h3 text-gray-c-800">
+    <div v-else class="mt-6 text-center text-h3 text-gray-c-800">
       {{ $t('aidWorkerSideBar.allListEmpty') }}
     </div>
-    <div
-v-if="pageMax < 0"
-ref="scrollObserver"
-class="relative h-[80px]">
-      <Loader v-show="isLoaderVisible" />
+    <div v-if="pageMax < 0" ref="scrollObserver" class="relative h-[80px]">
+      <BaseLoader v-show="isLoaderVisible" />
     </div>
   </div>
 </template>
@@ -27,8 +20,7 @@ class="relative h-[80px]">
 <script>
 import { mapGetters } from 'vuex'
 
-import api from '../../../http_client/index.js'
-import Loader from '../../Loader.vue'
+import BaseLoader from '../../BaseLoader.vue'
 
 import ReportRequestListItem from './ReportRequestListItem.vue'
 
@@ -36,7 +28,7 @@ export default {
   name: 'ReportsRequestsList',
   components: {
     ReportRequestListItem,
-    Loader,
+    BaseLoader,
   },
   props: {
     unreviewedMarkers: {

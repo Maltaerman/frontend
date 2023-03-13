@@ -40,11 +40,7 @@
       viewBox="0 0 60 60"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle
-class="fill-blue-c-100"
-cx="30"
-cy="30"
-r="30" />
+      <circle class="fill-blue-c-100" cx="30" cy="30" r="30" />
       <path
         class="fill-blue-c-300 group-hover:fill-blue-c-400"
         clip-rule="evenodd"

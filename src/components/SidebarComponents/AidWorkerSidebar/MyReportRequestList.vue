@@ -11,29 +11,23 @@
       :location-request="item"
       @remove-from-my-list="OnRemoveFromMyList"
     />
-    <div
-v-else
-class="mt-6 text-center text-h3 text-gray-c-800">
+    <div v-else class="mt-6 text-center text-h3 text-gray-c-800">
       {{ $t('aidWorkerSideBar.myListEmpty') }}
     </div>
-    <Loader v-show="isLoaderVisible" />
+    <BaseLoader v-show="isLoaderVisible" />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
-import api from '../../../http_client/index.js'
-import Loader from '../../Loader.vue'
+import BaseLoader from '../../BaseLoader.vue'
 
 import ReportRequestListItem from './ReportRequestListItem.vue'
-
 
 export default {
   name: 'MyReportRequestList',
   components: {
     ReportRequestListItem,
-    Loader,
+    BaseLoader,
   },
   props: {
     myUnreviewedMarkers: {

@@ -10,9 +10,7 @@
         :class="{ 'animate-disappear': isClosedClick }"
         @click.stop
       >
-        <button
-class="absolute top-6 right-6 h-4 w-4"
-@click="hide">
+        <button class="absolute top-6 right-6 h-4 w-4" @click="hide">
           <svg
             fill="none"
             height="14"
@@ -35,12 +33,8 @@ class="absolute top-6 right-6 h-4 w-4"
             />
           </svg>
         </button>
-        <transition
-mode="out-in"
-name="modal-anim">
-          <div
-v-if="step === steps.numEnter"
-class="w-full text-center">
+        <transition mode="out-in" name="modal-anim">
+          <div v-if="step === steps.numEnter" class="w-full text-center">
             <div class="text-body-2 font-semibold">
               {{ $t('addressReqModal.step1Title') }}
             </div>
@@ -61,9 +55,7 @@ class="w-full text-center">
               {{ $t('addressReqModal.step1Button') }}
             </button-1>
           </div>
-          <div
-v-else-if="step === steps.codeEnter"
-class="w-full text-center">
+          <div v-else-if="step === steps.codeEnter" class="w-full text-center">
             <div class="text-body-2 font-semibold">
               {{ $t('addressReqModal.step2Title') }}
             </div>
@@ -86,9 +78,7 @@ class="w-full text-center">
             <div
               class="mt-4 text-body-1 text-gray-c-500 h-[42px] flex justify-center place-items-center"
             >
-              <transition
-mode="out-in"
-name="modal-anim">
+              <transition mode="out-in" name="modal-anim">
                 <div v-if="codeExpiredIn > 0">
                   {{ $t('addressReqModal.codeExpires') }}
                   <span class="font-semibold text-blue-c-500">
@@ -106,7 +96,7 @@ name="modal-anim">
             </div>
           </div>
         </transition>
-        <Loader v-if="isLoaderVisible"></Loader>
+        <BaseLoader v-if="isLoaderVisible"></BaseLoader>
       </div>
     </div>
   </teleport>

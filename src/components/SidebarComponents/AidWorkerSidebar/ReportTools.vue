@@ -16,9 +16,7 @@
         <span class="align-middle">{{ $t('reportTools.header') }}</span>
       </div>
       <div class="flex gap-2 h-[42px] mobile:w-full">
-        <button-3
-class="min-w-[80px] mobile:grow"
-@click="GoBack">
+        <button-3 class="min-w-[80px] mobile:grow" @click="GoBack">
           {{ $t('general.cancel') }}
         </button-3>
         <button-1

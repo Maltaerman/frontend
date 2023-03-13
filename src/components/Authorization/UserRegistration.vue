@@ -11,9 +11,7 @@
         </div>
         <div>
           <div class="mb-6">
-            <label
-class="block mb-1 text-h4 text-gray-c-500"
-for="user-name">
+            <label class="block mb-1 text-h4 text-gray-c-500" for="user-name">
               {{ $t('userRegistration.name') }}
             </label>
             <input-1
@@ -30,9 +28,7 @@ for="user-name">
             />
           </div>
           <div class="mb-6">
-            <label
-class="block mb-1 text-h4 text-gray-c-500"
-for="user-mail">
+            <label class="block mb-1 text-h4 text-gray-c-500" for="user-mail">
               {{ $t('userRegistration.email') }}
             </label>
             <input-1
@@ -48,9 +44,7 @@ for="user-mail">
             />
           </div>
           <div class="mb-6">
-            <label
-class="block mb-1 text-h4 text-gray-c-500"
-for="user-pass">
+            <label class="block mb-1 text-h4 text-gray-c-500" for="user-pass">
               {{ $t('userRegistration.password') }}
             </label>
             <input-pass
@@ -89,19 +83,11 @@ for="user-pass">
           />
           <div>
             {{ $t('userRegistration.terms.part1') }}
-            <a
-class="link-1"
-href=""
-tabindex="5"
-target="_blank">
+            <a class="link-1" href="" tabindex="5" target="_blank">
               {{ $t('userRegistration.terms.part2') }}
             </a>
             {{ $t('userRegistration.terms.part3') }}
-            <a
-class="link-1"
-href=""
-tabindex="6"
-target="_blank">
+            <a class="link-1" href="" tabindex="6" target="_blank">
               {{ $t('userRegistration.terms.part4') }}
             </a>
           </div>
@@ -118,22 +104,20 @@ target="_blank">
       </div>
     </div>
   </div>
-  <Loader
-v-if="isLoaderVisible"
-class="z-[9999]" />
+  <BaseLoader v-if="isLoaderVisible" class="z-[9999]" />
 </template>
 <script>
 import api from '../../http_client/index.js'
+import BaseLoader from '../BaseLoader.vue'
 import Button1 from '../Buttons/Button_1.vue'
 import Header from '../Header.vue'
 import input1 from '../Inputs/Input-1.vue'
 import InputPass from '../Inputs/Input-pass.vue'
-import Loader from '../Loader.vue'
 import regex from '../mixins/regex.js'
 export default {
   name: 'UserRegistration',
   components: {
-    Loader,
+    BaseLoader,
     Button1,
     InputPass,
     Header,

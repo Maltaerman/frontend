@@ -12,7 +12,7 @@
       :class="{ 'animate-userSettingsAppear': isSettingVisible }"
       @click.stop
     >
-      <Loader v-if="isShowLoader"></Loader>
+      <BaseLoader v-if="isShowLoader"></BaseLoader>
       <!--      Header-->
       <div
         class="mb-6 text-h1 mobile:text-h2 mobile:text-center relative font-semibold"
@@ -77,9 +77,7 @@
           </ButtonOptions>
         </div>
 
-        <div
-v-show="isPassChangeVisible"
-id="passChangeBlock">
+        <div v-show="isPassChangeVisible" id="passChangeBlock">
           <label for="setting-pass">{{ $t('userSettings.password') }}</label>
           <input-pass
             v-model="oldPass"
@@ -125,21 +123,18 @@ import { mapGetters, mapMutations } from 'vuex'
 
 import api from '../http_client/index.js'
 
+import BaseLoader from './BaseLoader.vue'
 import ButtonOptions from './Buttons/Button-options.vue'
 import Button1 from './Buttons/Button_1.vue'
 import ButtonText1 from './Buttons/Button_text_1.vue'
 import Input1 from './Inputs/Input-1.vue'
 import InputPass from './Inputs/Input-pass.vue'
-import Loader from './Loader.vue'
 import ModalTemplate from './Modals/ModalTemplate.vue'
-
-
-
 
 export default {
   name: 'UserSetting',
   components: {
-    Loader,
+    BaseLoader,
     Button1,
     ModalTemplate,
     InputPass,

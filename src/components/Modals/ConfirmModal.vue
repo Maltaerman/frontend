@@ -18,14 +18,10 @@
         {{ question }}
       </div>
       <div class="flex gap-4 flex-nowrap">
-        <button-2
-class="w-full"
-@click="cancelButtonClick">
+        <button-2 class="w-full" @click="cancelButtonClick">
           {{ cancelButtonTextC }}
         </button-2>
-        <button-1
-class="w-full"
-@click="acceptButtonClick">
+        <button-1 class="w-full" @click="acceptButtonClick">
           {{ acceptButtonTextC }}
         </button-1>
       </div>

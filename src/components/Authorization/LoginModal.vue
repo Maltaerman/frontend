@@ -11,9 +11,7 @@
         :class="{ 'animate-disappear': isClosedClick }"
         @click.stop
       >
-        <button
-class="absolute top-5 right-6 h-4 w-4"
-@click="hide">
+        <button class="absolute top-5 right-6 h-4 w-4" @click="hide">
           <svg
             fill="none"
             height="14"
@@ -36,9 +34,7 @@ class="absolute top-5 right-6 h-4 w-4"
             />
           </svg>
         </button>
-        <transition
-mode="out-in"
-name="modal-anim">
+        <transition mode="out-in" name="modal-anim">
           <div
             v-if="state === states.login"
             class="text-h2 font-semibold py-1 text-center mobile:text-h2-m tablet:text-h2-m w-full"
@@ -54,10 +50,7 @@ name="modal-anim">
                 type="email"
                 validation-type="mail"
               />
-              <Input-pass
-v-model="pass"
-class="w-full"
-name="password" />
+              <Input-pass v-model="pass" class="w-full" name="password" />
               <button-text-1
                 class="font-semibold block my-3"
                 @click="toPassReset"
@@ -74,9 +67,7 @@ name="password" />
               </button-1>
             </div>
           </div>
-          <div
-v-else-if="state === states.error"
-class="flex flex-col grow">
+          <div v-else-if="state === states.error" class="flex flex-col grow">
             <div class="grow flex mobile:flex-col">
               <div class="w-[30px] mobile:w-full">
                 <svg
@@ -108,9 +99,7 @@ class="flex flex-col grow">
               </div>
             </div>
 
-            <button1
-class="w-full mt-6"
-@click="toDefaultState">{{
+            <button1 class="w-full mt-6" @click="toDefaultState">{{
               $t('login.understood')
             }}</button1>
           </div>
@@ -151,22 +140,22 @@ class="w-full mt-6"
             </div>
           </div>
         </transition>
-        <Loader v-if="isLoaderVisible"></Loader>
+        <BaseLoader v-if="isLoaderVisible"></BaseLoader>
       </div>
     </div>
   </teleport>
 </template>
 <script>
-import { mapMutations, mapGetters, mapActions } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 import api from '../../http_client/index.js'
+import BaseLoader from '../BaseLoader.vue'
 import Button1 from '../Buttons/Button_1.vue'
-import Loader from '../Loader.vue'
 import regex from '../mixins/regex.js'
 
 export default {
   name: 'LoginModal',
-  components: { Button1, Loader },
+  components: { Button1, BaseLoader },
   mixins: [regex],
   props: {
     isModalVisible: {
@@ -220,12 +209,12 @@ export default {
           .catch((err) => {
             let mess = ''
             switch (err.response.status) {
-            case 400:
-              mess = this.$t('validations.credentialsError')
-              break
-            default:
-              mess = this.$t('general.errorMessage')
-              break
+              case 400:
+                mess = this.$t('validations.credentialsError')
+                break
+              default:
+                mess = this.$t('general.errorMessage')
+                break
             }
             this.toError(mess)
             this.isLoaderVisible = false
@@ -270,12 +259,12 @@ export default {
           this.isLoaderVisible = false
           let errMess = ''
           switch (err.response.status) {
-          case 400:
-            errMess = this.$t('login.mailNotExist')
-            break
-          default:
-            errMess = this.$t('general.errorMessage')
-            break
+            case 400:
+              errMess = this.$t('login.mailNotExist')
+              break
+            default:
+              errMess = this.$t('general.errorMessage')
+              break
           }
           this.$toast.error(errMess, this.$toast.options(false, true))
         })
@@ -313,9 +302,9 @@ export default {
     },
     state(newVal) {
       switch (newVal) {
-      case this.states.login:
-        this.passResetMail = ''
-        break
+        case this.states.login:
+          this.passResetMail = ''
+          break
       }
     },
   },

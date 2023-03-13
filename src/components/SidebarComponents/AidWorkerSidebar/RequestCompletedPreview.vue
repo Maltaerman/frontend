@@ -24,18 +24,14 @@
         class="flex flex-nowrap items-center gap-1"
         @click="SaveAndPublish"
       >
-        <img
-class="inline-block"
-src="/completed.svg" />
+        <img class="inline-block" src="/completed.svg" />
         <p>
           {{ $t('general.publish') }}
         </p>
       </Button2>
     </div>
 
-    <div
-id="RequestPreview"
-class="px-6 mobile:px-4 pb-4 mobile:pb-2 grow">
+    <div id="RequestPreview" class="px-6 mobile:px-4 pb-4 mobile:pb-2 grow">
       <h1 class="font-semibold my-6 text-h1 mobile:text-h1-m tablet:text-h1-m">
         {{ requestedMarker.address }},
         <span v-if="requestedMarker.street_number">
@@ -63,9 +59,7 @@ class="px-6 mobile:px-4 pb-4 mobile:pb-2 grow">
       <!--	  #endRegion-->
 
       <router-link to="/main/submit-report">
-        <button-1
-v-if="isAuth"
-class="mt-4 w-full">
+        <button-1 v-if="isAuth" class="mt-4 w-full">
           {{ $t('userSideBar.reportButton') }}
         </button-1>
       </router-link>

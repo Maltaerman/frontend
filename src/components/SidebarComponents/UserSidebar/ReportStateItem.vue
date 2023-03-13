@@ -13,9 +13,7 @@
       >
         {{ GetStatusTranslation(flagValue) }}
       </p>
-      <p
-v-if="update"
-class="text-gray-c-500 my-auto font-normal px-1">
+      <p v-if="update" class="text-gray-c-500 my-auto font-normal px-1">
         {{ GetDateTimeShort(update) }}
       </p>
 

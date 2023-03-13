@@ -11,9 +11,7 @@
         </div>
         <div>
           <div class="mb-6">
-            <label
-class="block mb-1 text-h4 text-gray-c-500"
-for="user-pass">
+            <label class="block mb-1 text-h4 text-gray-c-500" for="user-pass">
               Новий пароль
             </label>
             <input-pass
@@ -55,9 +53,7 @@ for="user-pass">
       </div>
     </div>
   </div>
-  <Loader
-v-if="isLoaderVisible"
-class="z-[9999]" />
+  <BaseLoader v-if="isLoaderVisible" class="z-[9999]" />
 </template>
 
 <script>

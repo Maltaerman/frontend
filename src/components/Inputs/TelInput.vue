@@ -19,9 +19,7 @@
           src="/src/assets/dropdown-arrow.svg"
         />
         <div class="flex items-center gap-2 pr-3">
-          <img
-class="w-6 h-4"
-:src="code.flag" />
+          <img class="w-6 h-4" :src="code.flag" />
           <div id="current-code">{{ code.value }}</div>
         </div>
       </button>
@@ -42,18 +40,12 @@ class="w-6 h-4"
           }"
           @click.stop="setCode(codeItem.code)"
         >
-          <img
-class="w-6 h-4"
-:src="codeItem.flag" />
+          <img class="w-6 h-4" :src="codeItem.flag" />
           <div>{{ codeItem.value }}</div>
         </div>
       </div>
     </div>
-    <input
-ref="tel"
-v-model="inp"
-class="input-1"
-@keyup="keyAction" />
+    <input ref="tel" v-model="inp" class="input-1" @keyup="keyAction" />
   </div>
 </template>
 

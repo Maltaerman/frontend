@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <Loader v-if="isLoader" />
+    <BaseLoader v-if="isLoader" />
     <HistoryItem
       v-for="logItem in sortedChangedLogs"
       :key="`historyItem${logItem[0].id}`"
@@ -12,13 +12,13 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 
-import Loader from '../../Loader.vue'
+import BaseLoader from '../../BaseLoader.vue'
 
 import HistoryItem from './HistoryItem.vue'
 
 export default {
   name: 'History',
-  components: { Loader, HistoryItem },
+  components: { BaseLoader, HistoryItem },
   data() {
     return {
       sortedChangedLogs: [],

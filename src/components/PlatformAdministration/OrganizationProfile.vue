@@ -34,12 +34,8 @@
             <p class="text-h2 font-semibold text-gray-c-800">
               {{ organization.name }}
             </p>
-            <p
-v-if="organization.website"
-class="text-h3 text-blue-c-500">
-              <a
-:href="`http://${organization.website}`"
-target="_blank">
+            <p v-if="organization.website" class="text-h3 text-blue-c-500">
+              <a :href="`http://${organization.website}`" target="_blank">
                 {{ organization.website }}
               </a>
             </p>
@@ -74,10 +70,7 @@ target="_blank">
           </svg>
           {{ $t('general.edit') }}
         </button-text-1>
-        <button-text-1
-class="p-2 h-min"
-color="red"
-@click="RemoveClick">
+        <button-text-1 class="p-2 h-min" color="red" @click="RemoveClick">
           <svg
             class="inline-block mt-[-3px] mr-1.5 fill-red-c-500"
             height="14"
@@ -143,9 +136,7 @@ color="red"
           </tr>
         </thead>
         <tbody>
-          <tr
-v-for="worker in organization.participants"
-class="shadow-cs2">
+          <tr v-for="worker in organization.participants" class="shadow-cs2">
             <td class="table-col-row-item">
               <span v-if="worker.username">{{ worker.username }}</span>
               <span v-else>-</span>
@@ -234,20 +225,14 @@ class="shadow-cs2">
       </div>
 
       <div class="flex gap-4">
-        <button2
-class="w-full"
-@click.stop="CloseEditModal">
+        <button2 class="w-full" @click.stop="CloseEditModal">
           {{ $t('general.cancel') }}
         </button2>
-        <button-1
-class="w-full"
-@click.stop="EditOrg">
+        <button-1 class="w-full" @click.stop="EditOrg">
           {{ $t('general.edit') }}
         </button-1>
       </div>
-      <Loader
-v-if="isEditModalLoaderVisible"
-class="rounded-lg" />
+      <BaseLoader v-if="isEditModalLoaderVisible" class="rounded-lg" />
     </div>
   </ModalTemplate>
   <!--	-->
@@ -320,9 +305,7 @@ class="rounded-lg" />
       >
         {{ $t('organizationProfile.sendInvite') }}
       </button-1>
-      <Loader
-v-if="isUserInviteModalLoaderVisible"
-class="rounded-lg" />
+      <BaseLoader v-if="isUserInviteModalLoaderVisible" class="rounded-lg" />
     </div>
   </ModalTemplate>
   <!---->
@@ -342,18 +325,16 @@ class="rounded-lg" />
     :question="ConfirmModal.question"
     :title="ConfirmModal.title"
   />
-  <Loader v-if="isLoaderVisible" />
+  <BaseLoader v-if="isLoaderVisible" />
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-
 import api from '../../http_client/index.js'
+import BaseLoader from '../BaseLoader.vue'
 import ButtonTag from '../Buttons/ButtonTag.vue'
 import Button2 from '../Buttons/Button_2.vue'
 import ButtonText1 from '../Buttons/Button_text_1.vue'
 import input1 from '../Inputs/Input-1.vue'
-import Loader from '../Loader.vue'
 import ConfirmModal from '../Modals/ConfirmModal.vue'
 import ModalTemplate from '../Modals/ModalTemplate.vue'
 import dateFormatter from '../mixins/dateFormatter.js'
@@ -369,7 +350,7 @@ export default {
     ButtonTag,
     ButtonText1,
     input1,
-    Loader,
+    BaseLoader,
     RemoveOrgModal,
   },
   mixins: [dateFormatter],

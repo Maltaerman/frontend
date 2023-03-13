@@ -1,8 +1,8 @@
 import AuthComponentList from './Authorization/AuthComponentList.js'
+import BaseLoader from './BaseLoader.vue'
 import ButtonsList from './Buttons/ButtonComponuntsList.js'
 import SVGComponentsList from './ComponentsSVG/SVGComponentsList.js'
 import InputsComponentsList from './Inputs/InputsComponentsList.js'
-import Loader from './Loader.vue'
 import MapComponentsList from './MapComponents/MapComponentsList.js'
 import modalList from './Modals/ModalList.js'
 import OtherComponentsList from './Other/OtherComponentsList.js'
@@ -23,5 +23,5 @@ export default [
   ...AidWorkerComponentsList,
   ...UserSidebarComponentsList,
   ...WelcomeScreenComponentsList,
-  Loader,
+  BaseLoader,
 ]

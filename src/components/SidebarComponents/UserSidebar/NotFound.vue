@@ -8,9 +8,7 @@
           {{ $t('notFoundAddress.noDBItem', { address: Address }) }}
         </p>
         <div class="mt-2.5">
-          <div
-v-if="notFoundedMarkerData.id"
-class="flex items-center gap-2">
+          <div v-if="notFoundedMarkerData.id" class="flex items-center gap-2">
             <svg
               class="fill-green-c-500"
               fill="none"
@@ -29,9 +27,7 @@ class="flex items-center gap-2">
               {{ $t('notFoundAddress.requestExist') }}
             </p>
           </div>
-          <div
-v-else
-class="text-gray-c-500">
+          <div v-else class="text-gray-c-500">
             {{ $t('notFoundAddress.tips') }}
           </div>
         </div>
@@ -62,9 +58,7 @@ class="text-gray-c-500">
           {{ $t('userSideBar.choose-location-button') }}
         </span>
       </button-1>
-      <div
-v-if="recentReports.length > 0"
-class="w-full">
+      <div v-if="recentReports.length > 0" class="w-full">
         <div class="font-semibold mb-2 bg-white z-10">
           {{ $t('welcomeScreen.recentlyReports') }}
         </div>
@@ -78,7 +72,7 @@ class="w-full">
       <!--			<FeedBackForm/>-->
     </div>
     <Footer />
-    <Loader v-if="isLoader" />
+    <BaseLoader v-if="isLoader" />
     <SendReportRequestModal
       :close-func="closeReqModal"
       :is-modal-visible="isRequestModalView"
@@ -90,7 +84,7 @@ class="w-full">
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 import api from '../../../http_client/index.js'
-import Loader from '../../Loader.vue'
+import BaseLoader from '../../BaseLoader.vue'
 import SendReportRequestModal from '../../Modals/SendReportRequestModal.vue'
 import WelcomeScreenReportList from '../../WelcomeScreen/WelcomeScreenReportList.vue'
 import dynamicContent from '../../mixins/dynamicContent.js'
@@ -99,7 +93,6 @@ import userRoles from '../../mixins/userRoles.js'
 import FeedBackForm from './FeedBackForm.vue'
 import Footer from './Footer.vue'
 
-
 export default {
   name: 'NotFound',
   components: {
@@ -107,7 +100,7 @@ export default {
     Footer,
     SendReportRequestModal,
     FeedBackForm,
-    Loader,
+    BaseLoader,
   },
   mixins: [userRoles, dynamicContent],
   data() {

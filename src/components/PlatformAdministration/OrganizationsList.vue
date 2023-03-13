@@ -15,9 +15,7 @@
         <p>{{ $t('dashboard.addOrganization') }}</p>
       </button-1>
     </div>
-    <div
-v-if="organizationsList.length <= 0"
-class="mt-[215px]">
+    <div v-if="organizationsList.length <= 0" class="mt-[215px]">
       <img
         class="w-[205px] h-[234px] mobile:w-[157px] mobile:h-[179px] mx-auto"
         src="/src/assets/Organizations/Picture.png"
@@ -29,15 +27,11 @@ class="mt-[215px]">
         class="block mx-auto flex items-center"
         @click="showAddOrgModal"
       >
-        <img
-class="inline-block mr-2.5"
-src="/src/assets/plus.svg" />
+        <img class="inline-block mr-2.5" src="/src/assets/plus.svg" />
         <p>{{ $t('dashboard.addOrganization') }}</p>
       </button-1>
     </div>
-    <div
-v-else
-class="mt-9">
+    <div v-else class="mt-9">
       <div class="flex flex-wrap justify-start gap-3 mb-6">
         <div
           class="border font-normal rounded-lg outline-none text-h3 hover:border-blue-c-400 focus:border-blue-c-500 disabled:bg-gray-c-100 disabled:hover:border-gray-c-300 disabled:text-gray-c-500 flex overflow-hidden px-5 flex items-center min-w-[400px] mobile:min-w-full"
@@ -103,9 +97,7 @@ class="mt-9">
               searchController.SearchedOrgName
             }}".
           </div>
-          <button-1
-class="block mobile:grow w-min"
-@click="ResetSearchResult">
+          <button-1 class="block mobile:grow w-min" @click="ResetSearchResult">
             {{ $t('general.refresh') }}
           </button-1>
         </div>
@@ -116,11 +108,8 @@ class="block mobile:grow w-min"
       />
     </div>
 
-    <div
-v-if="pageMax < 0"
-ref="scrollObserver"
-class="relative h-[80px]">
-      <Loader v-show="isLoaderVisible" />
+    <div v-if="pageMax < 0" ref="scrollObserver" class="relative h-[80px]">
+      <BaseLoader v-show="isLoaderVisible" />
     </div>
     <OrganizationModal
       :close-create-org-modal="closeCreateOrgModal"
@@ -149,9 +138,9 @@ class="relative h-[80px]">
 import axios from 'axios'
 
 import api from '../../http_client/index.js'
+import BaseLoader from '../BaseLoader.vue'
 import Button1 from '../Buttons/Button_1.vue'
 import Input1 from '../Inputs/Input-1.vue'
-import Loader from '../Loader.vue'
 import ModalTemplate from '../Modals/ModalTemplate.vue'
 import UserInviteModal from '../Modals/UserInviteModal.vue'
 import StringFormatter from '../mixins/StringFormatter.js'
@@ -161,14 +150,13 @@ import OrganizationListTable from './OrganizationListTable/OrganizationListTable
 import OrganizationModal from './OrganizationModal.vue'
 import RemoveOrgModal from './RemoveOrgModal.vue'
 
-
 export default {
   name: 'OrganizationsList',
   components: {
     UserInviteModal,
     RemoveOrgModal,
     Button1,
-    Loader,
+    BaseLoader,
     Input1,
     ModalTemplate,
     OrganizationListItem,

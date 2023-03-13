@@ -14,6 +14,7 @@ module.exports = {
     'vue/no-unused-vars': 'error',
     'no-multi-spaces': ['error'],
     'vue/attribute-hyphenation': ['off'],
+    'import/core-modules': 0,
     // 'vue/no-use-v-if-with-v-for': 'off',
     'vue/attributes-order': ['error', { alphabetical: true }],
     'for-direction': 'off',
@@ -45,7 +46,7 @@ module.exports = {
         multiline: 1,
       },
     ],
-    'vue/prop-name-casing': ['off'],
-    'vue/valid-v-slot': ['off'],
+    // 'vue/prop-name-casing': ['off'],
+    // 'vue/valid-v-slot': ['off'],
   },
 }

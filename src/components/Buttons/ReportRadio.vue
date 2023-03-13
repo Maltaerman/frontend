@@ -1,7 +1,5 @@
 <template>
-  <label
-v-for="option in label.options"
-class="cursor-pointer">
+  <label v-for="option in label.options" class="cursor-pointer">
     <input
       :checked="checkedOp === option.value"
       class="peer sr-only"

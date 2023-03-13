@@ -8,9 +8,7 @@
       </p>
     </div>
 
-    <div
-v-for="log in logs"
-class="py-4 px-6 flex gap-x-4 shadow-cs2 w-full">
+    <div v-for="log in logs" class="py-4 px-6 flex gap-x-4 shadow-cs2 w-full">
       <div class="flex gap-9 w-full">
         <div
           class="text-gray-c-500 font-normal pt-2.5 text-h3 mobile:text-h4 tablet:text-h4"
@@ -19,13 +17,9 @@ class="py-4 px-6 flex gap-x-4 shadow-cs2 w-full">
         </div>
 
         <div class="w-4/5 mobile:pr-6">
-          <div
-v-for="item in getChangedLogs(log)"
-class="my-2.5 font-semibold">
+          <div v-for="item in getChangedLogs(log)" class="my-2.5 font-semibold">
             <div class="flex flex-wrap gap-2 relative group cursor-default">
-              <div
-v-if="item.old_value"
-class="flex gap-2">
+              <div v-if="item.old_value" class="flex gap-2">
                 <p class="w-4 h-6">
                   <SVG_status_list
                     :class-list="getSVGColorClass(item.flag, item.old_value)"
@@ -63,9 +57,7 @@ class="flex gap-2">
                 {{ getTooltipText(item.flag) }}
               </div>
             </div>
-            <Expander
-v-if="item.description"
-class="font-normal">
+            <Expander v-if="item.description" class="font-normal">
               {{ item.description }}
             </Expander>
           </div>

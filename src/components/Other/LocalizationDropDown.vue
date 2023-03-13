@@ -12,9 +12,7 @@
       @click.stop="isDropped = !isDropped"
     >
       <div class="flex items-center gap-2 mobile:gap-4">
-        <img
-class="w-6 h-4"
-:src="lang.flag" />
+        <img class="w-6 h-4" :src="lang.flag" />
         <div id="current-language">{{ lang.value }}</div>
       </div>
       <img
@@ -43,9 +41,7 @@ class="w-6 h-4"
         }"
         @click.stop="setLang(langItem)"
       >
-        <img
-class="w-6 h-4"
-:src="langItem.flag" />
+        <img class="w-6 h-4" :src="langItem.flag" />
         <div class="w-full text-left">{{ langItem.value }}</div>
       </button>
     </div>
