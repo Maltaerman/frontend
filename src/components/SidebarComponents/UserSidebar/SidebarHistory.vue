@@ -72,7 +72,6 @@ export default {
       this.isLoader = false
     },
   },
-  
 }
 </script>
 

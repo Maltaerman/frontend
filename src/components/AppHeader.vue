@@ -337,12 +337,12 @@ export default {
     },
     currentUserIconLink() {
       switch (this.getRole) {
-      case this.userRoles.aidWorker:
-        return '/userIcons/User.svg'
-      case this.userRoles.platformAdmin:
-        return '/userIcons/platform-adm.svg'
-      default:
-        return '/userIcons/User.svg'
+        case this.userRoles.aidWorker:
+          return '/userIcons/User.svg'
+        case this.userRoles.platformAdmin:
+          return '/userIcons/platform-adm.svg'
+        default:
+          return '/userIcons/User.svg'
       }
     },
     isPlatformAdmin() {

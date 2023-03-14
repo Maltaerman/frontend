@@ -34,7 +34,7 @@ export default {
   props: {
     unreviewedMarkers: {
       type: Array,
-      default: ()=>[] ,
+      default: () => [],
     },
     page: {
       type: Number,

@@ -79,8 +79,8 @@ export default {
   methods: {
     closeThisComponent() {
       ;(this.isModalVisible = true),
-      (this.isLoaderVisible = false),
-      this.closeFunc()
+        (this.isLoaderVisible = false),
+        this.closeFunc()
     },
     closeSuccess() {
       this.onRemoveSuccess()

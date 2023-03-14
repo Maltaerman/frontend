@@ -77,7 +77,7 @@ export default {
   props: {
     organization: {
       type: Object,
-      default:() => {},
+      default: () => {},
     },
   },
   emits: ['remove'],

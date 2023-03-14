@@ -98,7 +98,7 @@ export default {
     log: Object,
     logs: {
       type: Array,
-      default:()=> [],
+      default: () => [],
     },
   },
   methods: {

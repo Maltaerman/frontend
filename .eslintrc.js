@@ -9,7 +9,6 @@ module.exports = {
     'plugin:import/warnings',
     // "plugin:prettier/recommended",
     'eslint-config-prettier',
-
   ],
   rules: {
     // override/add rules settings here, such as:

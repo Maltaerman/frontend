@@ -22,7 +22,7 @@ export default {
       required: true,
     },
   },
-  emits: ['enter-click','update:modelValue'],
+  emits: ['enter-click', 'update:modelValue'],
   data() {
     return {
       code: [],
