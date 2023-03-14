@@ -3,17 +3,16 @@
     <div class="text-h4 mb-4 text-gray-c-600">
       {{ $t('aidWorkerSideBar.expireMessage') }}
     </div>
-    <ReportRequestListItem
-      v-for="item in myUnreviewedMarkers"
-      v-if="myUnreviewedMarkers.length > 0"
-      :key="`request${item.id}`"
-      item-usage-tab-name="myRequestsList"
-      :location-request="item"
-      @remove-from-my-list="OnRemoveFromMyList"
-    />
-    <div
-v-else
-class="mt-6 text-center text-h3 text-gray-c-800">
+    <div v-if="myUnreviewedMarkers.length > 0">
+      <ReportRequestListItem
+        v-for="item in myUnreviewedMarkers"
+        :key="`request${item.id}`"
+        item-usage-tab-name="myRequestsList"
+        :location-request="item"
+        @remove-from-my-list="OnRemoveFromMyList"
+      />
+    </div>
+    <div v-else class="mt-6 text-center text-h3 text-gray-c-800">
       {{ $t('aidWorkerSideBar.myListEmpty') }}
     </div>
     <BaseLoader v-show="isLoaderVisible" />
@@ -34,7 +33,7 @@ export default {
   props: {
     myUnreviewedMarkers: {
       type: Array,
-      default: [],
+      default: () => [],
     },
     isLoaderVisible: {
       type: Boolean,

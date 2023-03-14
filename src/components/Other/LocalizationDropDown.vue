@@ -12,9 +12,7 @@
       @click.stop="isDropped = !isDropped"
     >
       <div class="flex items-center gap-2 mobile:gap-4">
-        <img
-class="w-6 h-4"
-:src="lang.flag" />
+        <img class="w-6 h-4" :src="lang.flag" />
         <div id="current-language">{{ lang.value }}</div>
       </div>
       <img
@@ -36,16 +34,15 @@ class="w-6 h-4"
       }"
     >
       <button
-        v-for="langItem in availableLang"
+        v-for="(langItem, index) in availableLang"
+        :key="index"
         class="w-full h-[58px] flex text-h3 items-center p-2 gap-2 mobile:gap-4 hover:bg-blue-c-200 mobile:p-0 cursor-pointer"
         :class="{
           'comp:bg-blue-c-100 text-blue-c-400': langItem.code == lang.code,
         }"
         @click.stop="setLang(langItem)"
       >
-        <img
-class="w-6 h-4"
-:src="langItem.flag" />
+        <img class="w-6 h-4" :src="langItem.flag" />
         <div class="w-full text-left">{{ langItem.value }}</div>
       </button>
     </div>
@@ -72,6 +69,9 @@ export default {
       isDropped: false,
     }
   },
+  mounted() {
+    this.lang = this.availableLang.find((x) => x.code === this.$i18n.locale)
+  },
   methods: {
     ...mapMutations(['setLocalization']),
     ToggleDrop(bool) {
@@ -83,9 +83,6 @@ export default {
       this.setLocalization(item.code)
       this.isDropped = false
     },
-  },
-  mounted() {
-    this.lang = this.availableLang.find((x) => x.code === this.$i18n.locale)
   },
 }
 </script>

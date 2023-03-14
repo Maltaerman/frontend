@@ -19,12 +19,10 @@
       </div>
       <div class="flex flex-col gap-4 mt-4 mb-6">
         <div>
-          <label
-class="text-h4 text-gray-c-500"
-for="inpRegNewOrgName">{{
+          <label class="text-h4 text-gray-c-500" for="inpRegNewOrgName">{{
             $t('dashboard.organizationName')
           }}</label>
-          <input1
+          <BaseInput1
             v-model="organization.createOrgName"
             class="w-full mt-1"
             inp-id="inpRegNewOrgName"
@@ -32,12 +30,10 @@ for="inpRegNewOrgName">{{
           />
         </div>
         <div>
-          <label
-class="text-h4 text-gray-c-500"
-for="inpRegNewOrgSite">{{
+          <label class="text-h4 text-gray-c-500" for="inpRegNewOrgSite">{{
             $t('dashboard.website')
           }}</label>
-          <input1
+          <BaseInput1
             v-model="organization.createOrgSite"
             class="w-full mt-1"
             inp-id="inpRegNewOrgSite"
@@ -45,26 +41,26 @@ for="inpRegNewOrgSite">{{
           />
         </div>
       </div>
-      <button-1
+      <BaseButton1
         class="w-full"
         :disabled="isOrgCreateButtDisabled"
         @click.stop="addOrganization"
       >
         {{ $t('general.save') }}
-      </button-1>
+      </BaseButton1>
       <BaseLoader v-if="isLoaderVisible" />
     </div>
   </ModalTemplate>
 </template>
 
 <script>
-import Input1 from '../Inputs/Input-1.vue'
+import BaseInput1 from '../Inputs/BaseInput1.vue'
 import ModalTemplate from '../Modals/ModalTemplate.vue'
 import StringFormatter from '../mixins/StringFormatter'
 export default {
   components: {
     ModalTemplate,
-    Input1,
+    BaseInput1,
   },
   mixins: [StringFormatter],
   inheritAttrs: false,

@@ -6,9 +6,7 @@
     <div
       class="flex flex-col justify-center items-center w-[600px] mx-auto mobile:text-h4 mobile:w-full text-h3 grow shrink px-4"
     >
-      <img
-        class="inline-block w-[310px]"
-        src="/src/assets/fullLogo.svg" />`
+      <img class="inline-block w-[310px]" src="/src/assets/fullLogo.svg" />`
       <p class="text-gray-c-500 mt-6 text-justify">
         {{ $t('welcomeScreen.helperText') }}
       </p>
@@ -50,9 +48,7 @@
         </div>
       </div>
 
-      <div
-        v-if="recentReports.length > 0"
-        class="w-full">
+      <div v-if="recentReports.length > 0" class="w-full">
         <div class="font-semibold mb-2 bg-white z-10">
           {{ $t('welcomeScreen.recentlyReports') }}
         </div>
@@ -76,19 +72,13 @@
       <div
         class="flex gap-6 flex-nowrap text-h4 text-blue-c-500 font-semibold break-words"
       >
-        <a
-          href="https://about.projectdim.org"
-          target="_blank">{{
+        <a href="https://about.projectdim.org" target="_blank">{{
           $t('footer.about')
         }}</a>
-        <a
-          href="https://dimblog.wixsite.com/project-dim"
-          target="_blank">{{
+        <a href="https://dimblog.wixsite.com/project-dim" target="_blank">{{
           $t('footer.blog')
         }}</a>
-        <a
-          href="https://about.projectdim.org/"
-          target="_blank"
+        <a href="https://about.projectdim.org/" target="_blank"
           >❤ {{ $t('footer.support') }}</a
         >
       </div>
@@ -116,6 +106,13 @@ export default {
     WelcomeScreenReportList,
     AppHeader,
   },
+  data: function () {
+    return {
+      searchRequest: null,
+      isInputFocused: false,
+      recentReports: [],
+    }
+  },
   computed: {
     ...mapState(['selectedMarkerData', 'notFoundedMarkerData']),
   },
@@ -123,13 +120,6 @@ export default {
     //if(this.selectedMarkerData !==null || this.notFoundedMarkerData !==null)
     //	this.$router.replace("/main");
     this.GetRecentReports()
-  },
-  data: function () {
-    return {
-      searchRequest: null,
-      isInputFocused: false,
-      recentReports: [],
-    }
   },
   methods: {
     ...mapActions({

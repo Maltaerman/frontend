@@ -11,12 +11,10 @@
         </div>
         <div>
           <div class="mb-6">
-            <label
-class="block mb-1 text-h4 text-gray-c-500"
-for="user-name">
+            <label class="block mb-1 text-h4 text-gray-c-500" for="user-name">
               {{ $t('userRegistration.name') }}
             </label>
-            <input-1
+            <BaseInput1
               v-model="userName"
               class="w-full mt-1 outline-none"
               inp-id="user-name"
@@ -30,12 +28,10 @@ for="user-name">
             />
           </div>
           <div class="mb-6">
-            <label
-class="block mb-1 text-h4 text-gray-c-500"
-for="user-mail">
+            <label class="block mb-1 text-h4 text-gray-c-500" for="user-mail">
               {{ $t('userRegistration.email') }}
             </label>
-            <input-1
+            <BaseInput1
               v-model="userMail"
               class="w-full mt-1 outline-none"
               :disabled="true"
@@ -48,9 +44,7 @@ for="user-mail">
             />
           </div>
           <div class="mb-6">
-            <label
-class="block mb-1 text-h4 text-gray-c-500"
-for="user-pass">
+            <label class="block mb-1 text-h4 text-gray-c-500" for="user-pass">
               {{ $t('userRegistration.password') }}
             </label>
             <input-pass
@@ -89,55 +83,45 @@ for="user-pass">
           />
           <div>
             {{ $t('userRegistration.terms.part1') }}
-            <a
-class="link-1"
-href=""
-tabindex="5"
-target="_blank">
+            <a class="link-1" href="" tabindex="5" target="_blank">
               {{ $t('userRegistration.terms.part2') }}
             </a>
             {{ $t('userRegistration.terms.part3') }}
-            <a
-class="link-1"
-href=""
-tabindex="6"
-target="_blank">
+            <a class="link-1" href="" tabindex="6" target="_blank">
               {{ $t('userRegistration.terms.part4') }}
             </a>
           </div>
         </div>
 
-        <button-1
+        <BaseButton1
           class="w-full"
           :disabled="!isRegEnabled"
           tabindex="7"
           @click="CreateUser"
         >
           {{ $t('userRegistration.createProfile') }}
-        </button-1>
+        </BaseButton1>
       </div>
     </div>
   </div>
-  <BaseLoader
-v-if="isLoaderVisible"
-class="z-[9999]" />
+  <BaseLoader v-if="isLoaderVisible" class="z-[9999]" />
 </template>
 <script>
 import api from '../../http_client/index.js'
 import AppHeader from '../AppHeader.vue'
 import BaseLoader from '../BaseLoader.vue'
-import Button1 from '../Buttons/Button_1.vue'
-import input1 from '../Inputs/Input-1.vue'
+import BaseButton1 from '../Buttons/Button_1.vue'
+import BaseInput1 from '../Inputs/BaseInput1.vue'
 import InputPass from '../Inputs/Input-pass.vue'
 import regex from '../mixins/regex.js'
 export default {
   name: 'UserRegistration',
   components: {
     BaseLoader,
-    Button1,
+    BaseButton1,
     InputPass,
     AppHeader,
-    input1,
+    BaseInput1,
   },
   mixins: [regex],
   data() {

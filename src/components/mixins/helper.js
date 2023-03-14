@@ -30,7 +30,7 @@ export default {
       return lines
     },
     GetRandomElement(array) {
-      return array[getRndInteger(0, array.length - 1)]
+      return array[this.getRndInteger(0, array.length - 1)]
     },
     getRndInteger(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min

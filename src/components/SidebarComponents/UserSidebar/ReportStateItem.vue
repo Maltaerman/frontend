@@ -13,9 +13,7 @@
       >
         {{ GetStatusTranslation(flagValue) }}
       </p>
-      <p
-v-if="update"
-class="text-gray-c-500 my-auto font-normal px-1">
+      <p v-if="update" class="text-gray-c-500 my-auto font-normal px-1">
         {{ GetDateTimeShort(update) }}
       </p>
 
@@ -24,21 +22,21 @@ class="text-gray-c-500 my-auto font-normal px-1">
       </div>
     </div>
 
-    <Expander v-if="description">
+    <BaseExpander v-if="description">
       {{ description }}
-    </Expander>
+    </BaseExpander>
   </div>
 </template>
 
 <script>
 import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
-import Expander from '../../Other/Expander.vue'
+import BaseExpander from '../../Other/BaseExpander.vue'
 import dateFormatter from '../../mixins/dateFormatter.js'
 import reportItemFlags from '../../mixins/reportItemFlags.js'
 
 export default {
   name: 'ReportStateItem',
-  components: { SVG_status_list, Expander },
+  components: { SVG_status_list, BaseExpander },
   mixins: [reportItemFlags, dateFormatter],
   props: {
     flag: String,

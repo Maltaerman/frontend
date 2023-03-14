@@ -17,15 +17,11 @@ import { mapGetters } from 'vuex'
 
 import AppHeader from './AppHeader.vue'
 import GoogleMap from './MapComponents/GoogleMap.vue'
-import NotFound from './SidebarComponents/UserSidebar/NotFound.vue'
-import SideBar from './SidebarComponents/UserSidebar/SideBar.vue'
 
 export default {
   name: 'MainScreen',
   components: {
     AppHeader,
-    SideBar,
-    NotFound,
     GoogleMap,
   },
   computed: {

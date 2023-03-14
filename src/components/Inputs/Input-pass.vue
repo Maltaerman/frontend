@@ -71,7 +71,7 @@ export default {
         return this.isPass(this.modelValue)
       },
     },
-    disabled: {type: Boolean, default: false},
+    disabled: { type: Boolean, default: false },
   },
   emits: ['validation', 'update:modelValue'],
   data() {
@@ -110,7 +110,7 @@ export default {
       this.validation(event.target.value)
       this.$emit('update:modelValue', event.target.value)
     },
-    validation(value) {
+    validation() {
       let isPassValid = this.validationFunc()
       this.$emit('validation', isPassValid)
       if (isPassValid) this.isValidStyle = true

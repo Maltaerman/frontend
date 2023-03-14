@@ -20,22 +20,18 @@
       >
         {{ $t('reportTools.makePublic') }}
       </p>
-      <Button2
+      <BaseButton2
         class="flex flex-nowrap items-center gap-1"
         @click="SaveAndPublish"
       >
-        <img
-          class="inline-block"
-          src="/completed.svg" />
+        <img class="inline-block" src="/completed.svg" />
         <p>
           {{ $t('general.publish') }}
         </p>
-      </Button2>
+      </BaseButton2>
     </div>
 
-    <div
-      id="RequestPreview"
-      class="px-6 mobile:px-4 pb-4 mobile:pb-2 grow">
+    <div id="RequestPreview" class="px-6 mobile:px-4 pb-4 mobile:pb-2 grow">
       <h1 class="font-semibold my-6 text-h1 mobile:text-h1-m tablet:text-h1-m">
         {{ requestedMarker.address }},
         <span v-if="requestedMarker.street_number">
@@ -63,11 +59,9 @@
       <!--	  #endRegion-->
 
       <router-link to="/main/submit-report">
-        <button-1
-          v-if="isAuth"
-          class="mt-4 w-full">
+        <BaseButton1 v-if="isAuth" class="mt-4 w-full">
           {{ $t('userSideBar.reportButton') }}
-        </button-1>
+        </BaseButton1>
       </router-link>
     </div>
     <SidebarFooter />
@@ -78,7 +72,7 @@
 import { mapGetters, mapMutations, mapState } from 'vuex'
 
 import api from '../../../http_client/index.js'
-import Button2 from '../../Buttons/Button_2.vue'
+import BaseButton2 from '../../Buttons/Button_2.vue'
 import reportItemFlags from '../../mixins/reportItemFlags.js'
 import ReportStateItem from '../UserSidebar/ReportStateItem.vue'
 import SidebarFooter from '../UserSidebar/SidebarFooter.vue'
@@ -88,7 +82,7 @@ export default {
   components: {
     SidebarFooter,
     ReportStateItem,
-    Button2,
+    BaseButton2,
   },
   mixins: [reportItemFlags],
   beforeRouteLeave(to, from, next) {

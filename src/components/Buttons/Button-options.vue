@@ -22,6 +22,7 @@ export default {
   props: {
     buttonColor: {
       type: String,
+      default: '',
       validator(value) {
         return ['red', 'blue'].includes(value)
       },

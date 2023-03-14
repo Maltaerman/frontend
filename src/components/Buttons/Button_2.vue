@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'Button2',
+  name: 'BaseButton2',
 }
 </script>
 

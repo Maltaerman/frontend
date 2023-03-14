@@ -9,8 +9,10 @@
     </div>
 
     <div
-v-for="log in logs"
-class="py-4 px-6 flex gap-x-4 shadow-cs2 w-full">
+      v-for="(log, index) in logs"
+      :key="index"
+      class="py-4 px-6 flex gap-x-4 shadow-cs2 w-full"
+    >
       <div class="flex gap-9 w-full">
         <div
           class="text-gray-c-500 font-normal pt-2.5 text-h3 mobile:text-h4 tablet:text-h4"
@@ -20,12 +22,12 @@ class="py-4 px-6 flex gap-x-4 shadow-cs2 w-full">
 
         <div class="w-4/5 mobile:pr-6">
           <div
-v-for="item in getChangedLogs(log)"
-class="my-2.5 font-semibold">
+            v-for="(item, index) in getChangedLogs(log)"
+            :key="index"
+            class="my-2.5 font-semibold"
+          >
             <div class="flex flex-wrap gap-2 relative group cursor-default">
-              <div
-v-if="item.old_value"
-class="flex gap-2">
+              <div v-if="item.old_value" class="flex gap-2">
                 <p class="w-4 h-6">
                   <SVG_status_list
                     :class-list="getSVGColorClass(item.flag, item.old_value)"
@@ -63,11 +65,9 @@ class="flex gap-2">
                 {{ getTooltipText(item.flag) }}
               </div>
             </div>
-            <Expander
-v-if="item.description"
-class="font-normal">
+            <BaseExpander v-if="item.description" class="font-normal">
               {{ item.description }}
-            </Expander>
+            </BaseExpander>
           </div>
 
           <div
@@ -83,14 +83,14 @@ class="font-normal">
 
 <script>
 import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
-import Expander from '../../Other/Expander.vue'
+import BaseExpander from '../../Other/BaseExpander.vue'
 import dateFormatter from '../../mixins/dateFormatter.js'
 import dynamicContent from '../../mixins/dynamicContent.js'
 import reportItemFlags from '../../mixins/reportItemFlags.js'
 export default {
   name: 'HistoryItem',
   components: {
-    Expander,
+    BaseExpander,
     SVG_status_list,
   },
   mixins: [dynamicContent, reportItemFlags, dateFormatter],
@@ -98,7 +98,7 @@ export default {
     log: Object,
     logs: {
       type: Array,
-      default: [],
+      default:()=> [],
     },
   },
   methods: {

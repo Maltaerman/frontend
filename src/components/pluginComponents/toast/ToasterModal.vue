@@ -31,8 +31,8 @@
           src="/src/assets/Loader.svg"
         />
         <p
-class="text-h2 text-center mt-5 font-semibold"
-:class="textStyle">
+class="text-h2 text-center mt-5 font-semibold" 
+        :class="textStyle">
           {{ message }}
         </p>
       </div>

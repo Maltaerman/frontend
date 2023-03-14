@@ -16,18 +16,16 @@
         <span class="align-middle">{{ $t('reportTools.header') }}</span>
       </div>
       <div class="flex gap-2 h-[42px] mobile:w-full">
-        <button-3
-class="min-w-[80px] mobile:grow"
-@click="GoBack">
+        <BaseButton3 class="min-w-[80px] mobile:grow" @click="GoBack">
           {{ $t('general.cancel') }}
-        </button-3>
-        <button-1
+        </BaseButton3>
+        <BaseButton1
           class="min-w-[80px] mobile:grow"
           :disabled="saveButtDisabled"
           @click="PreviewFinishedReport"
         >
           {{ $t('general.save') }}
-        </button-1>
+        </BaseButton1>
       </div>
     </div>
 
@@ -39,7 +37,7 @@ class="min-w-[80px] mobile:grow"
         <div class="text-h3 text-gray-c-600 py-2">
           {{ $t('reportTools.city') }}<sup class="text-red-c-500">*</sup>
         </div>
-        <input1
+        <BaseInput1
           v-model="updatedReport.city"
           class="w-full rounded-xl"
           :placeholder="$t('reportTools.city')"
@@ -51,7 +49,7 @@ class="min-w-[80px] mobile:grow"
         <div class="text-h3 text-gray-c-600 py-2">
           {{ $t('reportTools.street') }}<sup class="text-red-c-500">*</sup>
         </div>
-        <input1
+        <BaseInput1
           v-model="updatedReport.address"
           class="w-full rounded-xl"
           :placeholder="$t('reportTools.street')"
@@ -63,7 +61,7 @@ class="min-w-[80px] mobile:grow"
         <div class="text-h3 text-gray-c-600 py-2">
           {{ $t('reportTools.streetNumber') }}
         </div>
-        <input1
+        <BaseInput1
           v-model="updatedReport.street_number"
           class="w-full rounded-xl"
           :placeholder="$t('reportTools.streetNumber')"
@@ -100,26 +98,22 @@ class="min-w-[80px] mobile:grow"
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import ButtonTag from '../../Buttons/ButtonTag.vue'
-import Button1 from '../../Buttons/Button_1.vue'
-import Button3 from '../../Buttons/Button_3.vue'
+import BaseButton1 from '../../Buttons/Button_1.vue'
+import BaseButton3 from '../../Buttons/Button_3.vue'
 import ReportRadio from '../../Buttons/ReportRadio.vue'
-import Input1 from '../../Inputs/Input-1.vue'
+import BaseInput1 from '../../Inputs/BaseInput1.vue'
 import ConfirmModal from '../../Modals/ConfirmModal.vue'
-import ModalTemplate from '../../Modals/ModalTemplate.vue'
 import helper from '../../mixins/helper.js'
 import reportItemFlags from '../../mixins/reportItemFlags.js'
 
 export default {
   name: 'ReportTools',
   components: {
-    Input1,
+    BaseInput1,
     ReportRadio,
     ConfirmModal,
-    ModalTemplate,
-    ButtonTag,
-    Button1,
-    Button3,
+    BaseButton1,
+    BaseButton3,
   },
   mixins: [helper, reportItemFlags],
   beforeRouteLeave(to, from, next) {
@@ -168,6 +162,29 @@ export default {
       targetLeaveRef: '',
     }
   },
+  computed: {
+    ...mapGetters(['getSelectedLocationRequest']),
+    saveButtDisabled() {
+      if (this.$route.params.previewUpdating) {
+        return false
+      } else {
+        return (
+          this.updatedReport.city?.length < 2 ||
+          this.updatedReport.address?.length < 2 ||
+          !this.updatedReport.reports ||
+          this.isEqual2(this.getSelectedLocationRequest, this.updatedReport)
+        )
+      }
+    },
+  },
+  created() {
+    if (this.getSelectedLocationRequest)
+      this.updatedReport = JSON.parse(
+        JSON.stringify(this.getSelectedLocationRequest)
+      )
+    if (!this.getSelectedLocationRequest.reports)
+      this.updatedReport.reports = { ...this.defaultReport }
+  },
   methods: {
     /*		...mapMutations(['setSelectedMarker']),*/
     ...mapActions(['setSelectedRequest']),
@@ -193,29 +210,6 @@ export default {
     AddressValidation(value) {
       return value.length >= 2
     },
-  },
-  computed: {
-    ...mapGetters(['getSelectedLocationRequest']),
-    saveButtDisabled() {
-      if (this.$route.params.previewUpdating) {
-        return false
-      } else {
-        return (
-          this.updatedReport.city?.length < 2 ||
-          this.updatedReport.address?.length < 2 ||
-          !this.updatedReport.reports ||
-          this.isEqual2(this.getSelectedLocationRequest, this.updatedReport)
-        )
-      }
-    },
-  },
-  created() {
-    if (this.getSelectedLocationRequest)
-      this.updatedReport = JSON.parse(
-        JSON.stringify(this.getSelectedLocationRequest)
-      )
-    if (!this.getSelectedLocationRequest.reports)
-      this.updatedReport.reports = { ...this.defaultReport }
   },
 }
 </script>

@@ -124,9 +124,8 @@ export default {
       } catch (err) {
         console.error('isSameDay func error')
         throw err
-        return false
       }
     },
-    UTCtoLocal(date) {},
+    UTCtoLocal() {},
   },
 }

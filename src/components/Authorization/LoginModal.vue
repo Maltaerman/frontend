@@ -11,9 +11,7 @@
         :class="{ 'animate-disappear': isClosedClick }"
         @click.stop
       >
-        <button
-class="absolute top-5 right-6 h-4 w-4"
-@click="hide">
+        <button class="absolute top-5 right-6 h-4 w-4" @click="hide">
           <svg
             fill="none"
             height="14"
@@ -36,16 +34,14 @@ class="absolute top-5 right-6 h-4 w-4"
             />
           </svg>
         </button>
-        <transition
-mode="out-in"
-name="modal-anim">
+        <transition mode="out-in" name="modal-anim">
           <div
             v-if="state === states.login"
             class="text-h2 font-semibold py-1 text-center mobile:text-h2-m tablet:text-h2-m w-full"
           >
             {{ $t('login.header') }}
             <div>
-              <Input-1
+              <BaseInput1
                 ref="emailInput"
                 v-model="email"
                 class="w-full my-6"
@@ -54,29 +50,24 @@ name="modal-anim">
                 type="email"
                 validation-type="mail"
               />
-              <Input-pass
-v-model="pass"
-class="w-full"
-name="password" />
+              <Input-pass v-model="pass" class="w-full" name="password" />
               <button-text-1
                 class="font-semibold block my-3"
                 @click="toPassReset"
               >
                 {{ $t('login.resetPassword') }}
               </button-text-1>
-              <button-1
+              <BaseButton1
                 id="loginButton"
                 class="block w-full"
                 :disabled="isLoginButtonDisabled"
                 @click="login"
               >
                 {{ $t('login.logIn') }}
-              </button-1>
+              </BaseButton1>
             </div>
           </div>
-          <div
-v-else-if="state === states.error"
-class="flex flex-col grow">
+          <div v-else-if="state === states.error" class="flex flex-col grow">
             <div class="grow flex mobile:flex-col">
               <div class="w-[30px] mobile:w-full">
                 <svg
@@ -108,11 +99,9 @@ class="flex flex-col grow">
               </div>
             </div>
 
-            <button1
-class="w-full mt-6"
-@click="toDefaultState">{{
+            <BaseButton1 class="w-full mt-6" @click="toDefaultState">{{
               $t('login.understood')
-            }}</button1>
+            }}</BaseButton1>
           </div>
           <div
             v-else-if="state === states.passReset"
@@ -122,7 +111,7 @@ class="w-full mt-6"
               {{ $t('login.resetPasswordTitle') }}
             </div>
             <div class="grow grid content-center">
-              <Input-1
+              <BaseInput1
                 ref="emailRestInput"
                 v-model="passResetMail"
                 class="w-full my-6"
@@ -132,21 +121,21 @@ class="w-full mt-6"
                 validation-type="mail"
               />
               <div class="flex gap-3">
-                <button-2
+                <BaseButton2
                   id="toLoginButton"
                   class="block w-full"
                   @click="toLogin"
                 >
                   {{ $t('general.cancel') }}
-                </button-2>
-                <button-1
+                </BaseButton2>
+                <BaseButton1
                   id="resetPassButton"
                   class="block w-full"
                   :disabled="!isPassResetMailValid"
                   @click="ResetPasswordRequest"
                 >
                   {{ $t('general.confirm') }}
-                </button-1>
+                </BaseButton1>
               </div>
             </div>
           </div>
@@ -161,12 +150,12 @@ import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 import api from '../../http_client/index.js'
 import BaseLoader from '../BaseLoader.vue'
-import Button1 from '../Buttons/Button_1.vue'
+import BaseButton1 from '../Buttons/Button_1.vue'
 import regex from '../mixins/regex.js'
 
 export default {
   name: 'LoginModal',
-  components: { Button1, BaseLoader },
+  components: { BaseButton1, BaseLoader },
   mixins: [regex],
   props: {
     isModalVisible: {
@@ -193,6 +182,27 @@ export default {
         passReset: 'reset',
       },
     }
+  },
+  computed: {
+    ...mapGetters(['getToken', 'isAuth']),
+    isLoginButtonDisabled() {
+      return this.email.length <= 0 || this.pass.length <= 0
+    },
+    isPassResetMailValid() {
+      return this.isMail(this.passResetMail)
+    },
+  },
+  watch: {
+    isAuth(newValue) {
+      if (newValue) this.hide()
+    },
+    state(newVal) {
+      switch (newVal) {
+      case this.states.login:
+        this.passResetMail = ''
+        break
+      }
+    },
   },
   methods: {
     ...mapMutations(['setLoggedUserCredentials', 'setLoggedUserInfo']),
@@ -296,27 +306,6 @@ export default {
     toError(message) {
       this.logInErrorMessage = message
       this.state = this.states.error
-    },
-  },
-  computed: {
-    ...mapGetters(['getToken', 'isAuth']),
-    isLoginButtonDisabled() {
-      return this.email.length <= 0 || this.pass.length <= 0
-    },
-    isPassResetMailValid() {
-      return this.isMail(this.passResetMail)
-    },
-  },
-  watch: {
-    isAuth(newValue) {
-      if (newValue) this.hide()
-    },
-    state(newVal) {
-      switch (newVal) {
-      case this.states.login:
-        this.passResetMail = ''
-        break
-      }
     },
   },
 }

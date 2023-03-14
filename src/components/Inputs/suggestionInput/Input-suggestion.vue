@@ -10,9 +10,9 @@
       :items="suggestionC"
       :min-input-length="1"
       :placeholder="placeholder"
-      @onBlur="onBlurEventHandler"
-      @onFocus="onFocusEventHandler"
-      @onInput="onInputEventHandler"
+      @blur="onBlurEventHandler"
+      @focus="onFocusEventHandler"
+      @input="onInputEventHandler"
       @selectItem="selectItemEventHandler"
     >
       <template #list-item-text="slot">

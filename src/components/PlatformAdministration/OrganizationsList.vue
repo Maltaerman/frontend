@@ -4,7 +4,7 @@
       <h1 class="font-semibold text-gray-c-800 text-h1 mobile:text-h1-m">
         {{ $t('dashboard.organizations') }}
       </h1>
-      <button-1
+      <BaseButton1
         class="block flex items-center mobile:w-full justify-center h-[46px]"
         @click="showAddOrgModal"
       >
@@ -13,11 +13,9 @@
           src="/src/assets/plus.svg"
         />
         <p>{{ $t('dashboard.addOrganization') }}</p>
-      </button-1>
+      </BaseButton1>
     </div>
-    <div
-v-if="organizationsList.length <= 0"
-class="mt-[215px]">
+    <div v-if="organizationsList.length <= 0" class="mt-[215px]">
       <img
         class="w-[205px] h-[234px] mobile:w-[157px] mobile:h-[179px] mx-auto"
         src="/src/assets/Organizations/Picture.png"
@@ -25,19 +23,15 @@ class="mt-[215px]">
       <p class="text-body-1 text-center mt-5 mb-6">
         {{ $t('dashboard.organizationListEmpty') }}
       </p>
-      <button-1
+      <BaseButton1
         class="block mx-auto flex items-center"
         @click="showAddOrgModal"
       >
-        <img
-class="inline-block mr-2.5"
-src="/src/assets/plus.svg" />
+        <img class="inline-block mr-2.5" src="/src/assets/plus.svg" />
         <p>{{ $t('dashboard.addOrganization') }}</p>
-      </button-1>
+      </BaseButton1>
     </div>
-    <div
-v-else
-class="mt-9">
+    <div v-else class="mt-9">
       <div class="flex flex-wrap justify-start gap-3 mb-6">
         <div
           class="border font-normal rounded-lg outline-none text-h3 hover:border-blue-c-400 focus:border-blue-c-500 disabled:bg-gray-c-100 disabled:hover:border-gray-c-300 disabled:text-gray-c-500 flex overflow-hidden px-5 flex items-center min-w-[400px] mobile:min-w-full"
@@ -103,11 +97,12 @@ class="mt-9">
               searchController.SearchedOrgName
             }}".
           </div>
-          <button-1
-class="block mobile:grow w-min"
-@click="ResetSearchResult">
+          <BaseButton1
+            class="block mobile:grow w-min"
+            @click="ResetSearchResult"
+          >
             {{ $t('general.refresh') }}
-          </button-1>
+          </BaseButton1>
         </div>
       </div>
       <OrganizationListTable
@@ -116,10 +111,7 @@ class="block mobile:grow w-min"
       />
     </div>
 
-    <div
-v-if="pageMax < 0"
-ref="scrollObserver"
-class="relative h-[80px]">
+    <div v-if="pageMax < 0" ref="scrollObserver" class="relative h-[80px]">
       <BaseLoader v-show="isLoaderVisible" />
     </div>
     <OrganizationModal
@@ -150,13 +142,10 @@ import axios from 'axios'
 
 import api from '../../http_client/index.js'
 import BaseLoader from '../BaseLoader.vue'
-import Button1 from '../Buttons/Button_1.vue'
-import Input1 from '../Inputs/Input-1.vue'
-import ModalTemplate from '../Modals/ModalTemplate.vue'
+import BaseButton1 from '../Buttons/Button_1.vue'
 import UserInviteModal from '../Modals/UserInviteModal.vue'
 import StringFormatter from '../mixins/StringFormatter.js'
 
-import OrganizationListItem from './OrganizationListItem.vue'
 import OrganizationListTable from './OrganizationListTable/OrganizationListTable.vue'
 import OrganizationModal from './OrganizationModal.vue'
 import RemoveOrgModal from './RemoveOrgModal.vue'
@@ -166,11 +155,8 @@ export default {
   components: {
     UserInviteModal,
     RemoveOrgModal,
-    Button1,
+    BaseButton1,
     BaseLoader,
-    Input1,
-    ModalTemplate,
-    OrganizationListItem,
     OrganizationListTable,
     OrganizationModal,
   },
@@ -226,7 +212,7 @@ export default {
     let options = {
       threshold: 0,
     }
-    let callback = (entries, observer) => {
+    let callback = (entries) => {
       if (
         entries[0].isIntersecting &&
         !this.isLoaderVisible &&

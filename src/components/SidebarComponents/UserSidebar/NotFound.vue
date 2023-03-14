@@ -8,9 +8,7 @@
           {{ $t('notFoundAddress.noDBItem', { address: Address }) }}
         </p>
         <div class="mt-2.5">
-          <div
-v-if="notFoundedMarkerData.id"
-class="flex items-center gap-2">
+          <div v-if="notFoundedMarkerData.id" class="flex items-center gap-2">
             <svg
               class="fill-green-c-500"
               fill="none"
@@ -29,9 +27,7 @@ class="flex items-center gap-2">
               {{ $t('notFoundAddress.requestExist') }}
             </p>
           </div>
-          <div
-v-else
-class="text-gray-c-500">
+          <div v-else class="text-gray-c-500">
             {{ $t('notFoundAddress.tips') }}
           </div>
         </div>
@@ -41,7 +37,7 @@ class="text-gray-c-500">
           {{ $t('userSideBar.choose-location') }}
         </p>
       </div>
-      <button-1
+      <BaseButton1
         class="w-full my-6"
         :disabled="buttonDisabled"
         @click="buttonAction"
@@ -61,10 +57,8 @@ class="text-gray-c-500">
         <span v-else>
           {{ $t('userSideBar.choose-location-button') }}
         </span>
-      </button-1>
-      <div
-v-if="recentReports.length > 0"
-class="w-full">
+      </BaseButton1>
+      <div v-if="recentReports.length > 0" class="w-full">
         <div class="font-semibold mb-2 bg-white z-10">
           {{ $t('welcomeScreen.recentlyReports') }}
         </div>
@@ -96,7 +90,6 @@ import WelcomeScreenReportList from '../../WelcomeScreen/WelcomeScreenReportList
 import dynamicContent from '../../mixins/dynamicContent.js'
 import userRoles from '../../mixins/userRoles.js'
 
-import FeedBackForm from './FeedBackForm.vue'
 import SidebarFooter from './SidebarFooter.vue'
 
 export default {
@@ -105,7 +98,6 @@ export default {
     WelcomeScreenReportList,
     SidebarFooter,
     SendReportRequestModal,
-    FeedBackForm,
     BaseLoader,
   },
   mixins: [userRoles, dynamicContent],
@@ -135,7 +127,11 @@ export default {
         return this.notFoundedMarkerData.id
           ? this.ReportAddressFull(this.notFoundedMarkerData)
           : this.notFoundedMarkerData.address
+      return null
     },
+  },
+  created() {
+    this.GetRecentReports()
   },
   methods: {
     ...mapActions({
@@ -155,7 +151,7 @@ export default {
         .then((res) => {
           this.GetExistedRequestInWork(res.data)
         })
-        .catch((err) => {
+        .catch(() => {
           this.isLoader = false
           this.$toast.error(this.$t('general.errorMessage'))
         })
@@ -207,7 +203,7 @@ export default {
             })
           } else throw new Error()
         })
-        .catch((err) => {
+        .catch(() => {
           this.$toast.error(this.$t('general.errorMessage'))
         })
         .finally(() => {
@@ -236,9 +232,6 @@ export default {
     closeReqModal() {
       this.isRequestModalView = false
     },
-  },
-  created() {
-    this.GetRecentReports()
   },
 }
 </script>

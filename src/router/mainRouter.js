@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import PasswordReset from '../components/Authorization/PasswordReset.vue'
 import UserRegistration from '../components/Authorization/UserRegistration.vue'
+import BaseTest from '../components/BaseTest.vue'
 import MainScreen from '../components/MainScreen.vue'
 import MainPlatformAdministration from '../components/PlatformAdministration/MainPlatformAdministration.vue'
 import OrganizationProfile from '../components/PlatformAdministration/OrganizationProfile.vue'
@@ -90,7 +91,7 @@ const mainRouter = [
   { path: '/test', component: BaseTest },
   {
     path: '/:pathMatch(.*)*',
-    redirect: (to) => {
+    redirect: () => {
       return {
         path: '/main',
       }
@@ -100,12 +101,12 @@ const mainRouter = [
 export const Router = createRouter({
   routes: mainRouter,
   history: createWebHistory(),
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior() {
     return { top: 0 }
   },
 })
 
-Router.beforeEach((to, form) => {
+Router.beforeEach((to) => {
   if (to.meta.requiresAuth && !store.getters.isAuth) {
     return {
       path: '/main',

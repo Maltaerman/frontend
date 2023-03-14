@@ -1,15 +1,14 @@
 <template>
   <div class="h-full flex flex-col justify-between">
-    <div
-id="SidebarOverview"
-class="px-6 mobile:px-4 pb-6 mobile:pb-2">
+    <div id="SidebarOverview" class="px-6 mobile:px-4 pb-6 mobile:pb-2">
       <h3 class="font-semibold text-h2 mobile:text-h2-m">
         {{ $t('userSideBar.general-status') }}
       </h3>
       <!--	#region  Build status v2-->
       <div class="mobile:text-h4 text-h3">
         <ReportStateItem
-          v-for="flag of Object.keys(reportFlags)"
+          v-for="(flag, index) of Object.keys(reportFlags)"
+          :key="index"
           :description="selectedMarker.reports[flag].description"
           :flag="flag"
           :flag-value="selectedMarker.reports[flag].flag"
@@ -18,13 +17,13 @@ class="px-6 mobile:px-4 pb-6 mobile:pb-2">
       </div>
       <!--      #endregion-->
 
-      <button-1
+      <BaseButton1
         v-if="isAuth"
         class="mt-4 w-full"
         @click="UpdateSelectedMarkerReports"
       >
         {{ $t('userSideBar.reportButton') }}
-      </button-1>
+      </BaseButton1>
     </div>
     <SidebarFooter />
   </div>
@@ -33,8 +32,6 @@ class="px-6 mobile:px-4 pb-6 mobile:pb-2">
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex'
 
-import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
-import Expander from '../../Other/Expander.vue'
 import reportItemFlags from '../../mixins/reportItemFlags.js'
 
 import ReportStateItem from './ReportStateItem.vue'
@@ -45,8 +42,6 @@ export default {
   components: {
     SidebarFooter,
     ReportStateItem,
-    Expander,
-    SVG_status_list,
   },
   mixins: [reportItemFlags],
   data: function () {

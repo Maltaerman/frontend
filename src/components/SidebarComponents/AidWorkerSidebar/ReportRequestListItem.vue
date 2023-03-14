@@ -9,14 +9,10 @@
     <div>
       <div class="flex justify-between mb-3">
         <div class="text-h4 text-gray-c-500">
-          <span
-v-if="!isExpired"
-class="capitalize">
+          <span v-if="!isExpired" class="capitalize">
             {{ GetDayDateString(locationRequest.created_at) }}
           </span>
-          <span
-v-else
-class="text-red-c-500">
+          <span v-else class="text-red-c-500">
             {{
               $t('aidWorkerSideBar.expireIn', {
                 hours: expireInHours,
@@ -26,9 +22,7 @@ class="text-red-c-500">
         </div>
         <div class="text-h4 text-gray-c-500">
           {{ locationRequest.city }}
-          <img
-class="inline-block"
-src="/Marker-gray.svg" />
+          <img class="inline-block" src="/Marker-gray.svg" />
           {{
             locationRequest.distance
               ? locationRequest.distance.toFixed(0) + ' km'
@@ -40,23 +34,21 @@ src="/Marker-gray.svg" />
         class="text-h3 text-blue-c-500 font-semibold pb-2 shadow-cs2 cursor-pointer"
         @click="setSelectedRequest(locationRequest)"
       >
-        <img
-class="inline-block mr-1"
-src="/Marker-blue.svg" />
+        <img class="inline-block mr-1" src="/Marker-blue.svg" />
         {{ markerAddress }}
       </div>
       <div class="flex justify-between mt-4 items-baseline">
         <div>
-          <button-1 @click="Reporting">
+          <BaseButton1 @click="Reporting">
             {{ $t('aidWorkerSideBar.takeRequest') }}
-          </button-1>
-          <button-2
+          </BaseButton1>
+          <BaseButton2
             v-if="isMyRequest && itemUsageTabName === 'myRequestsList'"
             class="ml-3"
             @click="RemoveFromMyRequests"
           >
             {{ $t('general.delete') }}
-          </button-2>
+          </BaseButton2>
         </div>
 
         <button-text-1
@@ -70,9 +62,7 @@ src="/Marker-blue.svg" />
           v-else-if="isMyRequest && itemUsageTabName === 'requestsList'"
           class="text-h3 font-medium text-blue-c-500 p-2"
         >
-          <img
-class="inline-block mr-2"
-src="/completed2.svg" />
+          <img class="inline-block mr-2" src="/completed2.svg" />
           {{ $t('aidWorkerSideBar.myRequest') }}
         </div>
       </div>
@@ -111,41 +101,6 @@ export default {
       isLoaderVisible: false,
       expireInHours: 2,
     }
-  },
-  methods: {
-    ...mapActions(['setSelectedRequest']),
-    Reporting() {
-      this.setSelectedRequest(this.locationRequest)
-      this.$router.push('/main/submit-report')
-    },
-    async AddToMyRequests() {
-      this.isLoaderVisible = true
-      await api.locations
-        .assignRequest(this.locationRequest.id)
-        .then((res) => {
-          this.$emit('add-to-my-list', res.data)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-        .finally(() => {
-          this.isLoaderVisible = false
-        })
-    },
-    async RemoveFromMyRequests() {
-      this.isLoaderVisible = true
-      await api.locations
-        .removeAssignRequest(this.locationRequest.id)
-        .then((res) => {
-          this.$emit('remove-from-my-list', res.data)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-        .finally(() => {
-          this.isLoaderVisible = false
-        })
-    },
   },
   computed: {
     ...mapState({
@@ -192,8 +147,40 @@ export default {
       return result
     },
   },
-  mounted() {
-    //console.log(this.locationRequest)
+  methods: {
+    ...mapActions(['setSelectedRequest']),
+    Reporting() {
+      this.setSelectedRequest(this.locationRequest)
+      this.$router.push('/main/submit-report')
+    },
+    async AddToMyRequests() {
+      this.isLoaderVisible = true
+      await api.locations
+        .assignRequest(this.locationRequest.id)
+        .then((res) => {
+          this.$emit('add-to-my-list', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        .finally(() => {
+          this.isLoaderVisible = false
+        })
+    },
+    async RemoveFromMyRequests() {
+      this.isLoaderVisible = true
+      await api.locations
+        .removeAssignRequest(this.locationRequest.id)
+        .then((res) => {
+          this.$emit('remove-from-my-list', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        .finally(() => {
+          this.isLoaderVisible = false
+        })
+    },
   },
 }
 </script>

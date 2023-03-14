@@ -11,9 +11,7 @@
         class="bg-white w-[480px] rounded-lg relative mobile:w-full relative p-6 mx-auto max-h-screen"
         @click.stop
       >
-        <button
-class="absolute top-6 right-6 cursor-pointer"
-@click="close">
+        <button class="absolute top-6 right-6 cursor-pointer" @click="close">
           <img src="/src/assets/close.svg" />
         </button>
         <div class="text-h2 text-center font-semibold">
@@ -31,7 +29,7 @@ class="absolute top-6 right-6 cursor-pointer"
             :suggestion="suggestionsC"
             @select-item="setSelectedItem"
           />
-          <input1
+          <BaseInput1
             v-model.trim="mail"
             class="outline-none"
             placeholder="E-mail"
@@ -40,13 +38,13 @@ class="absolute top-6 right-6 cursor-pointer"
           />
         </div>
 
-        <button-1
+        <BaseButton1
           class="w-full mt-6"
           :disabled="!InviteSendingAvailable"
           @click="SendInvite"
         >
           {{ $t('organizationProfile.sendInvite') }}
-        </button-1>
+        </BaseButton1>
         <BaseLoader v-if="isLoader" />
       </div>
     </transition>
@@ -55,14 +53,14 @@ class="absolute top-6 right-6 cursor-pointer"
 
 <script>
 import api from '../../http_client/index.js'
-import input1 from '../Inputs/Input-1.vue'
+import BaseInput1 from '../Inputs/BaseInput1.vue'
 import InputSuggest from '../Inputs/suggestionInput/Input-suggestion.vue'
 import regex from '../mixins/regex.js'
 
 import ModalTemplate from './ModalTemplate.vue'
 export default {
   name: 'UserInviteModal',
-  components: { InputSuggest, ModalTemplate, input1 },
+  components: { InputSuggest, ModalTemplate, BaseInput1 },
   mixins: [regex],
   props: {
     isModalVisible: {

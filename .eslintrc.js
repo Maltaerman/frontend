@@ -7,14 +7,18 @@ module.exports = {
     'plugin:vue/vue3-recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
-    'prettier',
+    // "plugin:prettier/recommended",
+    'eslint-config-prettier',
+
   ],
   rules: {
     // override/add rules settings here, such as:
     'vue/no-unused-vars': 'error',
     'no-multi-spaces': ['error'],
     'vue/attribute-hyphenation': ['off'],
+    'vue/require-default-prop': ['off'],
     'import/core-modules': 0,
+    'vue/v-on-event-hyphenation': ['off'],
     // 'vue/no-use-v-if-with-v-for': 'off',
     'vue/attributes-order': ['error', { alphabetical: true }],
     'for-direction': 'off',
@@ -39,13 +43,20 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
-    'vue/max-attributes-per-line': [
-      'error',
-      {
-        singleline: 1,
-        multiline: 1,
-      },
-    ],
+    // 'vue/max-attributes-per-line': [
+    //   'error',
+    //   {
+    //     singleline: 1,
+    //     multiline: 1,
+    //   },
+    // ],
+    // 'vue/max-attributes-per-line': [2, {
+    //   'singleline': 20,
+    //   'multiline': {
+    //      'max': 1,
+    //      'allowFirstLine': false
+    //    }
+    // }]
     // 'vue/prop-name-casing': ['off'],
     // 'vue/valid-v-slot': ['off'],
   },

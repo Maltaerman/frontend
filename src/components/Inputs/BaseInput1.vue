@@ -7,7 +7,7 @@
     <input
       :id="inpId"
       ref="inp"
-      class="input-1 outline-none"
+      class="BaseInput1 outline-none"
       :class="validationStyle"
       :disabled="disabled"
       :placeholder="placeholder"
@@ -47,7 +47,7 @@
 import regex from '../mixins/regex.js'
 
 export default {
-  name: 'Input1',
+  name: 'BaseInput1',
   mixins: [regex],
   props: {
     modelValue: [String, Number],
@@ -63,7 +63,7 @@ export default {
     },
     validationFunc: {
       type: Function,
-      default: (val) => true,
+      default: () => true,
     },
     placeholder: String,
     disabled: Boolean,

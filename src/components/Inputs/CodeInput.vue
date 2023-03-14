@@ -4,7 +4,7 @@
       v-for="(n, index) in digitAmount"
       :key="index"
       :ref="`inp${n - 1}`"
-      class="input-1 text-center max-w-[62px]"
+      class="BaseInput1 text-center max-w-[62px]"
       placeholder="X"
       @focusin="onFocusGet(n - 1)"
       @input="OnInput(n - 1)"
@@ -22,7 +22,7 @@ export default {
       required: true,
     },
   },
-  emits: ['enter-click'],
+  emits: ['enter-click','update:modelValue'],
   data() {
     return {
       code: [],

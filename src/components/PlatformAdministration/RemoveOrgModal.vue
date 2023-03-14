@@ -29,21 +29,16 @@
           </span>
         </div>
 
-        <input-1
-          v-model="inputValue"
-          class="w-full" />
+        <BaseInput1 v-model="inputValue" class="w-full" />
 
-        <button-1
+        <BaseButton1
           class="w-full mt-6"
           :disabled="!isRemoveAvailable"
           @click.stop="removeOrg"
         >
           Видалити
-        </button-1>
-        <BaseLoader
-          v-if="isLoaderVisible"
-          class="rounded-lg" 
-        /> 
+        </BaseButton1>
+        <BaseLoader v-if="isLoaderVisible" class="rounded-lg" />
       </div>
     </ModalTemplate>
   </div>
@@ -52,13 +47,13 @@
 <script>
 import api from '../../http_client/index.js'
 import BaseLoader from '../BaseLoader.vue'
-import input1 from '../Inputs/Input-1.vue'
+import BaseInput1 from '../Inputs/BaseInput1.vue'
 import ModalTemplate from '../Modals/ModalTemplate.vue'
 export default {
   name: 'RemoveOrgModal',
   components: {
     ModalTemplate,
-    input1,
+    BaseInput1,
     BaseLoader,
   },
   props: {

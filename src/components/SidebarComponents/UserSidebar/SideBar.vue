@@ -68,11 +68,6 @@ export default {
       selectedTabItem: 'SidebarOverview',
     }
   },
-  methods: {
-    setSelectedTab(tabName) {
-      this.selectedTabItem = tabName
-    },
-  },
   computed: {
     ...mapState({
       selectedMarkerData: 'selectedMarkerData',
@@ -94,6 +89,11 @@ export default {
       }
       address = address.substring(0, address.length - trim)
       return address.length > 0 ? address : this.$t('general.error')
+    },
+  },
+  methods: {
+    setSelectedTab(tabName) {
+      this.selectedTabItem = tabName
     },
   },
 }

@@ -34,7 +34,7 @@ export default {
   props: {
     unreviewedMarkers: {
       type: Array,
-      default: [],
+      default: ()=>[] ,
     },
     page: {
       type: Number,
@@ -58,11 +58,14 @@ export default {
       isLoaderVisible : false*/
     }
   },
+  computed: {
+    ...mapGetters(['isAuth']),
+  },
   mounted() {
     let options = {
       threshold: 0,
     }
-    let callback = (entries, observer) => {
+    let callback = (entries) => {
       if (
         entries[0].isIntersecting &&
         !this.isLoaderVisible &&
@@ -81,9 +84,6 @@ export default {
     OnAddToMyList(req) {
       this.$emit('add-to-my-list', req)
     },
-  },
-  computed: {
-    ...mapGetters(['isAuth']),
   },
 }
 </script>

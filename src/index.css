@@ -54,7 +54,7 @@
         text-gray-c-600 text-h3 absolute transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap
         group-active:opacity-100 font-normal;
   }
-  .input-1 {
+  .BaseInput1 {
     @apply border font-normal
         rounded-lg text-h3 px-4 py-2
         hover:border-blue-c-400 focus:border-blue-c-500

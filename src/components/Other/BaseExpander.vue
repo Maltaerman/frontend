@@ -23,7 +23,7 @@
 import helper from '../mixins/helper.js'
 
 export default {
-  name: 'Expander',
+  name: 'BaseExpander',
   mixins: [helper],
   props: {
     defaultHeight: {

@@ -1,6 +1,6 @@
 import { h, render } from 'vue'
 
-import Modal from './Modal.vue'
+import ToasterModal from './ToasterModal.vue'
 import eventSystem from './event-system.js'
 import messageTypes from './messageTypes.js'
 
@@ -32,7 +32,7 @@ const Api = (globalOptions) => {
           ...globalOptions,
         },
       }
-      let res = mount(Modal, op)
+      let res = mount(ToasterModal, op)
       return res
     },
     info(message, options) {
@@ -76,7 +76,7 @@ const Api = (globalOptions) => {
 
 export default {
   install: (app, option = {}) => {
-    app.component(Modal, Modal.name)
+    app.component(ToasterModal, ToasterModal.name)
     let api = Api(option)
     // Default: isBgClickClose : True, duration : 3000ms
     app.config.globalProperties.$toast = api
