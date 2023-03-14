@@ -41,27 +41,27 @@ export default {
     getOrganizationStatus() {
       const { ACTIVE, PENDING, DISABLED } = this.ORGANIZATION_STATUSES
       switch (this.status) {
-        case ACTIVE:
-          return {
-            staus: ACTIVE,
-            color: 'border-green-c-200',
-            textColor: 'text-green-c-500',
-          }
-        case PENDING:
-          return {
-            staus: ACTIVE,
-            color: 'border-gray-c-200',
-            textColor: 'text-gray-c-500',
-          }
-        case DISABLED:
-          return {
-            staus: ACTIVE,
-            color: 'border-gray-c-300',
-            textColor: 'text-gray-c-500',
-            backgroundColor: 'fill-gray-c-200',
-          }
-        default:
-          break
+      case ACTIVE:
+        return {
+          staus: ACTIVE,
+          color: 'border-green-c-200',
+          textColor: 'text-green-c-500',
+        }
+      case PENDING:
+        return {
+          staus: ACTIVE,
+          color: 'border-gray-c-200',
+          textColor: 'text-gray-c-500',
+        }
+      case DISABLED:
+        return {
+          staus: ACTIVE,
+          color: 'border-gray-c-300',
+          textColor: 'text-gray-c-500',
+          backgroundColor: 'fill-gray-c-200',
+        }
+      default:
+        break
       }
     },
   },

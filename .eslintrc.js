@@ -22,8 +22,8 @@ module.exports = {
     'vue/attributes-order': ['error', { alphabetical: true }],
     'for-direction': 'off',
     'no-useless-escape': 'off',
-    indent: ['error', 2, { flatTernaryExpressions: true }],
-    quotes: ['error', 'single', { allowTemplateLiterals: true }],
+    'indent': ['error', 2, { flatTernaryExpressions: true }],
+    'quotes': ['error', 'single', { allowTemplateLiterals: true }],
     'space-before-function-paren': [
       'error',
       {

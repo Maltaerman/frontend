@@ -198,9 +198,9 @@ export default {
     },
     state(newVal) {
       switch (newVal) {
-        case this.states.login:
-          this.passResetMail = ''
-          break
+      case this.states.login:
+        this.passResetMail = ''
+        break
       }
     },
   },
@@ -230,12 +230,12 @@ export default {
           .catch((err) => {
             let mess = ''
             switch (err.response.status) {
-              case 400:
-                mess = this.$t('validations.credentialsError')
-                break
-              default:
-                mess = this.$t('general.errorMessage')
-                break
+            case 400:
+              mess = this.$t('validations.credentialsError')
+              break
+            default:
+              mess = this.$t('general.errorMessage')
+              break
             }
             this.toError(mess)
             this.isLoaderVisible = false
@@ -280,12 +280,12 @@ export default {
           this.isLoaderVisible = false
           let errMess = ''
           switch (err.response.status) {
-            case 400:
-              errMess = this.$t('login.mailNotExist')
-              break
-            default:
-              errMess = this.$t('general.errorMessage')
-              break
+          case 400:
+            errMess = this.$t('login.mailNotExist')
+            break
+          default:
+            errMess = this.$t('general.errorMessage')
+            break
           }
           this.$toast.error(errMess, this.$toast.options(false, true))
         })

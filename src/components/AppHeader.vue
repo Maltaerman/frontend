@@ -337,12 +337,12 @@ export default {
     },
     currentUserIconLink() {
       switch (this.getRole) {
-        case this.userRoles.aidWorker:
-          return '/userIcons/User.svg'
-        case this.userRoles.platformAdmin:
-          return '/userIcons/platform-adm.svg'
-        default:
-          return '/userIcons/User.svg'
+      case this.userRoles.aidWorker:
+        return '/userIcons/User.svg'
+      case this.userRoles.platformAdmin:
+        return '/userIcons/platform-adm.svg'
+      default:
+        return '/userIcons/User.svg'
       }
     },
     isPlatformAdmin() {
@@ -404,14 +404,14 @@ export default {
 @tailwind utilities;
 
 .menu-item {
-  @apply hover: bg-blue-c-200 rounded-lg p-1 cursor-pointer flex gap-4 items-center;
+  @apply hover:bg-blue-c-200 rounded-lg p-1 cursor-pointer flex gap-4 items-center;
 }
 
 .menu-item-mobile {
-  @apply mobile: rounded-none mobile:px-4 mobile:h-[58px] mobile:w-full mobile:text-gray-c-500;
+  @apply mobile:rounded-none mobile:px-4 mobile:h-[58px] mobile:w-full mobile:text-gray-c-500;
 }
 
 .org-menu-item {
-  @apply hover: bg-blue-c-200 rounded-lg p-1 cursor-pointer mobile:flex hidden gap-4 items-center mobile:rounded-none mobile:px-4 mobile:h-[58px] mobile:w-full mobile:text-gray-c-500;
+  @apply hover:bg-blue-c-200 rounded-lg p-1 cursor-pointer mobile:flex hidden gap-4 items-center mobile:rounded-none mobile:px-4 mobile:h-[58px] mobile:w-full mobile:text-gray-c-500;
 }
 </style>
