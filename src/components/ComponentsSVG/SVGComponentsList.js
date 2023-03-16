@@ -19,5 +19,5 @@ export default [
   SVG_building_condition,
   SVG_eye_crossed,
   SVG_eye,
-  SVG_basket_red
-]
+  SVG_basket_red,
+];

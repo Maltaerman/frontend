@@ -1,7 +1,7 @@
-export default function changelogs(instance){
+export default function changelogs(instance) {
   return {
-    getLocationChangeLog (locationId) {
-      return instance.get(`changelogs/${locationId}`)
+    getLocationChangeLog(locationId) {
+      return instance.get(`changelogs/${locationId}`);
     },
     //payload : {
     //  organization_id : int,
@@ -10,13 +10,13 @@ export default function changelogs(instance){
     //  date_min : UNIX milliseconds
     //  date_max : UNIX milliseconds
     // }
-    getOrganizationChangeLog(payload){
+    getOrganizationChangeLog(payload) {
       return instance.get("changelogs/search/", {
-        params: payload
+        params: payload,
       });
     },
-    locationChangelogVisibilityToggle(id){
-      return instance.put(`changelogs/visibility/${id}`)
-    }
-  }
+    locationChangelogVisibilityToggle(id) {
+      return instance.put(`changelogs/visibility/${id}`);
+    },
+  };
 }

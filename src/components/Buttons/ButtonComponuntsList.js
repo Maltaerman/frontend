@@ -13,5 +13,5 @@ export default [
   Button_text_1,
   buttonOptions,
   ButtonTag,
-  ReportRadio
-]
+  ReportRadio,
+];

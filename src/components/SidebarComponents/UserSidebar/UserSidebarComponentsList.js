@@ -17,5 +17,5 @@ export default [
   Overview,
   ReportStateItem,
   SideBar,
-  Footer
-]
+  Footer,
+];
