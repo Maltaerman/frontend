@@ -8,7 +8,7 @@ export default function (instance) {
     GetInfo() {
       return instance.get("/users/me");
     },
-    UpdateUserData() {
+    UpdateUserData(payload) {
       return instance.put("/users/info", payload);
     },
     UpdateUserPass(payload) {
