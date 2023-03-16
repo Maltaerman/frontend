@@ -153,7 +153,8 @@
     "organizationBlockedInfo": "We will inform you as soon as the problem will be solved. We thank you for your service.",
     "passResetReqSend" : "Password reset request sent. Check your mail.",
     "mailNotExist" : "The account with this mail is not registered.",
-    "passResetLinkInvalid" : "The link is not valid. Re-initialize the password recovery operation."
+    "passResetLinkInvalid" : "The link is not valid. Re-initialize the password recovery operation.",
+    "error":  "Input is not valid"
   },
   "userRegistration": {
     "greeting" : "Welcome to DIM!",
