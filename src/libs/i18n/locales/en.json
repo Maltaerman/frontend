@@ -27,7 +27,8 @@
     "user": "User",
     "aidWorker": "Aid worker",
     "organizationAdmin": "Organization leader",
-    "platformAdmin": "Platform administrator"
+    "platformAdmin": "Platform administrator",
+    "noRole": "No role applied"
   },
   "userSideBar": {
     "choose-location": "Choose a location of interest.",
