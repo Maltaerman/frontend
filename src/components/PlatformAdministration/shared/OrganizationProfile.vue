@@ -53,9 +53,6 @@
 						<th class="w-1/5 table-col-head">
 							{{ $t('organizationProfile.name') }}
 						</th>
-						<th class="table-col-head">
-							{{ $t('Roles.Role') }}
-						</th>
 						<th class="w-1/5 table-col-head">
 							{{ $t('organizationProfile.role') }}
 						</th>
