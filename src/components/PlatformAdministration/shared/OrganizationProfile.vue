@@ -469,12 +469,16 @@ export default {
 		},
 		statusesList() {
 			const { participants } = this.organization
-			const statuses = participants.map(({ email_confirmed, is_active }) => ({
-				value: this.GetCurrentUserStatus(email_confirmed, is_active),
-				text: this.GetCurrentUserStatusText(email_confirmed, is_active)
-			})
-			)
-			return [this.defaultStatusFilterValue, ... new Set(statuses)]
+			const uniqueStatuses = participants
+				.map(({ email_confirmed, is_active }) => ({
+					value: this.GetCurrentUserStatus(email_confirmed, is_active),
+					text: this.GetCurrentUserStatusText(email_confirmed, is_active)
+				}))
+				.filter((status, index, self) =>
+					index === self.findIndex(s => s.value === status.value && s.text === status.text)
+				);
+
+			return [this.defaultStatusFilterValue, ...new Set(uniqueStatuses)]
 		},
 		isAddInviteButtVisible() {
 			return this.invitedUsersList.length < 5
