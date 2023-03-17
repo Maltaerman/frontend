@@ -143,6 +143,7 @@
     "personalSettings" : "Personal settings"
   },
   "login": {
+    "authError" : "Authentication Error",
     "header": "Login",
     "password": "Password",
     "resetPassword": "Forgot password...",
@@ -176,7 +177,11 @@
     }
   },
   "validations": {
+    "databaseError": "Cannot authenticate user. Please try again later",
     "default" : "Field is not valid",
+    "connectionError": "Connection Error",
+    "inactiveUser" : "User is Inactive",
+    "error404" : "We are experiencing unexpected downtime, please try again later",
     "minLength": "Minimal length is {amount} characters.",
     "minNameLength": "Minimal name length is {amount} characters.",
     "mailNotValid" : "Email is not valid",

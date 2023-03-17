@@ -39,9 +39,9 @@
 								</div>
 								<div class="px-4">
 									<p class="font-semibold text-blue-c-500">
-										{{ $t('login.organizationBlocked') }}
+										{{logInErrorMessage.info}}
 									</p>
-									<p class="py-2">{{ $t('general.cause')}} <span class="font-semibold text-red-c-500">{{ logInErrorMessage }}</span></p>
+									<p class="py-2">{{ $t('general.cause')}} <span class="font-semibold text-red-c-500">{{ logInErrorMessage.detail }}</span></p>
 									<p>{{ $t('login.organizationBlockedInfo') }}</p>
 								</div>
 							</div>
@@ -98,7 +98,7 @@ export default {
 			email : "",
 			pass : "",
 			passResetMail : "",
-      isClosedClick : false,
+      		isClosedClick : false,
 			logInErrorMessage : "",
 			isLoaderVisible : false,
 			state : "login",
@@ -106,6 +106,11 @@ export default {
 				login : "login",
 				error : "error",
 				passReset : "reset"
+			},
+			apiLoginResponseMapper: {
+				"Incorrect username or password": "credentialsError",
+				"Cannot authenticate user. Please try again later" : "databaseError",
+				"User is Inactive" : "inactiveUser"
 			}
 		}
 	},
@@ -130,16 +135,29 @@ export default {
 					this.setLoggedUserCredentials(res.data);
 					await this.getInfo();
 				}).catch(err=>{
-					let mess = ""
+					let { detail } = err.response.data
+					let info = ""
+					console.log(err)
 					switch(err.response.status){
 						case 400:
-							mess = this.$t("validations.credentialsError");
+						detail = this.$t(`validations.${this.apiLoginResponseMapper[detail]}`) 
+						info = this.$t('login.authError')
 							break;
+						case 500:
+						detail = this.$t("validations.databaseError")
+						info = this.$t("validations.connectionError")
+						break;
+						case 404:
+						detail = this.$t("validations.error404")
+						info = this.$t("validations.connectionError")
+						break;
 						default:
-							mess = this.$t("general.errorMessage");
+						info = this.$t("general.errorMessage");
 							break;
 					}
-					this.toError(mess)
+					detail = this.$t("validations.databaseError")
+						info = this.$t("validations.connectionError")
+					this.toError({detail, info})
 					this.isLoaderVisible = false;
 				})
       }
