@@ -1,25 +1,26 @@
 <template>
-  <div class="overflow-y-auto h-full p-6">
-    <h1 class="w-full py-2 text-2xl text-center">Welcome to test screen</h1>
-    <button-text-1 @click="Test1"> Test </button-text-1>
-    <button-text-1 @click="Test2"> ShowModal </button-text-1>
+	<HeaderV2/>
+	<div class="overflow-y-auto p-6">
+		<h1 class="w-full py-2 text-2xl text-center">Welcome to test screen</h1>
+		<button-text-1 @click="Test1"> Test</button-text-1>
+		<button-text-1 @click="Test2"> ShowModal</button-text-1>
 
-    <div>
-      <VueDatePicker
-        locale="ua"
-        :enable-time-picker="false"
-        placeholder="Date"
-        utc
-        auto-apply
-        close-on-auto-apply
-        v-model="date"
-        :range="true"
-      />
-    </div>
-    <div>
-      {{ dateStr }}
-    </div>
-  </div>
+		<div>
+			<VueDatePicker
+				locale="ua"
+				:enable-time-picker="false"
+				placeholder="Date"
+				utc
+				auto-apply
+				close-on-auto-apply
+				v-model="date"
+				:range="true"
+			/>
+		</div>
+		<div>
+			{{ dateStr }}
+		</div>
+	</div>
 </template>
 
 <script>
@@ -29,101 +30,105 @@ import OrgEditInputsGroup from "./OrganizationLeader/Shared/OrgEditInputsGroup.v
 import ChangePassInputs from "./User/ChangePassInputs.vue";
 import ChangeMailNameInputs from "./User/ChangeMailNameInputs.vue";
 import VueDatePicker from "@vuepic/vue-datepicker";
+import HeaderV2 from "./Header/HeaderV2.vue";
 
 export default {
-  name: "Test",
-  components: {
-    VueDatePicker,
-    ChangeMailNameInputs,
-    ChangePassInputs,
-    OrgEditInputsGroup,
-    InputSuggest,
-    UserInviteModal,
-  },
-  data() {
-    return {
-      date: undefined,
-      mess: "Message",
-      modalVisible: false,
-      items: [
-        "Golden Retriever t",
-        "Cat",
-        "Cat",
-        "Cat",
-        "Cat",
-        "Cat",
-        "Cat",
-        "Cat",
-        "Squirrel",
-        "Golden Retriever t",
-        "Cat",
-        "Squirrel",
-        "Golden Retriever t",
-        "Cat",
-        "Squirrel",
-      ],
-      organization: {
-        name: "",
-        site: "",
-        address: "",
-        description: "",
-        logo: undefined,
-      },
-      userData: {
-        mail: "mailtest@gmail.com",
-        name: "UserName",
-      },
-    };
-  },
-  methods: {
-    Test1() {
-      this.items = null;
-    },
-    Test2() {
-      this.modalVisible = !this.modalVisible;
-    },
-    HideModal() {
-      this.modalVisible = false;
-    },
-    close() {
-      this.$toast.clear();
-    },
-    changeMessage() {
-      this.mess = "qwertyyyyy";
-    },
-    onValidation(res) {
-      console.log(res);
-    },
-  },
-  computed: {
-    OrgStr() {
-      return JSON.stringify(this.organization);
-    },
-    dateStr() {
-      if (!this.date) return "";
-      return (
-        new Date(this.date[0]).toDateString() +
-        "\n\r" +
-        new Date(this.date[1]).toDateString()
-      );
-    },
-  },
-  watch: {
-    date(newVal) {
-      console.log(newVal);
-    },
-  },
+	name: "Test",
+	components: {
+		HeaderV2,
+		VueDatePicker,
+		ChangeMailNameInputs,
+		ChangePassInputs,
+		OrgEditInputsGroup,
+		InputSuggest,
+		UserInviteModal,
+	},
+	data() {
+		return {
+			date: undefined,
+			mess: "Message",
+			modalVisible: false,
+			items: [
+				"Golden Retriever t",
+				"Cat",
+				"Cat",
+				"Cat",
+				"Cat",
+				"Cat",
+				"Cat",
+				"Cat",
+				"Squirrel",
+				"Golden Retriever t",
+				"Cat",
+				"Squirrel",
+				"Golden Retriever t",
+				"Cat",
+				"Squirrel",
+			],
+			organization: {
+				name: "",
+				site: "",
+				address: "",
+				description: "",
+				logo: undefined,
+			},
+			userData: {
+				mail: "mailtest@gmail.com",
+				name: "UserName",
+			},
+		};
+	},
+	methods: {
+		Test1() {
+			this.items = null;
+		},
+		Test2() {
+			this.modalVisible = !this.modalVisible;
+		},
+		HideModal() {
+			this.modalVisible = false;
+		},
+		close() {
+			this.$toast.clear();
+		},
+		changeMessage() {
+			this.mess = "qwertyyyyy";
+		},
+		onValidation(res) {
+			console.log(res);
+		},
+	},
+	computed: {
+		OrgStr() {
+			return JSON.stringify(this.organization);
+		},
+		dateStr() {
+			if (!this.date) return "";
+			return (
+				new Date(this.date[0]).toDateString() +
+				"\n\r" +
+				new Date(this.date[1]).toDateString()
+			);
+		},
+	},
+	watch: {
+		date(newVal) {
+			console.log(newVal);
+		},
+	},
 };
 </script>
 
 <style>
 .fade-enter-active {
-  transition: all, 2s, ease;
+	transition: all, 2s, ease;
 }
+
 .fade-enter-from {
-  opacity: 0;
+	opacity: 0;
 }
+
 .fade-enter-to {
-  opacity: 1;
+	opacity: 1;
 }
 </style>

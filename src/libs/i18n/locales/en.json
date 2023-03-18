@@ -127,8 +127,8 @@
     "maxInviteMess": "No more than 5 invitations at a time",
     "logo": "Logo",
     "choseFile": "Choose file",
-    "organizationSettings": "Organization settings",
-    "role": "Role"
+    "role": "Role",
+    "organizationSettings": "Organization settings"
   },
   "userSettings": {
     "header": "Settings",

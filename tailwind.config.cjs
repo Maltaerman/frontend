@@ -107,11 +107,11 @@ module.exports = {
       comp: {
         min: "950px",
       },
-      tablet: {
+      /*tablet: {
         min: "480px",
         max: "949px",
-      },
-      mobile: { max: "480px" },
+      },*/
+      mobile: {max: "949px"},
     },
   },
   plugins: [],
