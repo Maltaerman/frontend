@@ -49,6 +49,7 @@
                 class="w-full my-6"
                 placeholder="Email"
                 v-model="email"
+                :validation-message="$t('login.error')"
               />
               <Input-pass name="password" class="w-full" v-model="pass" />
               <button-text-1
@@ -87,12 +88,12 @@
               </div>
               <div class="px-4">
                 <p class="font-semibold text-blue-c-500">
-                  {{ $t("login.organizationBlocked") }}
+                  {{ logInErrorMessage.info }}
                 </p>
                 <p class="py-2">
                   {{ $t("general.cause") }}
                   <span class="font-semibold text-red-c-500">{{
-                    logInErrorMessage
+                    logInErrorMessage.detail
                   }}</span>
                 </p>
                 <p>{{ $t("login.organizationBlockedInfo") }}</p>
@@ -147,167 +148,184 @@
 </template>
 <script>
 import api from "../../http_client/index.js";
-import { mapMutations, mapGetters, mapActions } from "vuex";
+import {mapMutations, mapGetters, mapActions} from 'vuex';
 import Button1 from "../Buttons/Button_1.vue";
 import Loader from "../Loader.vue";
 import regex from "../mixins/regex.js";
 
 export default {
-  name: "LoginModal",
-  components: { Button1, Loader },
-  mixins: [regex],
-  props: {
-    isModalVisible: {
-      type: Boolean,
-      default: false,
-    },
-    closeFunc: {
-      type: Function,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      email: "",
-      pass: "",
-      passResetMail: "",
-      isClosedClick: false,
-      logInErrorMessage: "",
-      isLoaderVisible: false,
-      state: "login",
-      states: {
-        login: "login",
-        error: "error",
-        passReset: "reset",
-      },
-    };
-  },
-  methods: {
-    ...mapMutations(["setLoggedUserCredentials", "setLoggedUserInfo"]),
-    ...mapActions(["GetUserOrganization"]),
-    hide() {
+	name: "LoginModal",
+	components: {Button1, Loader},
+	mixins : [regex],
+	props : {
+		isModalVisible : {
+			type : Boolean,
+			default : false,
+		},
+		closeFunc : {
+			type : Function,
+			required : true
+		}
+	},
+	data(){
+		return {
+			email : "",
+			pass : "",
+			passResetMail : "",
+      		isClosedClick : false,
+			logInErrorMessage : "",
+			isLoaderVisible : false,
+			state : "login",
+			states : {
+				login : "login",
+				error : "error",
+				passReset : "reset"
+			},
+			apiLoginResponseMapper: {
+				"Incorrect username or password": "credentialsError",
+				"Cannot authenticate user. Please try again later" : "databaseError",
+				"User is Inactive" : "inactiveUser"
+			}
+		}
+	},
+	methods : {
+		...mapMutations(['setLoggedUserCredentials', 'setLoggedUserInfo']),
+		...mapActions(["GetUserOrganization"]),
+		hide(){
       this.isClosedClick = true;
-      setTimeout(() => {
+      setTimeout( ()=> {
         this.isClosedClick = false;
-        this.toDefaultState();
-        this.closeFunc();
-      }, 400);
-    },
-    async login() {
-      if (!this.isLoginButtonDisabled) {
-        this.isLoaderVisible = true;
-        let credentials = new FormData();
-        credentials.append("username", this.email);
-        credentials.append("password", this.pass);
-        await api.user
-          .LogIn(credentials)
-          .then(async (res) => {
-            this.setLoggedUserCredentials(res.data);
-            await this.getInfo();
-          })
-          .catch((err) => {
-            let mess = "";
-            switch (err.response.status) {
-              case 400:
-                mess = this.$t("validations.credentialsError");
-                break;
-              default:
-                mess = this.$t("general.errorMessage");
-                break;
-            }
-            this.toError(mess);
-            this.isLoaderVisible = false;
-          });
-      }
-    },
-    async getInfo() {
-      if (!this.getToken) {
-        this.toError(this.$t("general.errorMessage"));
-      }
-      await api.user
-        .GetInfo()
-        .then((res) => {
-          this.setLoggedUserInfo(res.data);
-          //this.GetUserOrganization();
-        })
-        .catch((err) => {
-          this.toError(err);
-        })
-        .finally(() => {
-          this.isLoaderVisible = false;
-        });
-    },
-    async ResetPasswordRequest() {
-      if (!this.isPassResetMailValid) {
-        this.$toast.error(this.$t("validations.mailNotValid"));
-        return;
-      }
-      this.isLoaderVisible = true;
-      await api.user
-        .PassResetRequest(this.passResetMail)
-        .then((res) => {
-          this.isLoaderVisible = false;
-          if (res.status === 200) {
-            this.$toast.success(
-              this.$t("login.passResetReqSend"),
-              this.$toast.options(false, true, this.hide)
-            );
+				this.toDefaultState();
+				this.closeFunc();
+			}, 400);
+		},
+		getErrorMessageToDisplay(response) {
+			let { detail } = response.data
+			let info = ""
+			switch (response.status) {
+				case 400:
+					detail = this.$t(`validations.${this.apiLoginResponseMapper[detail]}`)
+					info = this.$t('login.authError')
+					break;
+				case 500:
+					detail = this.$t("validations.databaseError")
+					info = this.$t("validations.connectionError")
+					break;
+				case 404:
+					detail = this.$t("validations.error404")
+					info = this.$t("validations.connectionError")
+					break;
+				default:
+					info = this.$t("general.errorMessage");
+					break;
+			}
+			return { detail, info }
+
+		},
+		async login() {
+			if (!this.isLoginButtonDisabled) {
+				this.isLoaderVisible = true;
+				let credentials = new FormData();
+				credentials.append('username', this.email);
+				credentials.append('password', this.pass);
+				await api.user.LogIn(credentials).then(async res => {
+					this.setLoggedUserCredentials(res.data);
+					await this.getInfo();
+				}).catch(({ response }) => {
+					const message = this.getErrorMessageToDisplay(response)
+					this.toError(message)
+					this.isLoaderVisible = false;
+				}
+				)
+			}
+		},
+		async getInfo(){
+			if(!this.getToken){
+				this.toError(this.$t("general.errorMessage"));
+			}
+			await api.user.GetInfo().then(res=>{
+				this.setLoggedUserInfo(res.data);
+				//this.GetUserOrganization();
+			}).catch(err=>{
+				this.toError(err)
+			}).finally(()=>{
+				this.isLoaderVisible = false;
+			})
+		},
+		async ResetPasswordRequest(){
+			if(!this.isPassResetMailValid){
+				this.$toast.error(this.$t("validations.mailNotValid"))
+				return;
+			}
+			this.isLoaderVisible = true;
+			await api.user.PassResetRequest(this.passResetMail)
+				.then(res=>{
+					this.isLoaderVisible = false;
+          if(res.status === 200){
+            this.$toast.success(this.$t("login.passResetReqSend"),
+                this.$toast.options(false,true, this.hide)
+            )
           }
-        })
-        .catch((err) => {
-          this.isLoaderVisible = false;
+				})
+				.catch(err=> {
+					this.isLoaderVisible = false;
           let errMess = "";
-          switch (err.response.status) {
+          switch (err.response.status){
             case 400:
-              errMess = this.$t("login.mailNotExist");
+              errMess = this.$t("login.mailNotExist")
               break;
             default:
-              errMess = this.$t("general.errorMessage");
+              errMess = this.$t("general.errorMessage")
               break;
           }
-          this.$toast.error(errMess, this.$toast.options(false, true));
-        });
-    },
-    toDefaultState() {
-      this.email = "";
-      this.pass = "";
-      this.logInErrorMessage = "";
-      this.isLoaderVisible = false;
-      this.toLogin();
-    },
-    toPassReset() {
-      this.state = this.states.passReset;
-    },
-    toLogin() {
-      this.state = this.states.login;
-    },
-    toError(message) {
-      this.logInErrorMessage = message;
-      this.state = this.states.error;
-    },
-  },
-  computed: {
-    ...mapGetters(["getToken", "isAuth"]),
-    isLoginButtonDisabled() {
-      return this.email.length <= 0 || this.pass.length <= 0;
-    },
-    isPassResetMailValid() {
-      return this.isMail(this.passResetMail);
-    },
-  },
-  watch: {
-    isAuth(newValue) {
-      if (newValue) this.hide();
-    },
-    state(newVal) {
-      switch (newVal) {
-        case this.states.login:
-          this.passResetMail = "";
-          break;
-      }
-    },
-  },
-};
+          this.$toast.error(errMess,
+            this.$toast.options(false,true)
+          )
+				})
+		},
+		toDefaultState(){
+			this.email = ""
+			this.pass = ""
+			this.logInErrorMessage = "";
+			this.isLoaderVisible = false;
+			this.toLogin();
+		},
+		toPassReset(){
+			this.state = this.states.passReset;
+		},
+		toLogin(){
+			this.state = this.states.login;
+		},
+		toError(message){
+			this.logInErrorMessage = message;
+			this.state = this.states.error;
+		},
+
+	},
+	computed : {
+		...mapGetters(['getToken', 'isAuth']),
+		isLoginButtonDisabled(){
+			return this.email.length <= 0 || this.pass.length <= 0;
+		},
+		isPassResetMailValid(){
+			return this.isMail(this.passResetMail);
+		}
+	},
+	watch : {
+		isAuth(newValue){
+			if(newValue)
+				this.hide();
+		},
+		state(newVal){
+			switch (newVal){
+				case this.states.login:
+					this.passResetMail = "";
+					break;
+			}
+		}
+	}
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

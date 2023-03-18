@@ -27,7 +27,8 @@
     "user": "User",
     "aidWorker": "Aid worker",
     "organizationAdmin": "Organization leader",
-    "platformAdmin": "Platform administrator"
+    "platformAdmin": "Platform administrator",
+    "noRole": "No role applied"
   },
   "userSideBar": {
     "choose-location": "Choose a location of interest.",
@@ -143,6 +144,7 @@
     "personalSettings": "Personal settings"
   },
   "login": {
+    "authError" : "Authentication Error",
     "header": "Login",
     "password": "Password",
     "resetPassword": "Forgot password...",
@@ -153,7 +155,8 @@
     "organizationBlockedInfo": "We will inform you as soon as the problem will be solved. We thank you for your service.",
     "passResetReqSend": "Password reset request sent. Check your mail.",
     "mailNotExist": "The account with this mail is not registered.",
-    "passResetLinkInvalid": "The link is not valid. Re-initialize the password recovery operation."
+    "passResetLinkInvalid": "The link is not valid. Re-initialize the password recovery operation.",
+    "error": "Input is not valid"
   },
   "userRegistration": {
     "greeting": "Welcome to DIM!",
@@ -175,7 +178,11 @@
     }
   },
   "validations": {
-    "default": "Field is not valid",
+    "databaseError": "Cannot authenticate user. Please try again later",
+    "default" : "Field is not valid",
+    "connectionError": "Connection Error",
+    "inactiveUser" : "User is Inactive",
+    "error404" : "We are experiencing unexpected downtime, please try again later",
     "minLength": "Minimal length is {amount} characters.",
     "minNameLength": "Minimal name length is {amount} characters.",
     "mailNotValid": "Email is not valid",
