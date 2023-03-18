@@ -38,10 +38,12 @@
     "overview": "Overview",
     "change-history": "Change History",
     "general-status": "General Status",
+    "reportedOn" : "reported on",
     "gov-contacts": "Government Contacts",
     "sbu": "Security Service of Ukraine",
     "border-guard": "State Border Guard Service of Ukraine",
-    "reportButton": "Report status"
+    "reportButton": "Report status",
+    "reportedBy": "reported by"
   },
   "aidWorkerSideBar": {
     "header": "Requests list",

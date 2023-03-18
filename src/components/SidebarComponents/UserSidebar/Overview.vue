@@ -8,6 +8,7 @@
 <!--	#region  Build status v2-->
       <div class="mobile:text-h4 text-h3">
         <ReportStateItem v-for="flag of Object.keys(reportFlags)"
+						 :organization-name="selectedMarker.organization_name"
                          :flag="flag" :flag-value="selectedMarker.reports[flag].flag"
                          :description="selectedMarker.reports[flag].description"
                          :update="selectedMarker.updated_at"/>
