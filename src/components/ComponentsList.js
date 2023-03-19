@@ -23,5 +23,5 @@ export default [
   ...AidWorkerComponentsList,
   ...UserSidebarComponentsList,
   ...WelcomeScreenComponentsList,
-  Loader
-]
+  Loader,
+];

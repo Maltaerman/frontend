@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     getRoleTextToDisplay(role) {
-      return role? this.$t(`roles.${role}`) : this.$t(`roles.noRole`) 
+      return role? this.$t(`roles.${role}`) : this.$t(`roles.noRole`)
     },
     mapRoleDisplayTextToValue(roleDisplayText){
       return this.rolesDisplayText[roleDisplayText]
