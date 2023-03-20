@@ -5,15 +5,15 @@ import UserRegistration from '../components/Authorization/UserRegistration.vue'
 import MainScreen from '../components/MainScreen.vue'
 import MainPlatformAdministration from '../components/PlatformAdministration/MainPlatformAdministration.vue'
 import OrganizationsList from '../components/PlatformAdministration/OrganizationsList.vue'
+import OrganizationProfile from '../components/PlatformAdministration/shared/OrganizationProfile.vue'
 import ReportTools from '../components/SidebarComponents/AidWorkerSidebar/ReportTools.vue'
+import RequestCompletedPreview from '../components/SidebarComponents/AidWorkerSidebar/RequestCompletedPreview.vue'
 import SideBarAidWorker from '../components/SidebarComponents/AidWorkerSidebar/SideBarAidWorker.vue'
 import SideBar from '../components/SidebarComponents/UserSidebar/SideBar.vue'
 import Test from '../components/Test.vue'
 import WelcomeScreen from '../components/WelcomeScreen/WelcomeScreen.vue'
-import RequestCompletedPreview from '../components/SidebarComponents/AidWorkerSidebar/RequestCompletedPreview.vue'
 import userRoles from '../components/mixins/userRoles.js'
 import { store } from '../store/mainStore.js'
-import OrganizationProfile from '../components/PlatformAdministration/shared/OrganizationProfile.vue'
 
 const mainRouter = [
   {

@@ -11,10 +11,10 @@
       {{ label }}
     </div>
     <input
-      class="input-1 outline-none"
       :id="inpId"
-      :class="validationStyle"
       ref="inp"
+      class="input-1 outline-none"
+      :class="validationStyle"
       :disabled="disabled"
       :placeholder="placeholder"
       :type="type"
