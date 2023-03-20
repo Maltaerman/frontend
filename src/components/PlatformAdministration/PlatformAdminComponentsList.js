@@ -9,5 +9,5 @@ export default [
   OrganizationListItem,
   OrganizationProfile,
   OrganizationsList,
-  RemoveOrgModal,
-];
+  RemoveOrgModal
+]

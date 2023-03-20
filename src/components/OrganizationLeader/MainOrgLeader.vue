@@ -1,20 +1,17 @@
 <template>
-	<HeaderV2 ref="header"/>
-	<div
-		class="flex h-[calc(100vh-62px)] comp:h-[calc(100vh-74px)] mobile:overflow-y-auto tablet:overflow-y-auto"
-	>
+	<Header/>
+	<div class="flex h-[calc(100vh-62px)]
+	  	comp:h-[calc(100vh-74px)]
+	  	mobile:overflow-y-auto
+			tablet:overflow-y-auto">
 		<div class="shrink-0 comp:w-[320px] shadow-cs1 mobile:hidden">
-			<div
-				class="w-full h-[200px] flex flex-col gap-2 place-items-center place-content-center shadow-cs2"
-			>
+			<div class="w-full h-[200px] flex flex-col gap-2 place-items-center place-content-center
+				shadow-cs2">
 				<div class="w-[60px] h-[60px] rounded-full bg-blue-c-100 px-5 py-3">
-					<img
-						class="w-full h-full"
-						src="/src/assets/Organizations/Emblem.svg"
-					/>
+					<img class="w-full h-full" src="/src/assets/Organizations/Emblem.svg">
 				</div>
 				<p class="w-min text-h3 text-gray-c-600 font-semibold">
-					{{ $t("dashboard.admin") }}
+					{{ $t('dashboard.admin') }}
 				</p>
 			</div>
 
@@ -24,7 +21,7 @@
 						<SVG_Org_List/>
 					</template>
 					<template #text>
-						{{ $t("organizationProfile.organization") }}
+						{{ $t('organizationProfile.organization') }}
 					</template>
 				</MenuItemLink>
 
@@ -33,7 +30,7 @@
 						<SVG_history/>
 					</template>
 					<template #text>
-						{{ $t("userSideBar.change-history") }}
+						{{ $t('userSideBar.change-history') }}
 					</template>
 				</MenuItemLink>
 
@@ -42,10 +39,11 @@
 						<SVG_settings/>
 					</template>
 					<template #text>
-						{{ $t("dashboard.settings") }}
+						{{ $t('dashboard.settings') }}
 					</template>
 				</MenuItemLink>
 			</nav>
+
 		</div>
 		<div class="w-full h-full overflow-y-auto">
 			<router-view></router-view>
@@ -54,76 +52,74 @@
 </template>
 
 <script>
+import Header from "../Header.vue";
 import SVG_Org_List from "../ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue";
 import MenuItemLink from "../SidebarComponents/MenuItemLink.vue";
 import SVG_history from "../ComponentsSVG/MenuItemsSvg/SVG_history.vue";
-import SVG_settings from "../ComponentsSVG/MenuItemsSvg/SVG_settings.vue";
+import SVG_settings from "../ComponentsSVG/SVG_settings.vue";
 import api from "../../http_client/index.js";
 import {mapActions, mapGetters, mapMutations} from "vuex";
 import Loader from "../Loader.vue";
-import HeaderV2 from "../Header/HeaderV2.vue";
-import userRoles from "../mixins/userRoles.js";
 
 export default {
 	name: "MainOrgLeader",
-	mixins: [userRoles],
 	components: {
-		HeaderV2,
 		Loader,
 		SVG_settings,
 		SVG_history,
+		Header,
 		SVG_Org_List,
-		MenuItemLink,
+		MenuItemLink
 	},
-	data() {
+	data(){
 		return {
-			isLoader: true,
-			organization: {
-				name: "",
-				site: "",
-				address: "",
-				description: "",
-				logo: undefined,
-			},
-		};
+			isLoader : true,
+			organization : {
+				name : "",
+				site : "",
+				address : "",
+				description : "",
+				logo : undefined
+			}
+		}
 	},
-	methods: {
+	methods : {
 		...mapMutations({
-			updateUserOrg: "setUserOrganization",
+			updateUserOrg : "setUserOrganization"
 		}),
-		async GetUserOrganization() {
-			this.$toast.wait(`${this.$t("general.loading")}...`);
-			await api.organizations
-				.getOrganizationsById(this.getUser.organization_model.id)
-				.then((res) => {
+		async GetUserOrganization(){
+			this.$toast.wait(`${this.$t("general.loading")}...`)
+			await api.organizations.getOrganizationsById(this.getUser.organization_model.id)
+				.then(res=>{
 					this.UpdateUserOrgInStore(res.data);
 					this.$toast.clear();
 				})
-				.catch((err) => {
+				.catch(err=>{
 					this.$toast.clear();
-					this.$toast.error(this.$t("general.errorMessage") + cssac);
-				});
+					this.$toast.error(this.$t('general.errorMessage')+cssac)
+				})
 		},
-		UpdateUserOrgInStore(org) {
+		UpdateUserOrgInStore(org){
 			this.updateUserOrg(org);
-		},
+		}
 	},
-	computed: {
+	computed : {
 		...mapGetters({
-			userOrganization: "getUserOrganization",
-			getUser: "getUser",
-			getRole: "getRole"
-		}),
+			userOrganization : "getUserOrganization",
+			getUser : "getUser"
+		})
 	},
-	watch: {
-		userOrganization(newVal) {
+	watch : {
+		userOrganization(newVal){
 			this.organization = newVal;
-		},
+		}
 	},
 	mounted() {
 		this.GetUserOrganization();
-	},
-};
+	}
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

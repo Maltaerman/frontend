@@ -11,5 +11,5 @@ export default [
   ReportRequestListItem,
   ReportTools,
   RequestCompletedPreview,
-  SideBarAidWorker,
-];
+  SideBarAidWorker
+]

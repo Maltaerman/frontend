@@ -2,85 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --mobile-screen-max: 480px;
-  --desctop-screen-min: 950px;
-  --tablet-screen-min: 481px;
+:root{
+    --mobile-screen-max : 480px;
+    --desctop-screen-min : 950px;
+    --tablet-screen-min : 481px;
 }
 
+
 @layer utilities {
-  ::-webkit-scrollbar {
-    width: 8px; /* ширина для вертикального скролла */
-    height: 8px; /* высота для горизонтального скролла */
-    background-color: transparent;
-  }
-  /* ползунок скроллбара */
-  ::-webkit-scrollbar-thumb {
-    /*background: transparent linear-gradient(*/
-    /*        214deg, #363940 0%, #0B0B0D 100%) 0% 0% no-repeat padding-box;*/
-    /*border-radius: 9em;*/
-    background: rgba(73, 84, 102, 0.51);
-    border-radius: 4px;
-    opacity: 0.5;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: #363940;
-  }
+    ::-webkit-scrollbar {
+        width: 8px; /* ширина для вертикального скролла */
+        height: 8px; /* высота для горизонтального скролла */
+        background-color: transparent;
+    }
+    /* ползунок скроллбара */
+    ::-webkit-scrollbar-thumb {
+        /*background: transparent linear-gradient(*/
+        /*        214deg, #363940 0%, #0B0B0D 100%) 0% 0% no-repeat padding-box;*/
+        /*border-radius: 9em;*/
+        background: rgba(73, 84, 102, 0.51);
+        border-radius: 4px;
+        opacity: 0.5;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #363940;
+    }
 }
 
 @layer components {
-  .title {
-    @apply text-h1 mobile:text-h1-m
-        font-semibold text-gray-c-800;
-  }
-  .subTitle {
-    @apply font-semibold text-h2 mobile:text-h2-m;
-  }
-  .label {
-    @apply text-h3 mobile:text-h4;
-  }
-  .text-area {
-    @apply min-h-[68px] resize-none w-full border-gray-c-300 border rounded-lg px-4 py-2 text-h3;
-  }
+    .title {
+        @apply text-h1 mobile:text-h1-m
+        font-semibold text-gray-c-800
+    }
+    .subTitle {
+        @apply font-semibold text-h2 mobile:text-h2-m
+    }
+    .label {
+        @apply text-h3 mobile:text-h4
+    }
+    .text-area{
+        @apply min-h-[68px] resize-none w-full border-gray-c-300 border rounded-lg px-4 py-2 text-h3
+    }
 
-  .text-body-1 {
-    @apply text-h3 text-gray-c-800;
-  }
-  .text-body-2 {
-    @apply text-h2 text-gray-c-800;
-  }
-  .tooltip {
-    @apply bg-white shadow-cs4 px-2 py-1 w-min h-min top-[-15px] left-2 rounded-xl
+    .text-body-1{
+        @apply text-h3 text-gray-c-800
+    }
+    .text-body-2{
+        @apply text-h2 text-gray-c-800
+    }
+    .tooltip{
+        @apply bg-white shadow-cs4 px-2 py-1 w-min h-min top-[-15px] left-2 rounded-xl
         text-gray-c-600 text-h3 absolute transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap
-        group-active:opacity-100 font-normal;
-  }
-  .input-1 {
-    @apply border font-normal
+        group-active:opacity-100 font-normal
+    }
+    .input-1 {
+        @apply border font-normal
         rounded-lg text-h3 px-4 py-2
         hover:border-blue-c-400 focus:border-blue-c-500
         disabled:bg-gray-c-100 disabled:hover:border-gray-c-300
-        disabled:text-gray-c-500 w-full;
-  }
+        disabled:text-gray-c-500 w-full
+    }
+
+
 }
 
 /*Дизайн скрола для Firefox*/
-.overflow-y-auto-custom {
-  overflow-y: auto;
-  scrollbar-color: rgba(73, 84, 102, 0.51) transparent;
-  scrollbar-width: thin;
+.overflow-y-auto-custom{
+    overflow-y: auto;
+    scrollbar-color: rgba(73, 84, 102, 0.51) transparent;
+    scrollbar-width : thin;
 }
 
 .modal-anim-enter-active,
 .modal-anim-leave-active {
-  transition: opacity 0.2s ease, margin 0.2s ease;
+    transition: opacity 0.2s ease, margin 0.2s ease;
 }
 
-.modal-anim-enter-from {
-  opacity: 0;
-  margin: 10px 0px -10px 0px;
+.modal-anim-enter-from{
+    opacity: 0;
+    margin: 10px 0px -10px 0px;
 }
 
 .modal-anim-leave-to {
-  opacity: 0;
-  margin: -10px 0px 10px 0px;
+    opacity: 0;
+    margin: -10px 0px 10px 0px;
 }

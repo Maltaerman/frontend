@@ -6,6 +6,13 @@
       </h3>
       <!--	#region  Build status v2-->
       <div class="mobile:text-h4 text-h3">
+<<<<<<< HEAD
+        <ReportStateItem v-for="flag of Object.keys(reportFlags)"
+						 :organization-name="selectedMarker.organization_name"
+                         :flag="flag" :flag-value="selectedMarker.reports[flag].flag"
+                         :description="selectedMarker.reports[flag].description"
+                         :update="selectedMarker.updated_at"/>
+=======
         <ReportStateItem
           v-for="flag of Object.keys(reportFlags)"
           :flag="flag"
@@ -13,6 +20,7 @@
           :description="selectedMarker.reports[flag].description"
           :update="selectedMarker.updated_at"
         />
+>>>>>>> 393fd18aa5181f79755b7bdc52ccec967efc7d03
       </div>
       <!--      #endregion-->
 

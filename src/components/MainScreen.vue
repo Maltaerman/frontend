@@ -1,8 +1,9 @@
 <template>
-	<HeaderV2/>
-	<div
-		class="flex h-[calc(100vh-62px)] comp:h-[calc(100vh-74px)] mobile:flex-col tablet:flex-col"
-	>
+	<Header/>
+	<div class="flex h-[calc(100vh-62px)]
+	  	comp:h-[calc(100vh-74px)]
+	  	mobile:flex-col
+	  	tablet:flex-col">
 		<div class="shrink-0 comp:w-[600px] z-50 mobile:order-2 tablet:order-2">
 			<router-view></router-view>
 		</div>
@@ -16,42 +17,38 @@
 import SideBar from "./SidebarComponents/UserSidebar/SideBar.vue";
 import NotFound from "./SidebarComponents/UserSidebar/NotFound.vue";
 import GoogleMap from "./MapComponents/GoogleMap.vue";
+import Header from "./Header.vue";
 import {mapGetters, mapState} from "vuex";
-import HeaderV2 from "./Header/HeaderV2.vue";
 
 export default {
 	name: "MainScreen",
-	components: {
-		HeaderV2,
+	components : {
+		Header,
 		SideBar,
 		NotFound,
-		GoogleMap,
+		GoogleMap
 	},
-	computed: {
+  computed : {
 		...mapGetters({
-			selectedReport: "selectedReport",
-			notFoundedMarker: "notFoundedMarker",
-		}),
+			selectedReport : "selectedReport",
+			notFoundedMarker : "notFoundedMarker"
+		})
 	},
-	watch: {
-		notFoundedMarker(newVal) {
-			if (newVal) {
-				this.$router.replace({
-					path: "/main/overview",
-					query: {id: newVal.id, ...newVal.position},
-				});
+	watch : {
+		notFoundedMarker(newVal){
+			if(newVal) {
+				this.$router.replace({path: "/main/overview", query: {id : newVal.id,...newVal.position}})
 			}
 		},
-		selectedReport(newVal) {
-			if (newVal) {
-				this.$router.replace({
-					path: "/main/overview",
-					query: {id: newVal.id, ...newVal.position},
-				});
+		selectedReport(newVal){
+			if(newVal) {
+				this.$router.replace({path: "/main/overview", query: {id : newVal.id, ...newVal.position}})
 			}
-		},
-	},
-};
+		}
+	}
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

@@ -1,22 +1,22 @@
 export default {
-  state() {
+  state(){
     return {
-      selectedOrganization: null,
-    };
+      selectedOrganization : null
+    }
   },
-  mutations: {
-    setSelectedOrganization(state, organization) {
+  mutations : {
+    setSelectedOrganization(state, organization){
       state.selectedOrganization = organization;
-    },
+    }
   },
-  getters: {
-    getSelectedOrganization(state) {
+  getters : {
+    getSelectedOrganization(state){
       return state.selectedOrganization;
-    },
+    }
   },
-  actions: {
-    setSelectedOrganization(ctx, organization) {
-      ctx.commit("setSelectedOrganization", organization);
-    },
-  },
-};
+  actions : {
+    setSelectedOrganization(ctx, organization){
+      ctx.commit("setSelectedOrganization", organization)
+    }
+  }
+}

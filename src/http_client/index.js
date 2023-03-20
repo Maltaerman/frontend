@@ -14,11 +14,11 @@ import changelogs from "./changelogs.js";
 }*/
 
 const api = {
-  locations: locations(instance),
-  user: user(instance),
-  organizations: organizations(instance),
-  guest: guest(instance),
-  changelogs: changelogs(instance),
-};
+    locations: locations(instance),
+    user: user(instance),
+    organizations : organizations(instance),
+    guest : guest(instance),
+    changelogs : changelogs(instance)
+}
 
 export default api;

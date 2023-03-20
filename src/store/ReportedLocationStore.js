@@ -1,43 +1,42 @@
 import api from "../http_client/index.js";
-import { createStore } from "vuex";
+import {createStore} from "vuex";
+
 
 export default {
-  state() {
-    return {
-      selectedLocationRequest: null,
-      requestsCount: 0,
-    };
+  state(){
+    return{
+      selectedLocationRequest : null,
+      requestsCount : 0
+    }
   },
-  mutations: {
-    setSelectedRequestMutation(state, SelectedRequest) {
-      state.selectedLocationRequest = SelectedRequest;
+  mutations : {
+    setSelectedRequestMutation (state, SelectedRequest) {
+      state.selectedLocationRequest = SelectedRequest
     },
-    setRequestsCount(state, count) {
+    setRequestsCount(state, count){
       state.requestsCount = count;
-    },
+    }
   },
-  getters: {
-    RequestsCount(state) {
-      return state.requestsCount;
-    },
+  getters : {
+    RequestsCount(state){
+      return state.requestsCount
+    }
   },
-  actions: {
-    setSelectedRequest(context, SelectedRequest) {
-      if (!SelectedRequest) return;
-      context.commit("setSelectedRequestMutation", SelectedRequest);
-      context.commit("setMapCenter", SelectedRequest.position);
+  actions : {
+    setSelectedRequest (context, SelectedRequest){
+      if(!SelectedRequest)
+        return;
+      context.commit("setSelectedRequestMutation" ,SelectedRequest);
+      context.commit('setMapCenter', SelectedRequest.position)
     },
-    async getRequestsCount(context) {
-      await api.locations
-        .getRequestCount()
-        .then((res) => {
-          context.commit("setRequestsCount", res.data.count);
-        })
-        .catch((er) => {
-          console.error(er);
-        });
-    },
+    async getRequestsCount(context){
+      await api.locations.getRequestCount().then(res=>{
+        context.commit("setRequestsCount", res.data.count);
+      }).catch(er=>{
+        console.error(er);
+      })
+    }
   },
-};
+}
 
 //export const ReportLocationState = createStore(storePrototype);

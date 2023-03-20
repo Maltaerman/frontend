@@ -17,7 +17,7 @@
 
 			<ul id="options"
 				class="w-48 bg-white  absolute rounded-lg shadow-xl fixed  ] overflow-hidden cursor-pointer transition-all duration-300"
-				:class="{ 'tableView w-[278px': isTableView }"
+				:class="{ 'tableView w-[278px': isTableView }" 
 				:style="{ height: dropdownHeight }">
 				<li v-for="filter in filterList" @click="selectFilter(filter)" @click.stop="ToggleDrop(false)"
 					class="block px-4 py-2 text-gray-c-800 hover:text-blue-c-500 hover:bg-blue-c-100 hover:text-blue-c-500">
