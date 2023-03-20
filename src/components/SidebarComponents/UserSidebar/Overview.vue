@@ -6,7 +6,6 @@
       </h3>
       <!--	#region  Build status v2-->
       <div class="mobile:text-h4 text-h3">
-        <<<<<<< HEAD
         <ReportStateItem
           v-for="flag of Object.keys(reportFlags)"
           :organization-name="selectedMarker.organization_name"
@@ -15,15 +14,6 @@
           :description="selectedMarker.reports[flag].description"
           :update="selectedMarker.updated_at"
         />
-        =======
-        <ReportStateItem
-          v-for="flag of Object.keys(reportFlags)"
-          :flag="flag"
-          :flag-value="selectedMarker.reports[flag].flag"
-          :description="selectedMarker.reports[flag].description"
-          :update="selectedMarker.updated_at"
-        />
-        >>>>>>> 393fd18aa5181f79755b7bdc52ccec967efc7d03
       </div>
       <!--      #endregion-->
 
@@ -40,12 +30,12 @@
 </template>
 
 <script>
-import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
 import { mapActions, mapGetters, mapState } from 'vuex'
-import Expander from '../../Other/Expander.vue'
+import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
 import reportItemFlags from '../../mixins/reportItemFlags.js'
-import ReportStateItem from './ReportStateItem.vue'
+import Expander from '../../Other/Expander.vue'
 import Footer from './Footer.vue'
+import ReportStateItem from './ReportStateItem.vue'
 
 export default {
   name: 'Overview',
