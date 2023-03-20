@@ -15,7 +15,8 @@
       <transition name="drop">
         <ul v-if="isDropped" class="drop-container overflow-y-auto-custom z-10">
           <li
-            v-for="item in options"
+            v-for="(item, index) in options"
+            :key="index"
             class="drop-item"
             :class="SelectedItemClass(item)"
             @click="SetSelectedItem(item)"
@@ -35,6 +36,7 @@ export default {
     modelValue: Object,
     options: Array,
   },
+  emits: ['update:modelValue'],
   data() {
     return {
       isDropped: false,

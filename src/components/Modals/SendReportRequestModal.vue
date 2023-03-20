@@ -119,18 +119,16 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapMutations , mapGetters } from 'vuex'
 
 import api from '../../http_client/index.js'
-import Button2 from '../Buttons/Button_2.vue'
 import CodeInput from '../Inputs/CodeInput.vue'
-import Input1 from '../Inputs/Input-1.vue'
 import TelInput from '../Inputs/TelInput.vue'
 import ProgressBar from '../Other/ProgressBar.vue'
 import regex from '../mixins/regex.js'
 export default {
   name: 'SendReportRequestModal',
-  components: { ProgressBar, TelInput, CodeInput, Button2, Input1 },
+  components: { ProgressBar, TelInput, CodeInput },
   mixins: [regex],
   props: {
     isModalVisible: {
@@ -161,6 +159,32 @@ export default {
       intervalId: 0,
       sendingProgress: 0,
     }
+  },
+  computed: {
+    ...mapGetters({
+      notFoundedMarker: 'notFoundedMarker',
+      getRequestMarkers: 'getRequestMarkers',
+    }),
+    timer() {
+      let min = Math.trunc(this.codeExpiredIn / 60)
+      let sec = Math.round(this.codeExpiredIn % 60)
+      min = min > 9 ? min : `0${min}`
+      sec = sec > 9 ? sec : `0${sec}`
+      return `${min}:${sec}`
+    },
+    step2Tips() {
+      return this.$t('addressReqModal.step2Tips', { telNum: this.telNum })
+    },
+    isCodeValid() {
+      return (
+        this.onlyDigitsRegex.test(this.code) &&
+        this.code.length === 6 &&
+        this.codeExpiredIn > 0
+      )
+    },
+  },
+  beforeUnmount() {
+    clearInterval(this.intervalId)
   },
   methods: {
     ...mapMutations({
@@ -353,32 +377,6 @@ export default {
       //this.sendRequest();
       this.sendRequestDev()
     },
-  },
-  computed: {
-    ...mapGetters({
-      notFoundedMarker: 'notFoundedMarker',
-      getRequestMarkers: 'getRequestMarkers',
-    }),
-    timer() {
-      let min = Math.trunc(this.codeExpiredIn / 60)
-      let sec = Math.round(this.codeExpiredIn % 60)
-      min = min > 9 ? min : `0${min}`
-      sec = sec > 9 ? sec : `0${sec}`
-      return `${min}:${sec}`
-    },
-    step2Tips() {
-      return this.$t('addressReqModal.step2Tips', { telNum: this.telNum })
-    },
-    isCodeValid() {
-      return (
-        this.onlyDigitsRegex.test(this.code) &&
-        this.code.length === 6 &&
-        this.codeExpiredIn > 0
-      )
-    },
-  },
-  beforeUnmount() {
-    clearInterval(this.intervalId)
   },
 }
 </script>

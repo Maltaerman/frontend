@@ -1,6 +1,7 @@
 //TODO event system store
 class StoreEventSystemPrototype {
-  events = {
+  static events = {
+    // eslint-disable-line
     onUserOrganizationUpdate: 'onUserOrganizationUpdate',
     onUserDataUpdate: 'onUserDataUpdate',
     onUserPasswordUpdate: 'onUserPassUpdate',

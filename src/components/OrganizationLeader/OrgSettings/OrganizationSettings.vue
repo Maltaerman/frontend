@@ -60,7 +60,6 @@
 </template>
 
 <script>
-import { popScopeId } from 'vue'
 import { mapActions, mapGetters } from 'vuex'
 
 import StoreEvents from '../../../store/storeEventSystem.js'
@@ -97,6 +96,88 @@ export default {
         name: 'name',
       },
     }
+  },
+
+  watch: {
+    userOrganization(newVal) {
+      if (newVal) this.organization = { ...newVal }
+      else this.organization = {}
+    },
+  },
+  computed: {
+    ...mapGetters({
+      userOrganization: 'getUserOrganization',
+      userData: 'getUser',
+    }),
+    userSettingsButtonText() {
+      let text = 'Error'
+      switch (this.userEditUI.currentState) {
+        case this.userEditUI.name:
+          text = this.$t('userSettings.change-password')
+          break
+        case this.userEditUI.pass:
+          text = this.$t('general.back')
+          break
+        default:
+          break
+      }
+      return text
+    },
+    isUserSaveButtonAvailable() {
+      let res = false
+      switch (this.userEditUI.currentState) {
+        case this.userEditUI.name:
+          res = this.isNameMailValid
+          break
+        case this.userEditUI.pass:
+          res = this.userPassUpdate.isAllValid
+          break
+        default:
+          break
+      }
+      return res
+    },
+    isOrgSaveButtonAvailable() {
+      if (!this.userOrganization) return false
+      let isChanged = [
+        this.organization.name !== this.userOrganization.name,
+        this.organization.website !== this.userOrganization.website,
+        this.organization.description !== this.userOrganization.description,
+        this.organization.address !== this.userOrganization.address,
+        this.organization.logo !== this.userOrganization.logo,
+      ]
+      return isChanged.some((x) => x == true)
+    },
+  },
+  beforeMount() {
+    this.organization = { ...this.userOrganization }
+    this.user = { ...this.userData }
+    StoreEvents.subscribe(
+      StoreEvents.events.onUserOrganizationUpdate,
+      this.onOgrEdit,
+    )
+    StoreEvents.subscribe(
+      StoreEvents.events.onUserDataUpdate,
+      this.onUserDataUpdate,
+    )
+    StoreEvents.subscribe(
+      StoreEvents.events.onUserPasswordUpdate,
+      this.onUserPassUpdate,
+    )
+  },
+  beforeUnmount() {
+    StoreEvents.unsubscribe(
+      StoreEvents.events.onUserOrganizationUpdate,
+      this.onOgrEdit,
+    )
+    StoreEvents.unsubscribe(
+      StoreEvents.events.onUserDataUpdate,
+      this.onUserDataUpdate,
+    )
+    StoreEvents.unsubscribe(
+      StoreEvents.events.onUserPasswordUpdate,
+      this.onUserPassUpdate,
+    )
   },
   methods: {
     ...mapActions({
@@ -201,87 +282,6 @@ export default {
           break
       }
     },
-  },
-  computed: {
-    ...mapGetters({
-      userOrganization: 'getUserOrganization',
-      userData: 'getUser',
-    }),
-    userSettingsButtonText() {
-      let text = 'Error'
-      switch (this.userEditUI.currentState) {
-        case this.userEditUI.name:
-          text = this.$t('userSettings.change-password')
-          break
-        case this.userEditUI.pass:
-          text = this.$t('general.back')
-          break
-        default:
-          break
-      }
-      return text
-    },
-    isUserSaveButtonAvailable() {
-      let res = false
-      switch (this.userEditUI.currentState) {
-        case this.userEditUI.name:
-          res = this.isNameMailValid
-          break
-        case this.userEditUI.pass:
-          res = this.userPassUpdate.isAllValid
-          break
-        default:
-          break
-      }
-      return res
-    },
-    isOrgSaveButtonAvailable() {
-      if (!this.userOrganization) return false
-      let isChanged = [
-        this.organization.name !== this.userOrganization.name,
-        this.organization.website !== this.userOrganization.website,
-        this.organization.description !== this.userOrganization.description,
-        this.organization.address !== this.userOrganization.address,
-        this.organization.logo !== this.userOrganization.logo,
-      ]
-      return isChanged.some((x) => x == true)
-    },
-  },
-  watch: {
-    userOrganization(newVal) {
-      if (newVal) this.organization = { ...newVal }
-      else this.organization = {}
-    },
-  },
-  beforeMount() {
-    this.organization = { ...this.userOrganization }
-    this.user = { ...this.userData }
-    StoreEvents.subscribe(
-      StoreEvents.events.onUserOrganizationUpdate,
-      this.onOgrEdit,
-    )
-    StoreEvents.subscribe(
-      StoreEvents.events.onUserDataUpdate,
-      this.onUserDataUpdate,
-    )
-    StoreEvents.subscribe(
-      StoreEvents.events.onUserPasswordUpdate,
-      this.onUserPassUpdate,
-    )
-  },
-  beforeUnmount() {
-    StoreEvents.unsubscribe(
-      StoreEvents.events.onUserOrganizationUpdate,
-      this.onOgrEdit,
-    )
-    StoreEvents.unsubscribe(
-      StoreEvents.events.onUserDataUpdate,
-      this.onUserDataUpdate,
-    )
-    StoreEvents.unsubscribe(
-      StoreEvents.events.onUserPasswordUpdate,
-      this.onUserPassUpdate,
-    )
   },
 }
 </script>

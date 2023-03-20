@@ -25,21 +25,10 @@
 <script>
 import VueDatePicker from '@vuepic/vue-datepicker'
 
-import InputSuggest from './Inputs/suggestionInput/Input-suggestion.vue'
-import UserInviteModal from './Modals/UserInviteModal.vue'
-import OrgEditInputsGroup from './OrganizationLeader/Shared/OrgEditInputsGroup.vue'
-import ChangeMailNameInputs from './User/ChangeMailNameInputs.vue'
-import ChangePassInputs from './User/ChangePassInputs.vue'
-
 export default {
   name: 'Test',
   components: {
     VueDatePicker,
-    ChangeMailNameInputs,
-    ChangePassInputs,
-    OrgEditInputsGroup,
-    InputSuggest,
-    UserInviteModal,
   },
   data() {
     return {

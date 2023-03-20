@@ -38,7 +38,8 @@
         :style="{ height: dropdownHeight }"
       >
         <li
-          v-for="filter in filterList"
+          v-for="(filter, index) in filterList"
+          :key="index"
           class="block px-4 py-2 text-gray-c-800 hover:bg-blue-c-100 hover:text-blue-c-500 hover:text-blue-c-500"
           @click="selectFilter(filter)"
           @click.stop="ToggleDrop(false)"
@@ -75,6 +76,7 @@ export default {
       default: false,
     },
   },
+  emits: ['filterChange'],
   data() {
     return {
       isDropped: false,

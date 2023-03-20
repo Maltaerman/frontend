@@ -1,13 +1,14 @@
 <template>
   <div ref="viewport" class="p-6">
-    <ReportRequestListItem
-      v-for="item in unreviewedMarkers"
-      v-if="unreviewedMarkers.length > 0"
-      :key="`request${item.id}`"
-      itemUsageTabName="requestsList"
-      :location-request="item"
-      @add-to-my-list="OnAddToMyList"
-    />
+    <div v-if="unreviewedMarkers.length > 0">
+      <ReportRequestListItem
+        v-for="item in unreviewedMarkers"
+        :key="`request${item.id}`"
+        itemUsageTabName="requestsList"
+        :location-request="item"
+        @add-to-my-list="OnAddToMyList"
+      />
+    </div>
     <div v-else class="mt-6 text-center text-h3 text-gray-c-800">
       {{ $t('aidWorkerSideBar.allListEmpty') }}
     </div>
@@ -20,7 +21,6 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import api from '../../../http_client/index.js'
 import Loader from '../../Loader.vue'
 
 import ReportRequestListItem from './ReportRequestListItem.vue'
@@ -58,11 +58,14 @@ export default {
 			isLoaderVisible : false*/
     }
   },
+  computed: {
+    ...mapGetters(['isAuth']),
+  },
   mounted() {
     let options = {
       threshold: 0,
     }
-    let callback = (entries, observer) => {
+    let callback = (entries) => {
       if (
         entries[0].isIntersecting &&
         !this.isLoaderVisible &&
@@ -81,9 +84,6 @@ export default {
     OnAddToMyList(req) {
       this.$emit('add-to-my-list', req)
     },
-  },
-  computed: {
-    ...mapGetters(['isAuth']),
   },
 }
 </script>

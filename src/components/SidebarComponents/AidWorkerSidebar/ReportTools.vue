@@ -96,15 +96,13 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
-import ButtonTag from '../../Buttons/ButtonTag.vue'
 import Button1 from '../../Buttons/Button_1.vue'
 import Button3 from '../../Buttons/Button_3.vue'
 import ReportRadio from '../../Buttons/ReportRadio.vue'
 import Input1 from '../../Inputs/Input-1.vue'
 import ConfirmModal from '../../Modals/ConfirmModal.vue'
-import ModalTemplate from '../../Modals/ModalTemplate.vue'
 import helper from '../../mixins/helper.js'
 import reportItemFlags from '../../mixins/reportItemFlags.js'
 
@@ -114,12 +112,20 @@ export default {
     Input1,
     ReportRadio,
     ConfirmModal,
-    ModalTemplate,
-    ButtonTag,
     Button1,
     Button3,
   },
   mixins: [helper, reportItemFlags],
+  beforeRouteLeave(to, from, next) {
+    if (this.isEqual2(this.getSelectedLocationRequest, this.updatedReport))
+      next()
+    if (this.isPageLeaveConfirmed) next()
+    else {
+      this.isLeaveModalVisible = true
+      this.targetLeaveRef = to.fullPath
+      next(false)
+    }
+  },
   data() {
     return {
       updatedReport: {},
@@ -156,6 +162,29 @@ export default {
       targetLeaveRef: '',
     }
   },
+  computed: {
+    ...mapGetters(['getSelectedLocationRequest']),
+    saveButtDisabled() {
+      if (this.$route.params.previewUpdating) {
+        return false
+      } else {
+        return (
+          this.updatedReport.city?.length < 2 ||
+          this.updatedReport.address?.length < 2 ||
+          !this.updatedReport.reports ||
+          this.isEqual2(this.getSelectedLocationRequest, this.updatedReport)
+        )
+      }
+    },
+  },
+  created() {
+    if (this.getSelectedLocationRequest)
+      this.updatedReport = JSON.parse(
+        JSON.stringify(this.getSelectedLocationRequest),
+      )
+    if (!this.getSelectedLocationRequest.reports)
+      this.updatedReport.reports = { ...this.defaultReport }
+  },
   methods: {
     /*		...mapMutations(['setSelectedMarker']),*/
     ...mapActions(['setSelectedRequest']),
@@ -181,39 +210,6 @@ export default {
     AddressValidation(value) {
       return value.length >= 2
     },
-  },
-  computed: {
-    ...mapGetters(['getSelectedLocationRequest']),
-    saveButtDisabled() {
-      if (this.$route.params.previewUpdating) {
-        return false
-      } else {
-        return (
-          this.updatedReport.city?.length < 2 ||
-          this.updatedReport.address?.length < 2 ||
-          !this.updatedReport.reports ||
-          this.isEqual2(this.getSelectedLocationRequest, this.updatedReport)
-        )
-      }
-    },
-  },
-  beforeRouteLeave(to, from, next) {
-    if (this.isEqual2(this.getSelectedLocationRequest, this.updatedReport))
-      next()
-    if (this.isPageLeaveConfirmed) next()
-    else {
-      this.isLeaveModalVisible = true
-      this.targetLeaveRef = to.fullPath
-      next(false)
-    }
-  },
-  created() {
-    if (this.getSelectedLocationRequest)
-      this.updatedReport = JSON.parse(
-        JSON.stringify(this.getSelectedLocationRequest),
-      )
-    if (!this.getSelectedLocationRequest.reports)
-      this.updatedReport.reports = { ...this.defaultReport }
   },
 }
 </script>

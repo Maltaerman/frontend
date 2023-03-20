@@ -3,14 +3,16 @@
     <div class="mb-4 text-h4 text-gray-c-600">
       {{ $t('aidWorkerSideBar.expireMessage') }}
     </div>
-    <ReportRequestListItem
-      v-for="item in myUnreviewedMarkers"
-      v-if="myUnreviewedMarkers.length > 0"
-      :key="`request${item.id}`"
-      itemUsageTabName="myRequestsList"
-      :location-request="item"
-      @remove-from-my-list="OnRemoveFromMyList"
-    />
+    <div v-if="myUnreviewedMarkers.length > 0">
+      <ReportRequestListItem
+        v-for="item in myUnreviewedMarkers"
+        :key="`request${item.id}`"
+        itemUsageTabName="myRequestsList"
+        :location-request="item"
+        @remove-from-my-list="OnRemoveFromMyList"
+      />
+    </div>
+
     <div v-else class="mt-6 text-center text-h3 text-gray-c-800">
       {{ $t('aidWorkerSideBar.myListEmpty') }}
     </div>
@@ -19,9 +21,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
-import api from '../../../http_client/index.js'
 import Loader from '../../Loader.vue'
 
 import ReportRequestListItem from './ReportRequestListItem.vue'

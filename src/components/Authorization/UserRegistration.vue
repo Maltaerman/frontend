@@ -145,6 +145,21 @@ export default {
       access_token: undefined,
     }
   },
+  computed: {
+    isRegEnabled() {
+      return (
+        this.isMailValid &&
+        this.isNameValid &&
+        this.isPassValid &&
+        this.isPassEquals() &&
+        this.isTermsAccept
+      )
+    },
+  },
+  mounted() {
+    this.GetUserRegInfo()
+    this.logOut()
+  },
   methods: {
     ...mapActions({
       logOut: 'logOut',
@@ -230,21 +245,6 @@ export default {
           )
         })
     },
-  },
-  computed: {
-    isRegEnabled() {
-      return (
-        this.isMailValid &&
-        this.isNameValid &&
-        this.isPassValid &&
-        this.isPassEquals() &&
-        this.isTermsAccept
-      )
-    },
-  },
-  mounted() {
-    this.GetUserRegInfo()
-    this.logOut()
   },
 }
 </script>

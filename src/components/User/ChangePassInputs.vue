@@ -27,6 +27,7 @@ export default {
   props: {
     modelValue: Object,
   },
+  emits: ['validation'],
   data() {
     return {
       isDataValid: false,

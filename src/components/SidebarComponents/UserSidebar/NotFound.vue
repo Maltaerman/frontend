@@ -76,7 +76,6 @@ import WelcomeScreenReportList from '../../WelcomeScreen/WelcomeScreenReportList
 import dynamicContent from '../../mixins/dynamicContent.js'
 import userRoles from '../../mixins/userRoles.js'
 
-import FeedBackForm from './FeedBackForm.vue'
 import Footer from './Footer.vue'
 
 export default {
@@ -85,7 +84,6 @@ export default {
     WelcomeScreenReportList,
     Footer,
     SendReportRequestModal,
-    FeedBackForm,
     Loader,
   },
   mixins: [userRoles, dynamicContent],
@@ -119,11 +117,14 @@ export default {
       return localizeStr
     },
     Address() {
-      if (this.notFoundedMarkerData)
-        return this.notFoundedMarkerData.id
-          ? this.ReportAddressFull(this.notFoundedMarkerData)
-          : this.notFoundedMarkerData.address
+      if (!this.notFoundedMarkerData) return
+      return this.notFoundedMarkerData.id
+        ? this.ReportAddressFull(this.notFoundedMarkerData)
+        : this.notFoundedMarkerData.address
     },
+  },
+  created() {
+    this.GetRecentReports()
   },
   methods: {
     ...mapActions({
@@ -143,7 +144,7 @@ export default {
         .then((res) => {
           this.GetExistedRequestInWork(res.data)
         })
-        .catch((err) => {
+        .catch(() => {
           this.isLoader = false
           this.$toast.error(this.$t('general.errorMessage'))
         })
@@ -192,7 +193,7 @@ export default {
             this.createNotRequestedReport({ ...position, ...res.data })
           } else throw new Error()
         })
-        .catch((err) => {
+        .catch(() => {
           this.$toast.error(this.$t('general.errorMessage'))
         })
         .finally(() => {
@@ -221,9 +222,6 @@ export default {
     closeReqModal() {
       this.isRequestModalView = false
     },
-  },
-  created() {
-    this.GetRecentReports()
   },
 }
 </script>

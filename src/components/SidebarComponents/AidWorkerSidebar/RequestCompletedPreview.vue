@@ -73,9 +73,6 @@ import { mapGetters, mapMutations, mapState } from 'vuex'
 
 import api from '../../../http_client/index.js'
 import Button2 from '../../Buttons/Button_2.vue'
-import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
-import AwaitModal from '../../Modals/AwaitModal.vue'
-import ModalTemplate from '../../Modals/ModalTemplate.vue'
 import reportItemFlags from '../../mixins/reportItemFlags.js'
 import Footer from '../UserSidebar/Footer.vue'
 import ReportStateItem from '../UserSidebar/ReportStateItem.vue'
@@ -83,14 +80,22 @@ import ReportStateItem from '../UserSidebar/ReportStateItem.vue'
 export default {
   name: 'RequestCompletedPreview',
   components: {
-    Footer,
     ReportStateItem,
-    AwaitModal,
-    ModalTemplate,
+    Footer,
     Button2,
-    SVG_status_list,
   },
   mixins: [reportItemFlags],
+  beforeRouteLeave(to, from, next) {
+    if (to.fullPath == '/main/submit-report') {
+      to.params = { previewUpdating: true }
+      next()
+    } else if (this.isPageLeaveConfirmed) next()
+    else {
+      this.isLeaveModalVisible = true
+      this.targetLeaveRef = to.fullPath
+      next(false)
+    }
+  },
   data: function () {
     return {
       issueMessage: '',
@@ -187,17 +192,6 @@ export default {
       this.isPageLeaveConfirmed = false
       this.targetLeaveRef = ''
     },
-  },
-  beforeRouteLeave(to, from, next) {
-    if (to.fullPath == '/main/submit-report') {
-      to.params = { previewUpdating: true }
-      next()
-    } else if (this.isPageLeaveConfirmed) next()
-    else {
-      this.isLeaveModalVisible = true
-      this.targetLeaveRef = to.fullPath
-      next(false)
-    }
   },
 }
 </script>

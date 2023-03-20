@@ -159,6 +159,41 @@ export default {
       email: '',
     }
   },
+  computed: {
+    ...mapGetters(['getUser']),
+    saveButDisable() {
+      return (
+        this.username === this.getUser.username &&
+        this.email === this.getUser.email
+      )
+    },
+  },
+  watch: {
+    getUser() {
+      if (this.getUser) {
+        this.username = this.getUser.username
+        this.email = this.getUser.email
+      }
+    },
+    username() {
+      this.updateSaveButDisable()
+    },
+    email() {
+      this.updateSaveButDisable()
+    },
+    newPass() {
+      this.updateSavePassDisable()
+    },
+    oldPass() {
+      this.updateSavePassDisable()
+    },
+  },
+  mounted() {
+    if (this.getUser) {
+      this.username = this.getUser.username
+      this.email = this.getUser.email
+    }
+  },
   methods: {
     ...mapMutations(['setLoggedUserInfo']),
     closeModal() {
@@ -196,7 +231,7 @@ export default {
             this.$t('userSettings.userDataUpdatedSuccessMess'),
           )
         })
-        .catch((err) => {
+        .catch(() => {
           this.$toast.error(this.$t('userSettings.userDataUpdatedErrorMess'))
         })
         .finally(() => {
@@ -212,12 +247,12 @@ export default {
       this.isShowLoader = true
       await api.user
         .UpdateUserPass(updatedPass)
-        .then((res) => {
+        .then(() => {
           this.$toast.success(
             this.$t('userSettings.userDataUpdatedSuccessMess'),
           )
         })
-        .catch((err) => {
+        .catch(() => {
           this.$toast.error(this.$t('userSettings.userDataUpdatedErrorMess'))
         })
         .finally(() => {
@@ -226,41 +261,6 @@ export default {
           this.isShowLoader = false
         })
     },
-  },
-  computed: {
-    ...mapGetters(['getUser']),
-    saveButDisable() {
-      return (
-        this.username === this.getUser.username &&
-        this.email === this.getUser.email
-      )
-    },
-  },
-  watch: {
-    getUser(newValue) {
-      if (this.getUser) {
-        this.username = this.getUser.username
-        this.email = this.getUser.email
-      }
-    },
-    username(newVal) {
-      this.updateSaveButDisable()
-    },
-    email(newVal) {
-      this.updateSaveButDisable()
-    },
-    newPass(newVal) {
-      this.updateSavePassDisable()
-    },
-    oldPass(newVal) {
-      this.updateSavePassDisable()
-    },
-  },
-  mounted() {
-    if (this.getUser) {
-      this.username = this.getUser.username
-      this.email = this.getUser.email
-    }
   },
 }
 </script>

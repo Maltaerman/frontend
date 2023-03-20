@@ -35,6 +35,7 @@ export default {
     modelValue: String,
     placeholder: String,
   },
+  emits: ['update:modelValue'],
   data() {
     return {
       isFocused: false,

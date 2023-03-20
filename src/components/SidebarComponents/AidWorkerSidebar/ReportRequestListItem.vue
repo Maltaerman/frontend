@@ -98,41 +98,6 @@ export default {
       expireInHours: 2,
     }
   },
-  methods: {
-    ...mapActions(['setSelectedRequest']),
-    Reporting() {
-      this.setSelectedRequest(this.locationRequest)
-      this.$router.push('/main/submit-report')
-    },
-    async AddToMyRequests() {
-      this.isLoaderVisible = true
-      await api.locations
-        .assignRequest(this.locationRequest.id)
-        .then((res) => {
-          this.$emit('add-to-my-list', res.data)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-        .finally(() => {
-          this.isLoaderVisible = false
-        })
-    },
-    async RemoveFromMyRequests() {
-      this.isLoaderVisible = true
-      await api.locations
-        .removeAssignRequest(this.locationRequest.id)
-        .then((res) => {
-          this.$emit('remove-from-my-list', res.data)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-        .finally(() => {
-          this.isLoaderVisible = false
-        })
-    },
-  },
   computed: {
     ...mapState({
       selectedLocationRequest: (state) => state.reports.selectedLocationRequest,
@@ -178,8 +143,40 @@ export default {
       return result
     },
   },
-  mounted() {
-    //console.log(this.locationRequest)
+  methods: {
+    ...mapActions(['setSelectedRequest']),
+    Reporting() {
+      this.setSelectedRequest(this.locationRequest)
+      this.$router.push('/main/submit-report')
+    },
+    async AddToMyRequests() {
+      this.isLoaderVisible = true
+      await api.locations
+        .assignRequest(this.locationRequest.id)
+        .then((res) => {
+          this.$emit('add-to-my-list', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        .finally(() => {
+          this.isLoaderVisible = false
+        })
+    },
+    async RemoveFromMyRequests() {
+      this.isLoaderVisible = true
+      await api.locations
+        .removeAssignRequest(this.locationRequest.id)
+        .then((res) => {
+          this.$emit('remove-from-my-list', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        .finally(() => {
+          this.isLoaderVisible = false
+        })
+    },
   },
 }
 </script>

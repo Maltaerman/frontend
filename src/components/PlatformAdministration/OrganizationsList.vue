@@ -137,16 +137,12 @@ import axios from 'axios'
 
 import api from '../../http_client/index.js'
 import Button1 from '../Buttons/Button_1.vue'
-import Input1 from '../Inputs/Input-1.vue'
 import Loader from '../Loader.vue'
-import ModalTemplate from '../Modals/ModalTemplate.vue'
 import UserInviteModal from '../Modals/UserInviteModal.vue'
 import StringFormatter from '../mixins/StringFormatter.js'
 
 import OrgInviteModal from './OrgInviteModal.vue'
-import OrganizationListItem from './OrganizationListItem.vue'
 import OrganizationListTable from './OrganizationListTable/OrganizationListTable.vue'
-import OrganizationModal from './OrganizationModal.vue'
 import RemoveOrgModal from './RemoveOrgModal.vue'
 
 export default {
@@ -157,11 +153,7 @@ export default {
     RemoveOrgModal,
     Button1,
     Loader,
-    Input1,
-    ModalTemplate,
-    OrganizationListItem,
     OrganizationListTable,
-    OrganizationModal,
   },
   mixins: [StringFormatter],
   data() {
@@ -215,7 +207,7 @@ export default {
     let options = {
       threshold: 0,
     }
-    let callback = (entries, observer) => {
+    let callback = (entries) => {
       if (
         entries[0].isIntersecting &&
         !this.isLoaderVisible &&

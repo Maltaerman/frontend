@@ -59,7 +59,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="worker in visibleParitcipantsList" class="shadow-cs2">
+          <tr
+            v-for="(worker, index) in visibleParitcipantsList"
+            :key="index"
+            class="shadow-cs2"
+          >
             <td class="table-col-row-item">
               <span v-if="worker.username">{{ worker.username ?? '-' }}</span>
             </td>
@@ -140,6 +144,7 @@
         />
         <input1
           v-for="(item, index) in invitedUsersList"
+          :key="index"
           v-model="invitedUsersList[index]"
           class="outline-none"
           placeholder="Email"
@@ -193,25 +198,17 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
 import api from '../../../http_client/index.js'
 import ButtonTag from '../../Buttons/ButtonTag.vue'
-import Button2 from '../../Buttons/Button_2.vue'
 import ButtonText1 from '../../Buttons/Button_text_1.vue'
-import CodeInput from '../../Inputs/CodeInput.vue'
 import DropDownSelect from '../../Inputs/DropDownSelect.vue'
-import input1 from '../../Inputs/Input-1.vue'
-import Input1 from '../../Inputs/Input-1.vue'
-import InputPass from '../../Inputs/Input-pass.vue'
+import { default as input1, default as Input1 } from '../../Inputs/Input-1.vue'
 import InputSearch from '../../Inputs/InputSearch.vue'
-import TelInput from '../../Inputs/TelInput.vue'
-import InputSuggestion from '../../Inputs/suggestionInput/Input-suggestion.vue'
 import Loader from '../../Loader.vue'
 import ConfirmModal from '../../Modals/ConfirmModal.vue'
 import ModalTemplate from '../../Modals/ModalTemplate.vue'
-import { ORGANIZATION_STATUSES } from '../../PlatformAdministration/constants.js'
-import OrganizationDropdown from '../../PlatformAdministration/shared/OrganizationDropdown.vue'
 import dateFormatter from '../../mixins/dateFormatter.js'
 import regex from '../../mixins/regex.js'
 
@@ -221,18 +218,12 @@ export default {
     DropDownSelect,
     InputSearch,
     ConfirmModal,
-    Button2,
     ModalTemplate,
     ButtonTag,
     ButtonText1,
     input1,
     Loader,
-    CodeInput,
     Input1,
-    InputPass,
-    TelInput,
-    InputSuggestion,
-    OrganizationDropdown,
   },
   mixins: [dateFormatter, regex],
   data() {
@@ -258,88 +249,7 @@ export default {
       selectedDropOption: null,
     }
   },
-  methods: {
-    GetCurrentUserStatusStyle(mailConf, isActive) {
-      if (mailConf && isActive) return 'positive'
-      else if (mailConf && !isActive) return 'negative'
-      else if (!mailConf && !isActive) return 'inactive'
-      else return 'negative'
-    },
-    GetCurrentUserStatusText(mailConf, isActive) {
-      if (mailConf && isActive) return this.$t('general.active')
-      else if (mailConf && !isActive) return this.$t('general.banned')
-      else if (!mailConf && !isActive) return this.$t('general.pending')
-      else return this.$t('general.error')
-    },
-    AddUserInvite() {
-      if (this.invitedUsersList.length < 5) this.invitedUsersList.push('')
-      else this.$toast.info(this.$t('organizationProfile.maxInviteMess'))
-    },
-    ShowUserInviteModal() {
-      if (!this.invitedUsersList || this.invitedUsersList.length <= 0)
-        this.invitedUsersList = ['']
-      this.isUserInviteModalVisible = true
-    },
-    CloseUserInviteModal() {
-      this.isUserInviteModalVisible = false
-      this.isUserInviteModalLoaderVisible = false
-    },
 
-    showRemoveUserConfirm(worker) {
-      this.ConfirmModal.question = this.$t(
-        'organizationProfile.deleteUserQuestion',
-        { userName: worker.username },
-      )
-      this.ConfirmModal.title = this.$t('organizationProfile.deleteUserTitle')
-      this.ConfirmModal.accept = () => this.removeWorker(worker)
-      this.ConfirmModal.decline = () => (this.ConfirmModal.visible = false)
-      this.ConfirmModal.visible = true
-    },
-    onStatusFilterChange({ selectedStatus }) {
-      this.activeStatusFilterValue = selectedStatus
-    },
-
-    async SendUserInvites() {
-      this.isUserInviteModalLoaderVisible = true
-      await api.organizations
-        .sendUserInvite(this.organization.id, this.invitedUsersList)
-        .then((res) => {
-          console.log(res)
-          this.organization = res.data
-          this.CloseUserInviteModal()
-          this.invitedUsersList = ['']
-          this.$toast.success(this.$t('organizationProfile.successInvite'))
-        })
-        .catch((err) => {
-          this.CloseUserInviteModal()
-          this.$toast.error(this.$t('general.errorMessage'))
-          //throw err
-        })
-    },
-    async removeWorker(worker) {
-      this.ConfirmModal.visible = false
-      this.isLoaderVisible = true
-      await api.organizations
-        .removeOrganizationMember(this.organization.id, worker.id)
-        .then((res) => {
-          this.organization.participants = res.data.participants
-          this.isLoaderVisible = false
-          this.$toast.success(
-            this.$t('organizationProfile.userRemovedSuccess', {
-              userName: worker.username,
-            }),
-          )
-        })
-        .catch((err) => {
-          this.isLoaderVisible = false
-          this.$toast.error(
-            this.$t('organizationProfile.userRemovedError', {
-              userName: worker.username,
-            }),
-          )
-        })
-    },
-  },
   computed: {
     ...mapGetters({
       userOrganization: 'getUserOrganization',
@@ -401,6 +311,88 @@ export default {
   created() {
     this.selectedDropOption = this.dropdownDefault
     if (this.userOrganization) this.organization = this.userOrganization
+  },
+  methods: {
+    GetCurrentUserStatusStyle(mailConf, isActive) {
+      if (mailConf && isActive) return 'positive'
+      else if (mailConf && !isActive) return 'negative'
+      else if (!mailConf && !isActive) return 'inactive'
+      else return 'negative'
+    },
+    GetCurrentUserStatusText(mailConf, isActive) {
+      if (mailConf && isActive) return this.$t('general.active')
+      else if (mailConf && !isActive) return this.$t('general.banned')
+      else if (!mailConf && !isActive) return this.$t('general.pending')
+      else return this.$t('general.error')
+    },
+    AddUserInvite() {
+      if (this.invitedUsersList.length < 5) this.invitedUsersList.push('')
+      else this.$toast.info(this.$t('organizationProfile.maxInviteMess'))
+    },
+    ShowUserInviteModal() {
+      if (!this.invitedUsersList || this.invitedUsersList.length <= 0)
+        this.invitedUsersList = ['']
+      this.isUserInviteModalVisible = true
+    },
+    CloseUserInviteModal() {
+      this.isUserInviteModalVisible = false
+      this.isUserInviteModalLoaderVisible = false
+    },
+
+    showRemoveUserConfirm(worker) {
+      this.ConfirmModal.question = this.$t(
+        'organizationProfile.deleteUserQuestion',
+        { userName: worker.username },
+      )
+      this.ConfirmModal.title = this.$t('organizationProfile.deleteUserTitle')
+      this.ConfirmModal.accept = () => this.removeWorker(worker)
+      this.ConfirmModal.decline = () => (this.ConfirmModal.visible = false)
+      this.ConfirmModal.visible = true
+    },
+    onStatusFilterChange({ selectedStatus }) {
+      this.activeStatusFilterValue = selectedStatus
+    },
+
+    async SendUserInvites() {
+      this.isUserInviteModalLoaderVisible = true
+      await api.organizations
+        .sendUserInvite(this.organization.id, this.invitedUsersList)
+        .then((res) => {
+          console.log(res)
+          this.organization = res.data
+          this.CloseUserInviteModal()
+          this.invitedUsersList = ['']
+          this.$toast.success(this.$t('organizationProfile.successInvite'))
+        })
+        .catch(() => {
+          this.CloseUserInviteModal()
+          this.$toast.error(this.$t('general.errorMessage'))
+          //throw err
+        })
+    },
+    async removeWorker(worker) {
+      this.ConfirmModal.visible = false
+      this.isLoaderVisible = true
+      await api.organizations
+        .removeOrganizationMember(this.organization.id, worker.id)
+        .then((res) => {
+          this.organization.participants = res.data.participants
+          this.isLoaderVisible = false
+          this.$toast.success(
+            this.$t('organizationProfile.userRemovedSuccess', {
+              userName: worker.username,
+            }),
+          )
+        })
+        .catch(() => {
+          this.isLoaderVisible = false
+          this.$toast.error(
+            this.$t('organizationProfile.userRemovedError', {
+              userName: worker.username,
+            }),
+          )
+        })
+    },
   },
 }
 </script>

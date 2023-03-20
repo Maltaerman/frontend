@@ -341,7 +341,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import ButtonText1 from './Buttons/Button_text_1.vue'
 import SVG_Org_List from './ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue'
@@ -381,6 +381,75 @@ export default {
       isMenuVisibleOnMobile: false,
     }
   },
+  computed: {
+    ...mapGetters([
+      'getUser',
+      'isAuth',
+      'getRole',
+      'getUserOrganization',
+      'RequestsCount',
+    ]),
+    userName() {
+      return this.getUser.username
+    },
+    userOrganization() {
+      return this.getUser.organization_model?.name
+    },
+    isDashboardPage() {
+      let res = false
+      switch (this.getRole) {
+        case this.userRoles.organizationAdmin:
+          res = this.isPathMatched('/organization')
+          break
+        case this.userRoles.platformAdmin:
+          res = this.isPathMatched('/admin')
+          break
+        default:
+          res = false
+      }
+      return res
+    },
+    currentUserIconLink() {
+      switch (this.getRole) {
+        case this.userRoles.aidWorker:
+          return '/userIcons/User.svg'
+        case this.userRoles.platformAdmin:
+          return '/userIcons/platform-adm.svg'
+        default:
+          return '/userIcons/User.svg'
+      }
+    },
+    isPlatformAdmin() {
+      return this.isAuth && this.getRole === this.userRoles.platformAdmin
+    },
+    isAdminButtonsVisible() {
+      return this.isRoleHaveAccess(
+        this.getRole,
+        this.userRoles.organizationAdmin,
+      )
+    },
+    dashboardPath() {
+      let path = '/'
+      switch (this.getRole) {
+        case this.userRoles.organizationAdmin:
+          path = '/organization'
+          break
+        case this.userRoles.platformAdmin:
+          path = '/admin'
+          break
+        default:
+          path = '/'
+          break
+      }
+      return path
+    },
+  },
+  watch: {
+    isShowSetting: function (newValue) {
+      if (newValue === true) this.showSettingModal()
+    },
+  },
+
   methods: {
     ...mapActions(['getRequestsCount', 'logOut']),
 
@@ -418,75 +487,6 @@ export default {
     toggleMenu() {
       this.closeModal()
       this.isMenuVisibleOnMobile = !this.isMenuVisibleOnMobile
-    },
-  },
-  computed: {
-    ...mapGetters([
-      'getUser',
-      'isAuth',
-      'getRole',
-      'getUserOrganization',
-      'RequestsCount',
-    ]),
-    userName() {
-      return this.getUser.username
-    },
-    userOrganization() {
-      return this.getUser.organization_model?.name
-    },
-    isDashboardPage() {
-      let res = false
-      switch (this.getRole) {
-        case this.userRoles.organizationAdmin:
-          res = this.isPathMatched('/organization')
-          break
-        case this.userRoles.platformAdmin:
-          res = this.isPathMatched('/admin')
-          break
-        default:
-          res = false
-      }
-      return res
-    },
-    currentUserIconLink() {
-      switch (this.getRole) {
-        case this.userRoles.aidWorker:
-          return '/userIcons/User.svg'
-        case this.userRoles.platformAdmin:
-          return '/userIcons/platform-adm.svg'
-          break
-        default:
-          return '/userIcons/User.svg'
-      }
-    },
-    isPlatformAdmin() {
-      return this.isAuth && this.getRole === this.userRoles.platformAdmin
-    },
-    isAdminButtonsVisible() {
-      return this.isRoleHaveAccess(
-        this.getRole,
-        this.userRoles.organizationAdmin,
-      )
-    },
-    dashboardPath() {
-      let path = '/'
-      switch (this.getRole) {
-        case this.userRoles.organizationAdmin:
-          path = '/organization'
-          break
-        case this.userRoles.platformAdmin:
-          path = '/admin'
-          break
-        default:
-          path = '/'
-          break
-      }
-      return path
-    },
-  },
-  watch: {
-    isShowSetting: function (newValue) {
-      if (newValue === true) this.showSettingModal()
     },
   },
 }

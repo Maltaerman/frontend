@@ -50,7 +50,7 @@ export default {
     },
     validationFunc: {
       type: Function,
-      default: (val) => true,
+      default: () => true,
     },
     placeholder: String,
     disabled: Boolean,

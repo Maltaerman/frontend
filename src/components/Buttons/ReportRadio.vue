@@ -1,5 +1,9 @@
 <template>
-  <label v-for="option in label.options" class="cursor-pointer">
+  <label
+    v-for="(option, index) in label.options"
+    :key="index"
+    class="cursor-pointer"
+  >
     <input
       :checked="checkedOp === option.value"
       class="peer sr-only"
@@ -23,6 +27,7 @@ export default {
     label: Object,
     checkedOp: String,
   },
+  emits: ['update:modelValue'],
   methods: {
     updateModel(option) {
       this.$emit('update:modelValue', option)

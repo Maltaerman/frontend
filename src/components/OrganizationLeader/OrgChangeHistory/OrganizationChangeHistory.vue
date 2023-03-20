@@ -75,6 +75,32 @@ export default {
       query: '',
     }
   },
+
+  computed: {
+    ...mapGetters({
+      userOrg: 'getUserOrganization',
+      getUser: 'getUser',
+    }),
+  },
+  watch: {
+    userOrg() {
+      this.updateWorkerSuggestion()
+    },
+  },
+  beforeMount() {
+    StoreEvents.subscribe(
+      StoreEvents.events.onOrganizationChangeLogUpdate,
+      this.onChangeLogsUpdate,
+    )
+    this.updateWorkerSuggestion()
+    this.getOrganizationChangeLog()
+  },
+  beforeUnmount() {
+    StoreEvents.unsubscribe(
+      StoreEvents.events.onOrganizationChangeLogUpdate,
+      this.onChangeLogsUpdate,
+    )
+  },
   methods: {
     ...mapActions({
       //dates in seconds
@@ -144,35 +170,10 @@ export default {
           let log = this.logs.find((x) => x.id === res.data.id)
           if (log) log.hidden = res.data.hidden
         })
-        .catch((err) => {
+        .catch(() => {
           this.$toast.error(this.$t('general.errorMessage'))
         })
     },
-  },
-  computed: {
-    ...mapGetters({
-      userOrg: 'getUserOrganization',
-      getUser: 'getUser',
-    }),
-  },
-  watch: {
-    userOrg(newVal) {
-      this.updateWorkerSuggestion()
-    },
-  },
-  beforeMount() {
-    StoreEvents.subscribe(
-      StoreEvents.events.onOrganizationChangeLogUpdate,
-      this.onChangeLogsUpdate,
-    )
-    this.updateWorkerSuggestion()
-    this.getOrganizationChangeLog()
-  },
-  beforeUnmount() {
-    StoreEvents.unsubscribe(
-      StoreEvents.events.onOrganizationChangeLogUpdate,
-      this.onChangeLogsUpdate,
-    )
   },
 }
 </script>

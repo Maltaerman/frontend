@@ -19,12 +19,13 @@ module.exports = {
     'vue/require-valid-default-prop': ['off'],
     'import/core-modules': 0,
     'vue/v-on-event-hyphenation': ['off'],
-    'vue/multi-word-component-names': ['off'],
+    'vue/multi-word-component-names': ['off'], // to get rid of in future
     // 'vue/no-use-v-if-with-v-for': 'off',
     'vue/attributes-order': ['error', { alphabetical: true }],
     'for-direction': 'off',
     'no-useless-escape': 'off',
-    indent: ['error', 2, { flatTernaryExpressions: true }],
+    'vue/no-reserved-component-names': 'off', // to get rid of in future
+    // indent: ['error', 2, { flatTernaryExpressions: true }],
     quotes: ['error', 'single', { allowTemplateLiterals: true }],
     'space-before-function-paren': [
       'error',
@@ -44,20 +45,6 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
-    // 'vue/max-attributes-per-line': [
-    //   'error',
-    //   {
-    //     singleline: 1,
-    //     multiline: 1,
-    //   },
-    // ],
-    // 'vue/max-attributes-per-line': [2, {
-    //   'singleline': 20,
-    //   'multiline': {
-    //      'max': 1,
-    //      'allowFirstLine': false
-    //    }
-    // }]
     // 'vue/prop-name-casing': ['off'],
     // 'vue/valid-v-slot': ['off'],
   },

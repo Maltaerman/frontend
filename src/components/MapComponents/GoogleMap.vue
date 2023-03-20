@@ -171,6 +171,61 @@ export default {
       notFoundMarker: 'notFoundedMarker',
     }),
   },
+  watch: {
+    getMapCenter: function (newValue) {
+      //FIXME костилі для того, щоб центр мапи змінювався
+      // при повторному присвоєнні ідентичного значення
+      if (newValue && newValue.lng && newValue.lat) {
+        this.currentMapCenter = {
+          lat: newValue.lat + 0.000005,
+          lng: newValue.lng + 0.000005,
+        }
+        setTimeout(() => {
+          this.currentMapCenter = this.coordsFormatter(newValue)
+          this.currentMapZoom =
+            this.currentMapZoom >= 17 ? this.currentMapZoom : 17
+          if (
+            this.requestedMarkers.length <= 0 ||
+            this.reviewedMarkers.length <= 0
+          ) {
+            this.getMarkersByMapCenter(this.currentMapCenter)
+          }
+        }, 500)
+      }
+    },
+  },
+  created() {
+    let center = this.coordsFormatter({
+      lng: this.$route.query.lng,
+      lat: this.$route.query.lat,
+    })
+    if (center.lat && center.lng) this.currentMapCenter = center
+    else this.currentMapCenter = this.getMapCenter
+    this.OnMapCenterChanged(this.currentMapCenter)
+
+    //region Check if we have selected marker in store
+    let isId = this.$route.query.id && Number(this.$route.query.id)
+    let isSelectedMarkerId =
+      this.selectedMarker &&
+      isId &&
+      this.selectedMarker.id == this.$route.query.id
+    let isNotFoundMarkerId =
+      this.notFoundMarker &&
+      isId &&
+      this.notFoundMarker.id == this.$route.query.id
+    //endregion
+
+    if (!isNotFoundMarkerId && !isSelectedMarkerId && isId) {
+      this.getMarkerById({
+        locationId: Number(this.$route.query.id),
+        callbackFailed: () =>
+          this.$toast.error(this.$t('general.errorMessage')),
+      })
+    }
+    setTimeout(() => {
+      this.currentMapZoom = 18
+    }, 1000)
+  },
   methods: {
     ...mapMutations(['setNoDataMarker', 'setSelectedMarker', 'setMapCenter']),
     ...mapActions([
@@ -322,61 +377,6 @@ export default {
       /*console.log(`isLatInRange = ${isLatInRange}; isLngInRange = ${isLngInRange}`)*/
       return isLatInRange && isLngInRange
     },
-  },
-  watch: {
-    getMapCenter: function (newValue) {
-      //FIXME костилі для того, щоб центр мапи змінювався
-      // при повторному присвоєнні ідентичного значення
-      if (newValue && newValue.lng && newValue.lat) {
-        this.currentMapCenter = {
-          lat: newValue.lat + 0.000005,
-          lng: newValue.lng + 0.000005,
-        }
-        setTimeout(() => {
-          this.currentMapCenter = this.coordsFormatter(newValue)
-          this.currentMapZoom =
-            this.currentMapZoom >= 17 ? this.currentMapZoom : 17
-          if (
-            this.requestedMarkers.length <= 0 ||
-            this.reviewedMarkers.length <= 0
-          ) {
-            this.getMarkersByMapCenter(this.currentMapCenter)
-          }
-        }, 500)
-      }
-    },
-  },
-  created() {
-    let center = this.coordsFormatter({
-      lng: this.$route.query.lng,
-      lat: this.$route.query.lat,
-    })
-    if (center.lat && center.lng) this.currentMapCenter = center
-    else this.currentMapCenter = this.getMapCenter
-    this.OnMapCenterChanged(this.currentMapCenter)
-
-    //region Check if we have selected marker in store
-    let isId = this.$route.query.id && Number(this.$route.query.id)
-    let isSelectedMarkerId =
-      this.selectedMarker &&
-      isId &&
-      this.selectedMarker.id == this.$route.query.id
-    let isNotFoundMarkerId =
-      this.notFoundMarker &&
-      isId &&
-      this.notFoundMarker.id == this.$route.query.id
-    //endregion
-
-    if (!isNotFoundMarkerId && !isSelectedMarkerId && isId) {
-      this.getMarkerById({
-        locationId: Number(this.$route.query.id),
-        callbackFailed: () =>
-          this.$toast.error(this.$t('general.errorMessage')),
-      })
-    }
-    setTimeout(() => {
-      this.currentMapZoom = 18
-    }, 1000)
   },
 }
 </script>

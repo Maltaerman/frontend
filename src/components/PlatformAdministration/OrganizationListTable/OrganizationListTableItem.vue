@@ -85,6 +85,7 @@ export default {
       default: {},
     },
   },
+  emits: ['remove'],
   data() {
     return {
       isMenuVisible: false,

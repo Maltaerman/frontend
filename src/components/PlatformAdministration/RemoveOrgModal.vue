@@ -58,7 +58,7 @@ export default {
   },
   props: {
     organization: Object,
-    isVisible: false,
+    isVisible: Boolean,
     onRemoveSuccess: Function,
     onRemoveFailed: Function,
     closeFunc: Function,
@@ -94,7 +94,7 @@ export default {
       this.isLoaderVisible = true
       await api.organizations
         .removeOrganization(this.organization.id)
-        .then((res) => {
+        .then(() => {
           this.isModalVisible = false
           this.isLoaderVisible = false
           this.$toast.success(
@@ -107,7 +107,7 @@ export default {
             },
           )
         })
-        .catch((err) => {
+        .catch(() => {
           this.isModalVisible = false
           this.isLoaderVisible = false
           this.$toast.error(

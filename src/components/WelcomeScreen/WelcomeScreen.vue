@@ -97,7 +97,6 @@ import { mapActions, mapMutations, mapState } from 'vuex'
 import api from '../../http_client/index.js'
 import Header from '../Header.vue'
 import coordsHelper from '../mixins/coordsHelper.js'
-import Test from '../Test.vue'
 
 import WelcomeScreenReportList from './WelcomeScreenReportList.vue'
 
@@ -106,7 +105,6 @@ export default {
   components: {
     WelcomeScreenReportList,
     Header,
-    Test,
   },
   mixins: [coordsHelper],
   data: function () {
@@ -115,6 +113,45 @@ export default {
       isInputFocused: false,
       recentReports: [],
     }
+  },
+  computed: {
+    ...mapState(['selectedMarkerData', 'notFoundedMarkerData']),
+    AboutUrl() {
+      let url
+      switch (this.$i18n.locale) {
+        case 'ua':
+          url = 'https://about.projectdim.org/main.html'
+          break
+        case 'en':
+          url = 'https://about.projectdim.org/main-en.html'
+          break
+        default:
+          url = 'https://about.projectdim.org/main.html'
+          break
+      }
+      return url
+    },
+  },
+  watch: {
+    selectedMarkerData: function (newVal) {
+      if (newVal !== null)
+        this.$router.push({
+          path: '/main/overview',
+          query: { id: newVal.id, ...newVal.position },
+        })
+    },
+    notFoundedMarkerData: function (newVal) {
+      if (newVal !== null) {
+        console.log(newVal)
+        this.$router.push({
+          path: '/main/overview',
+          query: { id: newVal.id, ...newVal.position },
+        })
+      }
+    },
+  },
+  mounted() {
+    this.GetRecentReports()
   },
   methods: {
     ...mapActions({
@@ -156,45 +193,6 @@ export default {
           console.error(err)
         })
     },
-  },
-  computed: {
-    ...mapState(['selectedMarkerData', 'notFoundedMarkerData']),
-    AboutUrl() {
-      let url
-      switch (this.$i18n.locale) {
-        case 'ua':
-          url = 'https://about.projectdim.org/main.html'
-          break
-        case 'en':
-          url = 'https://about.projectdim.org/main-en.html'
-          break
-        default:
-          url = 'https://about.projectdim.org/main.html'
-          break
-      }
-      return url
-    },
-  },
-  watch: {
-    selectedMarkerData: function (newVal) {
-      if (newVal !== null)
-        this.$router.push({
-          path: '/main/overview',
-          query: { id: newVal.id, ...newVal.position },
-        })
-    },
-    notFoundedMarkerData: function (newVal) {
-      if (newVal !== null) {
-        console.log(newVal)
-        this.$router.push({
-          path: '/main/overview',
-          query: { id: newVal.id, ...newVal.position },
-        })
-      }
-    },
-  },
-  mounted() {
-    this.GetRecentReports()
   },
 }
 </script>

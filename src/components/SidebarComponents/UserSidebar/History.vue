@@ -25,6 +25,37 @@ export default {
       isLoader: false,
     }
   },
+  computed: {
+    ...mapState({
+      changeLogs: (state) => state.selectedMarkerHistoryData,
+      selectedMarkerData: (state) => state.selectedMarkerData,
+    }),
+    /*isLoader(){
+      return this.sortedChangedLogs.length <=0
+    }*/
+    /*sortedChangedLogs(){
+      let result = this.changeLogs.reduce((dates, log)=>{
+        let date = log.created_at.split("T")[0];
+        if(!dates[date])
+          dates[date] = []
+        dates[date].push(log)
+        return dates
+      }, {});
+      return result;
+    }*/
+  },
+  watch: {
+    selectedMarkerData() {
+      this.updateSelectedMarkerHistory()
+    },
+    changeLogs() {
+      this.sortChangedLogs()
+    },
+  },
+  mounted() {
+    this.updateSelectedMarkerHistory()
+    this.sortChangedLogs()
+  },
   methods: {
     ...mapActions({
       updateSelectedMarkerHistory: 'getSelectedDataHistory',
@@ -41,37 +72,6 @@ export default {
       this.sortedChangedLogs = result
       this.isLoader = false
     },
-  },
-  computed: {
-    ...mapState({
-      changeLogs: (state) => state.selectedMarkerHistoryData,
-      selectedMarkerData: (state) => state.selectedMarkerData,
-    }),
-    /*isLoader(){
-      return this.sortedChangedLogs.length <=0
-    }*/
-    /*sortedChangedLogs(){
-			let result = this.changeLogs.reduce((dates, log)=>{
-				let date = log.created_at.split("T")[0];
-				if(!dates[date])
-					dates[date] = []
-				dates[date].push(log)
-				return dates
-			}, {});
-			return result;
-		}*/
-  },
-  watch: {
-    selectedMarkerData() {
-      this.updateSelectedMarkerHistory()
-    },
-    changeLogs() {
-      this.sortChangedLogs()
-    },
-  },
-  mounted() {
-    this.updateSelectedMarkerHistory()
-    this.sortChangedLogs()
   },
 }
 </script>

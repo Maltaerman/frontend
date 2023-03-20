@@ -75,16 +75,14 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
-import StoreEventSystem from '../../store/storeEventSystem.js'
-import StoreEvents from '../../store/storeEventSystem.js'
+import {
+  default as StoreEvents,
+  default as StoreEventSystem,
+} from '../../store/storeEventSystem.js'
 import Button1 from '../Buttons/Button_1.vue'
-import Button2 from '../Buttons/Button_2.vue'
-import SVG_basket_red from '../ComponentsSVG/SVG_basket_red.vue'
 import Header from '../Header.vue'
-import Input1 from '../Inputs/Input-1.vue'
-import InputPass from '../Inputs/Input-pass.vue'
 
 import OrgEditInputsGroup from './Shared/OrgEditInputsGroup.vue'
 
@@ -92,12 +90,9 @@ export default {
   name: 'OrgRegistration',
   components: {
     OrgEditInputsGroup,
-    SVG_basket_red,
-    InputPass,
+
     Button1,
-    Button2,
     Header,
-    Input1,
   },
   data() {
     return {
@@ -120,6 +115,39 @@ export default {
         isPassEquals: false,
       },
     }
+  },
+  computed: {
+    ...mapGetters({
+      getUser: 'getUser',
+      getUserOrganization: 'getUserOrganization',
+    }),
+    isOrgRegistrationEnabled() {
+      return (
+        this.organization.name.length > 2 &&
+        this.organization.website.length > 4 &&
+        this.organization.address.length > 2
+      )
+    },
+  },
+  watch: {
+    'getUser.organization_model'() {
+      this.checkIsOrgActive()
+    },
+  },
+
+  beforeUnmount() {
+    StoreEvents.unsubscribe(
+      StoreEventSystem.events.onUserOrganizationUpdate,
+      this.OnReg,
+    )
+  },
+  beforeMount() {
+    StoreEvents.subscribe(
+      StoreEventSystem.events.onUserOrganizationUpdate,
+      this.OnReg,
+    )
+    this.checkIsOrgActive()
+    this.organization.name = this.getUser.organization_model.name
   },
   methods: {
     ...mapActions({
@@ -151,38 +179,6 @@ export default {
         return
       }
     },
-  },
-  computed: {
-    ...mapGetters({
-      getUser: 'getUser',
-      getUserOrganization: 'getUserOrganization',
-    }),
-    isOrgRegistrationEnabled() {
-      return (
-        this.organization.name.length > 2 &&
-        this.organization.website.length > 4 &&
-        this.organization.address.length > 2
-      )
-    },
-  },
-  watch: {
-    'getUser.organization_model'(newVal) {
-      this.checkIsOrgActive()
-    },
-  },
-  beforeUnmount() {
-    StoreEvents.unsubscribe(
-      StoreEventSystem.events.onUserOrganizationUpdate,
-      this.OnReg,
-    )
-  },
-  beforeMount() {
-    StoreEvents.subscribe(
-      StoreEventSystem.events.onUserOrganizationUpdate,
-      this.OnReg,
-    )
-    this.checkIsOrgActive()
-    this.organization.name = this.getUser.organization_model.name
   },
 }
 </script>

@@ -147,7 +147,7 @@
   </teleport>
 </template>
 <script>
-import { mapMutations, mapGetters, mapActions } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 import api from '../../http_client/index.js'
 import Button1 from '../Buttons/Button_1.vue'
@@ -188,6 +188,27 @@ export default {
         'User is Inactive': 'inactiveUser',
       },
     }
+  },
+  computed: {
+    ...mapGetters(['getToken', 'isAuth']),
+    isLoginButtonDisabled() {
+      return this.email.length <= 0 || this.pass.length <= 0
+    },
+    isPassResetMailValid() {
+      return this.isMail(this.passResetMail)
+    },
+  },
+  watch: {
+    isAuth(newValue) {
+      if (newValue) this.hide()
+    },
+    state(newVal) {
+      switch (newVal) {
+        case this.states.login:
+          this.passResetMail = ''
+          break
+      }
+    },
   },
   methods: {
     ...mapMutations(['setLoggedUserCredentials', 'setLoggedUserInfo']),
@@ -305,27 +326,6 @@ export default {
     toError(message) {
       this.logInErrorMessage = message
       this.state = this.states.error
-    },
-  },
-  computed: {
-    ...mapGetters(['getToken', 'isAuth']),
-    isLoginButtonDisabled() {
-      return this.email.length <= 0 || this.pass.length <= 0
-    },
-    isPassResetMailValid() {
-      return this.isMail(this.passResetMail)
-    },
-  },
-  watch: {
-    isAuth(newValue) {
-      if (newValue) this.hide()
-    },
-    state(newVal) {
-      switch (newVal) {
-        case this.states.login:
-          this.passResetMail = ''
-          break
-      }
     },
   },
 }

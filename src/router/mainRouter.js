@@ -91,7 +91,7 @@ const mainRouter = [
   { path: '/test', component: Test },
   {
     path: '/:pathMatch(.*)*',
-    redirect: (to) => {
+    redirect: () => {
       return {
         path: '/main',
       }
@@ -101,12 +101,12 @@ const mainRouter = [
 export const Router = createRouter({
   routes: mainRouter,
   history: createWebHistory(),
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior() {
     return { top: 0 }
   },
 })
 
-Router.beforeEach((to, form) => {
+Router.beforeEach((to) => {
   if (to.meta.requiresAuth && !store.getters.isAuth) {
     return {
       path: '/main',

@@ -33,7 +33,8 @@
         }"
       >
         <div
-          v-for="codeItem in availableCode"
+          v-for="(codeItem, index) in availableCode"
+          :key="index"
           class="flex h-[58px] w-full cursor-pointer items-center gap-2 p-2 text-h3 font-semibold text-gray-c-500 hover:bg-blue-c-200 mobile:shadow-cs3"
           :class="{
             'bg-blue-c-100 text-blue-c-400': codeItem.code == code.code,
@@ -85,7 +86,7 @@ export default {
       } else this.inp = this.number
       this.numValidation()
     },
-    code(newVal) {
+    code() {
       this.numValidation()
     },
   },

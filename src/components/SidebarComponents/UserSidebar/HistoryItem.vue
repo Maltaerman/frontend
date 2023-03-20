@@ -8,7 +8,11 @@
       </p>
     </div>
 
-    <div v-for="log in logs" class="flex w-full gap-x-4 py-4 px-6 shadow-cs2">
+    <div
+      v-for="(log, index) in logs"
+      :key="index"
+      class="flex w-full gap-x-4 py-4 px-6 shadow-cs2"
+    >
       <div class="flex w-full gap-9">
         <div
           class="pt-2.5 text-h3 font-normal text-gray-c-500 tablet:text-h4 mobile:text-h4"
@@ -17,7 +21,11 @@
         </div>
 
         <div class="w-4/5 mobile:pr-6">
-          <div v-for="item in getChangedLogs(log)" class="my-2.5 font-semibold">
+          <div
+            v-for="(item, idx) in getChangedLogs(log)"
+            :key="idx"
+            class="my-2.5 font-semibold"
+          >
             <div class="group relative flex cursor-default flex-wrap gap-2">
               <div v-if="item.old_value" class="flex gap-2">
                 <p class="h-6 w-4">

@@ -43,6 +43,7 @@
         </div>
         <input1
           v-for="(item, index) in organization.emails"
+          :key="index"
           v-model.trim="organization.emails[index]"
           :model-value="organization.emails[index]"
           :placeholder="$t('general.email')"
@@ -139,7 +140,7 @@ export default {
     //TODO remove from here
   },
   watch: {
-    isVisible(newVal) {
+    isVisible() {
       this.organization = {
         name: '',
         website: '',

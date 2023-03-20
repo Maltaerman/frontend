@@ -98,7 +98,8 @@
         </thead>
         <tbody>
           <tr
-            v-for="worker in organizationParticipantsVisibleList"
+            v-for="[worker, index] in organizationParticipantsVisibleList"
+            :key="index"
             class="h-[58px] shadow-cs2"
           >
             <td class="table-col-row-item">{{ worker.id + 1 }}</td>
@@ -246,6 +247,7 @@
         />
         <input1
           v-for="(item, index) in invitedUsersList"
+          :key="index"
           v-model="invitedUsersList[index]"
           class="outline-none"
           placeholder="Email"
@@ -311,12 +313,7 @@ import api from '../../../http_client/index.js'
 import ButtonTag from '../../Buttons/ButtonTag.vue'
 import Button2 from '../../Buttons/Button_2.vue'
 import ButtonText1 from '../../Buttons/Button_text_1.vue'
-import CodeInput from '../../Inputs/CodeInput.vue'
-import input1 from '../../Inputs/Input-1.vue'
-import Input1 from '../../Inputs/Input-1.vue'
-import InputPass from '../../Inputs/Input-pass.vue'
-import TelInput from '../../Inputs/TelInput.vue'
-import InputSuggestion from '../../Inputs/suggestionInput/Input-suggestion.vue'
+import { default as input1 } from '../../Inputs/Input-1.vue'
 import Loader from '../../Loader.vue'
 import ConfirmModal from '../../Modals/ConfirmModal.vue'
 import ModalTemplate from '../../Modals/ModalTemplate.vue'
@@ -338,11 +335,6 @@ export default {
     input1,
     Loader,
     RemoveOrgModal,
-    CodeInput,
-    Input1,
-    InputPass,
-    TelInput,
-    InputSuggestion,
     OrganizationDropdown,
   },
   mixins: [dateFormatter, userRoles],
@@ -511,7 +503,7 @@ export default {
           this.invitedUsersList = ['']
           this.$toast.success(this.$t('organizationProfile.successInvite'))
         })
-        .catch((err) => {
+        .catch(() => {
           this.CloseUserInviteModal()
           this.$toast.error(this.$t('general.errorMessage'))
           //throw err
@@ -544,7 +536,7 @@ export default {
           this.organization = res.data
           this.isLoaderVisible = false
         })
-        .catch((err) => {
+        .catch(() => {
           this.isLoaderVisible = false
           this.$toast.error(this.$t('general.errorMessage'), {
             duration: false,
@@ -570,7 +562,7 @@ export default {
           const updatedWorkerData = res.data
           this.organization.participants.splice(workerId, 1, updatedWorkerData)
         })
-        .catch((err) => {
+        .catch(() => {
           this.$toast.error(this.$t('general.errorMessage'), {
             duration: false,
             onClose: () => this.$router.push('/admin/organizations'),
@@ -595,7 +587,7 @@ export default {
             }),
           )
         })
-        .catch((err) => {
+        .catch(() => {
           this.isLoaderVisible = false
           this.$toast.error(
             this.$t('organizationProfile.userRemovedError', {

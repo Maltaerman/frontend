@@ -24,7 +24,7 @@ export default {
     }
   },
   watch: {
-    logs(newVal) {
+    logs() {
       this.sortChangedLogs()
     },
   },

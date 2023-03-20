@@ -1,7 +1,8 @@
 <template>
   <div class="flex flex-nowrap justify-center gap-4 mobile:gap-2">
     <input
-      v-for="n in digitAmount"
+      v-for="(n, index) in digitAmount"
+      :key="index"
       :ref="`inp${n - 1}`"
       class="input-1 max-w-[62px] text-center"
       placeholder="X"
@@ -21,7 +22,7 @@ export default {
       required: true,
     },
   },
-  emits: ['enter-click'],
+  emits: ['enter-click', 'update:modelValue'],
   data() {
     return {
       code: [],
