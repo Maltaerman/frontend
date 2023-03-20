@@ -12,6 +12,7 @@ export default {
   data() {
     return {
       UpdateRequestCountTimeout: 300000,
+
       updateId: undefined,
       onPageChangeEvents: [this.CheckIsOrgActive],
     }
