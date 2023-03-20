@@ -2,15 +2,15 @@
   <div
     v-if="selectedMarkerData !== null"
     id="sideBar"
-    class="overflow-y-auto-custom h-full shadow-cs1 flex flex-col"
+    class="overflow-y-auto-custom flex h-full flex-col shadow-cs1"
   >
     <h1
-      class="px-6 font-semibold my-6 text-h1 mobile:text-h1-m tablet:text-h1-m mobile:px-4 tablet:px-4"
+      class="my-6 px-6 text-h1 font-semibold tablet:px-4 tablet:text-h1-m mobile:px-4 mobile:text-h1-m"
     >
       {{ selectedMarkerAddress }}
     </h1>
     <div
-      class="flex flex-nowrap text-center text-h3 mobile:text-h4 tablet:text-h4"
+      class="flex flex-nowrap text-center text-h3 tablet:text-h4 mobile:text-h4"
     >
       <TabItemButton
         class="w-full"
@@ -29,7 +29,7 @@
         {{ $t('userSideBar.change-history') }}
       </TabItemButton>
     </div>
-    <div class="pt-6 grow">
+    <div class="grow pt-6">
       <keep-alive>
         <Overview
           v-if="this.selectedTabItem === `Overview` && selectedMarkerData"

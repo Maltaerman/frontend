@@ -1,8 +1,8 @@
 <template>
-  <div id="mapContainer" class="h-full relative">
-    <div class="absolute w-full mobile:top-3.5 top-6 z-10">
+  <div id="mapContainer" class="relative h-full">
+    <div class="absolute top-6 z-10 w-full mobile:top-3.5">
       <div
-        class="border bg-white rounded-xl border-2 h-10 flex flex-nowrap mobile:mx-4 mx-[30px]"
+        class="mx-[30px] flex h-10 flex-nowrap rounded-xl border border-2 bg-white mobile:mx-4"
         :class="{
           'border-blue-c-500': isInputFocused,
           'border-gray-c-300': !isInputFocused,
@@ -16,7 +16,7 @@
           ref="autocomplete"
           :placeholder="$t('welcomeScreen.searchAddress')"
           @place_changed="setPlace"
-          class="w-full bg-transparent outline-none block text-h3"
+          class="block w-full bg-transparent text-h3 outline-none"
           :select-first-on-enter="true"
           :options="{
             fields: [`geometry`, `name`],
@@ -130,7 +130,7 @@
     <img
       v-if="isLoaderVisible"
       src="/src/assets/Loader.svg"
-      class="block absolute bottom-6 right-6 w-8 h-8 animate-spin"
+      class="absolute bottom-6 right-6 block h-8 w-8 animate-spin"
       alt="Loader..."
     />
   </div>

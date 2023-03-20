@@ -10,12 +10,12 @@
     :accept-button-func="PageLeaveAccepted"
     :cancel-button-func="PageLeaveCanceled"
   />
-  <div class="py-4 px-6 overflow-y-auto h-full">
-    <div class="flex flex-wrap justify-between mb-2">
-      <div class="font-semibold text-h2">
+  <div class="h-full overflow-y-auto py-4 px-6">
+    <div class="mb-2 flex flex-wrap justify-between">
+      <div class="text-h2 font-semibold">
         <span class="align-middle">{{ $t('reportTools.header') }}</span>
       </div>
-      <div class="flex gap-2 h-[42px] mobile:w-full">
+      <div class="flex h-[42px] gap-2 mobile:w-full">
         <button-3 class="min-w-[80px] mobile:grow" @click="GoBack">
           {{ $t('general.cancel') }}
         </button-3>
@@ -29,12 +29,12 @@
       </div>
     </div>
 
-    <div class="bg-blue-c-200 p-2 rounded-lg">
+    <div class="rounded-lg bg-blue-c-200 p-2">
       <h1 class="w-full text-center text-h2 font-semibold">
         {{ $t('reportTools.currentAddress') }}
       </h1>
       <label>
-        <div class="text-h3 text-gray-c-600 py-2">
+        <div class="py-2 text-h3 text-gray-c-600">
           {{ $t('reportTools.city') }}<sup class="text-red-c-500">*</sup>
         </div>
         <input1
@@ -46,7 +46,7 @@
         />
       </label>
       <label>
-        <div class="text-h3 text-gray-c-600 py-2">
+        <div class="py-2 text-h3 text-gray-c-600">
           {{ $t('reportTools.street') }}<sup class="text-red-c-500">*</sup>
         </div>
         <input1
@@ -58,7 +58,7 @@
         />
       </label>
       <label>
-        <div class="text-h3 text-gray-c-600 py-2">
+        <div class="py-2 text-h3 text-gray-c-600">
           {{ $t('reportTools.streetNumber') }}
         </div>
         <input1
@@ -72,10 +72,10 @@
     <div
       v-for="label in ReportsData()"
       :key="label.name"
-      class="shadow-cs2 py-4"
+      class="py-4 shadow-cs2"
     >
-      <div class="flex flex-wrap justify-between mb-3 min-h-[34px]">
-        <div class="text-h3 text-gray-c-600 py-2">
+      <div class="mb-3 flex min-h-[34px] flex-wrap justify-between">
+        <div class="py-2 text-h3 text-gray-c-600">
           {{ $t(`reportTools.${label.name}`) }}
         </div>
         <div class="flex flex-wrap gap-2">

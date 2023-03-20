@@ -7,7 +7,7 @@
     :is-modal-visible="isSettingVisible"
   >
     <div
-      class="w-[600px] h-screen bg-white p-9 mobile:p-4 tablet:p-4 animate-userSettingsAppear relative mobile:w-full tablet:w-[480px] mobile:h-min mobile:rounded-lg"
+      class="relative h-screen w-[600px] animate-userSettingsAppear bg-white p-9 tablet:w-[480px] tablet:p-4 mobile:h-min mobile:w-full mobile:rounded-lg mobile:p-4"
       @click.stop
       :class="{ 'animate-userSettingsAppear': isSettingVisible }"
       id="userSettings"
@@ -15,25 +15,25 @@
       <Loader v-if="isShowLoader"></Loader>
       <!--      Header-->
       <div
-        class="mb-6 text-h1 mobile:text-h2 mobile:text-center relative font-semibold"
+        class="relative mb-6 text-h1 font-semibold mobile:text-center mobile:text-h2"
       >
         {{ $t('userSettings.header') }}
         <img
-          class="w-min h-min absolute top-0 mobile:right-0 hidden mobile:block"
+          class="absolute top-0 hidden h-min w-min mobile:right-0 mobile:block"
           @click="closeModal"
           src="/close.svg"
         />
       </div>
       <button-text1
         id="close-settings"
-        class="w-[100px] absolute top-7 right-4 mobile:hidden py-2"
+        class="absolute top-7 right-4 w-[100px] py-2 mobile:hidden"
         @click="closeModal"
       >
         {{ $t('general.close') }}
       </button-text1>
       <!--    FORM-->
       <div
-        class="text-h4 text-gray-c-500 w-full"
+        class="w-full text-h4 text-gray-c-500"
         :class="{ 'mobile:flex mobile:flex-col-reverse': isPassChangeVisible }"
       >
         <div :class="{ 'mobile:hidden': isPassChangeVisible }">
@@ -42,14 +42,14 @@
             inp-id="setting-name"
             :placeholder="$t('userSettings.name')"
             v-model="username"
-            class="block text-black mt-1 mb-6"
+            class="mt-1 mb-6 block text-black"
           />
           <label for="setting-mail">{{ $t('userSettings.email') }}</label>
           <input-1
             inp-id="setting-mail"
             :placeholder="$t('userSettings.email')"
             v-model="email"
-            class="text-black mt-1"
+            class="mt-1 text-black"
             disabled
           />
         </div>
@@ -80,7 +80,7 @@
           <input-pass
             inp-id="setting-pass"
             :placeholder="$t('userSettings.password')"
-            class="text-black mt-1 mb-6"
+            class="mt-1 mb-6 text-black"
             v-model="oldPass"
           />
           <label for="setting-new-pass">{{
@@ -89,7 +89,7 @@
           <input-pass
             inp-id="setting-new-pass"
             :placeholder="$t('userSettings.new-password')"
-            class="text-black mt-1"
+            class="mt-1 text-black"
             v-model="newPass"
           />
 

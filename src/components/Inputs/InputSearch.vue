@@ -8,7 +8,7 @@
   >
     <div class="h-full w-5">
       <SVG_search
-        class="mt-0.5 w-full h-auto"
+        class="mt-0.5 h-auto w-full"
         :class="{
           'fill-blue-c-500': isFocused,
           'fill-gray-c-500': !isFocused,
@@ -20,7 +20,7 @@
       @focusout="OnFocus(false)"
       :placeholder="placeholder"
       type="text"
-      class="outline-none w-full"
+      class="w-full outline-none"
       v-model="modelValue"
     />
   </label>

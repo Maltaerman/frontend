@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-gray-c-200 text-gray-c-500 p-2 rounded-sm mt-2 text-ellipsis overflow-hidden relative leading-[26px] w-full break-words"
+    class="relative mt-2 w-full overflow-hidden text-ellipsis break-words rounded-sm bg-gray-c-200 p-2 leading-[26px] text-gray-c-500"
     :class="{
       'h-10 text-ellipsis': !isExpanded && isMinimizeEl,
       'h-full': isExpanded,
@@ -8,7 +8,7 @@
     ref="desc"
   >
     <button
-      class="float-right text-blue-500 font-medium ml-1 mb-1"
+      class="float-right ml-1 mb-1 font-medium text-blue-500"
       @click="Expand"
       v-if="isMinimizeEl"
     >

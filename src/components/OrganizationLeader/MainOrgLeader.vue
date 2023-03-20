@@ -1,19 +1,19 @@
 <template>
   <Header />
   <div
-    class="flex h-[calc(100vh-62px)] comp:h-[calc(100vh-74px)] mobile:overflow-y-auto tablet:overflow-y-auto"
+    class="flex h-[calc(100vh-62px)] comp:h-[calc(100vh-74px)] tablet:overflow-y-auto mobile:overflow-y-auto"
   >
-    <div class="shrink-0 comp:w-[320px] shadow-cs1 mobile:hidden">
+    <div class="shrink-0 shadow-cs1 comp:w-[320px] mobile:hidden">
       <div
-        class="w-full h-[200px] flex flex-col gap-2 place-items-center place-content-center shadow-cs2"
+        class="flex h-[200px] w-full flex-col place-content-center place-items-center gap-2 shadow-cs2"
       >
-        <div class="w-[60px] h-[60px] rounded-full bg-blue-c-100 px-5 py-3">
+        <div class="h-[60px] w-[60px] rounded-full bg-blue-c-100 px-5 py-3">
           <img
-            class="w-full h-full"
+            class="h-full w-full"
             src="/src/assets/Organizations/Emblem.svg"
           />
         </div>
-        <p class="w-min text-h3 text-gray-c-600 font-semibold">
+        <p class="w-min text-h3 font-semibold text-gray-c-600">
           {{ $t('dashboard.admin') }}
         </p>
       </div>
@@ -47,7 +47,7 @@
         </MenuItemLink>
       </nav>
     </div>
-    <div class="w-full h-full overflow-y-auto">
+    <div class="h-full w-full overflow-y-auto">
       <router-view></router-view>
     </div>
   </div>

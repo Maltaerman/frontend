@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-blue-c-100 h-2 rounded-xl overflow-hidden">
-    <div class="h-full rounded-xl bg-blue-c-500 duration-300 progress"></div>
+  <div class="h-2 overflow-hidden rounded-xl bg-blue-c-100">
+    <div class="progress h-full rounded-xl bg-blue-c-500 duration-300"></div>
   </div>
 </template>
 

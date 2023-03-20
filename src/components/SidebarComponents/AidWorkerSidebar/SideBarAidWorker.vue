@@ -1,12 +1,12 @@
 <template>
-  <div id="sideBarAidWorker" class="h-full shadow-cs1 overflow-y-auto">
+  <div id="sideBarAidWorker" class="h-full overflow-y-auto shadow-cs1">
     <h1
-      class="px-6 font-semibold my-6 text-h1 mobile:text-h1-m tablet:text-h1-m mobile:px-4 tablet:px-4"
+      class="my-6 px-6 text-h1 font-semibold tablet:px-4 tablet:text-h1-m mobile:px-4 mobile:text-h1-m"
     >
       {{ $t('aidWorkerSideBar.header') }}
     </h1>
     <div
-      class="flex flex-nowrap text-center text-h3 mobile:text-h4 tablet:text-h4"
+      class="flex flex-nowrap text-center text-h3 tablet:text-h4 mobile:text-h4"
     >
       <TabItemButton
         class="w-full"

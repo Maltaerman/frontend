@@ -1,18 +1,18 @@
 <template>
   <label
-    class="inline-block w-full relative"
+    class="relative inline-block w-full"
     @focusin="OnDivFocus(true)"
     @focusout="OnDivFocus(false)"
   >
     <div
       v-if="label"
-      class="text-h4 text-gray-c-500 text-left font-normal mb-2"
+      class="mb-2 text-left text-h4 font-normal text-gray-c-500"
     >
       {{ label }}
     </div>
 
     <div
-      class="border font-normal flex items-center rounded-lg outline-none text-h3 hover:border-blue-c-400 focus:border-blue-c-500 disabled:bg-gray-c-100 disabled:hover:border-gray-c-300 disabled:text-gray-c-500 flex overflow-hidden relative"
+      class="relative flex flex items-center overflow-hidden rounded-lg border text-h3 font-normal outline-none hover:border-blue-c-400 focus:border-blue-c-500 disabled:bg-gray-c-100 disabled:text-gray-c-500 disabled:hover:border-gray-c-300"
       :class="{
         'border-blue-c-500': isInputFocused,
         'border-gray-c-300': !isInputFocused && isValidStyle,
@@ -21,7 +21,7 @@
     >
       <input
         ref="pass"
-        class="w-full outline-none px-4 pr-10 py-2 bg-transparent"
+        class="w-full bg-transparent px-4 py-2 pr-10 outline-none"
         :type="inputType"
         :placeholder="placeholderC"
         @focusin="OnInputFocus(true)"
@@ -32,7 +32,7 @@
         :value="value"
       />
       <button
-        class="w-[40px] h-full cursor-pointer rounded-lg px-1 absolute right-0 top-0"
+        class="absolute right-0 top-0 h-full w-[40px] cursor-pointer rounded-lg px-1"
         @click="toggleInputType"
       >
         <svg
@@ -57,7 +57,7 @@
     <div
       v-if="!isValidStyle && validationMessage"
       id="invalid-feedback"
-      class="text-red-c-500 text-b3 mt-1 text-left px-2"
+      class="mt-1 px-2 text-left text-b3 text-red-c-500"
     >
       {{ validationMessageC }}
     </div>

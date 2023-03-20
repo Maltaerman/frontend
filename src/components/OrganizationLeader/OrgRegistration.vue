@@ -1,13 +1,13 @@
 <template>
-  <div class="flex flex-col h-full">
-    <Header class="h-[62px] comp:h-[74px] grow-0 shrink-0" />
+  <div class="flex h-full flex-col">
+    <Header class="h-[62px] shrink-0 grow-0 comp:h-[74px]" />
     <div class="shrink grow overflow-y-auto pt-[48px] pb-7">
-      <div class="bg-white w-full px-6 comp:px-0 comp:w-[480px] mx-auto">
-        <div class="text-center title mb-2">
+      <div class="mx-auto w-full bg-white px-6 comp:w-[480px] comp:px-0">
+        <div class="title mb-2 text-center">
           {{ $t('OrganizationRegistration.Welcome') }}
         </div>
 
-        <div class="text-center label mb-6">
+        <div class="label mb-6 text-center">
           {{ $t('OrganizationRegistration.Info') }}
         </div>
 
@@ -16,7 +16,7 @@
 							 :class="{'bg-blue-c-500' : stepNum == i}" @click="GoToStep(i)"/>
 				</div>-->
 
-        <div class="subTitle text-center my-4">
+        <div class="subTitle my-4 text-center">
           {{ $t('OrganizationRegistration.Step1') }}
         </div>
 
@@ -56,7 +56,7 @@
 
         <div>
           <OrgEditInputsGroup v-model="organization" />
-          <div class="flex flex-nowrap gap-6 comp:gap-2 mt-9">
+          <div class="mt-9 flex flex-nowrap gap-6 comp:gap-2">
             <!--						<Button2 class="grow-[1]" @click="GoToStep(1)">
 							{{$t("general.back")}}
 						</Button2>-->

@@ -3,11 +3,11 @@
     <div
       id="loginModal"
       v-if="isModalVisible"
-      class="overflow-y-hidden z-[1050] h-screen w-screen bg-black/30 fixed top-0 left-0 right-0 bottom-0 mobile:px-2 grid place-items-center"
+      class="fixed top-0 left-0 right-0 bottom-0 z-[1050] grid h-screen w-screen place-items-center overflow-y-hidden bg-black/30 mobile:px-2"
       @click="hide"
     >
       <div
-        class="mx-auto rounded-xl px-6 pb-6 pt-9 w-[480px] mobile:w-full h-min bg-white animate-appear relative overflow-hidden flex"
+        class="relative mx-auto flex h-min w-[480px] animate-appear overflow-hidden rounded-xl bg-white px-6 pb-6 pt-9 mobile:w-full"
         :class="{ 'animate-disappear': isClosedClick }"
         @click.stop
       >
@@ -37,7 +37,7 @@
         <transition name="modal-anim" mode="out-in">
           <div
             v-if="state === states.login"
-            class="text-h2 font-semibold py-1 text-center mobile:text-h2-m tablet:text-h2-m w-full"
+            class="w-full py-1 text-center text-h2 font-semibold tablet:text-h2-m mobile:text-h2-m"
           >
             {{ $t('login.header') }}
             <div>
@@ -46,14 +46,14 @@
                 ref="emailInput"
                 validation-type="mail"
                 type="email"
-                class="w-full my-6"
+                class="my-6 w-full"
                 placeholder="Email"
                 v-model="email"
                 :validation-message="$t('login.error')"
               />
               <Input-pass name="password" class="w-full" v-model="pass" />
               <button-text-1
-                class="font-semibold block my-3"
+                class="my-3 block font-semibold"
                 @click="toPassReset"
               >
                 {{ $t('login.resetPassword') }}
@@ -68,13 +68,13 @@
               </button-1>
             </div>
           </div>
-          <div v-else-if="state === states.error" class="flex flex-col grow">
-            <div class="grow flex mobile:flex-col">
+          <div v-else-if="state === states.error" class="flex grow flex-col">
+            <div class="flex grow mobile:flex-col">
               <div class="w-[30px] mobile:w-full">
                 <svg
                   width="30"
                   height="30"
-                  class="fill-blue-c-400 block mx-auto"
+                  class="mx-auto block fill-blue-c-400"
                   viewBox="0 0 30 30"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -100,24 +100,24 @@
               </div>
             </div>
 
-            <button1 @click="toDefaultState" class="w-full mt-6">{{
+            <button1 @click="toDefaultState" class="mt-6 w-full">{{
               $t('login.understood')
             }}</button1>
           </div>
           <div
             v-else-if="state === states.passReset"
-            class="text-h2 font-semibold py-1 text-center mobile:text-h2-m tablet:text-h2-m w-full flex flex-col"
+            class="flex w-full flex-col py-1 text-center text-h2 font-semibold tablet:text-h2-m mobile:text-h2-m"
           >
             <div class="shrink-0 grow-0">
               {{ $t('login.resetPasswordTitle') }}
             </div>
-            <div class="grow grid content-center">
+            <div class="grid grow content-center">
               <Input-1
                 name="emailReset"
                 ref="emailRestInput"
                 validation-type="mail"
                 type="email"
-                class="w-full my-6"
+                class="my-6 w-full"
                 placeholder="Email"
                 v-model="passResetMail"
               />

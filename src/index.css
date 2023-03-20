@@ -30,17 +30,17 @@
 
 @layer components {
   .title {
-    @apply text-h1 mobile:text-h1-m
-        font-semibold text-gray-c-800;
+    @apply text-h1 font-semibold
+        text-gray-c-800 mobile:text-h1-m;
   }
   .subTitle {
-    @apply font-semibold text-h2 mobile:text-h2-m;
+    @apply text-h2 font-semibold mobile:text-h2-m;
   }
   .label {
     @apply text-h3 mobile:text-h4;
   }
   .text-area {
-    @apply min-h-[68px] resize-none w-full border-gray-c-300 border rounded-lg px-4 py-2 text-h3;
+    @apply min-h-[68px] w-full resize-none rounded-lg border border-gray-c-300 px-4 py-2 text-h3;
   }
 
   .text-body-1 {
@@ -50,16 +50,16 @@
     @apply text-h2 text-gray-c-800;
   }
   .tooltip {
-    @apply bg-white shadow-cs4 px-2 py-1 w-min h-min top-[-15px] left-2 rounded-xl
-        text-gray-c-600 text-h3 absolute transition-opacity duration-300 opacity-0 group-hover:opacity-100 whitespace-nowrap
-        group-active:opacity-100 font-normal;
+    @apply absolute top-[-15px] left-2 h-min w-min whitespace-nowrap rounded-xl bg-white px-2
+        py-1 text-h3 font-normal text-gray-c-600 opacity-0 shadow-cs4 transition-opacity duration-300
+        group-hover:opacity-100 group-active:opacity-100;
   }
   .input-1 {
-    @apply border font-normal
-        rounded-lg text-h3 px-4 py-2
-        hover:border-blue-c-400 focus:border-blue-c-500
-        disabled:bg-gray-c-100 disabled:hover:border-gray-c-300
-        disabled:text-gray-c-500 w-full;
+    @apply w-full rounded-lg
+        border px-4 py-2 text-h3
+        font-normal hover:border-blue-c-400
+        focus:border-blue-c-500 disabled:bg-gray-c-100
+        disabled:text-gray-c-500 disabled:hover:border-gray-c-300;
   }
 }
 

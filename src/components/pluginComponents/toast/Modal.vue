@@ -1,11 +1,11 @@
 <template>
   <div
     v-show="isAct"
-    class="overflow-hidden z-[9000] h-full w-full bg-black/30 fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center mobile:px-2"
+    class="fixed top-0 left-0 right-0 bottom-0 z-[9000] flex h-full w-full items-center justify-center overflow-hidden bg-black/30 mobile:px-2"
     @click.stop="bgClose"
   >
     <div
-      class="bg-white rounded-lg p-6 w-[480px] mobile:w-full relative"
+      class="relative w-[480px] rounded-lg bg-white p-6 mobile:w-full"
       @click.stop
     >
       <img
@@ -28,9 +28,9 @@
         <img
           v-if="isType(types.wait)"
           src="/src/assets/Loader.svg"
-          class="animate-spin mx-auto"
+          class="mx-auto animate-spin"
         />
-        <p class="text-h2 text-center mt-5 font-semibold" :class="textStyle">
+        <p class="mt-5 text-center text-h2 font-semibold" :class="textStyle">
           {{ message }}
         </p>
       </div>

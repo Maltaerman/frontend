@@ -1,6 +1,6 @@
 <template>
   <svg
-    class="h-full w-full block"
+    class="block h-full w-full"
     v-bind:class="this.class"
     :width="this.c_width"
     :height="this.c_height"

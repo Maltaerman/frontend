@@ -11,12 +11,12 @@
     :cancel-button-func="ModalCancel"
   />
 
-  <div class="overflow-y-auto h-full relative flex flex-col">
+  <div class="relative flex h-full flex-col overflow-y-auto">
     <div
-      class="bg-blue-c-500 flex flex-wrap gap-2 justify-between p-6 sticky top-0 right-0 left-0 z-50"
+      class="sticky top-0 right-0 left-0 z-50 flex flex-wrap justify-between gap-2 bg-blue-c-500 p-6"
     >
       <p
-        class="text-white text-h3 font-semibold align-middle grid content-center"
+        class="grid content-center align-middle text-h3 font-semibold text-white"
       >
         {{ $t('reportTools.makePublic') }}
       </p>
@@ -31,8 +31,8 @@
       </Button2>
     </div>
 
-    <div id="RequestPreview" class="px-6 mobile:px-4 pb-4 mobile:pb-2 grow">
-      <h1 class="font-semibold my-6 text-h1 mobile:text-h1-m tablet:text-h1-m">
+    <div id="RequestPreview" class="grow px-6 pb-4 mobile:px-4 mobile:pb-2">
+      <h1 class="my-6 text-h1 font-semibold tablet:text-h1-m mobile:text-h1-m">
         {{ this.requestedMarker.address }},
         <span v-if="requestedMarker.street_number">
           {{ this.requestedMarker.street_number }},
@@ -41,12 +41,12 @@
         {{ this.requestedMarker.city }}
       </h1>
 
-      <h3 class="font-semibold text-h2 mobile:text-h2-m">
+      <h3 class="text-h2 font-semibold mobile:text-h2-m">
         {{ $t('userSideBar.general-status') }}
       </h3>
 
       <!--	#region  Build status v2-->
-      <div class="mobile:text-h4 text-h3 mt-2 flex-col">
+      <div class="mt-2 flex-col text-h3 mobile:text-h4">
         <ReportStateItem
           v-for="flag of Object.keys(reportFlags)"
           :flag="flag"

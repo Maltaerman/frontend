@@ -7,17 +7,17 @@
           {{ $t('organizationProfile.organizationSettings') }}
         </div>
         <OrgEditInputsGroup
-          class="comp:max-w-[480px] w-full"
+          class="w-full comp:max-w-[480px]"
           v-model="organization"
         />
       </div>
       <div>
         <Button1
-          class="w-full h-min comp:w-min flex flex-nowrap items-center justify-center gap-2"
+          class="flex h-min w-full flex-nowrap items-center justify-center gap-2 comp:w-min"
           @click="editUserOrganization"
           :disabled="!isOrgSaveButtonAvailable"
         >
-          <SVG_save class="fill-white inline-block h-[18px] w-auto" />
+          <SVG_save class="inline-block h-[18px] w-auto fill-white" />
           <p>
             {{ $t('general.save') }}
           </p>
@@ -26,7 +26,7 @@
     </div>
     <div class="mt-[48px]">
       <div class="subTitle">{{ $t('userSettings.personalSettings') }}</div>
-      <div class="py-6 flex flex-col gap-6 comp:flex-row comp:justify-between">
+      <div class="flex flex-col gap-6 py-6 comp:flex-row comp:justify-between">
         <div class="grow comp:max-w-[480px]">
           <ChangeMailNameInputs
             v-if="userEditUI.currentState === userEditUI.name"
@@ -38,7 +38,7 @@
             v-model="userPassUpdate"
             @validation="setIsPassValid"
           />
-          <Button2 @click="UserEditUISwitch" class="w-full comp:w-[200px] mt-6">
+          <Button2 @click="UserEditUISwitch" class="mt-6 w-full comp:w-[200px]">
             {{ userSettingsButtonText }}
           </Button2>
         </div>
@@ -46,9 +46,9 @@
           <Button1
             @click="saveUserDataButtonAction"
             :disabled="!isUserSaveButtonAvailable"
-            class="w-full h-min comp:w-min flex flex-nowrap items-center justify-center gap-2"
+            class="flex h-min w-full flex-nowrap items-center justify-center gap-2 comp:w-min"
           >
-            <SVG_save class="fill-white inline-block h-[18px] w-auto" />
+            <SVG_save class="inline-block h-[18px] w-auto fill-white" />
             <p>
               {{ $t('general.save') }}
             </p>

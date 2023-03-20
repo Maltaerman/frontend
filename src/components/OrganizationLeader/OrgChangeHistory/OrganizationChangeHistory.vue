@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 comp:p-9 overflow-y-auto-custom h-full">
+  <div class="overflow-y-auto-custom h-full p-6 comp:p-9">
     <div class="title">{{ $t('OrganizationChangeLog.title') }}</div>
 
     <div
@@ -7,12 +7,12 @@
       class="my-3 flex flex-col gap-2.5 comp:flex-row comp:gap-3"
     >
       <input-search
-        class="w-full comp:max-w-[400px] shrink grow"
+        class="w-full shrink grow comp:max-w-[400px]"
         :placeholder="$t('OrganizationChangeLog.searchPlaceholder')"
         v-model="query"
       />
       <drop-down-select
-        class="w-full comp:max-w-[320px] shrink grow"
+        class="w-full shrink grow comp:max-w-[320px]"
         v-model="selectedAidWorker"
         :options="aidWorkerDropSuggestion"
       />
@@ -31,7 +31,7 @@
     </div>
     <div class="mb-6 flex justify-end">
       <Button1
-        class="w-full comp:w-min min-w-[120px]"
+        class="w-full min-w-[120px] comp:w-min"
         @click="getOrganizationChangeLog"
       >
         {{ $t('general.search') }}

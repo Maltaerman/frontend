@@ -3,12 +3,12 @@
     <div
       id="addressRequestModal"
       v-if="isModalVisible"
-      class="overflow-y-hidden z-[1050] h-screen w-screen bg-black/30 fixed top-0 left-0 right-0 bottom-0 mobile:px-2 grid place-items-center"
+      class="fixed top-0 left-0 right-0 bottom-0 z-[1050] grid h-screen w-screen place-items-center overflow-y-hidden bg-black/30 mobile:px-2"
     >
       <transition name="modal-anim" mode="out-in">
         <div
           v-if="animStep == 1"
-          class="mx-auto rounded-xl p-6 w-[500px] mobile:w-full h-min bg-white relative flex"
+          class="relative mx-auto flex h-min w-[500px] rounded-xl bg-white p-6 mobile:w-full"
           @click.stop
         >
           <button class="absolute top-6 right-6 h-4 w-4" @click="hide">
@@ -67,7 +67,7 @@
                 {{ step2Tips }}
               </div>
               <CodeInput
-                class="w-full my-6"
+                class="my-6 w-full"
                 :digit-amount="6"
                 v-model="code"
                 @enter-click="codeInpEnterClick"
@@ -80,7 +80,7 @@
                 {{ $t('addressReqModal.step2Button') }}
               </button-1>
               <div
-                class="mt-4 text-body-1 text-gray-c-500 h-[42px] flex justify-center place-items-center"
+                class="text-body-1 mt-4 flex h-[42px] place-items-center justify-center text-gray-c-500"
               >
                 <transition name="modal-anim" mode="out-in">
                   <div v-if="codeExpiredIn > 0">
@@ -105,9 +105,9 @@
         <div
           v-else-if="animStep == 2"
           @click.stop
-          class="mx-auto rounded-xl px-[26px] py-10 w-[500px] h-[164px] bg-white grid items-center gap-6"
+          class="mx-auto grid h-[164px] w-[500px] items-center gap-6 rounded-xl bg-white px-[26px] py-10"
         >
-          <div class="subTitle text-gray-c-800 text-center">
+          <div class="subTitle text-center text-gray-c-800">
             Sending your request...
           </div>
           <ProgressBar :progress="sendingProgress" />

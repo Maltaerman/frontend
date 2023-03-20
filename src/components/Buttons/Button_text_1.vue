@@ -1,6 +1,6 @@
 <template>
   <button
-    class="text-center align-middle rounded-lg text-h3 font-medium mobile:text-h4 tablet:text-h4 bg-transparent disabled:bg-gray-c-100 disabled:text-gray-c-400 cursor-pointer p-2"
+    class="cursor-pointer rounded-lg bg-transparent p-2 text-center align-middle text-h3 font-medium disabled:bg-gray-c-100 disabled:text-gray-c-400 tablet:text-h4 mobile:text-h4"
     :class="buttonColor"
   >
     <slot></slot>

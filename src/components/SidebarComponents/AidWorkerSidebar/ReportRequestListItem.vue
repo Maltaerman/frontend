@@ -1,13 +1,13 @@
 <template>
   <div
-    class="shadow-cs3 p-4 rounded-lg mb-4 relative"
+    class="relative mb-4 rounded-lg p-4 shadow-cs3"
     :class="{
       'bg-blue-c-100': isSelected,
       'border border-red-c-500': isExpired,
     }"
   >
     <div>
-      <div class="flex justify-between mb-3">
+      <div class="mb-3 flex justify-between">
         <div class="text-h4 text-gray-c-500">
           <span v-if="!isExpired" class="capitalize">
             {{ GetDayDateString(locationRequest.created_at) }}
@@ -27,13 +27,13 @@
         </div>
       </div>
       <div
-        class="text-h3 text-blue-c-500 font-semibold pb-2 shadow-cs2 cursor-pointer"
+        class="cursor-pointer pb-2 text-h3 font-semibold text-blue-c-500 shadow-cs2"
         @click="setSelectedRequest(locationRequest)"
       >
-        <img src="/Marker-blue.svg" class="inline-block mr-1" />
+        <img src="/Marker-blue.svg" class="mr-1 inline-block" />
         {{ markerAddress }}
       </div>
-      <div class="flex justify-between mt-4 items-baseline">
+      <div class="mt-4 flex items-baseline justify-between">
         <div>
           <button-1 @click="this.Reporting">
             {{ $t('aidWorkerSideBar.takeRequest') }}
@@ -56,9 +56,9 @@
 
         <div
           v-else-if="isMyRequest && itemUsageTabName === 'requestsList'"
-          class="text-h3 font-medium text-blue-c-500 p-2"
+          class="p-2 text-h3 font-medium text-blue-c-500"
         >
-          <img src="/completed2.svg" class="inline-block mr-2" />
+          <img src="/completed2.svg" class="mr-2 inline-block" />
           {{ $t('aidWorkerSideBar.myRequest') }}
         </div>
       </div>

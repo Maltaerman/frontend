@@ -2,9 +2,9 @@
   <div class="px-4 py-6 comp:p-9">
     <div>
       <router-link to="/admin/roles">
-        <span class="text-body-1 font-semibold cursor-pointer align-middle">
+        <span class="text-body-1 cursor-pointer align-middle font-semibold">
           <svg
-            class="inline-block mr-4 fill-gray-c-800 rotate-180"
+            class="mr-4 inline-block rotate-180 fill-gray-c-800"
             width="9"
             height="14"
             viewBox="0 0 9 14"
@@ -22,7 +22,7 @@
       </router-link>
     </div>
 
-    <div class="py-6 comp:py-8 w-full max-w-[600px]">
+    <div class="w-full max-w-[600px] py-6 comp:py-8">
       <div class="subTitle">{{ $t('Roles.CreateRole') }}</div>
       <Input1 class="my-6" :label="$t('Roles.Title')" />
       <div>{{}}</div>

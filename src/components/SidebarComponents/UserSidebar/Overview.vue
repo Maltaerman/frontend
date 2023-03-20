@@ -1,11 +1,11 @@
 <template>
-  <div class="h-full flex flex-col justify-between">
-    <div id="Overview" class="px-6 mobile:px-4 pb-6 mobile:pb-2">
-      <h3 class="font-semibold text-h2 mobile:text-h2-m">
+  <div class="flex h-full flex-col justify-between">
+    <div id="Overview" class="px-6 pb-6 mobile:px-4 mobile:pb-2">
+      <h3 class="text-h2 font-semibold mobile:text-h2-m">
         {{ $t('userSideBar.general-status') }}
       </h3>
       <!--	#region  Build status v2-->
-      <div class="mobile:text-h4 text-h3">
+      <div class="text-h3 mobile:text-h4">
         <ReportStateItem
           v-for="flag of Object.keys(reportFlags)"
           :organization-name="selectedMarker.organization_name"

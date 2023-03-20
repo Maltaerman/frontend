@@ -1,33 +1,33 @@
 <template>
   <div class="mb-6">
-    <div class="bg-gray-c-100 py-2 px-6 w-full shadow-cs2">
+    <div class="w-full bg-gray-c-100 py-2 px-6 shadow-cs2">
       <p
-        class="font-semibold text-black capitalize text-h2 mobile:text-h3 tablet:text-h3"
+        class="text-h2 font-semibold capitalize text-black tablet:text-h3 mobile:text-h3"
       >
         {{ getDate(logs[0].created_at) }}
       </p>
     </div>
 
-    <div v-for="log in logs" class="py-4 px-6 flex gap-x-4 shadow-cs2 w-full">
-      <div class="flex gap-9 w-full">
+    <div v-for="log in logs" class="flex w-full gap-x-4 py-4 px-6 shadow-cs2">
+      <div class="flex w-full gap-9">
         <div
-          class="text-gray-c-500 font-normal pt-2.5 text-h3 mobile:text-h4 tablet:text-h4"
+          class="pt-2.5 text-h3 font-normal text-gray-c-500 tablet:text-h4 mobile:text-h4"
         >
           {{ new Date(log.created_at).toTimeString().split(' ')[0] }}
         </div>
 
         <div class="w-4/5 mobile:pr-6">
           <div v-for="item in getChangedLogs(log)" class="my-2.5 font-semibold">
-            <div class="flex flex-wrap gap-2 relative group cursor-default">
+            <div class="group relative flex cursor-default flex-wrap gap-2">
               <div class="flex gap-2" v-if="item.old_value">
-                <p class="w-4 h-6">
+                <p class="h-6 w-4">
                   <SVG_status_list
                     :icon="item.flag"
                     :classList="getSVGColorClass(item.flag, item.old_value)"
                   />
                 </p>
                 <p
-                  class="grow my-auto uppercase text-h3 mobile:text-h4 tablet:text-h4"
+                  class="my-auto grow text-h3 uppercase tablet:text-h4 mobile:text-h4"
                   :class="getTextColorClass(item.flag, item.old_value)"
                 >
                   {{ GetStatusTranslation(item.old_value) }}
@@ -39,14 +39,14 @@
                 alt="arrow"
               />
               <div class="flex gap-2">
-                <p class="w-4 h-6">
+                <p class="h-6 w-4">
                   <SVG_status_list
                     :icon="item.flag"
                     :classList="getSVGColorClass(item.flag, item.new_value)"
                   />
                 </p>
                 <p
-                  class="grow my-auto uppercase text-base text-h3 mobile:text-h4 tablet:text-h4"
+                  class="my-auto grow text-base text-h3 uppercase tablet:text-h4 mobile:text-h4"
                   :class="getTextColorClass(item.flag, item.new_value)"
                 >
                   {{ GetStatusTranslation(item.new_value) }}
@@ -63,7 +63,7 @@
           </div>
 
           <div
-            class="text-h3 mobile:text-h4 tablet:text-h4 text-gray-c-500 font-semibold"
+            class="text-h3 font-semibold text-gray-c-500 tablet:text-h4 mobile:text-h4"
           >
             {{ log.user.username }}
             <span class="font-normal">

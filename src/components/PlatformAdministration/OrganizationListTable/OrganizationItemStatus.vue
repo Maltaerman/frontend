@@ -1,12 +1,12 @@
 <template>
   <div>
     <div
-      class="flex flex-row bg-white rounded-lg max-w-max border px-2 py-0.5"
+      class="flex max-w-max flex-row rounded-lg border bg-white px-2 py-0.5"
       :class="getOrganizationStatus()"
     >
       <div
         v-if="status === ORGANIZATION_STATUSES?.DISABLED"
-        class="h-5 w-5 mr-1 top-0.5 relative inline-block border-green-c-200"
+        class="relative top-0.5 mr-1 inline-block h-5 w-5 border-green-c-200"
       >
         <SVG_eye_crossed class="fill-green-c-500"></SVG_eye_crossed>
       </div>

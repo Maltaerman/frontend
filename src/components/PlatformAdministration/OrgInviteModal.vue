@@ -6,7 +6,7 @@
     :isHideOnClick="true"
   >
     <div
-      class="bg-white w-[480px] mx-auto mobile:w-full relative p-6 rounded-lg"
+      class="relative mx-auto w-[480px] rounded-lg bg-white p-6 mobile:w-full"
       @click.stop
     >
       <img
@@ -14,10 +14,10 @@
         class="absolute top-6 right-6 cursor-pointer"
         @click="closeThisModal"
       />
-      <div class="text-h2 text-center font-semibold">
+      <div class="text-center text-h2 font-semibold">
         {{ $t('dashboard.addOrganization') }}
       </div>
-      <div class="flex flex-col gap-4 mt-4 mb-6">
+      <div class="mt-4 mb-6 flex flex-col gap-4">
         <input1
           inp-id="inpRegNewOrgName"
           v-model.trim="organization.name"
@@ -38,7 +38,7 @@
           :label="$t('dashboard.address')"
           :placeholder="$t('dashboard.address')"
         />
-        <div class="text-h4 text-gray-c-500 text-left font-normal">
+        <div class="text-left text-h4 font-normal text-gray-c-500">
           {{ $t('general.email') }}
         </div>
         <input1
@@ -51,12 +51,12 @@
         />
 
         <ButtonText1
-          class="group p-2 font-medium w-min flex flex-nowrap items-center"
+          class="group flex w-min flex-nowrap items-center p-2 font-medium"
           v-if="isAddEmailVisible"
           @click="addEmail"
         >
           <svg
-            class="inline-block mr-2"
+            class="mr-2 inline-block"
             width="14"
             height="14"
             viewBox="0 0 14 14"

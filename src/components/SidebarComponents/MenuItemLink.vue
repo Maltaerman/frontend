@@ -1,14 +1,14 @@
 <template>
   <router-link :to="to">
     <div
-      class="group p-1 w-full cursor-pointer h-[58px] flex gap-4 items-center px-6 text-h3 hover:bg-white"
+      class="group flex h-[58px] w-full cursor-pointer items-center gap-4 p-1 px-6 text-h3 hover:bg-white"
       :class="{ 'bg-blue-c-200': isPathMatched(to) }"
     >
       <div class="h-5 w-5" ref="image_container">
         <slot name="image"></slot>
       </div>
       <div
-        class="h-min group-hover:text-blue-c-400 text-gray-c-500 font-semibold"
+        class="h-min font-semibold text-gray-c-500 group-hover:text-blue-c-400"
         :class="{ 'text-blue-c-500': isPathMatched(to) }"
       >
         <slot name="text" />
