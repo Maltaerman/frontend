@@ -1,10 +1,29 @@
 <template>
   <div class="py-4 shadow-cs2 h-min">
+<<<<<<< HEAD
     <div class="flex flex-nowrap justify-between relative cursor-pointer group">
    <div>
     <div class="flex flex-nowrap flex-row ">
         <div class="mr-1.5 my-auto h-6 w-8">
           <SVG_status_list :icon="flag" :class-list="getSVGColorClass(flag, flagValue)" />
+=======
+    <div class="flex flex-nowrap relative cursor-pointer group">
+      <div class="mr-1.5 my-auto h-6 w-8">
+        <SVG_status_list
+          :icon="flag"
+          :class-list="getSVGColorClass(flag, flagValue)"
+        />
+      </div>
+      <p
+        class="grow font-semibold my-auto uppercase"
+        :class="getTextColorClass(flag, flagValue)"
+      >
+        {{ GetStatusTranslation(flagValue) }}
+      </p>
+      <p class="text-gray-c-500 my-auto font-normal px-1" v-if="update">
+        {{ GetDateTimeShort(update) }}
+      </p>
+>>>>>>> 393fd18aa5181f79755b7bdc52ccec967efc7d03
 
         </div>
         <p class="grow font-semibold  my-auto uppercase" :class="getTextColorClass(flag, flagValue)">
@@ -38,10 +57,14 @@ import Expander from "../../Other/Expander.vue";
 export default {
   name: "ReportStateItem",
   components: { SVG_status_list, Expander },
+<<<<<<< HEAD
   mixins: [
     reportItemFlags,
     dateFormatter
   ],
+=======
+  mixins: [reportItemFlags, dateFormatter],
+>>>>>>> 393fd18aa5181f79755b7bdc52ccec967efc7d03
   props: {
     organizationName: String,
     flag: String,
@@ -49,7 +72,7 @@ export default {
     description: String,
     update: [String, Date],
   },
-}
+};
 </script>
 
 <style scoped></style>
