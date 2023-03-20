@@ -6,18 +6,18 @@
     class-list="grid items-center px-6"
   >
     <div
-      class="bg-white w-[480px] mx-auto mobile:w-full relative p-6 rounded-lg"
+      class="relative mx-auto w-[480px] rounded-lg bg-white p-6 mobile:w-full"
     >
       <img
         src="/src/assets/close.svg"
         class="absolute top-6 right-6 cursor-pointer"
         @click="cancelButtonClick"
       />
-      <div class="text-h2 text-center font-semibold">{{ title }}</div>
+      <div class="text-center text-h2 font-semibold">{{ title }}</div>
       <div class="mt-2 mb-6 text-center text-gray-c-500">
         {{ question }}
       </div>
-      <div class="flex gap-4 flex-nowrap">
+      <div class="flex flex-nowrap gap-4">
         <button-2 class="w-full" @click="cancelButtonClick">
           {{ cancelButtonTextC }}
         </button-2>
@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: "ConfirmModal",
+  name: 'ConfirmModal',
   props: {
     isVisible: {
       default: false,
@@ -47,7 +47,7 @@ export default {
     },
     title: {
       type: String,
-      default: "",
+      default: '',
     },
     question: {
       type: String,
@@ -66,27 +66,27 @@ export default {
   },
   methods: {
     cancelButtonClick() {
-      this.cancelButtonFunc();
-      this.closeFunc();
+      this.cancelButtonFunc()
+      this.closeFunc()
     },
     acceptButtonClick() {
-      this.acceptButtonFunc();
-      this.closeFunc();
+      this.acceptButtonFunc()
+      this.closeFunc()
     },
   },
   computed: {
     acceptButtonTextC() {
       return this.acceptButtonText
         ? this.acceptButtonText
-        : this.$t("general.confirm");
+        : this.$t('general.confirm')
     },
     cancelButtonTextC() {
       return this.cancelButtonText
         ? this.cancelButtonText
-        : this.$t("general.cancel");
+        : this.$t('general.cancel')
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

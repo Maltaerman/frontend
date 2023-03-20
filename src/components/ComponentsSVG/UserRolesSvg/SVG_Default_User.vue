@@ -33,8 +33,8 @@
 
 <script>
 export default {
-  name: "SVG_Default_User",
-};
+  name: 'SVG_Default_User',
+}
 </script>
 
 <style scoped></style>

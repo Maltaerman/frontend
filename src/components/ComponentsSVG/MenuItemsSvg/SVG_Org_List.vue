@@ -16,8 +16,8 @@
 
 <script>
 export default {
-  name: "SVG_Org_List",
-};
+  name: 'SVG_Org_List',
+}
 </script>
 
 <style scoped></style>

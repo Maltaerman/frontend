@@ -2,15 +2,15 @@
   <div
     v-if="selectedMarkerData !== null"
     id="sideBar"
-    class="overflow-y-auto-custom h-full shadow-cs1 flex flex-col"
+    class="overflow-y-auto-custom flex h-full flex-col shadow-cs1"
   >
     <h1
-      class="px-6 font-semibold my-6 text-h1 mobile:text-h1-m tablet:text-h1-m mobile:px-4 tablet:px-4"
+      class="my-6 px-6 text-h1 font-semibold tablet:px-4 tablet:text-h1-m mobile:px-4 mobile:text-h1-m"
     >
       {{ selectedMarkerAddress }}
     </h1>
     <div
-      class="flex flex-nowrap text-center text-h3 mobile:text-h4 tablet:text-h4"
+      class="flex flex-nowrap text-center text-h3 tablet:text-h4 mobile:text-h4"
     >
       <TabItemButton
         class="w-full"
@@ -18,7 +18,7 @@
         :current-tab-value="selectedTabItem"
         @click="setSelectedTab('Overview')"
       >
-        {{ $t("userSideBar.overview") }}
+        {{ $t('userSideBar.overview') }}
       </TabItemButton>
       <TabItemButton
         class="w-full"
@@ -26,10 +26,10 @@
         :current-tab-value="selectedTabItem"
         @click="setSelectedTab(`History`)"
       >
-        {{ $t("userSideBar.change-history") }}
+        {{ $t('userSideBar.change-history') }}
       </TabItemButton>
     </div>
-    <div class="pt-6 grow">
+    <div class="grow pt-6">
       <keep-alive>
         <Overview
           v-if="this.selectedTabItem === `Overview` && selectedMarkerData"
@@ -44,14 +44,14 @@
 </template>
 
 <script>
-import Overview from "./Overview.vue";
-import History from "./History.vue";
-import { mapState } from "vuex";
-import NotFound from "./NotFound.vue";
-import TabItemButton from "../../Other/TabItemButton.vue";
+import Overview from './Overview.vue'
+import History from './History.vue'
+import { mapState } from 'vuex'
+import NotFound from './NotFound.vue'
+import TabItemButton from '../../Other/TabItemButton.vue'
 
 export default {
-  name: "SideBar",
+  name: 'SideBar',
   props: {
     selectedMarker: Object,
   },
@@ -63,38 +63,38 @@ export default {
   },
   methods: {
     setSelectedTab(tabName) {
-      this.selectedTabItem = tabName;
+      this.selectedTabItem = tabName
     },
   },
   data: function () {
     return {
-      selectedTabItem: "Overview",
-    };
+      selectedTabItem: 'Overview',
+    }
   },
   computed: {
     ...mapState({
-      selectedMarkerData: "selectedMarkerData",
+      selectedMarkerData: 'selectedMarkerData',
     }),
     selectedMarkerAddress() {
-      let address = "";
+      let address = ''
       if (this.selectedMarkerData.address)
-        address += `${this.selectedMarkerData.address}, `;
+        address += `${this.selectedMarkerData.address}, `
       if (this.selectedMarkerData.street_number)
-        address += `${this.selectedMarkerData.street_number}, `;
+        address += `${this.selectedMarkerData.street_number}, `
       if (this.selectedMarkerData.index)
-        address += `${this.selectedMarkerData.index}, `;
+        address += `${this.selectedMarkerData.index}, `
       if (this.selectedMarkerData.city)
-        address += `${this.selectedMarkerData.city}`;
-      let trim = 0;
+        address += `${this.selectedMarkerData.city}`
+      let trim = 0
       for (let i = address.length - 1; i <= 0; i--) {
-        if (address[i] === " " || address[i] === ",") trim++;
-        else break;
+        if (address[i] === ' ' || address[i] === ',') trim++
+        else break
       }
-      address = address.substring(0, address.length - trim);
-      return address.length > 0 ? address : this.$t("general.error");
+      address = address.substring(0, address.length - trim)
+      return address.length > 0 ? address : this.$t('general.error')
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

@@ -6,7 +6,7 @@
     :isHideOnClick="true"
   >
     <div
-      class="bg-white w-[480px] mx-auto mobile:w-full relative p-6 rounded-lg"
+      class="relative mx-auto w-[480px] rounded-lg bg-white p-6 mobile:w-full"
       @click.stop
     >
       <img
@@ -14,10 +14,10 @@
         class="absolute top-6 right-6 cursor-pointer"
         @click="closeThisModal"
       />
-      <div class="text-h2 text-center font-semibold">
-        {{ $t("dashboard.addOrganization") }}
+      <div class="text-center text-h2 font-semibold">
+        {{ $t('dashboard.addOrganization') }}
       </div>
-      <div class="flex flex-col gap-4 mt-4 mb-6">
+      <div class="mt-4 mb-6 flex flex-col gap-4">
         <input1
           inp-id="inpRegNewOrgName"
           v-model.trim="organization.name"
@@ -38,8 +38,8 @@
           :label="$t('dashboard.address')"
           :placeholder="$t('dashboard.address')"
         />
-        <div class="text-h4 text-gray-c-500 text-left font-normal">
-          {{ $t("general.email") }}
+        <div class="text-left text-h4 font-normal text-gray-c-500">
+          {{ $t('general.email') }}
         </div>
         <input1
           v-for="(item, index) in organization.emails"
@@ -51,12 +51,12 @@
         />
 
         <ButtonText1
-          class="group p-2 font-medium w-min flex flex-nowrap items-center"
+          class="group flex w-min flex-nowrap items-center p-2 font-medium"
           v-if="isAddEmailVisible"
           @click="addEmail"
         >
           <svg
-            class="inline-block mr-2"
+            class="mr-2 inline-block"
             width="14"
             height="14"
             viewBox="0 0 14 14"
@@ -70,7 +70,7 @@
             />
           </svg>
           <p class="whitespace-nowrap">
-            {{ $t("organizationProfile.addMore") }}
+            {{ $t('organizationProfile.addMore') }}
           </p>
         </ButtonText1>
       </div>
@@ -79,7 +79,7 @@
         :disabled="!isAllDataValid"
         @click.stop="InviteOrganization"
       >
-        {{ $t("general.save") }}
+        {{ $t('general.save') }}
       </button-1>
       <Loader v-if="isLoaderVisible" />
     </div>
@@ -87,15 +87,15 @@
 </template>
 
 <script>
-import ModalTemplate from "../Modals/ModalTemplate.vue";
-import Input1 from "../Inputs/Input-1.vue";
-import StringFormatter from "../mixins/StringFormatter";
-import ButtonText1 from "../Buttons/Button_text_1.vue";
-import regex from "../mixins/regex.js";
-import api from "../../http_client/index.js";
+import ModalTemplate from '../Modals/ModalTemplate.vue'
+import Input1 from '../Inputs/Input-1.vue'
+import StringFormatter from '../mixins/StringFormatter'
+import ButtonText1 from '../Buttons/Button_text_1.vue'
+import regex from '../mixins/regex.js'
+import api from '../../http_client/index.js'
 export default {
   inheritAttrs: false,
-  emits: ["addOrganization"],
+  emits: ['addOrganization'],
   mixins: [StringFormatter, regex],
   components: {
     ButtonText1,
@@ -117,37 +117,36 @@ export default {
   data() {
     return {
       organization: {
-        name: "",
-        website: "",
-        address: "",
-        emails: [""],
+        name: '',
+        website: '',
+        address: '',
+        emails: [''],
       },
-    };
+    }
   },
   methods: {
     closeThisModal() {
-      console.log("joł");
-      this.closeCreateOrgModal();
+      console.log('joł')
+      this.closeCreateOrgModal()
     },
     onAddOrganization() {
-      console.log("adding from modal");
-      this.$emit("addOrganization", this.organization);
+      console.log('adding from modal')
+      this.$emit('addOrganization', this.organization)
     },
     addEmail() {
-      if (this.organization.emails.length < 3)
-        this.organization.emails.push("");
+      if (this.organization.emails.length < 3) this.organization.emails.push('')
     },
     async InviteOrganization() {
-      if (!this.isAllDataValid) return;
+      if (!this.isAllDataValid) return
       await api.organizations
         .inviteOrganization(this.organization)
         .then((res) => {
-          console.log(res);
-          this.onAddOrganization();
+          console.log(res)
+          this.onAddOrganization()
         })
         .catch((err) => {
-          console.error(err);
-        });
+          console.error(err)
+        })
     },
   },
   computed: {
@@ -157,22 +156,22 @@ export default {
         this.organization.website.length > 2 &&
         this.organization.address.length > 2 &&
         this.organization.emails.every((x) => this.isMail(x))
-      );
+      )
     },
     isAddEmailVisible() {
-      return this.organization.emails.length < 3;
+      return this.organization.emails.length < 3
     },
     //TODO remove from here
   },
   watch: {
     isVisible(newVal) {
       this.organization = {
-        name: "",
-        website: "",
-        address: "",
-        emails: [""],
-      };
+        name: '',
+        website: '',
+        address: '',
+        emails: [''],
+      }
     },
   },
-};
+}
 </script>

@@ -31,8 +31,8 @@
 
 <script>
 export default {
-  name: "SVG_history",
-};
+  name: 'SVG_history',
+}
 </script>
 
 <style scoped></style>

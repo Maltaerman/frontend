@@ -16,8 +16,8 @@
 
 <script>
 export default {
-  name: "SVG_save",
-};
+  name: 'SVG_save',
+}
 </script>
 
 <style scoped></style>

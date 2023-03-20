@@ -22,8 +22,8 @@
 
 <script>
 export default {
-  name: "SVG_search",
-};
+  name: 'SVG_search',
+}
 </script>
 
 <style scoped></style>

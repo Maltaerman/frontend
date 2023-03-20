@@ -3,12 +3,12 @@
     <div
       id="addressRequestModal"
       v-if="isModalVisible"
-      class="overflow-y-hidden z-[1050] h-screen w-screen bg-black/30 fixed top-0 left-0 right-0 bottom-0 mobile:px-2 grid place-items-center"
+      class="fixed top-0 left-0 right-0 bottom-0 z-[1050] grid h-screen w-screen place-items-center overflow-y-hidden bg-black/30 mobile:px-2"
     >
       <transition name="modal-anim" mode="out-in">
         <div
           v-if="animStep == 1"
-          class="mx-auto rounded-xl p-6 w-[500px] mobile:w-full h-min bg-white relative flex"
+          class="relative mx-auto flex h-min w-[500px] rounded-xl bg-white p-6 mobile:w-full"
           @click.stop
         >
           <button class="absolute top-6 right-6 h-4 w-4" @click="hide">
@@ -37,10 +37,10 @@
           <transition name="modal-anim" mode="out-in">
             <div v-if="step === steps.numEnter" class="w-full text-center">
               <div class="text-body-2 font-semibold">
-                {{ $t("addressReqModal.step1Title") }}
+                {{ $t('addressReqModal.step1Title') }}
               </div>
               <div class="text-body-1 mt-2 text-gray-c-600">
-                {{ $t("addressReqModal.step1Tips") }}
+                {{ $t('addressReqModal.step1Tips') }}
               </div>
               <TelInput
                 class="my-6"
@@ -53,7 +53,7 @@
                 @click="GetCodeAction"
                 :disabled="!isNumValid"
               >
-                {{ $t("addressReqModal.step1Button") }}
+                {{ $t('addressReqModal.step1Button') }}
               </button-1>
             </div>
             <div
@@ -61,13 +61,13 @@
               class="w-full text-center"
             >
               <div class="text-body-2 font-semibold">
-                {{ $t("addressReqModal.step2Title") }}
+                {{ $t('addressReqModal.step2Title') }}
               </div>
               <div class="text-body-1 mt-2 text-gray-c-600">
                 {{ step2Tips }}
               </div>
               <CodeInput
-                class="w-full my-6"
+                class="my-6 w-full"
                 :digit-amount="6"
                 v-model="code"
                 @enter-click="codeInpEnterClick"
@@ -77,14 +77,14 @@
                 @click="SendRequestAction"
                 :disabled="!isCodeValid"
               >
-                {{ $t("addressReqModal.step2Button") }}
+                {{ $t('addressReqModal.step2Button') }}
               </button-1>
               <div
-                class="mt-4 text-body-1 text-gray-c-500 h-[42px] flex justify-center place-items-center"
+                class="text-body-1 mt-4 flex h-[42px] place-items-center justify-center text-gray-c-500"
               >
                 <transition name="modal-anim" mode="out-in">
                   <div v-if="codeExpiredIn > 0">
-                    {{ $t("addressReqModal.codeExpires") }}
+                    {{ $t('addressReqModal.codeExpires') }}
                     <span class="font-semibold text-blue-c-500">
                       &nbsp;{{ timer }}
                     </span>
@@ -94,7 +94,7 @@
                     v-else
                     class="font-semibold text-blue-c-500"
                   >
-                    {{ $t("addressReqModal.sendCodeAgain") }}
+                    {{ $t('addressReqModal.sendCodeAgain') }}
                   </button>
                 </transition>
               </div>
@@ -105,9 +105,9 @@
         <div
           v-else-if="animStep == 2"
           @click.stop
-          class="mx-auto rounded-xl px-[26px] py-10 w-[500px] h-[164px] bg-white grid items-center gap-6"
+          class="mx-auto grid h-[164px] w-[500px] items-center gap-6 rounded-xl bg-white px-[26px] py-10"
         >
-          <div class="subTitle text-gray-c-800 text-center">
+          <div class="subTitle text-center text-gray-c-800">
             Sending your request...
           </div>
           <ProgressBar :progress="sendingProgress" />
@@ -119,16 +119,16 @@
 </template>
 
 <script>
-import Input1 from "../Inputs/Input-1.vue";
-import Button2 from "../Buttons/Button_2.vue";
-import CodeInput from "../Inputs/CodeInput.vue";
-import api from "../../http_client/index.js";
-import { mapGetters, mapMutations } from "vuex";
-import TelInput from "../Inputs/TelInput.vue";
-import regex from "../mixins/regex.js";
-import ProgressBar from "../Other/ProgressBar.vue";
+import Input1 from '../Inputs/Input-1.vue'
+import Button2 from '../Buttons/Button_2.vue'
+import CodeInput from '../Inputs/CodeInput.vue'
+import api from '../../http_client/index.js'
+import { mapGetters, mapMutations } from 'vuex'
+import TelInput from '../Inputs/TelInput.vue'
+import regex from '../mixins/regex.js'
+import ProgressBar from '../Other/ProgressBar.vue'
 export default {
-  name: "SendReportRequestModal",
+  name: 'SendReportRequestModal',
   components: { ProgressBar, TelInput, CodeInput, Button2, Input1 },
   mixins: [regex],
   props: {
@@ -145,241 +145,241 @@ export default {
     return {
       isClosedClick: false,
       isLoaderVisible: false,
-      telNum: "",
+      telNum: '',
       isNumValid: false,
-      code: "",
+      code: '',
       codeExpiredIn: 0,
-      step: "numEnter",
+      step: 'numEnter',
       animStep: 1,
       steps: {
-        numEnter: "numEnter",
-        codeEnter: "codeEnter",
+        numEnter: 'numEnter',
+        codeEnter: 'codeEnter',
       },
 
       onClose: () => {},
       intervalId: 0,
       sendingProgress: 0,
-    };
+    }
   },
   methods: {
     ...mapMutations({
-      setUnreviewedMarkers: "setUnreviewedMarkers",
-      setNotFoundMarker: "setNoDataMarker",
+      setUnreviewedMarkers: 'setUnreviewedMarkers',
+      setNotFoundMarker: 'setNoDataMarker',
     }),
     hide() {
-      this.isClosedClick = true;
+      this.isClosedClick = true
       setTimeout(() => {
-        this.sendingProgress = 0;
-        this.isClosedClick = false;
-        this.step = this.steps.numEnter;
-        this.telNum = "";
-        this.code = "";
-        this.codeExpiredIn = 0;
-        this.isNumValid = false;
-        this.onClose();
-        this.onClose = () => {};
-        this.animStep = 1;
-        this.closeFunc();
-      }, 400);
+        this.sendingProgress = 0
+        this.isClosedClick = false
+        this.step = this.steps.numEnter
+        this.telNum = ''
+        this.code = ''
+        this.codeExpiredIn = 0
+        this.isNumValid = false
+        this.onClose()
+        this.onClose = () => {}
+        this.animStep = 1
+        this.closeFunc()
+      }, 400)
     },
     async getCode() {
       if (!this.isNumValid) {
         this.$toast.error(
-          this.$t("validations.numNotValid"),
-          this.$toast.options(false, false)
-        );
-        return;
+          this.$t('validations.numNotValid'),
+          this.$toast.options(false, false),
+        )
+        return
       }
-      let tel = this.telNum.replace("+", "%2B");
+      let tel = this.telNum.replace('+', '%2B')
       await api.guest
         .getCode(tel)
         .then((res) => {
-          console.log(res);
-          this.startTimer(this.getExpiredTime(res.data.expires_at));
+          console.log(res)
+          this.startTimer(this.getExpiredTime(res.data.expires_at))
           //this.startTimer(res.data.expiration_minutes * 60);
-          this.step = this.steps.codeEnter;
+          this.step = this.steps.codeEnter
         })
         .catch((error) => {
-          let errorMess = this.$t("general.errorMessage");
+          let errorMess = this.$t('general.errorMessage')
           if (error.response.status === 400)
-            errorMess = this.$t("validations.numNotValid");
-          this.$toast.error(errorMess, this.$toast.options(false, false));
-        });
+            errorMess = this.$t('validations.numNotValid')
+          this.$toast.error(errorMess, this.$toast.options(false, false))
+        })
     },
     getCodeDev() {
-      this.step = this.steps.codeEnter;
-      this.startTimer(15 * 60);
+      this.step = this.steps.codeEnter
+      this.startTimer(15 * 60)
     },
     getExpiredTime(date) {
-      return (new Date(date) - new Date()) / 1000;
+      return (new Date(date) - new Date()) / 1000
     },
     startTimer(seconds) {
-      clearInterval(this.intervalId);
-      this.codeExpiredIn = seconds;
+      clearInterval(this.intervalId)
+      this.codeExpiredIn = seconds
       this.intervalId = setInterval(() => {
-        this.codeExpiredIn--;
-        if (this.codeExpiredIn <= 0) clearInterval(this.intervalId);
-      }, 1000);
+        this.codeExpiredIn--
+        if (this.codeExpiredIn <= 0) clearInterval(this.intervalId)
+      }, 1000)
     },
     async sendRequestDev() {
       if (!this.notFoundedMarker) {
-        this.$toast.error(this.$t("addressReqModal.markerError"));
-        return;
+        this.$toast.error(this.$t('addressReqModal.markerError'))
+        return
       }
       if (!this.isCodeValid) {
-        this.$toast.error(this.$t("validations.codeNotValid"));
-        return;
+        this.$toast.error(this.$t('validations.codeNotValid'))
+        return
       }
-      this.animStep = 2;
+      this.animStep = 2
       let payload = {
         lat: this.notFoundedMarker.position.lat,
         lng: this.notFoundedMarker.position.lng,
-      };
-      this.sendingProgress = 45;
-      await new Promise((resolve) => setTimeout(resolve, 300));
+      }
+      this.sendingProgress = 45
+      await new Promise((resolve) => setTimeout(resolve, 300))
       await api.locations
         .requestAddressReview(payload)
         .then(async (res) => {
-          console.log(res);
+          console.log(res)
           let data = {
             position: { ...res.data.position } ?? { ...payload },
             status: res.status ?? 1,
-          };
-          this.setUnreviewedMarkers([data, ...this.getRequestMarkers]);
+          }
+          this.setUnreviewedMarkers([data, ...this.getRequestMarkers])
           this.setNotFoundMarker({
             id: res.data.location_id,
             position: res.data.position,
             address: this.notFoundedMarker.address,
-          });
-          let successMess = this.$t("notFoundAddress.modalSuccessMess", {
+          })
+          let successMess = this.$t('notFoundAddress.modalSuccessMess', {
             address: this.notFoundedMarker.address,
-          });
-          this.sendingProgress = 100;
-          await new Promise((resolve) => setTimeout(resolve, 300));
+          })
+          this.sendingProgress = 100
+          await new Promise((resolve) => setTimeout(resolve, 300))
           this.onClose = () => {
-            this.$toast.success(successMess);
-          };
-          this.hide();
+            this.$toast.success(successMess)
+          }
+          this.hide()
         })
         .catch((err) => {
-          console.error(err);
-          let errMess = this.$t("general.errorMessage");
+          console.error(err)
+          let errMess = this.$t('general.errorMessage')
           if (err.response && err.response.status === 400)
-            errMess = this.$t("notFoundAddress.modalErrRequestExist");
-          this.isLoaderVisible = false;
+            errMess = this.$t('notFoundAddress.modalErrRequestExist')
+          this.isLoaderVisible = false
           this.onClose = () => {
-            this.$toast.error(errMess);
-          };
-          this.hide();
-        });
+            this.$toast.error(errMess)
+          }
+          this.hide()
+        })
     },
     async sendRequest() {
       if (!this.isNumValid) {
         this.$toast.error(
-          this.$t("validations.numNotValid"),
-          this.$toast.options(false, false)
-        );
-        return;
+          this.$t('validations.numNotValid'),
+          this.$toast.options(false, false),
+        )
+        return
       }
       if (!this.isCodeValid) {
         this.$toast.error(
-          this.$t("validations.codeNotValid"),
-          this.$toast.options(false, false)
-        );
-        return;
+          this.$t('validations.codeNotValid'),
+          this.$toast.options(false, false),
+        )
+        return
       }
       let params = {
         phone_number: this.telNum,
         otp: this.code,
         ...this.notFoundedMarker.position,
-      };
-      this.animStep = 2;
-      this.sendingProgress = 45;
-      await new Promise((resolve) => setTimeout(resolve, 300));
+      }
+      this.animStep = 2
+      this.sendingProgress = 45
+      await new Promise((resolve) => setTimeout(resolve, 300))
       await api.guest
         .sendAddressRequest(params)
         .then(async (res) => {
           let data = {
             position: { ...this.notFoundedMarker.position },
             status: res.status ?? 1,
-          };
+          }
 
-          this.setUnreviewedMarkers([data, ...this.getRequestMarkers]);
+          this.setUnreviewedMarkers([data, ...this.getRequestMarkers])
           this.setNotFoundMarker({
             location_id: res.data.location_id,
             position: { ...this.notFoundedMarker.position },
             address: this.notFoundedMarker.address,
-          });
-          let successMess = this.$t("notFoundAddress.modalSuccessMess", {
+          })
+          let successMess = this.$t('notFoundAddress.modalSuccessMess', {
             address: this.notFoundedMarker.address,
-          });
+          })
 
-          this.sendingProgress = 100;
-          await new Promise((resolve) => setTimeout(resolve, 300));
-          this.isLoaderVisible = false;
+          this.sendingProgress = 100
+          await new Promise((resolve) => setTimeout(resolve, 300))
+          this.isLoaderVisible = false
           this.onClose = () => {
-            this.$toast.success(successMess);
-          };
-          this.hide();
+            this.$toast.success(successMess)
+          }
+          this.hide()
         })
         .catch((err) => {
-          console.error(err);
-          let errMess = this.$t("general.errorMessage");
+          console.error(err)
+          let errMess = this.$t('general.errorMessage')
           //TODO 400 статкус код коли запит на локацію вже існує. чи коли код чи номер не валідний?
           /*if(err.response && err.response.status === 400)
               errMess = this.$t("notFoundAddress.modalErrRequestExist");*/
-          this.isLoaderVisible = false;
+          this.isLoaderVisible = false
           this.onClose = () => {
-            this.$toast.error(errMess);
-          };
-          this.hide();
-        });
+            this.$toast.error(errMess)
+          }
+          this.hide()
+        })
     },
     onNumValidation(arg) {
-      this.isNumValid = arg;
+      this.isNumValid = arg
     },
     numInpEnterClick() {
-      if (this.isNumValid) this.GetCodeAction();
+      if (this.isNumValid) this.GetCodeAction()
     },
     codeInpEnterClick() {
-      if (this.isCodeValid) this.SendRequestAction();
+      if (this.isCodeValid) this.SendRequestAction()
     },
     GetCodeAction() {
       //this.getCode();
-      this.getCodeDev();
+      this.getCodeDev()
     },
     SendRequestAction() {
       //this.sendRequest();
-      this.sendRequestDev();
+      this.sendRequestDev()
     },
   },
   computed: {
     ...mapGetters({
-      notFoundedMarker: "notFoundedMarker",
-      getRequestMarkers: "getRequestMarkers",
+      notFoundedMarker: 'notFoundedMarker',
+      getRequestMarkers: 'getRequestMarkers',
     }),
     timer() {
-      let min = Math.trunc(this.codeExpiredIn / 60);
-      let sec = Math.round(this.codeExpiredIn % 60);
-      min = min > 9 ? min : `0${min}`;
-      sec = sec > 9 ? sec : `0${sec}`;
-      return `${min}:${sec}`;
+      let min = Math.trunc(this.codeExpiredIn / 60)
+      let sec = Math.round(this.codeExpiredIn % 60)
+      min = min > 9 ? min : `0${min}`
+      sec = sec > 9 ? sec : `0${sec}`
+      return `${min}:${sec}`
     },
     step2Tips() {
-      return this.$t("addressReqModal.step2Tips", { telNum: this.telNum });
+      return this.$t('addressReqModal.step2Tips', { telNum: this.telNum })
     },
     isCodeValid() {
       return (
         this.onlyDigitsRegex.test(this.code) &&
         this.code.length === 6 &&
         this.codeExpiredIn > 0
-      );
+      )
     },
   },
   beforeUnmount() {
-    clearInterval(this.intervalId);
+    clearInterval(this.intervalId)
   },
-};
+}
 </script>
 
 <style scoped></style>

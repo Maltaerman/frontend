@@ -1,6 +1,6 @@
 <template>
   <button
-    class="py-1 px-2 text-center align-middle rounded-lg text-h3 font-medium mobile:text-h4 tablet:text-h4 border bg-transparent hover:bg-gray-c-100 disabled:border-gray-c-200 disabled:text-gray-c-400"
+    class="rounded-lg border bg-transparent py-1 px-2 text-center align-middle text-h3 font-medium hover:bg-gray-c-100 disabled:border-gray-c-200 disabled:text-gray-c-400 tablet:text-h4 mobile:text-h4"
     :class="{
       'border-gray-c-200': buttonState === 'default',
       'border-green-c-200 text-green-c-500': buttonState === 'positive',
@@ -15,21 +15,21 @@
 
 <script>
 export default {
-  name: "ButtonTag",
+  name: 'ButtonTag',
   props: {
     buttonState: {
       type: String,
-      default: "default",
+      default: 'default',
       validator: function (value) {
         return [
-          "default",
-          "positive",
-          "negative",
-          "no-data",
-          "inactive",
-        ].includes(value);
+          'default',
+          'positive',
+          'negative',
+          'no-data',
+          'inactive',
+        ].includes(value)
       },
     },
   },
-};
+}
 </script>

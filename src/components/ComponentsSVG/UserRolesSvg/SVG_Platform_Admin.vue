@@ -22,8 +22,8 @@
 
 <script>
 export default {
-  name: "SVG_Platform_Admin",
-};
+  name: 'SVG_Platform_Admin',
+}
 </script>
 
 <style scoped></style>

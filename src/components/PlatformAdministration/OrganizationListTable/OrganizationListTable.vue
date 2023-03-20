@@ -1,24 +1,24 @@
 <template>
   <div class="overflow-x-auto mobile:w-auto">
-    <table class="table-auto w-full overflow-x-scroll min-w-[599px]">
+    <table class="w-full min-w-[599px] table-auto overflow-x-scroll">
       <thead>
         <tr
-          class="text-left text-base font-medium text-gray-c-400 bg-gray-50 h-[58px]"
+          class="h-[58px] bg-gray-50 text-left text-base font-medium text-gray-c-400"
         >
           <th
-            class="w-1/4 min-w-[280px] mobile:w-1/4 text-base font-medium pl-4"
+            class="w-1/4 min-w-[280px] pl-4 text-base font-medium mobile:w-1/4"
           >
-            {{ $t("dashboard.organizations") }}
+            {{ $t('dashboard.organizations') }}
           </th>
           <th class="w-24 text-center text-base font-medium">
-            {{ $t("organizationProfile.employees") }}
+            {{ $t('organizationProfile.employees') }}
           </th>
-          <th class="text-base font-medium pl-4" colspan="2">
-            {{ $t("organizationProfile.status") }}
+          <th class="pl-4 text-base font-medium" colspan="2">
+            {{ $t('organizationProfile.status') }}
           </th>
         </tr>
       </thead>
-      <tbody class="text-sm divide-y divide-gray-100">
+      <tbody class="divide-y divide-gray-100 text-sm">
         <OrganizationListTableItem
           v-for="(organization, index) in organizationsList"
           :key="`org${index}`"
@@ -31,11 +31,11 @@
 </template>
 
 <script>
-import OrganizationListTableItem from "./OrganizationListTableItem.vue";
-import avatar from "../../../assets/Organizations/avatar.svg";
+import OrganizationListTableItem from './OrganizationListTableItem.vue'
+import avatar from '../../../assets/Organizations/avatar.svg'
 export default {
-  name: "OrganizationListTable",
-  emits: ["remove"],
+  name: 'OrganizationListTable',
+  emits: ['remove'],
   components: {
     OrganizationListTableItem,
   },
@@ -48,21 +48,21 @@ export default {
   data() {
     return {
       avatar,
-    };
+    }
   },
   methods: {
     ShowMenu() {
-      this.isMenuVisible = !this.isMenuVisible;
+      this.isMenuVisible = !this.isMenuVisible
     },
     HideMenu() {
-      this.isMenuVisible = false;
+      this.isMenuVisible = false
     },
     OnInputFocus(value) {
-      this.isInputFocused = value;
+      this.isInputFocused = value
     },
     onRemoveOrg(organization) {
-      this.$emit("remove", organization);
+      this.$emit('remove', organization)
     },
   },
-};
+}
 </script>

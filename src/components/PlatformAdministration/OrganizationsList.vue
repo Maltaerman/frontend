@@ -1,40 +1,40 @@
 <template>
-  <div class="p-9 mobile:py-6 mobile:px-4 h-full overflow-y-auto">
-    <div class="flex row flex-wrap justify-between">
-      <h1 class="font-semibold text-gray-c-800 text-h1 mobile:text-h1-m">
-        {{ $t("dashboard.organizations") }}
+  <div class="h-full overflow-y-auto p-9 mobile:py-6 mobile:px-4">
+    <div class="row flex flex-wrap justify-between">
+      <h1 class="text-h1 font-semibold text-gray-c-800 mobile:text-h1-m">
+        {{ $t('dashboard.organizations') }}
       </h1>
       <button-1
-        class="block flex items-center mobile:w-full justify-center h-[46px]"
+        class="block flex h-[46px] items-center justify-center mobile:w-full"
         @click="showAddOrgModal"
       >
         <img
           src="/src/assets/plus.svg"
-          class="inline-block mr-2.5 mobile:mt-0.5"
+          class="mr-2.5 inline-block mobile:mt-0.5"
         />
-        <p>{{ $t("dashboard.addOrganization") }}</p>
+        <p>{{ $t('dashboard.addOrganization') }}</p>
       </button-1>
     </div>
     <div v-if="organizationsList.length <= 0" class="mt-[215px]">
       <img
-        class="w-[205px] h-[234px] mobile:w-[157px] mobile:h-[179px] mx-auto"
+        class="mx-auto h-[234px] w-[205px] mobile:h-[179px] mobile:w-[157px]"
         src="/src/assets/Organizations/Picture.png"
       />
-      <p class="text-body-1 text-center mt-5 mb-6">
-        {{ $t("dashboard.organizationListEmpty") }}
+      <p class="text-body-1 mt-5 mb-6 text-center">
+        {{ $t('dashboard.organizationListEmpty') }}
       </p>
       <button-1
-        class="block mx-auto flex items-center"
+        class="mx-auto block flex items-center"
         @click="showAddOrgModal"
       >
-        <img src="/src/assets/plus.svg" class="inline-block mr-2.5" />
-        <p>{{ $t("dashboard.addOrganization") }}</p>
+        <img src="/src/assets/plus.svg" class="mr-2.5 inline-block" />
+        <p>{{ $t('dashboard.addOrganization') }}</p>
       </button-1>
     </div>
     <div v-else class="mt-9">
-      <div class="flex flex-wrap justify-start gap-3 mb-6">
+      <div class="mb-6 flex flex-wrap justify-start gap-3">
         <div
-          class="border font-normal rounded-lg outline-none text-h3 hover:border-blue-c-400 focus:border-blue-c-500 disabled:bg-gray-c-100 disabled:hover:border-gray-c-300 disabled:text-gray-c-500 flex overflow-hidden px-5 flex items-center min-w-[400px] mobile:min-w-full"
+          class="flex flex min-w-[400px] items-center overflow-hidden rounded-lg border px-5 text-h3 font-normal outline-none hover:border-blue-c-400 focus:border-blue-c-500 disabled:bg-gray-c-100 disabled:text-gray-c-500 disabled:hover:border-gray-c-300 mobile:min-w-full"
           :class="{
             'border-blue-c-500': isInputFocused,
             'border-gray-c-300': !isInputFocused,
@@ -65,7 +65,7 @@
 
           <input
             ref="inp"
-            class="w-full outline-none px-4 py-2 bg-transparent text-h3"
+            class="w-full bg-transparent px-4 py-2 text-h3 outline-none"
             @focusin="OnInputFocus(true)"
             @focusout="OnInputFocus(false)"
             @click.stop
@@ -77,27 +77,27 @@
       </div>
       <div
         v-if="searchController.isSearchedOrgResult"
-        class="py-6 flex flex-wrap gap-4"
+        class="flex flex-wrap gap-4 py-6"
       >
-        <div class="w-full flex gap-4 items-center">
+        <div class="flex w-full items-center gap-4">
           <div
             class="h-min"
             v-if="searchController.SearchedOrganizationsList.length <= 0"
           >
-            {{ $t("dashboard.forRequest") }} "{{
+            {{ $t('dashboard.forRequest') }} "{{
               searchController.SearchedOrgName
-            }}" {{ $t("dashboard.noMatches") }}
+            }}" {{ $t('dashboard.noMatches') }}
           </div>
           <div
             class="h-min"
             v-if="searchController.SearchedOrganizationsList.length > 0"
           >
-            {{ $t("dashboard.requestResult") }} "{{
+            {{ $t('dashboard.requestResult') }} "{{
               searchController.SearchedOrgName
             }}".
           </div>
-          <button-1 class="block mobile:grow w-min" @click="ResetSearchResult">
-            {{ $t("general.refresh") }}
+          <button-1 class="block w-min mobile:grow" @click="ResetSearchResult">
+            {{ $t('general.refresh') }}
           </button-1>
         </div>
       </div>
@@ -133,22 +133,22 @@
 </template>
 
 <script>
-import OrganizationListItem from "./OrganizationListItem.vue";
-import OrganizationListTable from "./OrganizationListTable/OrganizationListTable.vue";
-import api from "../../http_client/index.js";
-import ModalTemplate from "../Modals/ModalTemplate.vue";
-import Input1 from "../Inputs/Input-1.vue";
-import Loader from "../Loader.vue";
-import Button1 from "../Buttons/Button_1.vue";
-import RemoveOrgModal from "./RemoveOrgModal.vue";
-import StringFormatter from "../mixins/StringFormatter.js";
-import axios from "axios";
-import UserInviteModal from "../Modals/UserInviteModal.vue";
-import OrganizationModal from "./OrganizationModal.vue";
-import OrgInviteModal from "./OrgInviteModal.vue";
+import OrganizationListItem from './OrganizationListItem.vue'
+import OrganizationListTable from './OrganizationListTable/OrganizationListTable.vue'
+import api from '../../http_client/index.js'
+import ModalTemplate from '../Modals/ModalTemplate.vue'
+import Input1 from '../Inputs/Input-1.vue'
+import Loader from '../Loader.vue'
+import Button1 from '../Buttons/Button_1.vue'
+import RemoveOrgModal from './RemoveOrgModal.vue'
+import StringFormatter from '../mixins/StringFormatter.js'
+import axios from 'axios'
+import UserInviteModal from '../Modals/UserInviteModal.vue'
+import OrganizationModal from './OrganizationModal.vue'
+import OrgInviteModal from './OrgInviteModal.vue'
 
 export default {
-  name: "OrganizationsList",
+  name: 'OrganizationsList',
   mixins: [StringFormatter],
   components: {
     OrgInviteModal,
@@ -177,119 +177,119 @@ export default {
       currentLastPage: 1,
       pageMax: -1,
       isAutoPaginationOn: true,
-      createOrgSite: "",
-      createOrgName: "",
+      createOrgSite: '',
+      createOrgName: '',
       isLoaderVisible: false,
       removedOrganization: null,
-      status: ["active", "pending", "disabled"],
+      status: ['active', 'pending', 'disabled'],
       searchController: {
-        SearchedOrgName: "",
+        SearchedOrgName: '',
         SearchedOrganizationsList: [],
         isSearchedOrgResult: false,
         cancelController: null,
       },
-    };
+    }
   },
   methods: {
     OnInputFocus(value) {
-      this.isInputFocused = value;
+      this.isInputFocused = value
     },
     OnDivFocus(arg) {
-      this.isInputFocused = arg;
-      if (arg) this?.$refs?.inp?.focus();
+      this.isInputFocused = arg
+      if (arg) this?.$refs?.inp?.focus()
     },
     ActivateInput() {
-      this.$refs.inp.select();
+      this.$refs.inp.select()
     },
     showAddOrgModal() {
-      this.modals.createOrgModalVisible = true;
+      this.modals.createOrgModalVisible = true
     },
     closeCreateOrgModal() {
-      this.createOrgName = "";
-      this.createOrgSite = "";
-      this.modals.createOrgModalVisible = false;
+      this.createOrgName = ''
+      this.createOrgSite = ''
+      this.modals.createOrgModalVisible = false
     },
     ResetSearchResult() {
-      this.searchController.SearchedOrgName = "";
-      this.searchController.SearchedOrganizationsList = [];
-      this.searchController.isSearchedOrgResult = false;
-      this.isAutoPaginationOn = true;
+      this.searchController.SearchedOrgName = ''
+      this.searchController.SearchedOrganizationsList = []
+      this.searchController.isSearchedOrgResult = false
+      this.isAutoPaginationOn = true
     },
     onRemoveClick(org) {
-      this.removedOrganization = org;
-      this.modals.removeOrgModalVisible = true;
+      this.removedOrganization = org
+      this.modals.removeOrgModalVisible = true
     },
     closeRemoveModal() {
-      this.modals.removeOrgModalVisible = false;
+      this.modals.removeOrgModalVisible = false
     },
     onRemoveSuccess() {
       this.organizationsList = this.organizationsList.filter(
-        (x) => x.id !== this.removedOrganization.id
-      );
+        (x) => x.id !== this.removedOrganization.id,
+      )
     },
     async GetOrganizationList(page) {
-      this.isLoaderVisible = true;
+      this.isLoaderVisible = true
       //await new Promise(resolve => setTimeout(resolve, 5000))
       await api.organizations
         .getOrganizationList(page, this.limit)
         .then((res) => {
           if (res.data.length === 0) {
-            this.pageMax = --this.currentLastPage;
+            this.pageMax = --this.currentLastPage
           } else if (res.data.length < this.limit) {
-            this.pageMax = this.currentLastPage;
+            this.pageMax = this.currentLastPage
           }
           this.organizationsList = [...this.organizationsList, ...res.data].map(
-            (org, idx) => ({ ...org, status: this.status[idx % 3] })
-          );
+            (org, idx) => ({ ...org, status: this.status[idx % 3] }),
+          )
         })
         .catch((err) => {
-          console.error(err);
+          console.error(err)
         })
         .finally(() => {
-          this.isLoaderVisible = false;
-        });
+          this.isLoaderVisible = false
+        })
     },
     onAddOrganization({ createOrgName, createOrgSite }) {
-      this.createOrgName = createOrgName;
-      this.createOrgSite = createOrgSite;
-      this.addOrganizations();
+      this.createOrgName = createOrgName
+      this.createOrgSite = createOrgSite
+      this.addOrganizations()
     },
     async addOrganizations() {
-      console.log("wiisz mje?");
-      console.log(this.TrimTurbo(this.createOrgName).length < 3);
+      console.log('wiisz mje?')
+      console.log(this.TrimTurbo(this.createOrgName).length < 3)
       if (this.TrimTurbo(this.createOrgName).length < 3) {
-        return;
+        return
       }
-      this.createOrgName = this.TrimTurbo(this.createOrgName);
-      this.modals.createOrgModalLoaderVisible = true;
+      this.createOrgName = this.TrimTurbo(this.createOrgName)
+      this.modals.createOrgModalLoaderVisible = true
       await api.organizations
         .createOrganization(this.createOrgName, this.createOrgSite)
         .then((res) => {
-          this.organizationsList = [res.data, ...this.organizationsList];
-          this.closeCreateOrgModal();
+          this.organizationsList = [res.data, ...this.organizationsList]
+          this.closeCreateOrgModal()
           this.$toast.success(
-            this.$t("dashboard.organizationAddSuccess", {
+            this.$t('dashboard.organizationAddSuccess', {
               orgName: this.createOrgName,
-            })
-          );
+            }),
+          )
         })
         .catch((err) => {
-          let errMess = this.$t("general.errorMessage");
+          let errMess = this.$t('general.errorMessage')
           if (err.response.status == 400)
-            errMess = this.$t("dashboard.organizationExist", {
+            errMess = this.$t('dashboard.organizationExist', {
               orgName: this.createOrgName,
-            });
-          this.closeCreateOrgModal();
-          this.$toast.error(errMess);
+            })
+          this.closeCreateOrgModal()
+          this.$toast.error(errMess)
         })
         .finally(() => {
-          this.modals.createOrgModalLoaderVisible = false;
-        });
+          this.modals.createOrgModalLoaderVisible = false
+        })
     },
     async GetOrganizationByName() {
       if (this.searchController.SearchedOrgName.length < 3) {
-        this.$toast.error(this.$t("validations.minLength", { amount: 3 }));
-        return;
+        this.$toast.error(this.$t('validations.minLength', { amount: 3 }))
+        return
       }
       /*await http_client.organizations.getOrganizationByName(this.searchController.SearchedOrgName,
 				{signal : this.searchController.cancelController.signal}
@@ -299,59 +299,59 @@ export default {
           cancelToken: this.searchController.cancelController.token,
         })
         .then((res) => {
-          this.isAutoPaginationOn = false;
-          this.searchController.isSearchedOrgResult = true;
-          this.searchController.SearchedOrganizationsList = res.data;
-          console.log(this.searchController.SearchedOrganizationsList);
+          this.isAutoPaginationOn = false
+          this.searchController.isSearchedOrgResult = true
+          this.searchController.SearchedOrganizationsList = res.data
+          console.log(this.searchController.SearchedOrganizationsList)
         })
         .catch((err) => {
           if (axios.isCancel(err)) {
-            console.log("Canceled");
-            return;
+            console.log('Canceled')
+            return
           }
-          this.ResetSearchResult();
-          this.$toast.error(this.$t("general.errorMessage"));
-          throw err;
-        });
+          this.ResetSearchResult()
+          this.$toast.error(this.$t('general.errorMessage'))
+          throw err
+        })
     },
     OrganizationAutoSearch() {
-      if (this.searchController.SearchedOrgName.length < 3) return;
+      if (this.searchController.SearchedOrgName.length < 3) return
       if (this.searchController.cancelController) {
-        this.searchController.cancelController.cancel("Request updated");
+        this.searchController.cancelController.cancel('Request updated')
       }
-      this.searchController.cancelController = axios.CancelToken.source();
-      this.GetOrganizationByName();
+      this.searchController.cancelController = axios.CancelToken.source()
+      this.GetOrganizationByName()
     },
     ShowUserInviteModal() {
-      this.modals.userInvite = true;
+      this.modals.userInvite = true
     },
     CloseUserInviteModal() {
-      this.modals.userInvite = false;
+      this.modals.userInvite = false
     },
   },
   computed: {
     isOrgCreateButtDisabled() {
-      return this.TrimTurbo(this.createOrgName).length < 3;
+      return this.TrimTurbo(this.createOrgName).length < 3
     },
     visibleOrganizationsList() {
       return this.searchController.isSearchedOrgResult
         ? this.searchController.SearchedOrganizationsList
-        : this.organizationsList;
+        : this.organizationsList
     },
   },
   watch: {
-    "searchController.SearchedOrgName": {
+    'searchController.SearchedOrgName': {
       immediate: true,
       handler(newVal) {
-        if (!newVal) this.ResetSearchResult();
-        this.OrganizationAutoSearch();
+        if (!newVal) this.ResetSearchResult()
+        this.OrganizationAutoSearch()
       },
     },
   },
   mounted() {
     let options = {
       threshold: 0,
-    };
+    }
     let callback = (entries, observer) => {
       if (
         entries[0].isIntersecting &&
@@ -359,15 +359,15 @@ export default {
         this.pageMax < 0 &&
         this.isAutoPaginationOn
       ) {
-        this.GetOrganizationList(++this.currentLastPage);
+        this.GetOrganizationList(++this.currentLastPage)
       }
-    };
-    let observer = new IntersectionObserver(callback, options);
-    observer.observe(this.$refs.scrollObserver);
+    }
+    let observer = new IntersectionObserver(callback, options)
+    observer.observe(this.$refs.scrollObserver)
 
-    this.GetOrganizationList(this.currentLastPage);
+    this.GetOrganizationList(this.currentLastPage)
   },
-};
+}
 </script>
 
 <style scoped></style>

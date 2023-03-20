@@ -1,12 +1,12 @@
 <template>
   <label
-    class="inline-block w-full relative"
+    class="relative inline-block w-full"
     @focusin="onFocus"
     @focusout="onLeave"
   >
     <div
       v-if="label"
-      class="text-h4 text-gray-c-500 text-left font-normal mb-2"
+      class="mb-2 text-left text-h4 font-normal text-gray-c-500"
     >
       {{ label }}
     </div>
@@ -23,7 +23,7 @@
     />
     <div
       v-if="!isValidStyle && validationMessage"
-      class="text-red-c-500 text-b3 mt-1 text-left px-2"
+      class="mt-1 px-2 text-left text-b3 text-red-c-500"
     >
       {{ validationMessage }}
     </div>
@@ -31,23 +31,23 @@
 </template>
 
 <script>
-import regex from "../mixins/regex.js";
+import regex from '../mixins/regex.js'
 
 export default {
-  name: "Input-1",
+  name: 'Input-1',
   mixins: [regex],
-  emits: ["validation", "update:modelValue"],
+  emits: ['validation', 'update:modelValue'],
   props: {
     modelValue: String,
     validationType: {
       type: String,
       validator(value) {
-        return ["mail", "name", "custom"].includes(value);
+        return ['mail', 'name', 'custom'].includes(value)
       },
     },
     validationMessage: {
       type: String,
-      default: "Поле не валідне",
+      default: 'Поле не валідне',
     },
     validationFunc: {
       type: Function,
@@ -57,7 +57,7 @@ export default {
     disabled: Boolean,
     type: {
       type: String,
-      default: "text",
+      default: 'text',
     },
     inpId: String,
     label: String,
@@ -65,38 +65,38 @@ export default {
   data() {
     return {
       isValidStyle: true,
-    };
+    }
   },
   methods: {
     updateInput(event) {
-      this.$emit("update:modelValue", event.target.value);
+      this.$emit('update:modelValue', event.target.value)
     },
     onFocus() {
       //console.log("focus")
-      this.isValidStyle = true;
+      this.isValidStyle = true
     },
     onLeave() {
       //console.log("Leave")
-      let res = this.validate();
-      this.isValidStyle = res;
+      let res = this.validate()
+      this.isValidStyle = res
     },
     validate() {
-      let isValueValid = true;
+      let isValueValid = true
       switch (this.validationType) {
-        case "mail":
-          isValueValid = this.isMail(this.modelValue);
+        case 'mail':
+          isValueValid = this.isMail(this.modelValue)
           //console.log("mail validation " + isValueValid)
-          break;
-        case "name":
-          isValueValid = this.isName(this.modelValue);
-          break;
+          break
+        case 'name':
+          isValueValid = this.isName(this.modelValue)
+          break
         default:
-          isValueValid = this.validationFunc(this.modelValue);
-          break;
+          isValueValid = this.validationFunc(this.modelValue)
+          break
       }
-      if (isValueValid || this.value === "") this.isValidStyle = true;
-      this.$emit("validation", isValueValid);
-      return isValueValid;
+      if (isValueValid || this.value === '') this.isValidStyle = true
+      this.$emit('validation', isValueValid)
+      return isValueValid
     },
   },
   watch: {
@@ -107,10 +107,10 @@ export default {
   computed: {
     validationStyle() {
       return {
-        "border-gray-c-300": this.isValidStyle,
-        "border-red-c-500": !this.isValidStyle,
-      };
+        'border-gray-c-300': this.isValidStyle,
+        'border-red-c-500': !this.isValidStyle,
+      }
     },
   },
-};
+}
 </script>

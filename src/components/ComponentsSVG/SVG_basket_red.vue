@@ -17,8 +17,8 @@
 
 <script>
 export default {
-  name: "SVG_basket_red",
-};
+  name: 'SVG_basket_red',
+}
 </script>
 
 <style scoped></style>

@@ -1,26 +1,25 @@
-const OrgLeaderMainComponent = () => import("./MainOrgLeader.vue");
-const OrgProfile = () =>
-  import("./OrganizationProfile/OrganizationProfile.vue");
+const OrgLeaderMainComponent = () => import('./MainOrgLeader.vue')
+const OrgProfile = () => import('./OrganizationProfile/OrganizationProfile.vue')
 const OrgChangeHistory = () =>
-  import("./OrgChangeHistory/OrganizationChangeHistory.vue");
-const OrgSettings = () => import("./OrgSettings/OrganizationSettings.vue");
+  import('./OrgChangeHistory/OrganizationChangeHistory.vue')
+const OrgSettings = () => import('./OrgSettings/OrganizationSettings.vue')
 
 export default {
-  path: "/organization",
+  path: '/organization',
   component: OrgLeaderMainComponent,
   children: [
     {
-      path: "profile",
-      alias: [""],
+      path: 'profile',
+      alias: [''],
       component: OrgProfile,
     },
     {
-      path: "change-history",
+      path: 'change-history',
       component: OrgChangeHistory,
     },
     {
-      path: "settings",
+      path: 'settings',
       component: OrgSettings,
     },
   ],
-};
+}

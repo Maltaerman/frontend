@@ -18,10 +18,10 @@
 </template>
 
 <script>
-import InputPass from "../Inputs/Input-pass.vue";
-import regex from "../mixins/regex.js";
+import InputPass from '../Inputs/Input-pass.vue'
+import regex from '../mixins/regex.js'
 export default {
-  name: "ChangePassInputs",
+  name: 'ChangePassInputs',
   mixins: [regex],
   components: { InputPass },
   props: {
@@ -30,25 +30,25 @@ export default {
   data() {
     return {
       isDataValid: false,
-    };
+    }
   },
   methods: {
     Validation() {
       this.isDataValid =
         this.isPass(this.modelValue.old_password) &&
-        this.isPass(this.modelValue.new_password);
-      this.$emit("validation", this.isDataValid);
+        this.isPass(this.modelValue.new_password)
+      this.$emit('validation', this.isDataValid)
     },
   },
   watch: {
-    "modelValue.old_password"() {
-      this.Validation();
+    'modelValue.old_password'() {
+      this.Validation()
     },
-    "modelValue.new_password"() {
-      this.Validation();
+    'modelValue.new_password'() {
+      this.Validation()
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

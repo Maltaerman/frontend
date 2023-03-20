@@ -8,20 +8,20 @@
     <transition name="modal-anim">
       <div
         v-if="animTrigger"
-        class="bg-white w-[480px] rounded-lg relative mobile:w-full relative p-6 mx-auto max-h-screen"
+        class="relative relative mx-auto max-h-screen w-[480px] rounded-lg bg-white p-6 mobile:w-full"
         @click.stop
       >
         <button class="absolute top-6 right-6 cursor-pointer" @click="close">
           <img src="/src/assets/close.svg" />
         </button>
-        <div class="text-h2 text-center font-semibold">
-          {{ $t("organizationProfile.addEmployee") }}
+        <div class="text-center text-h2 font-semibold">
+          {{ $t('organizationProfile.addEmployee') }}
         </div>
-        <div class="text-h3 text-gray-c-600 mt-2 mb-4">
-          {{ $t("organizationProfile.employeeEnvelope") }}
+        <div class="mt-2 mb-4 text-h3 text-gray-c-600">
+          {{ $t('organizationProfile.employeeEnvelope') }}
         </div>
 
-        <div class="flex flex-col gap-4 mt-4 mb-2">
+        <div class="mt-4 mb-2 flex flex-col gap-4">
           <input-suggest
             :placeholder="$t('dashboard.organizationSearchPlaceholder')"
             v-model.trim="requestedOrg"
@@ -39,11 +39,11 @@
         </div>
 
         <button-1
-          class="w-full mt-6"
+          class="mt-6 w-full"
           :disabled="!InviteSendingAvailable"
           @click="SendInvite"
         >
-          {{ $t("organizationProfile.sendInvite") }}
+          {{ $t('organizationProfile.sendInvite') }}
         </button-1>
         <Loader v-if="isLoader" />
       </div>
@@ -52,13 +52,13 @@
 </template>
 
 <script>
-import ModalTemplate from "./ModalTemplate.vue";
-import input1 from "../Inputs/Input-1.vue";
-import api from "../../http_client/index.js";
-import regex from "../mixins/regex.js";
-import InputSuggest from "../Inputs/suggestionInput/Input-suggestion.vue";
+import ModalTemplate from './ModalTemplate.vue'
+import input1 from '../Inputs/Input-1.vue'
+import api from '../../http_client/index.js'
+import regex from '../mixins/regex.js'
+import InputSuggest from '../Inputs/suggestionInput/Input-suggestion.vue'
 export default {
-  name: "UserInviteModal",
+  name: 'UserInviteModal',
   components: { InputSuggest, ModalTemplate, input1 },
   mixins: [regex],
   props: {
@@ -81,98 +81,98 @@ export default {
   data() {
     return {
       animTrigger: false,
-      mail: "",
-      requestedOrg: "",
+      mail: '',
+      requestedOrg: '',
       organization: undefined,
       isLoader: false,
       suggestions: [],
-    };
+    }
   },
   methods: {
     close() {
-      this.animTrigger = false;
+      this.animTrigger = false
       setTimeout(() => {
-        this.mail = "";
-        this.requestedOrg = "";
-        this.organization = undefined;
-        this.suggestions = [];
-        this.closeFunc();
-      }, 200);
+        this.mail = ''
+        this.requestedOrg = ''
+        this.organization = undefined
+        this.suggestions = []
+        this.closeFunc()
+      }, 200)
     },
     async getOrganization() {
-      if (this.requestedOrg.length < 2) return;
+      if (this.requestedOrg.length < 2) return
       await api.organizations
         .getOrganizationByName(this.requestedOrg, {})
         .then((res) => {
-          console.log(res);
+          console.log(res)
           if (res.data[0]) {
-            this.suggestions = res.data;
+            this.suggestions = res.data
           }
         })
         .catch((err) => {
-          console.error(err);
-        });
+          console.error(err)
+        })
     },
     async SendInvite() {
       if (!this.InviteSendingAvailable) {
-        this.$toast.error(this.$t("general.errorMessage"));
-        return;
+        this.$toast.error(this.$t('general.errorMessage'))
+        return
       }
-      this.isLoader = true;
+      this.isLoader = true
       let payload = {
         email: this.mail,
         organization: this.organization.id,
-      };
+      }
       await api.user
         .SendInvite(payload)
         .then((res) => {
-          console.log(res);
+          console.log(res)
           setTimeout(() => {
-            this.$toast.success(this.$t("organizationProfile.successInvite"));
-          }, 200);
-          this.close();
+            this.$toast.success(this.$t('organizationProfile.successInvite'))
+          }, 200)
+          this.close()
         })
         .catch((err) => {
-          console.error(err);
+          console.error(err)
           setTimeout(() => {
-            this.$toast.error(this.$t("general.errorMessage"));
-          }, 200);
+            this.$toast.error(this.$t('general.errorMessage'))
+          }, 200)
         })
         .finally(() => {
-          this.isLoader = false;
-        });
+          this.isLoader = false
+        })
     },
     suggestionProjection: (org) => {
-      return org.name;
+      return org.name
     },
     setSelectedItem(item) {
-      this.organization = item;
-      this.suggestions = [];
+      this.organization = item
+      this.suggestions = []
     },
   },
   computed: {
     suggestionsC() {
-      return this.suggestions.slice(0, 5);
+      return this.suggestions.slice(0, 5)
     },
     InviteSendingAvailable() {
-      return this.organization && this.isMail(this.mail);
+      return this.organization && this.isMail(this.mail)
     },
   },
   watch: {
     isModalVisible(newVal) {
       if (newVal)
         this.$nextTick(() => {
-          this.animTrigger = true;
-        });
+          this.animTrigger = true
+        })
     },
     requestedOrg(n) {
-      this.organization = undefined;
+      this.organization = undefined
       if (!n || n.length < 3) {
-        this.suggestions = [];
-      } else this.getOrganization();
+        this.suggestions = []
+      } else this.getOrganization()
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

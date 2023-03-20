@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import OrganizationChangeLogItem from "./OrganizationChangeLogItem.vue";
+import OrganizationChangeLogItem from './OrganizationChangeLogItem.vue'
 export default {
-  name: "OrganizationChangeLogList",
-  emits: ["record-visibility-toggle"],
+  name: 'OrganizationChangeLogList',
+  emits: ['record-visibility-toggle'],
   components: { OrganizationChangeLogItem },
   props: {
     logs: Array,
@@ -21,29 +21,29 @@ export default {
   data() {
     return {
       sortedChangedLogs: [],
-    };
+    }
   },
   methods: {
     sortChangedLogs() {
       //TODO fix it, they must be sorted by data, from earlier to latest, not reverse()
       let result = this.logs.reverse().reduce((dates, log) => {
-        let date = log.created_at.split("T")[0];
-        if (!dates[date]) dates[date] = [];
-        dates[date].push(log);
-        return dates;
-      }, {});
-      this.sortedChangedLogs = result;
+        let date = log.created_at.split('T')[0]
+        if (!dates[date]) dates[date] = []
+        dates[date].push(log)
+        return dates
+      }, {})
+      this.sortedChangedLogs = result
     },
     toggleVisibility(id) {
-      this.$emit("record-visibility-toggle", id);
+      this.$emit('record-visibility-toggle', id)
     },
   },
   watch: {
     logs(newVal) {
-      this.sortChangedLogs();
+      this.sortChangedLogs()
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

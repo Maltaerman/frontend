@@ -1,18 +1,18 @@
 <template>
-  <div class="p-6 comp:p-9 overflow-y-auto-custom h-full">
-    <div class="title">{{ $t("OrganizationChangeLog.title") }}</div>
+  <div class="overflow-y-auto-custom h-full p-6 comp:p-9">
+    <div class="title">{{ $t('OrganizationChangeLog.title') }}</div>
 
     <div
       data-search-inputs-group
       class="my-3 flex flex-col gap-2.5 comp:flex-row comp:gap-3"
     >
       <input-search
-        class="w-full comp:max-w-[400px] shrink grow"
+        class="w-full shrink grow comp:max-w-[400px]"
         :placeholder="$t('OrganizationChangeLog.searchPlaceholder')"
         v-model="query"
       />
       <drop-down-select
-        class="w-full comp:max-w-[320px] shrink grow"
+        class="w-full shrink grow comp:max-w-[320px]"
         v-model="selectedAidWorker"
         :options="aidWorkerDropSuggestion"
       />
@@ -31,10 +31,10 @@
     </div>
     <div class="mb-6 flex justify-end">
       <Button1
-        class="w-full comp:w-min min-w-[120px]"
+        class="w-full min-w-[120px] comp:w-min"
         @click="getOrganizationChangeLog"
       >
-        {{ $t("general.search") }}
+        {{ $t('general.search') }}
       </Button1>
     </div>
     <organization-change-log-list
@@ -46,16 +46,16 @@
 
 <script>
 //TODO datetime picker style
-import InputSearch from "../../Inputs/InputSearch.vue";
-import DropDownSelect from "../../Inputs/DropDownSelect.vue";
-import { mapActions, mapGetters } from "vuex";
-import OrganizationChangeLogList from "./OrganizationChangeLogList.vue";
-import StoreEvents from "../../../store/storeEventSystem.js";
-import VueDatePicker from "@vuepic/vue-datepicker";
-import Button1 from "../../Buttons/Button_1.vue";
-import api from "../../../http_client/index.js";
+import InputSearch from '../../Inputs/InputSearch.vue'
+import DropDownSelect from '../../Inputs/DropDownSelect.vue'
+import { mapActions, mapGetters } from 'vuex'
+import OrganizationChangeLogList from './OrganizationChangeLogList.vue'
+import StoreEvents from '../../../store/storeEventSystem.js'
+import VueDatePicker from '@vuepic/vue-datepicker'
+import Button1 from '../../Buttons/Button_1.vue'
+import api from '../../../http_client/index.js'
 export default {
-  name: "OrganizationChangeHistory",
+  name: 'OrganizationChangeHistory',
   components: {
     Button1,
     VueDatePicker,
@@ -69,109 +69,109 @@ export default {
       selectedAidWorker: undefined,
       aidWorkerDropSuggestion: [],
       dateInterval: null,
-      query: "",
-    };
+      query: '',
+    }
   },
   methods: {
     ...mapActions({
       //dates in seconds
-      GetOrganizationChangeLog: "GetOrganizationChangeLog",
+      GetOrganizationChangeLog: 'GetOrganizationChangeLog',
     }),
     updateWorkerSuggestion() {
-      this.aidWorkerDropSuggestion = [];
+      this.aidWorkerDropSuggestion = []
       let unselectedWorker = {
-        text: this.$t("OrganizationChangeLog.worker"),
+        text: this.$t('OrganizationChangeLog.worker'),
         item: {
           id: undefined,
         },
-      };
-      this.selectedAidWorker = unselectedWorker;
-      this.aidWorkerDropSuggestion.push(unselectedWorker);
-      if (!this.userOrg || !this.userOrg.participants) return;
+      }
+      this.selectedAidWorker = unselectedWorker
+      this.aidWorkerDropSuggestion.push(unselectedWorker)
+      if (!this.userOrg || !this.userOrg.participants) return
       this.userOrg.participants.forEach((el) => {
         if (el.email_confirmed)
           this.aidWorkerDropSuggestion.push({
-            text: el["username"],
+            text: el['username'],
             item: {
               ...el,
             },
-          });
-      });
+          })
+      })
     },
     getOrganizationChangeLog() {
       let payload = {
         organization_id: this.getUser.organization_model.id,
-      };
-      if (this.query.length >= 3) payload["query"] = this.query;
+      }
+      if (this.query.length >= 3) payload['query'] = this.query
       if (this.selectedAidWorker.item.id)
-        payload["admin_id"] = this.selectedAidWorker.item.id;
-      let interval = this.getIntervalPayload(this.dateInterval);
-      if (interval) payload = { ...payload, ...interval };
-      else payload["date_max"] = Math.round(Date.now() / 1000);
-      this.GetOrganizationChangeLog(payload);
+        payload['admin_id'] = this.selectedAidWorker.item.id
+      let interval = this.getIntervalPayload(this.dateInterval)
+      if (interval) payload = { ...payload, ...interval }
+      else payload['date_max'] = Math.round(Date.now() / 1000)
+      this.GetOrganizationChangeLog(payload)
     },
     onChangeLogsUpdate(data) {
       if (data instanceof Error) {
-        this.$toast(this.$t("general.errorMessage"));
-        return;
+        this.$toast(this.$t('general.errorMessage'))
+        return
       } else {
-        this.logs = data;
+        this.logs = data
       }
     },
     getIntervalPayload(dateRange) {
-      let datePayload = {};
-      if (!dateRange) datePayload = dateRange;
+      let datePayload = {}
+      if (!dateRange) datePayload = dateRange
       else {
-        let from = new Date(dateRange[0]);
-        from.setHours(0);
-        from.setMinutes(0);
-        datePayload["date_min"] = Math.round(from.getTime() / 1000);
-        let to = new Date(dateRange[1]);
-        to.setHours(23);
-        to.setMinutes(59);
-        to.setSeconds(59);
-        datePayload["date_max"] = Math.round(to.getTime() / 1000);
+        let from = new Date(dateRange[0])
+        from.setHours(0)
+        from.setMinutes(0)
+        datePayload['date_min'] = Math.round(from.getTime() / 1000)
+        let to = new Date(dateRange[1])
+        to.setHours(23)
+        to.setMinutes(59)
+        to.setSeconds(59)
+        datePayload['date_max'] = Math.round(to.getTime() / 1000)
       }
-      return datePayload;
+      return datePayload
     },
     async toggleRecordVisibility(id) {
       await api.changelogs
         .locationChangelogVisibilityToggle(id)
         .then((res) => {
-          let log = this.logs.find((x) => x.id === res.data.id);
-          if (log) log.hidden = res.data.hidden;
+          let log = this.logs.find((x) => x.id === res.data.id)
+          if (log) log.hidden = res.data.hidden
         })
         .catch((err) => {
-          this.$toast.error(this.$t("general.errorMessage"));
-        });
+          this.$toast.error(this.$t('general.errorMessage'))
+        })
     },
   },
   computed: {
     ...mapGetters({
-      userOrg: "getUserOrganization",
-      getUser: "getUser",
+      userOrg: 'getUserOrganization',
+      getUser: 'getUser',
     }),
   },
   watch: {
     userOrg(newVal) {
-      this.updateWorkerSuggestion();
+      this.updateWorkerSuggestion()
     },
   },
   beforeMount() {
     StoreEvents.subscribe(
       StoreEvents.events.onOrganizationChangeLogUpdate,
-      this.onChangeLogsUpdate
-    );
-    this.updateWorkerSuggestion();
-    this.getOrganizationChangeLog();
+      this.onChangeLogsUpdate,
+    )
+    this.updateWorkerSuggestion()
+    this.getOrganizationChangeLog()
   },
   beforeUnmount() {
     StoreEvents.unsubscribe(
       StoreEvents.events.onOrganizationChangeLogUpdate,
-      this.onChangeLogsUpdate
-    );
+      this.onChangeLogsUpdate,
+    )
   },
-};
+}
 </script>
 
 <style>

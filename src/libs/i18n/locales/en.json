@@ -38,10 +38,12 @@
     "overview": "Overview",
     "change-history": "Change History",
     "general-status": "General Status",
+    "reportedOn": "reported on",
     "gov-contacts": "Government Contacts",
     "sbu": "Security Service of Ukraine",
     "border-guard": "State Border Guard Service of Ukraine",
-    "reportButton": "Report status"
+    "reportButton": "Report status",
+    "reportedBy": "reported by"
   },
   "aidWorkerSideBar": {
     "header": "Requests list",
@@ -128,8 +130,8 @@
     "maxInviteMess": "No more than 5 invitations at a time",
     "logo": "Logo",
     "choseFile": "Choose file",
-    "role": "Role",
-    "organizationSettings": "Organization settings"
+    "organizationSettings": "Organization settings",
+    "role": "Role"
   },
   "userSettings": {
     "header": "Settings",
@@ -144,7 +146,7 @@
     "personalSettings": "Personal settings"
   },
   "login": {
-    "authError" : "Authentication Error",
+    "authError": "Authentication Error",
     "header": "Login",
     "password": "Password",
     "resetPassword": "Forgot password...",
@@ -179,10 +181,10 @@
   },
   "validations": {
     "databaseError": "Cannot authenticate user. Please try again later",
-    "default" : "Field is not valid",
+    "default": "Field is not valid",
     "connectionError": "Connection Error",
-    "inactiveUser" : "User is Inactive",
-    "error404" : "We are experiencing unexpected downtime, please try again later",
+    "inactiveUser": "User is Inactive",
+    "error404": "We are experiencing unexpected downtime, please try again later",
     "minLength": "Minimal length is {amount} characters.",
     "minNameLength": "Minimal name length is {amount} characters.",
     "mailNotValid": "Email is not valid",

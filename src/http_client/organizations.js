@@ -1,29 +1,29 @@
 export default function (instance) {
   return {
     getOrganizationsById(id) {
-      return instance.get(`/organizations/${id}`);
+      return instance.get(`/organizations/${id}`)
     },
     getOrganizationByName(query, options) {
-      return instance.get("/organizations/search", {
+      return instance.get('/organizations/search', {
         params: {
           query,
         },
         options,
-      });
+      })
     },
     getOrganizationList(page, limit) {
-      return instance.get("/organizations/all", {
+      return instance.get('/organizations/all', {
         params: {
           page,
           limit,
         },
-      });
+      })
     },
     createOrganization(name, website) {
-      return instance.post("/organizations/create", {
+      return instance.post('/organizations/create', {
         name,
         website,
-      });
+      })
     },
 
     //data : {
@@ -35,21 +35,21 @@ export default function (instance) {
     //    country: "string"
     // }
     editOrganization(id, data) {
-      return instance.put(`/organizations/${id}/edit`, data);
+      return instance.put(`/organizations/${id}/edit`, data)
     },
     sendUserInvite(organization_id, emails) {
       return instance.put(`/organizations/${organization_id}/invite`, {
         emails: emails,
-      });
+      })
     },
 
     removeOrganization(id) {
-      return instance.delete(`/organizations/${id}`);
+      return instance.delete(`/organizations/${id}`)
     },
     removeOrganizationMember(organization_id, user_id) {
       return instance.put(
-        `/organizations/${organization_id}/remove?user_id=${user_id}`
-      );
+        `/organizations/${organization_id}/remove?user_id=${user_id}`,
+      )
     },
     // orgData : {
     //  name : string,
@@ -58,7 +58,7 @@ export default function (instance) {
     //  emails : [string]
     //}
     inviteOrganization(orgData) {
-      return instance.post("/organizations/add", orgData);
+      return instance.post('/organizations/add', orgData)
     },
-  };
+  }
 }

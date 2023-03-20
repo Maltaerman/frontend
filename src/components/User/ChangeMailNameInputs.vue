@@ -21,12 +21,12 @@
 </template>
 
 <script>
-import Input1 from "../Inputs/Input-1.vue";
-import regex from "../mixins/regex.js";
+import Input1 from '../Inputs/Input-1.vue'
+import regex from '../mixins/regex.js'
 export default {
-  name: "ChangeMailNameInputs",
+  name: 'ChangeMailNameInputs',
   mixins: [regex],
-  emits: ["validation"],
+  emits: ['validation'],
   components: {
     Input1,
   },
@@ -36,28 +36,28 @@ export default {
   data() {
     return {
       isDataValid: false,
-    };
+    }
   },
   methods: {
     Validation() {
       this.isDataValid =
         this.isMail(this.modelValue.email) &&
-        this.isName(this.modelValue.username);
-      this.$emit("validation", this.isDataValid);
+        this.isName(this.modelValue.username)
+      this.$emit('validation', this.isDataValid)
     },
   },
   watch: {
-    "modelValue.username"() {
-      this.Validation();
+    'modelValue.username'() {
+      this.Validation()
     },
-    "modelValue.email"() {
-      this.Validation();
+    'modelValue.email'() {
+      this.Validation()
     },
   },
   mounted() {
-    this.Validation();
+    this.Validation()
   },
-};
+}
 </script>
 
 <style scoped></style>

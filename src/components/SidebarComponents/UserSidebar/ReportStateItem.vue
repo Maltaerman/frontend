@@ -1,27 +1,43 @@
 <template>
-  <div class="py-4 shadow-cs2 h-min">
-    <div class="flex flex-nowrap relative cursor-pointer group">
-      <div class="mr-1.5 my-auto h-6 w-8">
-        <SVG_status_list
-          :icon="flag"
-          :class-list="getSVGColorClass(flag, flagValue)"
-        />
+  <div class="h-min py-4 shadow-cs2">
+    <div class="group relative flex cursor-pointer flex-nowrap justify-between">
+      <div>
+        <div class="flex flex-row flex-nowrap">
+          <div class="my-auto mr-1.5 h-6 w-8">
+            <SVG_status_list
+              :icon="flag"
+              :class-list="getSVGColorClass(flag, flagValue)"
+            />
+          </div>
+          <p
+            class="my-auto grow font-semibold uppercase"
+            :class="getTextColorClass(flag, flagValue)"
+          >
+            {{ GetStatusTranslation(flagValue) }}
+          </p>
+        </div>
+        <p
+          class="my-auto mt-1.5 px-1 text-b3 font-normal font-normal text-gray-c-500"
+        >
+          {{ $t('userSideBar.reportedBy') }}
+          <span class="font-semibold">{{ organizationName }}</span>
+        </p>
       </div>
-      <p
-        class="grow font-semibold my-auto uppercase"
-        :class="getTextColorClass(flag, flagValue)"
-      >
-        {{ GetStatusTranslation(flagValue) }}
-      </p>
-      <p class="text-gray-c-500 my-auto font-normal px-1" v-if="update">
-        {{ GetDateTimeShort(update) }}
-      </p>
-
+      <div class="flex flex-col items-end justify-end">
+        <p class="my-auto px-1 text-h4 font-normal font-normal text-gray-c-500">
+          {{ $t('userSideBar.reportedOn') }}
+        </p>
+        <p
+          class="my-auto px-1 text-h4 font-semibold text-gray-c-500"
+          v-if="update"
+        >
+          {{ GetDateTimeShort(update) }}
+        </p>
+      </div>
       <div class="tooltip">
         {{ GetFlagToolTip(flag) }}
       </div>
     </div>
-
     <Expander v-if="description">
       {{ description }}
     </Expander>
@@ -29,22 +45,23 @@
 </template>
 
 <script>
-import reportItemFlags from "../../mixins/reportItemFlags.js";
-import SVG_status_list from "../../ComponentsSVG/SVG_status_list.vue";
-import dateFormatter from "../../mixins/dateFormatter.js";
-import Expander from "../../Other/Expander.vue";
+import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
+import dateFormatter from '../../mixins/dateFormatter.js'
+import reportItemFlags from '../../mixins/reportItemFlags.js'
+import Expander from '../../Other/Expander.vue'
 
 export default {
-  name: "ReportStateItem",
+  name: 'ReportStateItem',
   components: { SVG_status_list, Expander },
   mixins: [reportItemFlags, dateFormatter],
   props: {
+    organizationName: String,
     flag: String,
     flagValue: String,
     description: String,
     update: [String, Date],
   },
-};
+}
 </script>
 
 <style scoped></style>

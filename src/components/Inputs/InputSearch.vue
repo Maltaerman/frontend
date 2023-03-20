@@ -8,7 +8,7 @@
   >
     <div class="h-full w-5">
       <SVG_search
-        class="mt-0.5 w-full h-auto"
+        class="mt-0.5 h-auto w-full"
         :class="{
           'fill-blue-c-500': isFocused,
           'fill-gray-c-500': !isFocused,
@@ -20,16 +20,16 @@
       @focusout="OnFocus(false)"
       :placeholder="placeholder"
       type="text"
-      class="outline-none w-full"
+      class="w-full outline-none"
       v-model="modelValue"
     />
   </label>
 </template>
 
 <script>
-import SVG_search from "../ComponentsSVG/Icons/SVG_search.vue";
+import SVG_search from '../ComponentsSVG/Icons/SVG_search.vue'
 export default {
-  name: "InputSearch",
+  name: 'InputSearch',
   components: { SVG_search },
   props: {
     modelValue: String,
@@ -38,19 +38,19 @@ export default {
   data() {
     return {
       isFocused: false,
-    };
+    }
   },
   methods: {
     OnFocus(value) {
-      this.isFocused = value;
+      this.isFocused = value
     },
   },
   watch: {
     modelValue(val) {
-      this.$emit("update:modelValue", val);
+      this.$emit('update:modelValue', val)
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

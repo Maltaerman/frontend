@@ -2,32 +2,32 @@
   <router-view></router-view>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
-import userRoles from "./components/mixins/userRoles.js";
-import routerHelper from "./components/mixins/routerHelper.js";
+import { mapActions, mapGetters } from 'vuex'
+import userRoles from './components/mixins/userRoles.js'
+import routerHelper from './components/mixins/routerHelper.js'
 
 export default {
-  name: "App",
+  name: 'App',
   mixins: [userRoles, routerHelper],
   data() {
     return {
       UpdateRequestCountTimeout: 300000,
       updateId: undefined,
       onPageChangeEvents: [this.CheckIsOrgActive],
-    };
+    }
   },
   computed: {
-    ...mapGetters(["isAuth", "getLocalization", "getUser"]),
+    ...mapGetters(['isAuth', 'getLocalization', 'getUser']),
   },
   methods: {
-    ...mapActions(["getRequestsCount"]),
+    ...mapActions(['getRequestsCount']),
     UpdateRequestCount() {
       if (this.isAuth) {
-        this.getRequestsCount();
+        this.getRequestsCount()
         this.updateId = setTimeout(
           this.UpdateRequestCount,
-          this.UpdateRequestCountTimeout
-        );
+          this.UpdateRequestCountTimeout,
+        )
       }
     },
     //if user is org leader and organization is not activated
@@ -38,38 +38,38 @@ export default {
         this.getUser.role === this.userRoles.organizationAdmin &&
         !this.getUser.organization_model.activated
       )
-        this.$router.push("/organization-registration");
+        this.$router.push('/organization-registration')
       //else
       //	this.onPageChangeEvents.splice(this.onPageChangeEvents.indexOf(this.CheckIsOrgActive), 1);
     },
   },
   watch: {
     isAuth: function (newValue) {
-      this.UpdateRequestCount();
+      this.UpdateRequestCount()
 
       if (newValue) {
-        this.CheckIsOrgActive();
+        this.CheckIsOrgActive()
       } else {
-        if (this.updateId) clearTimeout(this.updateId);
+        if (this.updateId) clearTimeout(this.updateId)
       }
     },
     $route: function (newValue) {
       if (newValue) {
-        this.CheckIsOrgActive();
+        this.CheckIsOrgActive()
         //this.onPageChangeEvents.forEach(func=>func())
       } else {
-        if (this.updateId) clearTimeout(this.updateId);
+        if (this.updateId) clearTimeout(this.updateId)
       }
     },
   },
   created() {
-    this.UpdateRequestCount();
+    this.UpdateRequestCount()
   },
-};
+}
 </script>
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 * {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 </style>

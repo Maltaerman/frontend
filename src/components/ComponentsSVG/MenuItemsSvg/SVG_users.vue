@@ -21,8 +21,8 @@
 
 <script>
 export default {
-  name: "SVG_users",
-};
+  name: 'SVG_users',
+}
 </script>
 
 <style scoped></style>

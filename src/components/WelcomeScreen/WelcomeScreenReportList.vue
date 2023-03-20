@@ -2,42 +2,42 @@
   <transition-group
     name="report-appear"
     tag="div"
-    class="flex flex-col flex-nowrap overflow-hidden container-height"
+    class="container-height flex flex-col flex-nowrap overflow-hidden"
   >
     <div
       v-for="report in visibleElements"
       v-bind:key="`rep${report.id}`"
       @click="OnReportClick(report)"
-      class="item-height flex flex-nowrap items-center w-full group hover:bg-blue-c-100 shrink-0 grow-0 cursor-pointer"
+      class="item-height group flex w-full shrink-0 grow-0 cursor-pointer flex-nowrap items-center hover:bg-blue-c-100"
     >
       <div
-        class="w-0.5 h-3/5 bg-gray-c-300 group-hover:h-full group-hover:bg-blue-c-400 duration-200 shrink-0 grow-0"
+        class="h-3/5 w-0.5 shrink-0 grow-0 bg-gray-c-300 duration-200 group-hover:h-full group-hover:bg-blue-c-400"
       />
-      <div class="grow-0 h-full py-2 pr-4 pl-3.5 grow-0 shrink-0">
+      <div class="h-full shrink-0 grow-0 grow-0 py-2 pr-4 pl-3.5">
         <div
-          class="text-h4 mobile:text-b3 group-hover:text-blue-c-400 group-hover:font-semibold duration-100"
+          class="text-h4 duration-100 group-hover:font-semibold group-hover:text-blue-c-400 mobile:text-b3"
         >
           {{ ReportAddressFull(report) }}
         </div>
         <div
-          class="flex flex-nowrap pt-1 items-center font-semibold text-b3 gap-2 text-gray-c-500"
+          class="flex flex-nowrap items-center gap-2 pt-1 text-b3 font-semibold text-gray-c-500"
         >
           <div
-            class="bg-white rounded-2xl border border-gray-c-200 px-2 py-0.5"
+            class="rounded-2xl border border-gray-c-200 bg-white px-2 py-0.5"
             :class="
               getTextColorClass(
                 reportFlags.buildingCondition,
-                report.reports.buildingCondition.flag
+                report.reports.buildingCondition.flag,
               )
             "
           >
-            <div class="h-3 w-3 inline-block">
+            <div class="inline-block h-3 w-3">
               <SVG_building_condition
                 class="h-full w-full"
                 :class="
                   getSVGColorClass(
                     reportFlags.buildingCondition,
-                    report.reports.buildingCondition.flag
+                    report.reports.buildingCondition.flag,
                   )
                 "
               />
@@ -57,17 +57,17 @@
 </template>
 
 <script>
-import dateFormatter from "../mixins/dateFormatter.js";
-import SVG_building_condition from "../ComponentsSVG/SVG_building_condition.vue";
-import dynamicContent from "../mixins/dynamicContent.js";
-import reportItemFlags from "../mixins/reportItemFlags.js";
+import dateFormatter from '../mixins/dateFormatter.js'
+import SVG_building_condition from '../ComponentsSVG/SVG_building_condition.vue'
+import dynamicContent from '../mixins/dynamicContent.js'
+import reportItemFlags from '../mixins/reportItemFlags.js'
 
 export default {
-  name: "WelcomeScreenReportList",
+  name: 'WelcomeScreenReportList',
   components: {
     SVG_building_condition,
   },
-  emits: ["report-click"],
+  emits: ['report-click'],
   mixins: [dateFormatter, dynamicContent, reportItemFlags],
   props: {
     delay: {
@@ -85,46 +85,46 @@ export default {
       visibleElements: [],
       animId: 0,
       cycles: 0,
-    };
+    }
   },
   methods: {
     GetVisibleElements() {
-      this.lastVisibleItemIndex++;
+      this.lastVisibleItemIndex++
       this.cycles = Math.trunc(
-        this.lastVisibleItemIndex / this.reportsList.length
-      );
+        this.lastVisibleItemIndex / this.reportsList.length,
+      )
 
       let index =
-        this.lastVisibleItemIndex - this.cycles * this.reportsList.length;
-      if (this.visibleElements.length >= 3) this.visibleElements.splice(0, 1);
-      this.visibleElements.push(this.reportsList[index]);
+        this.lastVisibleItemIndex - this.cycles * this.reportsList.length
+      if (this.visibleElements.length >= 3) this.visibleElements.splice(0, 1)
+      this.visibleElements.push(this.reportsList[index])
     },
     startAnimation() {
-      clearInterval(this.animId);
+      clearInterval(this.animId)
       for (let i = 0; i < this.reportsList.length; i++) {
-        this.visibleElements.push(this.reportsList[i]);
-        this.lastVisibleItemIndex = i;
-        if (i == 2) break;
+        this.visibleElements.push(this.reportsList[i])
+        this.lastVisibleItemIndex = i
+        if (i == 2) break
       }
-      this.animId = setInterval(this.GetVisibleElements, this.delay);
+      this.animId = setInterval(this.GetVisibleElements, this.delay)
     },
     OnReportClick(report) {
-      this.$emit("report-click", report);
+      this.$emit('report-click', report)
     },
   },
   computed: {
     itemHeight() {
-      if (document.body.clientWidth <= 480) return "64px";
-      else return "67px";
+      if (document.body.clientWidth <= 480) return '64px'
+      else return '67px'
     },
   },
   mounted() {
-    this.startAnimation();
+    this.startAnimation()
   },
   beforeUnmount() {
-    clearInterval(this.animId);
+    clearInterval(this.animId)
   },
-};
+}
 </script>
 
 <style scoped>

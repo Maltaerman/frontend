@@ -16,8 +16,8 @@
 
 <script>
 export default {
-  name: "SVG_eye",
-};
+  name: 'SVG_eye',
+}
 </script>
 
 <style scoped></style>

@@ -1,11 +1,11 @@
 <template>
   <div
-    class="flex flex-col justify-between overflow-y-auto h-full shadow-cs1 text-h3 mobile:text-h4 tablet:text-h3"
+    class="flex h-full flex-col justify-between overflow-y-auto text-h3 shadow-cs1 tablet:text-h3 mobile:text-h4"
   >
     <div class="p-6">
       <div v-if="notFoundedMarkerData">
-        <p class="font-semibold text-4xl">
-          {{ $t("notFoundAddress.noDBItem", { address: Address }) }}
+        <p class="text-4xl font-semibold">
+          {{ $t('notFoundAddress.noDBItem', { address: Address }) }}
         </p>
         <div class="mt-2.5">
           <div v-if="notFoundedMarkerData.id" class="flex items-center gap-2">
@@ -23,30 +23,30 @@
                 d="M0.5 11C0.5 4.92487 5.42487 0 11.5 0C17.5751 0 22.5 4.92487 22.5 11C22.5 17.0751 17.5751 22 11.5 22C5.42487 22 0.5 17.0751 0.5 11ZM11.5 2C6.52944 2 2.5 6.02944 2.5 11C2.5 15.9706 6.52944 20 11.5 20C16.4706 20 20.5 15.9706 20.5 11C20.5 6.02944 16.4706 2 11.5 2ZM17.2071 7.29289C17.5976 7.68342 17.5976 8.31658 17.2071 8.70711L10.2071 15.7071C9.81658 16.0976 9.18342 16.0976 8.79289 15.7071L5.79289 12.7071C5.40237 12.3166 5.40237 11.6834 5.79289 11.2929C6.18342 10.9024 6.81658 10.9024 7.20711 11.2929L9.5 13.5858L15.7929 7.29289C16.1834 6.90237 16.8166 6.90237 17.2071 7.29289Z"
               />
             </svg>
-            <p class="text-h3 text-green-c-500 font-semibold">
-              {{ $t("notFoundAddress.requestExist") }}
+            <p class="text-h3 font-semibold text-green-c-500">
+              {{ $t('notFoundAddress.requestExist') }}
             </p>
           </div>
           <div v-else class="text-gray-c-500">
-            {{ $t("notFoundAddress.tips") }}
+            {{ $t('notFoundAddress.tips') }}
           </div>
         </div>
       </div>
       <div v-else>
-        <p class="font-semibold text-4xl">
-          {{ $t("userSideBar.choose-location") }}
+        <p class="text-4xl font-semibold">
+          {{ $t('userSideBar.choose-location') }}
         </p>
       </div>
       <button-1
-        class="w-full my-6"
+        class="my-6 w-full"
         @click="buttonAction"
         :disabled="buttonDisabled"
       >
         {{ buttonLocalization }}
       </button-1>
       <div class="w-full" v-if="recentReports.length > 0">
-        <div class="font-semibold mb-2 bg-white z-10">
-          {{ $t("welcomeScreen.recentlyReports") }}
+        <div class="z-10 mb-2 bg-white font-semibold">
+          {{ $t('welcomeScreen.recentlyReports') }}
         </div>
         <WelcomeScreenReportList
           :reports-list="recentReports"
@@ -67,18 +67,18 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from "vuex";
-import api from "../../../http_client/index.js";
-import Loader from "../../Loader.vue";
-import FeedBackForm from "./FeedBackForm.vue";
-import userRoles from "../../mixins/userRoles.js";
-import SendReportRequestModal from "../../Modals/SendReportRequestModal.vue";
-import Footer from "./Footer.vue";
-import dynamicContent from "../../mixins/dynamicContent.js";
-import WelcomeScreenReportList from "../../WelcomeScreen/WelcomeScreenReportList.vue";
+import { mapActions, mapGetters, mapMutations } from 'vuex'
+import api from '../../../http_client/index.js'
+import Loader from '../../Loader.vue'
+import FeedBackForm from './FeedBackForm.vue'
+import userRoles from '../../mixins/userRoles.js'
+import SendReportRequestModal from '../../Modals/SendReportRequestModal.vue'
+import Footer from './Footer.vue'
+import dynamicContent from '../../mixins/dynamicContent.js'
+import WelcomeScreenReportList from '../../WelcomeScreen/WelcomeScreenReportList.vue'
 
 export default {
-  name: "NotFound",
+  name: 'NotFound',
   mixins: [userRoles, dynamicContent],
   components: {
     WelcomeScreenReportList,
@@ -92,70 +92,70 @@ export default {
       isLoader: false,
       isRequestModalView: false,
       recentReports: [],
-    };
+    }
   },
   computed: {
     ...mapGetters({
-      getRequestMarkers: "getRequestMarkers",
-      notFoundedMarkerData: "notFoundedMarker",
+      getRequestMarkers: 'getRequestMarkers',
+      notFoundedMarkerData: 'notFoundedMarker',
     }),
     buttonDisabled() {
-      if (this.notFoundedMarkerData === null) return true;
+      if (this.notFoundedMarkerData === null) return true
       else if (
         this.notFoundedMarkerData.id &&
         this.getRole === this.userRoles.user
       )
-        return true;
-      else return false;
+        return true
+      else return false
     },
     buttonLocalization() {
-      let localizeStr = this.$t("userSideBar.choose-location-button");
+      let localizeStr = this.$t('userSideBar.choose-location-button')
       if (this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker))
-        localizeStr = this.$t("aidWorkerSideBar.takeRequest");
+        localizeStr = this.$t('aidWorkerSideBar.takeRequest')
       else if (this.notFoundedMarkerData)
-        localizeStr = this.$t("notFoundAddress.sendRequest");
-      return localizeStr;
+        localizeStr = this.$t('notFoundAddress.sendRequest')
+      return localizeStr
     },
     Address() {
       if (this.notFoundedMarkerData)
         return this.notFoundedMarkerData.id
           ? this.ReportAddressFull(this.notFoundedMarkerData)
-          : this.notFoundedMarkerData.address;
+          : this.notFoundedMarkerData.address
     },
   },
   methods: {
     ...mapActions({
-      setUnreviewedMarkers: "setUnreviewedMarkers",
-      setNotFoundMarker: "setNotFoundMarker",
-      setSelectedRequest: "setSelectedRequest",
+      setUnreviewedMarkers: 'setUnreviewedMarkers',
+      setNotFoundMarker: 'setNotFoundMarker',
+      setSelectedRequest: 'setSelectedRequest',
     }),
     ...mapMutations({
-      setSelectedMarker: "setSelectedMarker",
+      setSelectedMarker: 'setSelectedMarker',
     }),
     // its for existed requests
     async reviewNotFoundMarker() {
-      if (!this.notFoundedMarkerData.id) return;
-      this.isLoader = true;
+      if (!this.notFoundedMarkerData.id) return
+      this.isLoader = true
       await api.locations
         .getLocationById(this.notFoundedMarkerData.id)
         .then((res) => {
-          this.GetExistedRequestInWork(res.data);
+          this.GetExistedRequestInWork(res.data)
         })
         .catch((err) => {
-          this.isLoader = false;
-          this.$toast.error(this.$t("general.errorMessage"));
-        });
+          this.isLoader = false
+          this.$toast.error(this.$t('general.errorMessage'))
+        })
     },
     GetExistedRequestInWork(request) {
       if (request.reported_by && request.reported_by !== this.getUser.id) {
-        this.$toast.error(this.$t("notFoundAddress.modalErrReqInWork"), {
+        this.$toast.error(this.$t('notFoundAddress.modalErrReqInWork'), {
           duration: false,
-        });
-        return;
+        })
+        return
       }
-      this.setSelectedRequest(request);
-      this.isLoader = false;
-      this.$router.push("/main/submit-report");
+      this.setSelectedRequest(request)
+      this.isLoader = false
+      this.$router.push('/main/submit-report')
     },
     //
     //Resent reports
@@ -163,44 +163,43 @@ export default {
       await api.locations
         .getRecentReports(20)
         .then((res) => {
-          this.recentReports = res.data ?? [];
+          this.recentReports = res.data ?? []
         })
         .catch((err) => {
-          console.error(err);
-        });
+          console.error(err)
+        })
     },
     RecentReportClick(report) {
-      this.setSelectedMarker(report);
+      this.setSelectedMarker(report)
       this.$router.replace({
-        path: "/main/overview",
+        path: '/main/overview',
         query: { id: report.id, ...report.position },
-      });
+      })
     },
     //
 
     //Reporting unrequested location
     async reviewNotExistedMarker() {
-      if (!this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker))
-        return;
-      this.isLoader = true;
-      let position = { ...this.notFoundedMarkerData.position };
+      if (!this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker)) return
+      this.isLoader = true
+      let position = { ...this.notFoundedMarkerData.position }
       await api.locations
         .getGeocodingOSM(this.notFoundedMarkerData.position)
         .then((res) => {
           if (res.data) {
-            this.createNotRequestedReport({ ...position, ...res.data });
-          } else throw new Error();
+            this.createNotRequestedReport({ ...position, ...res.data })
+          } else throw new Error()
         })
         .catch((err) => {
-          this.$toast.error(this.$t("general.errorMessage"));
+          this.$toast.error(this.$t('general.errorMessage'))
         })
         .finally(() => {
-          this.isLoader = false;
-        });
+          this.isLoader = false
+        })
     },
     createNotRequestedReport(reportData) {
-      this.setSelectedRequest(reportData);
-      this.$router.push("/main/submit-report");
+      this.setSelectedRequest(reportData)
+      this.$router.push('/main/submit-report')
     },
     //
 
@@ -209,22 +208,22 @@ export default {
         this.notFoundedMarkerData.id &&
         this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker)
       )
-        this.reviewNotFoundMarker();
+        this.reviewNotFoundMarker()
       else if (
         !this.notFoundedMarkerData.id &&
         this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker)
       )
-        this.reviewNotExistedMarker();
-      else this.isRequestModalView = true;
+        this.reviewNotExistedMarker()
+      else this.isRequestModalView = true
     },
     closeReqModal() {
-      this.isRequestModalView = false;
+      this.isRequestModalView = false
     },
   },
   created() {
-    this.GetRecentReports();
+    this.GetRecentReports()
   },
-};
+}
 </script>
 
 <style scoped></style>

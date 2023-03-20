@@ -23,7 +23,7 @@
 
     <div data-org-desc>
       <div class="text-h4 text-gray-c-500">
-        {{ $t("dashboard.orgDescription") }}
+        {{ $t('dashboard.orgDescription') }}
       </div>
       <resize-textarea
         class="text-area my-2 min-h-[144px]"
@@ -31,34 +31,34 @@
         v-model="modelValue.description"
         ref="orgDesc"
       />
-      <div class="text-h4 text-gray-c-500 text-right">
+      <div class="text-right text-h4 text-gray-c-500">
         {{ DescSymbolLimStr }}
       </div>
     </div>
 
     <div data-org-logo>
       <div class="text-h4 text-gray-c-500">
-        {{ $t("organizationProfile.logo") }}
+        {{ $t('organizationProfile.logo') }}
       </div>
 
       <div
-        class="relative h-[160px] my-2 border border-gray-c-300 rounded-xl grid justify-center content-center"
+        class="relative my-2 grid h-[160px] content-center justify-center rounded-xl border border-gray-c-300"
       >
         <div
           v-if="!logoImgSrc"
-          class="w-[100px] h-[100px] bg-gray-200 rounded-full grid justify-center content-center"
+          class="grid h-[100px] w-[100px] content-center justify-center rounded-full bg-gray-200"
         >
-          <div class="text-gray-c-500 font-medium">Logo</div>
+          <div class="font-medium text-gray-c-500">Logo</div>
         </div>
         <img
           v-if="logoImgSrc"
           :src="logoImgSrc"
           title="Logo"
-          class="block w-full h-full object-contain"
+          class="block h-full w-full object-contain"
         />
         <SVG_basket_red
           v-if="logoImgSrc"
-          class="absolute cursor-pointer top-2 right-2"
+          class="absolute top-2 right-2 cursor-pointer"
           @click="ClearLogo"
         />
       </div>
@@ -72,17 +72,17 @@
       />
 
       <Button_2 class="w-full" @click="selectFile">
-        {{ $t("organizationProfile.choseFile") }}
+        {{ $t('organizationProfile.choseFile') }}
       </Button_2>
     </div>
   </div>
 </template>
 
 <script>
-import Input1 from "../../Inputs/Input-1.vue";
-import Button_2 from "../../Buttons/Button_2.vue";
+import Input1 from '../../Inputs/Input-1.vue'
+import Button_2 from '../../Buttons/Button_2.vue'
 export default {
-  name: "OrgEditInputsGroup",
+  name: 'OrgEditInputsGroup',
   components: {
     Input1,
     Button_2,
@@ -94,54 +94,54 @@ export default {
     return {
       descSymbolLim: 300,
       logoImgSrc: undefined,
-    };
+    }
   },
   methods: {
     selectFile() {
-      this.$refs.fileInp.click();
+      this.$refs.fileInp.click()
     },
     onFileSelect(e) {
       //this.$emit("update:logo", e.target.files[0])
-      this.modelValue.logo = e.target.files[0];
+      this.modelValue.logo = e.target.files[0]
     },
     ClearLogo() {
       //this.$emit("update:logo", undefined)
-      this.modelValue.logo = undefined;
+      this.modelValue.logo = undefined
     },
   },
   computed: {
     DescSymbolLimStr() {
       if (!this.modelValue || !this.modelValue.description)
-        return `0/${this.descSymbolLim} ${this.$t("general.symbols")}`;
+        return `0/${this.descSymbolLim} ${this.$t('general.symbols')}`
       else
         return `${this.modelValue.description.length}/${
           this.descSymbolLim
-        } ${this.$t("general.symbols")}`;
+        } ${this.$t('general.symbols')}`
     },
   },
   watch: {
-    "modelValue.description"(newVal, oldVal) {
-      if (!newVal) return;
+    'modelValue.description'(newVal, oldVal) {
+      if (!newVal) return
       if (newVal.length > this.descSymbolLim) {
-        this.modelValue.description = oldVal;
-        this.$refs.orgDesc.textareaContent = oldVal;
+        this.modelValue.description = oldVal
+        this.$refs.orgDesc.textareaContent = oldVal
       }
     },
-    "modelValue.logo"(newVal) {
+    'modelValue.logo'(newVal) {
       //console.log(newVal)
 
-      this.logoImgSrc = undefined;
-      if (!newVal) return;
-      let reader = new FileReader();
+      this.logoImgSrc = undefined
+      if (!newVal) return
+      let reader = new FileReader()
 
       reader.onload = (event) => {
-        this.logoImgSrc = event.target.result;
-      };
+        this.logoImgSrc = event.target.result
+      }
 
-      reader.readAsDataURL(newVal);
+      reader.readAsDataURL(newVal)
     },
   },
-};
+}
 </script>
 
 <style scoped></style>
