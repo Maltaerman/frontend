@@ -1,19 +1,17 @@
-import './index.css'
 import VueGoogleMaps from '@fawmi/vue-google-maps'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import ResizeTextarea from 'resize-textarea-vue3'
 import { createApp } from 'vue'
 import SimpleTypehead from 'vue3-simple-typeahead'
+import './index.css'
 
 import App from './App.vue'
-import { store } from './store/mainStore.js'
 //import { Router } from "./router/mainRouter.js";
-import { Router } from './router/dynamicRouter.js'
-import i18n from './libs/i18n/index.js'
 import ComponentsList from './components/ComponentsList.js'
-
-
-import Info from '/src/components/pluginComponents/toast'
+import Info from './components/pluginComponents/toast'
+import i18n from './libs/i18n/index.js'
+import { Router } from './router/dynamicRouter.js'
+import { store } from './store/mainStore.js'
 
 import '@vuepic/vue-datepicker/dist/main.css'
 

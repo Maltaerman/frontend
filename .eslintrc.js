@@ -18,6 +18,7 @@ module.exports = {
     'vue/require-default-prop': ['off'],
     'import/core-modules': 0,
     'vue/v-on-event-hyphenation': ['off'],
+    'vue/multi-word-component-names' :['off'],
     // 'vue/no-use-v-if-with-v-for': 'off',
     'vue/attributes-order': ['error', { alphabetical: true }],
     'for-direction': 'off',

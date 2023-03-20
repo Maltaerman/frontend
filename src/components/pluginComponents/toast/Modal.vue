@@ -107,7 +107,7 @@ export default {
         this.close()
       }
     },
-    close(arg = []) {
+    close() {
       this.isAct = false
       this.onClose()
       removeElement(this.$el)

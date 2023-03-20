@@ -8,8 +8,8 @@ import ReportLocationState from './ReportedLocationStore.js'
 import UserStore from './UserStore.js'
 
 const vuexCookie = new VuexPersistence({
-  restoreState: (key, storage) => getCookie(key),
-  saveState: (key, state, storage) => setCookie(key, state, 1),
+  restoreState: (key) => getCookie(key),
+  saveState: (key, state) => setCookie(key, state, 1),
   modules: ['user'],
   filter: CookieUpdateFilter,
   /* filter: (mutation) => mutation.type == 'setLoggedUserInfo' ||
@@ -140,7 +140,7 @@ export const storePrototype = {
             context.commit('setNoDataMarker', notFoundAddress)
           }
         })
-        .catch((err) => {
+        .catch(() => {
           let notFoundAddress = {
             position: position,
             address: name,
@@ -162,7 +162,7 @@ export const storePrototype = {
             context.commit('setSelectedMarker', response.data)
           else context.commit('setNoDataMarker', response.data)
         })
-        .catch((err) => {
+        .catch(() => {
           if (callbackFailed) callbackFailed()
         })
     },

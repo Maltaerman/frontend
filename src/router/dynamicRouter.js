@@ -134,7 +134,7 @@ export const Router = createRouter({
   },
 })
 
-Router.beforeEach((to, form) => {
+Router.beforeEach((to) => {
   if (to.meta.requiresAuth && !store.getters.isAuth) {
     console.log('None authorize')
     return {
