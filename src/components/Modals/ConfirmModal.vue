@@ -6,18 +6,18 @@
     :isHideOnClick="isBgClickClose"
   >
     <div
-      class="bg-white w-[480px] mx-auto mobile:w-full relative p-6 rounded-lg"
+      class="relative mx-auto w-[480px] rounded-lg bg-white p-6 mobile:w-full"
     >
       <img
         class="absolute top-6 right-6 cursor-pointer"
         src="/src/assets/close.svg"
         @click="cancelButtonClick"
       />
-      <div class="text-h2 text-center font-semibold">{{ title }}</div>
+      <div class="text-center text-h2 font-semibold">{{ title }}</div>
       <div class="mt-2 mb-6 text-center text-gray-c-500">
         {{ question }}
       </div>
-      <div class="flex gap-4 flex-nowrap">
+      <div class="flex flex-nowrap gap-4">
         <button-2 class="w-full" @click="cancelButtonClick">
           {{ cancelButtonTextC }}
         </button-2>

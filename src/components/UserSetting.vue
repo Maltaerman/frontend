@@ -8,46 +8,46 @@
   >
     <div
       id="userSettings"
-      class="w-[600px] h-screen bg-white p-9 mobile:p-4 tablet:p-4 animate-userSettingsAppear relative mobile:w-full tablet:w-[480px] mobile:h-min mobile:rounded-lg"
+      class="relative h-screen w-[600px] animate-userSettingsAppear bg-white p-9 tablet:w-[480px] tablet:p-4 mobile:h-min mobile:w-full mobile:rounded-lg mobile:p-4"
       :class="{ 'animate-userSettingsAppear': isSettingVisible }"
       @click.stop
     >
       <Loader v-if="isShowLoader"></Loader>
       <!--      Header-->
       <div
-        class="mb-6 text-h1 mobile:text-h2 mobile:text-center relative font-semibold"
+        class="relative mb-6 text-h1 font-semibold mobile:text-center mobile:text-h2"
       >
         {{ $t('userSettings.header') }}
         <img
-          class="w-min h-min absolute top-0 mobile:right-0 hidden mobile:block"
+          class="absolute top-0 hidden h-min w-min mobile:right-0 mobile:block"
           src="/close.svg"
           @click="closeModal"
         />
       </div>
       <button-text1
         id="close-settings"
-        class="w-[100px] absolute top-7 right-4 mobile:hidden py-2"
+        class="absolute top-7 right-4 w-[100px] py-2 mobile:hidden"
         @click="closeModal"
       >
         {{ $t('general.close') }}
       </button-text1>
       <!--    FORM-->
       <div
-        class="text-h4 text-gray-c-500 w-full"
+        class="w-full text-h4 text-gray-c-500"
         :class="{ 'mobile:flex mobile:flex-col-reverse': isPassChangeVisible }"
       >
         <div :class="{ 'mobile:hidden': isPassChangeVisible }">
           <label for="setting-name">{{ $t('userSettings.name') }}</label>
           <input-1
             v-model="username"
-            class="block text-black mt-1 mb-6"
+            class="mt-1 mb-6 block text-black"
             inp-id="setting-name"
             :placeholder="$t('userSettings.name')"
           />
           <label for="setting-mail">{{ $t('userSettings.email') }}</label>
           <input-1
             v-model="email"
-            class="text-black mt-1"
+            class="mt-1 text-black"
             disabled
             inp-id="setting-mail"
             :placeholder="$t('userSettings.email')"
@@ -79,7 +79,7 @@
           <label for="setting-pass">{{ $t('userSettings.password') }}</label>
           <input-pass
             v-model="oldPass"
-            class="text-black mt-1 mb-6"
+            class="mt-1 mb-6 text-black"
             inp-id="setting-pass"
             :placeholder="$t('userSettings.password')"
           />
@@ -88,7 +88,7 @@
           }}</label>
           <input-pass
             v-model="newPass"
-            class="text-black mt-1"
+            class="mt-1 text-black"
             inp-id="setting-new-pass"
             :placeholder="$t('userSettings.new-password')"
           />
@@ -128,9 +128,6 @@ import Input1 from './Inputs/Input-1.vue'
 import InputPass from './Inputs/Input-pass.vue'
 import Loader from './Loader.vue'
 import ModalTemplate from './Modals/ModalTemplate.vue'
-
-
-
 
 export default {
   name: 'UserSetting',

@@ -3,11 +3,11 @@
     <div
       v-if="isModalVisible"
       id="loginModal"
-      class="overflow-y-hidden z-[1050] h-screen w-screen bg-black/30 fixed top-0 left-0 right-0 bottom-0 mobile:px-2 grid place-items-center"
+      class="fixed top-0 left-0 right-0 bottom-0 z-[1050] grid h-screen w-screen place-items-center overflow-y-hidden bg-black/30 mobile:px-2"
       @click="hide"
     >
       <div
-        class="mx-auto rounded-xl px-6 pb-6 pt-9 w-[480px] mobile:w-full h-min bg-white animate-appear relative overflow-hidden flex"
+        class="relative mx-auto flex h-min w-[480px] animate-appear overflow-hidden rounded-xl bg-white px-6 pb-6 pt-9 mobile:w-full"
         :class="{ 'animate-disappear': isClosedClick }"
         @click.stop
       >
@@ -37,14 +37,14 @@
         <transition mode="out-in" name="modal-anim">
           <div
             v-if="state === states.login"
-            class="text-h2 font-semibold py-1 text-center mobile:text-h2-m tablet:text-h2-m w-full"
+            class="w-full py-1 text-center text-h2 font-semibold tablet:text-h2-m mobile:text-h2-m"
           >
             {{ $t('login.header') }}
             <div>
               <Input-1
                 ref="emailInput"
                 v-model="email"
-                class="w-full my-6"
+                class="my-6 w-full"
                 name="email"
                 placeholder="Email"
                 type="email"
@@ -53,7 +53,7 @@
               />
               <Input-pass v-model="pass" class="w-full" name="password" />
               <button-text-1
-                class="font-semibold block my-3"
+                class="my-3 block font-semibold"
                 @click="toPassReset"
               >
                 {{ $t('login.resetPassword') }}
@@ -68,11 +68,11 @@
               </button-1>
             </div>
           </div>
-          <div v-else-if="state === states.error" class="flex flex-col grow">
-            <div class="grow flex mobile:flex-col">
+          <div v-else-if="state === states.error" class="flex grow flex-col">
+            <div class="flex grow mobile:flex-col">
               <div class="w-[30px] mobile:w-full">
                 <svg
-                  class="fill-blue-c-400 block mx-auto"
+                  class="mx-auto block fill-blue-c-400"
                   fill="none"
                   height="30"
                   viewBox="0 0 30 30"
@@ -100,22 +100,22 @@
               </div>
             </div>
 
-            <button1 class="w-full mt-6" @click="toDefaultState">{{
+            <button1 class="mt-6 w-full" @click="toDefaultState">{{
               $t('login.understood')
             }}</button1>
           </div>
           <div
             v-else-if="state === states.passReset"
-            class="text-h2 font-semibold py-1 text-center mobile:text-h2-m tablet:text-h2-m w-full flex flex-col"
+            class="flex w-full flex-col py-1 text-center text-h2 font-semibold tablet:text-h2-m mobile:text-h2-m"
           >
             <div class="shrink-0 grow-0">
               {{ $t('login.resetPasswordTitle') }}
             </div>
-            <div class="grow grid content-center">
+            <div class="grid grow content-center">
               <Input-1
                 ref="emailRestInput"
                 v-model="passResetMail"
-                class="w-full my-6"
+                class="my-6 w-full"
                 name="emailReset"
                 placeholder="Email"
                 type="email"
@@ -204,21 +204,21 @@ export default {
       let { detail } = response.data
       let info = ''
       switch (response.status) {
-      case 400:
-        detail = this.$t(`validations.${this.apiLoginResponseMapper[detail]}`)
-        info = this.$t('login.authError')
-        break
-      case 500:
-        detail = this.$t('validations.databaseError')
-        info = this.$t('validations.connectionError')
-        break
-      case 404:
-        detail = this.$t('validations.error404')
-        info = this.$t('validations.connectionError')
-        break
-      default:
-        info = this.$t('general.errorMessage')
-        break
+        case 400:
+          detail = this.$t(`validations.${this.apiLoginResponseMapper[detail]}`)
+          info = this.$t('login.authError')
+          break
+        case 500:
+          detail = this.$t('validations.databaseError')
+          info = this.$t('validations.connectionError')
+          break
+        case 404:
+          detail = this.$t('validations.error404')
+          info = this.$t('validations.connectionError')
+          break
+        default:
+          info = this.$t('general.errorMessage')
+          break
       }
       return { detail, info }
     },
@@ -279,12 +279,12 @@ export default {
           this.isLoaderVisible = false
           let errMess = ''
           switch (err.response.status) {
-          case 400:
-            errMess = this.$t('login.mailNotExist')
-            break
-          default:
-            errMess = this.$t('general.errorMessage')
-            break
+            case 400:
+              errMess = this.$t('login.mailNotExist')
+              break
+            default:
+              errMess = this.$t('general.errorMessage')
+              break
           }
           this.$toast.error(errMess, this.$toast.options(false, true))
         })
@@ -322,9 +322,9 @@ export default {
     },
     state(newVal) {
       switch (newVal) {
-      case this.states.login:
-        this.passResetMail = ''
-        break
+        case this.states.login:
+          this.passResetMail = ''
+          break
       }
     },
   },

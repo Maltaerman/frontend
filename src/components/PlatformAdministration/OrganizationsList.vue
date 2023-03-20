@@ -1,15 +1,15 @@
 <template>
-  <div class="p-9 mobile:py-6 mobile:px-4 h-full overflow-y-auto">
-    <div class="flex row flex-wrap justify-between">
-      <h1 class="font-semibold text-gray-c-800 text-h1 mobile:text-h1-m">
+  <div class="h-full overflow-y-auto p-9 mobile:py-6 mobile:px-4">
+    <div class="row flex flex-wrap justify-between">
+      <h1 class="text-h1 font-semibold text-gray-c-800 mobile:text-h1-m">
         {{ $t('dashboard.organizations') }}
       </h1>
       <button-1
-        class="block flex items-center mobile:w-full justify-center h-[46px]"
+        class="block flex h-[46px] items-center justify-center mobile:w-full"
         @click="showAddOrgModal"
       >
         <img
-          class="inline-block mr-2.5 mobile:mt-0.5"
+          class="mr-2.5 inline-block mobile:mt-0.5"
           src="/src/assets/plus.svg"
         />
         <p>{{ $t('dashboard.addOrganization') }}</p>
@@ -17,24 +17,24 @@
     </div>
     <div v-if="organizationsList.length <= 0" class="mt-[215px]">
       <img
-        class="w-[205px] h-[234px] mobile:w-[157px] mobile:h-[179px] mx-auto"
+        class="mx-auto h-[234px] w-[205px] mobile:h-[179px] mobile:w-[157px]"
         src="/src/assets/Organizations/Picture.png"
       />
-      <p class="text-body-1 text-center mt-5 mb-6">
+      <p class="text-body-1 mt-5 mb-6 text-center">
         {{ $t('dashboard.organizationListEmpty') }}
       </p>
       <button-1
-        class="block mx-auto flex items-center"
+        class="mx-auto block flex items-center"
         @click="showAddOrgModal"
       >
-        <img class="inline-block mr-2.5" src="/src/assets/plus.svg" />
+        <img class="mr-2.5 inline-block" src="/src/assets/plus.svg" />
         <p>{{ $t('dashboard.addOrganization') }}</p>
       </button-1>
     </div>
     <div v-else class="mt-9">
-      <div class="flex flex-wrap justify-start gap-3 mb-6">
+      <div class="mb-6 flex flex-wrap justify-start gap-3">
         <div
-          class="border font-normal rounded-lg outline-none text-h3 hover:border-blue-c-400 focus:border-blue-c-500 disabled:bg-gray-c-100 disabled:hover:border-gray-c-300 disabled:text-gray-c-500 flex overflow-hidden px-5 flex items-center min-w-[400px] mobile:min-w-full"
+          class="flex flex min-w-[400px] items-center overflow-hidden rounded-lg border px-5 text-h3 font-normal outline-none hover:border-blue-c-400 focus:border-blue-c-500 disabled:bg-gray-c-100 disabled:text-gray-c-500 disabled:hover:border-gray-c-300 mobile:min-w-full"
           :class="{
             'border-blue-c-500': isInputFocused,
             'border-gray-c-300': !isInputFocused,
@@ -67,7 +67,7 @@
             id="inpOrgSearch"
             ref="inp"
             v-model="searchController.SearchedOrgName"
-            class="w-full outline-none px-4 py-2 bg-transparent text-h3"
+            class="w-full bg-transparent px-4 py-2 text-h3 outline-none"
             :placeholder="$t('dashboard.organizationSearchPlaceholder')"
             @click.stop
             @focusin="OnInputFocus(true)"
@@ -77,9 +77,9 @@
       </div>
       <div
         v-if="searchController.isSearchedOrgResult"
-        class="py-6 flex flex-wrap gap-4"
+        class="flex flex-wrap gap-4 py-6"
       >
-        <div class="w-full flex gap-4 items-center">
+        <div class="flex w-full items-center gap-4">
           <div
             v-if="searchController.SearchedOrganizationsList.length <= 0"
             class="h-min"
@@ -96,7 +96,7 @@
               searchController.SearchedOrgName
             }}".
           </div>
-          <button-1 class="block mobile:grow w-min" @click="ResetSearchResult">
+          <button-1 class="block w-min mobile:grow" @click="ResetSearchResult">
             {{ $t('general.refresh') }}
           </button-1>
         </div>
@@ -148,8 +148,6 @@ import OrganizationListItem from './OrganizationListItem.vue'
 import OrganizationListTable from './OrganizationListTable/OrganizationListTable.vue'
 import OrganizationModal from './OrganizationModal.vue'
 import RemoveOrgModal from './RemoveOrgModal.vue'
-
-
 
 export default {
   name: 'OrganizationsList',

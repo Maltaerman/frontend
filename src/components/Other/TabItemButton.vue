@@ -1,6 +1,6 @@
 <template>
   <button
-    class="pb-2.5 cursor-pointer hover:text-blue-c-400 hover:border-blue-c-400 box-border"
+    class="box-border cursor-pointer pb-2.5 hover:border-blue-c-400 hover:text-blue-c-400"
     :class="styles"
   >
     <slot></slot>

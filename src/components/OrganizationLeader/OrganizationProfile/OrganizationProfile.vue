@@ -1,24 +1,24 @@
 <template>
-  <div v-if="organization" class="py-6 px-4 comp:p-9 h-full overflow-y-auto">
+  <div v-if="organization" class="h-full overflow-y-auto py-6 px-4 comp:p-9">
     <div
-      class="flex row flex-wrap gap-4 justify-between items-center pb-6 comp:pb-9"
+      class="row flex flex-wrap items-center justify-between gap-4 pb-6 comp:pb-9"
     >
-      <div class="title mobile:grow h-min">
+      <div class="title h-min mobile:grow">
         {{ $t('organizationProfile.employees') }}
       </div>
       <button-1
-        class="block h-min flex items-center mobile:w-full justify-center gap-1.5"
+        class="block flex h-min items-center justify-center gap-1.5 mobile:w-full"
         @click.stop="ShowUserInviteModal"
       >
         <img
           alt=""
-          class="block mb-0.5"
+          class="mb-0.5 block"
           src="/src/assets/Organizations/addUser.svg"
         />
         <p class="">{{ $t('organizationProfile.newInvitation') }}</p>
       </button-1>
     </div>
-    <div class="flex row flex-wrap gap-4 justify-start mb-4">
+    <div class="row mb-4 flex flex-wrap justify-start gap-4">
       <!-- Need to be reusable becasue its gonna be used in table roles -->
       <DropDownSelect
         v-model="selectedDropOption"
@@ -39,7 +39,7 @@
     >
       <table class="w-full mobile:w-[720px]">
         <thead>
-          <tr class="bg-gray-c-100 text-gray-c-400 text-h3">
+          <tr class="bg-gray-c-100 text-h3 text-gray-c-400">
             <th class="table-col-head">
               {{ $t('organizationProfile.name') }}
             </th>
@@ -49,7 +49,7 @@
             <th class="table-col-head">
               {{ $t('Roles.Role') }}
             </th>
-            <th class="px-2 py-[17px] font-semibold text-center">
+            <th class="px-2 py-[17px] text-center font-semibold">
               {{ $t('organizationProfile.status') }}
             </th>
             <th class="table-col-head">
@@ -77,7 +77,7 @@
                     worker.is_active,
                   )
                 "
-                class="hover:bg-white cursor-default mx-auto block"
+                class="mx-auto block cursor-default hover:bg-white"
               >
                 {{
                   GetCurrentUserStatusText(
@@ -116,7 +116,7 @@
     :is-modal-visible="isUserInviteModalVisible"
   >
     <div
-      class="bg-white w-[480px] rounded-lg relative mobile:w-full relative p-6 mx-auto max-h-screen overflow-y-auto"
+      class="relative relative mx-auto max-h-screen w-[480px] overflow-y-auto rounded-lg bg-white p-6 mobile:w-full"
       @click.stop
     >
       <button
@@ -125,13 +125,13 @@
       >
         <img src="/src/assets/close.svg" />
       </button>
-      <div class="text-h2 text-center font-semibold">
+      <div class="text-center text-h2 font-semibold">
         {{ $t('organizationProfile.addEmployee') }}
       </div>
-      <div class="text-h3 text-gray-c-600 mt-2 mb-4">
+      <div class="mt-2 mb-4 text-h3 text-gray-c-600">
         {{ $t('organizationProfile.employeeEnvelope') }}
       </div>
-      <div class="flex flex-col gap-4 mt-4 mb-2">
+      <div class="mt-4 mb-2 flex flex-col gap-4">
         <input1
           v-model="organization.name"
           class="w-full"
@@ -153,7 +153,7 @@
           @click="AddUserInvite"
         >
           <svg
-            class="inline-block mr-2"
+            class="mr-2 inline-block"
             fill="#2E60B2"
             height="14"
             viewBox="0 0 14 14"
@@ -171,7 +171,7 @@
       </div>
 
       <button-1
-        class="w-full mt-6"
+        class="mt-6 w-full"
         :disabled="!isSendInviteButtEnable"
         @click.stop="SendUserInvites"
       >
@@ -346,17 +346,17 @@ export default {
     }),
     visibleParitcipantsList() {
       switch (this.activeStatusFilterValue) {
-      case this.defaultStatusFilterValue:
-        return this.organization.participants
+        case this.defaultStatusFilterValue:
+          return this.organization.participants
 
-      default:
-        return this.organization.participants.filter(
-          (worker) =>
-            this.GetCurrentUserStatusText(
-              worker.email_confirmed,
-              worker.is_active,
-            ) === this.activeStatusFilterValue,
-        )
+        default:
+          return this.organization.participants.filter(
+            (worker) =>
+              this.GetCurrentUserStatusText(
+                worker.email_confirmed,
+                worker.is_active,
+              ) === this.activeStatusFilterValue,
+          )
       }
     },
     statusesList() {
@@ -411,7 +411,7 @@ export default {
 @tailwind utilities;
 
 .table-col-head {
-  @apply px-2 py-[17px] font-semibold text-left;
+  @apply px-2 py-[17px] text-left font-semibold;
 }
 
 .table-col-row-item {

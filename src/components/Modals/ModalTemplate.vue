@@ -2,7 +2,7 @@
   <teleport to="body">
     <div
       v-if="isModalVisible"
-      class="overflow-hidden z-[1500] h-full w-full bg-black/30 absolute top-0"
+      class="absolute top-0 z-[1500] h-full w-full overflow-hidden bg-black/30"
       :class="classList"
       @click="hide"
     >

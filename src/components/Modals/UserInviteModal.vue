@@ -8,20 +8,20 @@
     <transition name="modal-anim">
       <div
         v-if="animTrigger"
-        class="bg-white w-[480px] rounded-lg relative mobile:w-full relative p-6 mx-auto max-h-screen"
+        class="relative relative mx-auto max-h-screen w-[480px] rounded-lg bg-white p-6 mobile:w-full"
         @click.stop
       >
         <button class="absolute top-6 right-6 cursor-pointer" @click="close">
           <img src="/src/assets/close.svg" />
         </button>
-        <div class="text-h2 text-center font-semibold">
+        <div class="text-center text-h2 font-semibold">
           {{ $t('organizationProfile.addEmployee') }}
         </div>
-        <div class="text-h3 text-gray-c-600 mt-2 mb-4">
+        <div class="mt-2 mb-4 text-h3 text-gray-c-600">
           {{ $t('organizationProfile.employeeEnvelope') }}
         </div>
 
-        <div class="flex flex-col gap-4 mt-4 mb-2">
+        <div class="mt-4 mb-2 flex flex-col gap-4">
           <input-suggest
             v-model.trim="requestedOrg"
             :item-projection-function="suggestionProjection"
@@ -39,7 +39,7 @@
         </div>
 
         <button-1
-          class="w-full mt-6"
+          class="mt-6 w-full"
           :disabled="!InviteSendingAvailable"
           @click="SendInvite"
         >

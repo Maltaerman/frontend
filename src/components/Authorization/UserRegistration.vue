@@ -1,22 +1,22 @@
 <template>
-  <div class="flex flex-col h-screen">
-    <Header class="grow-0 shrink-0 sticky top-0 left-0" />
-    <div class="grow p-4 overflow-y-auto">
-      <div class="w-[480px] mobile:w-full mx-auto">
-        <div class="text-center text-h1 font-semibold mb-9 text-gray-c-800">
+  <div class="flex h-screen flex-col">
+    <Header class="sticky top-0 left-0 shrink-0 grow-0" />
+    <div class="grow overflow-y-auto p-4">
+      <div class="mx-auto w-[480px] mobile:w-full">
+        <div class="mb-9 text-center text-h1 font-semibold text-gray-c-800">
           {{ $t('userRegistration.greeting') }}
         </div>
-        <div class="text-center text-body-2 font-semibold mb-6">
+        <div class="text-body-2 mb-6 text-center font-semibold">
           {{ $t('userRegistration.ownProfile') }}
         </div>
         <div>
           <div class="mb-6">
-            <label class="block mb-1 text-h4 text-gray-c-500" for="user-name">
+            <label class="mb-1 block text-h4 text-gray-c-500" for="user-name">
               {{ $t('userRegistration.name') }}
             </label>
             <input-1
               v-model="userName"
-              class="w-full mt-1 outline-none"
+              class="mt-1 w-full outline-none"
               inp-id="user-name"
               :placeholder="$t('userRegistration.fullName')"
               tabindex="1"
@@ -28,12 +28,12 @@
             />
           </div>
           <div class="mb-6">
-            <label class="block mb-1 text-h4 text-gray-c-500" for="user-mail">
+            <label class="mb-1 block text-h4 text-gray-c-500" for="user-mail">
               {{ $t('userRegistration.email') }}
             </label>
             <input-1
               v-model="userMail"
-              class="w-full mt-1 outline-none"
+              class="mt-1 w-full outline-none"
               :disabled="true"
               inp-id="user-mail"
               :placeholder="$t('userRegistration.email')"
@@ -44,7 +44,7 @@
             />
           </div>
           <div class="mb-6">
-            <label class="block mb-1 text-h4 text-gray-c-500" for="user-pass">
+            <label class="mb-1 block text-h4 text-gray-c-500" for="user-pass">
               {{ $t('userRegistration.password') }}
             </label>
             <input-pass
@@ -58,7 +58,7 @@
           </div>
           <div class="mb-6">
             <label
-              class="block mb-1 text-h4 text-gray-c-500"
+              class="mb-1 block text-h4 text-gray-c-500"
               for="user-pass-conf"
             >
               {{ $t('userRegistration.newPassConf') }}
@@ -75,10 +75,10 @@
           </div>
         </div>
 
-        <div class="flex gap-2 flex-nowrap items-center mb-9">
+        <div class="mb-9 flex flex-nowrap items-center gap-2">
           <input
             v-model="isTermsAccept"
-            class="block w-6 h-6 accent-blue-c-500 hover:accent-blue-c-400 m-0 p-0"
+            class="m-0 block h-6 w-6 p-0 accent-blue-c-500 hover:accent-blue-c-400"
             type="checkbox"
           />
           <div>
@@ -254,6 +254,6 @@ export default {
 @tailwind utilities;
 
 .link-1 {
-  @apply text-blue-c-500 font-semibold;
+  @apply font-semibold text-blue-c-500;
 }
 </style>

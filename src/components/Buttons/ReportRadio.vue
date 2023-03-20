@@ -8,7 +8,7 @@
       @change="updateModel(option.value)"
     />
     <div
-      class="py-1 px-2 text-center align-middle rounded-lg text-h3 font-medium mobile:text-h4 tablet:text-h4 border bg-transparent hover:bg-gray-c-10 disabled:border-gray-c-200 disabled:text-gray-c-400"
+      class="hover:bg-gray-c-10 rounded-lg border bg-transparent py-1 px-2 text-center align-middle text-h3 font-medium disabled:border-gray-c-200 disabled:text-gray-c-400 tablet:text-h4 mobile:text-h4"
       :class="option.class"
     >
       {{ $t(`reportTools.${option.i18n}`) }}

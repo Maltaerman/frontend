@@ -1,6 +1,6 @@
 <template>
-  <div class="overflow-y-auto h-full p-6">
-    <h1 class="w-full py-2 text-2xl text-center">Welcome to test screen</h1>
+  <div class="h-full overflow-y-auto p-6">
+    <h1 class="w-full py-2 text-center text-2xl">Welcome to test screen</h1>
     <button-text-1 @click="Test1"> Test </button-text-1>
     <button-text-1 @click="Test2"> ShowModal </button-text-1>
 

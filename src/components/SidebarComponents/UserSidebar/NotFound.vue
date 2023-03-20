@@ -1,10 +1,10 @@
 <template>
   <div
-    class="flex flex-col justify-between overflow-y-auto h-full shadow-cs1 text-h3 mobile:text-h4 tablet:text-h3"
+    class="flex h-full flex-col justify-between overflow-y-auto text-h3 shadow-cs1 tablet:text-h3 mobile:text-h4"
   >
     <div class="p-6">
       <div v-if="notFoundedMarkerData">
-        <p class="font-semibold text-4xl">
+        <p class="text-4xl font-semibold">
           {{ $t('notFoundAddress.noDBItem', { address: Address }) }}
         </p>
         <div class="mt-2.5">
@@ -23,7 +23,7 @@
                 fill-rule="evenodd"
               />
             </svg>
-            <p class="text-h3 text-green-c-500 font-semibold">
+            <p class="text-h3 font-semibold text-green-c-500">
               {{ $t('notFoundAddress.requestExist') }}
             </p>
           </div>
@@ -33,19 +33,19 @@
         </div>
       </div>
       <div v-else>
-        <p class="font-semibold text-4xl">
+        <p class="text-4xl font-semibold">
           {{ $t('userSideBar.choose-location') }}
         </p>
       </div>
       <button-1
-        class="w-full my-6"
+        class="my-6 w-full"
         :disabled="buttonDisabled"
         @click="buttonAction"
       >
         {{ buttonLocalization }}
       </button-1>
       <div v-if="recentReports.length > 0" class="w-full">
-        <div class="font-semibold mb-2 bg-white z-10">
+        <div class="z-10 mb-2 bg-white font-semibold">
           {{ $t('welcomeScreen.recentlyReports') }}
         </div>
         <WelcomeScreenReportList
@@ -78,7 +78,6 @@ import userRoles from '../../mixins/userRoles.js'
 
 import FeedBackForm from './FeedBackForm.vue'
 import Footer from './Footer.vue'
-
 
 export default {
   name: 'NotFound',

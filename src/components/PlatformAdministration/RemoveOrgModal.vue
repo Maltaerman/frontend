@@ -7,7 +7,7 @@
       :is-modal-visible="isModalVisible"
     >
       <div
-        class="bg-white w-[480px] rounded-lg relative mobile:w-full relative p-6 mx-auto max-h-screen overflow-y-auto"
+        class="relative relative mx-auto max-h-screen w-[480px] overflow-y-auto rounded-lg bg-white p-6 mobile:w-full"
         @click.stop
       >
         <button
@@ -22,9 +22,9 @@
         <div class="text-s1 text-red-c-500 underline">
           "{{ organization.name }}"
         </div>
-        <div class="text-h3 text-gray-c-600 my-2">
+        <div class="my-2 text-h3 text-gray-c-600">
           {{ $t('general.toDeleteType') }}
-          <span class="text-h3 text-center text-gray-c-800 font-semibold">
+          <span class="text-center text-h3 font-semibold text-gray-c-800">
             {{ organization.name.trim() }}
           </span>
         </div>
@@ -32,7 +32,7 @@
         <input-1 v-model="inputValue" class="w-full" />
 
         <button-1
-          class="w-full mt-6"
+          class="mt-6 w-full"
           :disabled="!isRemoveAvailable"
           @click.stop="removeOrg"
         >
@@ -79,8 +79,8 @@ export default {
   methods: {
     closeThisComponent() {
       ;(this.isModalVisible = true),
-      (this.isLoaderVisible = false),
-      this.closeFunc()
+        (this.isLoaderVisible = false),
+        this.closeFunc()
     },
     closeSuccess() {
       this.onRemoveSuccess()
@@ -132,6 +132,6 @@ export default {
 @tailwind components;
 
 .text-s1 {
-  @apply text-h2 text-center font-semibold;
+  @apply text-center text-h2 font-semibold;
 }
 </style>

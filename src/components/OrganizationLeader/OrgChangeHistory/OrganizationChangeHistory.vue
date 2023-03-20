@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 comp:p-9 overflow-y-auto-custom h-full">
+  <div class="overflow-y-auto-custom h-full p-6 comp:p-9">
     <div class="title">{{ $t('OrganizationChangeLog.title') }}</div>
 
     <div
@@ -8,12 +8,12 @@
     >
       <input-search
         v-model="query"
-        class="w-full comp:max-w-[400px] shrink grow"
+        class="w-full shrink grow comp:max-w-[400px]"
         :placeholder="$t('OrganizationChangeLog.searchPlaceholder')"
       />
       <drop-down-select
         v-model="selectedAidWorker"
-        class="w-full comp:max-w-[320px] shrink grow"
+        class="w-full shrink grow comp:max-w-[320px]"
         :options="aidWorkerDropSuggestion"
       />
       <VueDatePicker
@@ -31,7 +31,7 @@
     </div>
     <div class="mb-6 flex justify-end">
       <Button1
-        class="w-full comp:w-min min-w-[120px]"
+        class="w-full min-w-[120px] comp:w-min"
         @click="getOrganizationChangeLog"
       >
         {{ $t('general.search') }}
@@ -56,8 +56,6 @@ import DropDownSelect from '../../Inputs/DropDownSelect.vue'
 import InputSearch from '../../Inputs/InputSearch.vue'
 
 import OrganizationChangeLogList from './OrganizationChangeLogList.vue'
-
-
 
 export default {
   name: 'OrganizationChangeHistory',

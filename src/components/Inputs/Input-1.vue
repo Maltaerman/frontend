@@ -1,12 +1,12 @@
 <template>
   <label
-    class="inline-block w-full relative"
+    class="relative inline-block w-full"
     @focusin="onFocus"
     @focusout="onLeave"
   >
     <div
       v-if="label"
-      class="text-h4 text-gray-c-500 text-left font-normal mb-2"
+      class="mb-2 text-left text-h4 font-normal text-gray-c-500"
     >
       {{ label }}
     </div>
@@ -23,7 +23,7 @@
     />
     <div
       v-if="!isValidStyle && validationMessage"
-      class="text-red-c-500 text-b3 mt-1 text-left px-2"
+      class="mt-1 px-2 text-left text-b3 text-red-c-500"
     >
       {{ validationMessage }}
     </div>
@@ -96,16 +96,16 @@ export default {
     validate() {
       let isValueValid = true
       switch (this.validationType) {
-      case 'mail':
-        isValueValid = this.isMail(this.modelValue)
-        //console.log("mail validation " + isValueValid)
-        break
-      case 'name':
-        isValueValid = this.isName(this.modelValue)
-        break
-      default:
-        isValueValid = this.validationFunc(this.modelValue)
-        break
+        case 'mail':
+          isValueValid = this.isMail(this.modelValue)
+          //console.log("mail validation " + isValueValid)
+          break
+        case 'name':
+          isValueValid = this.isName(this.modelValue)
+          break
+        default:
+          isValueValid = this.validationFunc(this.modelValue)
+          break
       }
       if (isValueValid || this.value === '') this.isValidStyle = true
       this.$emit('validation', isValueValid)

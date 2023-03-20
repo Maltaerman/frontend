@@ -1,34 +1,34 @@
 <template>
   <div
     v-if="organization"
-    class="p-9 mobile:py-6 mobile:px-4 h-full overflow-y-auto"
+    class="h-full overflow-y-auto p-9 mobile:py-6 mobile:px-4"
   >
-    <div class="flex row flex-wrap gap-4 justify-between">
-      <div class="text-body-2 font-semibold mobile:grow h-min">
+    <div class="row flex flex-wrap justify-between gap-4">
+      <div class="text-body-2 h-min font-semibold mobile:grow">
         {{ $t('organizationProfile.aidWorkers') }}
       </div>
       <button-1
-        class="block flex items-center mobile:w-full justify-center h-[46px]"
+        class="block flex h-[46px] items-center justify-center mobile:w-full"
         @click.stop="ShowUserInviteModal"
       >
         <img
           alt=""
-          class="inline-block mb-0.5 mr-1.5"
+          class="mb-0.5 mr-1.5 inline-block"
           src="/src/assets/Organizations/addUser.svg"
         />
         <span>{{ $t('organizationProfile.newInvitation') }}</span>
       </button-1>
     </div>
-    <div class="flex row flex-wrap gap-4 justify-start my-4 mb-4">
+    <div class="row my-4 mb-4 flex flex-wrap justify-start gap-4">
       <!-- Need to be reusable becasue its gonna be used in table roles -->
       <OrganizationDropdown
         :active-filter-value="activeStatusFilterValue.text"
         :filter-list="statusesList"
         @filterChange="onStatusFilterChange"
       />
-      <div class="flex flex-wrap justify-start min-w-screen">
+      <div class="min-w-screen flex flex-wrap justify-start">
         <div
-          class="border font-normal rounded-lg outline-none text-h3 hover:border-blue-c-400 focus:border-blue-c-500 disabled:bg-gray-c-100 disabled:hover:border-gray-c-300 disabled:text-gray-c-500 flex overflow-hidden px-5 flex items-center min-w-[400px] mobile:min-w-full"
+          class="flex flex min-w-[400px] items-center overflow-hidden rounded-lg border px-5 text-h3 font-normal outline-none hover:border-blue-c-400 focus:border-blue-c-500 disabled:bg-gray-c-100 disabled:text-gray-c-500 disabled:hover:border-gray-c-300 mobile:min-w-full"
           :class="{
             'border-blue-c-500': isInputFocused,
             'border-gray-c-300': !isInputFocused,
@@ -61,7 +61,7 @@
             id="inpOrgSearch"
             ref="inp"
             v-model="searchedParticipantValue"
-            class="w-full outline-none px-4 py-2 bg-transparent text-h3"
+            class="w-full bg-transparent px-4 py-2 text-h3 outline-none"
             :placeholder="$t('dashboard.organizationSearchPlaceholder')"
             @click.stop
             @focusin="OnInputFocus(true)"
@@ -75,19 +75,19 @@
     <!-- Table of organizations -->
     <div
       v-if="organization.participants.length > 0"
-      class="mt-4 mr-4 mobile:w-auto overflow-x-scroll"
+      class="mt-4 mr-4 overflow-x-scroll mobile:w-auto"
     >
-      <table class="table-auto w-full min-w-[799px]">
+      <table class="w-full min-w-[799px] table-auto">
         <thead>
-          <tr class="bg-gray-c-100 text-gray-c-400 text-h3 h-[58px]">
-            <th class="w-12 table-col-head">No</th>
-            <th class="w-1/5 table-col-head">
+          <tr class="h-[58px] bg-gray-c-100 text-h3 text-gray-c-400">
+            <th class="table-col-head w-12">No</th>
+            <th class="table-col-head w-1/5">
               {{ $t('organizationProfile.name') }}
             </th>
-            <th class="w-1/5 table-col-head">
+            <th class="table-col-head w-1/5">
               {{ $t('organizationProfile.role') }}
             </th>
-            <th class="w-32 px-4 py-[17px] font-semibold text-center">
+            <th class="w-32 px-4 py-[17px] text-center font-semibold">
               {{ $t('organizationProfile.status') }}
             </th>
             <th class="table-col-head">
@@ -99,7 +99,7 @@
         <tbody>
           <tr
             v-for="worker in organizationParticipantsVisibleList"
-            class="shadow-cs2 h-[58px]"
+            class="h-[58px] shadow-cs2"
           >
             <td class="table-col-row-item">{{ worker.id + 1 }}</td>
             <td class="table-col-row-item">
@@ -107,7 +107,7 @@
 
 							<span v-else>-</span> -->
               <div
-                class="font-semibold text-base text-gray-c-800 truncate text-ellipsis overflow-hidden"
+                class="overflow-hidden truncate text-ellipsis text-base font-semibold text-gray-c-800"
               >
                 {{ worker.username }}
               </div>
@@ -132,7 +132,7 @@
                     worker.is_active,
                   )
                 "
-                class="hover:bg-white cursor-default mx-auto block"
+                class="mx-auto block cursor-default hover:bg-white"
               >
                 {{
                   GetCurrentUserStatusText(
@@ -171,7 +171,7 @@
     :is-modal-visible="isEditModalVisible"
   >
     <div
-      class="bg-white w-[480px] rounded-lg veve mobile:w-full relative p-6 mx-auto max-h-screen overflow-y-auto"
+      class="veve relative mx-auto max-h-screen w-[480px] overflow-y-auto rounded-lg bg-white p-6 mobile:w-full"
       @click.stop
     >
       <button
@@ -180,15 +180,15 @@
       >
         <img src="/src/assets/close.svg" />
       </button>
-      <div class="text-h2 text-center font-semibold">Редагування</div>
-      <div class="flex flex-col gap-4 mt-4 mb-6">
+      <div class="text-center text-h2 font-semibold">Редагування</div>
+      <div class="mt-4 mb-6 flex flex-col gap-4">
         <div>
           <p class="text-h4 text-gray-c-500">
             {{ $t('dashboard.organizationName') }}
           </p>
           <input1
             v-model="editingOrgName"
-            class="w-full mt-1 outline-none"
+            class="mt-1 w-full outline-none"
             :placeholder="$t('dashboard.namePlaceholder')"
           />
         </div>
@@ -196,7 +196,7 @@
           <p class="text-h4 text-gray-c-500">{{ $t('dashboard.website') }}</p>
           <input1
             v-model="editingOrgSite"
-            class="w-full mt-1 outline-none"
+            class="mt-1 w-full outline-none"
             placeholder="organization.com"
           />
         </div>
@@ -222,7 +222,7 @@
     :is-modal-visible="isUserInviteModalVisible"
   >
     <div
-      class="bg-white w-[480px] rounded-lg relative mobile:w-full relative p-6 mx-auto max-h-screen overflow-y-auto"
+      class="relative relative mx-auto max-h-screen w-[480px] overflow-y-auto rounded-lg bg-white p-6 mobile:w-full"
       @click.stop
     >
       <button
@@ -231,13 +231,13 @@
       >
         <img src="/src/assets/close.svg" />
       </button>
-      <div class="text-h2 text-center font-semibold">
+      <div class="text-center text-h2 font-semibold">
         {{ $t('organizationProfile.addEmployee') }}
       </div>
-      <div class="text-h3 text-gray-c-600 mt-2 mb-4">
+      <div class="mt-2 mb-4 text-h3 text-gray-c-600">
         {{ $t('organizationProfile.employeeEnvelope') }}
       </div>
-      <div class="flex flex-col gap-4 mt-4 mb-2">
+      <div class="mt-4 mb-2 flex flex-col gap-4">
         <input1
           v-model="organization.name"
           class="w-full"
@@ -259,7 +259,7 @@
           @click="AddUserInvite"
         >
           <svg
-            class="inline-block mr-2"
+            class="mr-2 inline-block"
             fill="#2E60B2"
             height="14"
             viewBox="0 0 14 14"
@@ -277,7 +277,7 @@
       </div>
 
       <button-1
-        class="w-full mt-6"
+        class="mt-6 w-full"
         :disabled="!isSendInviteButtEnable"
         @click.stop="SendUserInvites"
       >
@@ -635,16 +635,16 @@ export default {
         defaultStatusFilterValue,
       } = this
       switch (activeStatusFilterValue) {
-      case defaultStatusFilterValue:
-        this.organizationParticipantsVisibleList = searchParticipants(
-          organization.participants,
-        )
-        break
-      default:
-        this.organizationParticipantsVisibleList = searchParticipants(
-          filterParticipants(organization.participants),
-        )
-        break
+        case defaultStatusFilterValue:
+          this.organizationParticipantsVisibleList = searchParticipants(
+            organization.participants,
+          )
+          break
+        default:
+          this.organizationParticipantsVisibleList = searchParticipants(
+            filterParticipants(organization.participants),
+          )
+          break
       }
     },
   },
@@ -657,7 +657,7 @@ export default {
 @tailwind utilities;
 
 .table-col-head {
-  @apply px-2 py-[17px] font-semibold text-left;
+  @apply px-2 py-[17px] text-left font-semibold;
 }
 
 .table-col-row-item {

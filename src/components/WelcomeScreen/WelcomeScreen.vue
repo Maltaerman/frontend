@@ -1,17 +1,17 @@
 <template>
   <div
-    class="flex flex-nowrap flex-col justify-between h-full overflow-y-auto-custom gap-6"
+    class="overflow-y-auto-custom flex h-full flex-col flex-nowrap justify-between gap-6"
   >
     <Header class="shrink-0 grow-0" />
     <div
-      class="flex flex-col justify-center items-center w-[600px] mx-auto mobile:text-h4 mobile:w-full text-h3 grow shrink px-4"
+      class="mx-auto flex w-[600px] shrink grow flex-col items-center justify-center px-4 text-h3 mobile:w-full mobile:text-h4"
     >
       <img class="inline-block w-[310px]" src="/src/assets/fullLogo.svg" />
-      <p class="text-gray-c-500 mt-6 text-justify">
+      <p class="mt-6 text-justify text-gray-c-500">
         {{ $t('welcomeScreen.helperText') }}
       </p>
       <div
-        class="mx-[2.5%] w-full border bg-white rounded-xl border-gray-c-300 border-[2px] h-10 flex flex-nowrap mt-6 mb-9"
+        class="mx-[2.5%] mt-6 mb-9 flex h-10 w-full flex-nowrap rounded-xl border border-[2px] border-gray-c-300 bg-white"
         :class="{ 'border-blue-c-500': isInputFocused }"
       >
         <div class="w-[44px] cursor-pointer rounded-xl">
@@ -25,7 +25,7 @@
           id="autocomplete"
           ref="autocomplete"
           v-model="searchRequest"
-          class="w-full bg-transparent outline-none block text-h3"
+          class="block w-full bg-transparent text-h3 outline-none"
           :options="{
             fields: [`geometry`, `name`],
             componentRestrictions: {
@@ -52,7 +52,7 @@
       </div>
 
       <div v-if="recentReports.length > 0" class="w-full">
-        <div class="font-semibold mb-2 bg-white z-10">
+        <div class="z-10 mb-2 bg-white font-semibold">
           {{ $t('welcomeScreen.recentlyReports') }}
         </div>
         <WelcomeScreenReportList
@@ -70,10 +70,10 @@
       </div>-->
     </div>
     <footer
-      class="py-6 mobile:py-5 px-4 gap-6 mobile:gap-3 flex items-center flex-wrap justify-center"
+      class="flex flex-wrap items-center justify-center gap-6 py-6 px-4 mobile:gap-3 mobile:py-5"
     >
       <div
-        class="flex gap-6 flex-nowrap text-h4 text-blue-c-500 font-semibold break-words"
+        class="flex flex-nowrap gap-6 break-words text-h4 font-semibold text-blue-c-500"
       >
         <a :href="AboutUrl" target="_blank">{{ $t('footer.about') }}</a>
         <a href="https://dimblog.wixsite.com/project-dim" target="_blank">{{
@@ -82,7 +82,7 @@
         <a :href="AboutUrl" target="_blank">❤ {{ $t('footer.support') }}</a>
       </div>
       <div
-        class="flex gap-4 flex-nowrap text-h4 text-gray-c-400 font-semibold mobile:text-b3"
+        class="flex flex-nowrap gap-4 text-h4 font-semibold text-gray-c-400 mobile:text-b3"
       >
         <p>{{ $t('footer.ngo') }}</p>
         <p>{{ $t('footer.code') }}</p>
@@ -92,13 +92,12 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 
 import api from '../../http_client/index.js'
-import SVG_building_condition from '../ComponentsSVG/SVG_building_condition.vue'
 import Header from '../Header.vue'
-import Test from '../Test.vue'
 import coordsHelper from '../mixins/coordsHelper.js'
+import Test from '../Test.vue'
 
 import WelcomeScreenReportList from './WelcomeScreenReportList.vue'
 
@@ -106,7 +105,6 @@ export default {
   name: 'WelcomeScreen',
   components: {
     WelcomeScreenReportList,
-    SVG_building_condition,
     Header,
     Test,
   },
@@ -164,15 +162,15 @@ export default {
     AboutUrl() {
       let url
       switch (this.$i18n.locale) {
-      case 'ua':
-        url = 'https://about.projectdim.org/main.html'
-        break
-      case 'en':
-        url = 'https://about.projectdim.org/main-en.html'
-        break
-      default:
-        url = 'https://about.projectdim.org/main.html'
-        break
+        case 'ua':
+          url = 'https://about.projectdim.org/main.html'
+          break
+        case 'en':
+          url = 'https://about.projectdim.org/main-en.html'
+          break
+        default:
+          url = 'https://about.projectdim.org/main.html'
+          break
       }
       return url
     },

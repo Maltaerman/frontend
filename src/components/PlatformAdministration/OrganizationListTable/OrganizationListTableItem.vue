@@ -1,11 +1,11 @@
 <template>
   <tr class="h-[56px]" @mouseleave="HideMenu">
-    <td class="flex flex-nowrap max-content pl-4 items-center pt-1 gap-5">
+    <td class="max-content flex flex-nowrap items-center gap-5 pl-4 pt-1">
       <div
-        class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600"
+        class="relative h-10 w-10 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-600"
       >
         <svg
-          class="absolute w-12 h-12 text-gray-400 -left-1"
+          class="absolute -left-1 h-12 w-12 text-gray-400"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -17,9 +17,9 @@
           ></path>
         </svg>
       </div>
-      <div class="flex-col h-full">
+      <div class="h-full flex-col">
         <div
-          class="font-semibold text-base text-gray-c-800 truncate text-ellipsis overflow-hidden"
+          class="overflow-hidden truncate text-ellipsis text-base font-semibold text-gray-c-800"
         >
           {{ organization.name }}
         </div>
@@ -28,22 +28,22 @@
         </div>
       </div>
     </td>
-    <td class="text-right pr-4">
+    <td class="pr-4 text-right">
       {{ organization.participants.length || -1 }}
     </td>
     <td class="pl-4">
       <OrganizationListStatus :status="getOrganizationStatus(organization)" />
     </td>
-    <td class="p-2 relative">
+    <td class="relative p-2">
       <div
-        class="w-[25px] top-2 right-4 cursor-pointer px-1 py-3 rounded-full absolute hover:bg-blue-c-200"
+        class="absolute top-2 right-4 w-[25px] cursor-pointer rounded-full px-1 py-3 hover:bg-blue-c-200"
         @click.stop="ShowMenu"
       >
         <img src="/src/assets/dots.svg" />
       </div>
       <div
         ref="menu"
-        class="p-2 rounded-lg shadow-cs3 absolute top-1 right-6 w-[230px] h-[84px] font-semibold bg-white"
+        class="absolute top-1 right-6 h-[84px] w-[230px] rounded-lg bg-white p-2 font-semibold shadow-cs3"
         :class="{
           hidden: !isMenuVisible,
           absolute: isMenuVisible,
@@ -51,13 +51,13 @@
         @click.stop
       >
         <button
-          class="p-1 text-h3 text-blue-c-500 cursor-pointer hover:bg-blue-c-100 w-full text-left"
+          class="w-full cursor-pointer p-1 text-left text-h3 text-blue-c-500 hover:bg-blue-c-100"
           @click.stop="goToOrgProfile"
         >
           {{ $t('general.details') }}
         </button>
         <button
-          class="p-1 text-h3 text-red-c-500 cursor-pointer hover:bg-blue-c-100 w-full text-left"
+          class="w-full cursor-pointer p-1 text-left text-h3 text-red-c-500 hover:bg-blue-c-100"
           @click="removeOrg"
         >
           {{ $t('general.delete') }}

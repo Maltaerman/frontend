@@ -1,17 +1,17 @@
 <template>
-  <div class="flex flex-col h-screen">
-    <Header class="grow-0 shrink-0" />
-    <div class="grow flex items-center justify-center p-4 overflow-y-auto">
+  <div class="flex h-screen flex-col">
+    <Header class="shrink-0 grow-0" />
+    <div class="flex grow items-center justify-center overflow-y-auto p-4">
       <div class="w-[480px] mobile:w-full">
-        <div class="text-center text-h1 font-semibold mb-9 text-gray-c-800">
+        <div class="mb-9 text-center text-h1 font-semibold text-gray-c-800">
           Відновлення паролю
         </div>
-        <div class="text-center text-body-2 font-semibold mb-6">
+        <div class="text-body-2 mb-6 text-center font-semibold">
           Введіть новий пароль
         </div>
         <div>
           <div class="mb-6">
-            <label class="block mb-1 text-h4 text-gray-c-500" for="user-pass">
+            <label class="mb-1 block text-h4 text-gray-c-500" for="user-pass">
               Новий пароль
             </label>
             <input-pass
@@ -25,7 +25,7 @@
           </div>
           <div class="mb-6">
             <label
-              class="block mb-1 text-h4 text-gray-c-500"
+              class="mb-1 block text-h4 text-gray-c-500"
               for="user-pass-conf"
             >
               Повторіть новий пароль

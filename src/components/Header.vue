@@ -1,16 +1,16 @@
 <template>
   <header
-    class="w-full mobile:h-[62px] tablet:h-[62px] comp:h-[74px] mobile:px-4 mobile:py-2.5 tablet:px-4 tablet:py-2.5 comp:px-6 comp:py-0 sticky mobile:top-0 bg-white flex items-center gap-3 mobile:justify-between shadow-cs2 z-[1000]"
+    class="sticky z-[1000] flex w-full items-center gap-3 bg-white shadow-cs2 comp:h-[74px] comp:px-6 comp:py-0 tablet:h-[62px] tablet:px-4 tablet:py-2.5 mobile:top-0 mobile:h-[62px] mobile:justify-between mobile:px-4 mobile:py-2.5"
   >
-    <div class="w-min h-full place-content-center hidden mobile:grid">
-      <div class="w-6 h-5 py-1" @click="toggleMenu">
-        <div class="bg-black w-full h-0.5 rounded-xl"></div>
-        <div class="bg-black w-full h-0.5 rounded-xl my-1"></div>
-        <div class="bg-black w-full h-0.5 rounded-xl"></div>
+    <div class="hidden h-full w-min place-content-center mobile:grid">
+      <div class="h-5 w-6 py-1" @click="toggleMenu">
+        <div class="h-0.5 w-full rounded-xl bg-black"></div>
+        <div class="my-1 h-0.5 w-full rounded-xl bg-black"></div>
+        <div class="h-0.5 w-full rounded-xl bg-black"></div>
       </div>
     </div>
     <div
-      class="hidden absolute top-[62px] left-0 mobile:h-[calc(100vh-62px)] w-full bg-black/30"
+      class="absolute top-[62px] left-0 hidden w-full bg-black/30 mobile:h-[calc(100vh-62px)]"
       :class="{
         'mobile:block': isMenuVisibleOnMobile,
         'mobile:hidden': !isMenuVisibleOnMobile,
@@ -19,29 +19,29 @@
     ></div>
 
     <div
-      class="flex flex-nowrap h-full justify-between bg-white grow mobile:flex-col mobile:absolute mobile:h-[calc(100vh-62px)] mobile:top-[62px] mobile:w-[300px] mobile:shadow-inner mobile:justify-start mobile:gap-3 mobile:transition-[left] mobile:duration-200"
+      class="flex h-full grow flex-nowrap justify-between bg-white mobile:absolute mobile:top-[62px] mobile:h-[calc(100vh-62px)] mobile:w-[300px] mobile:flex-col mobile:justify-start mobile:gap-3 mobile:shadow-inner mobile:transition-[left] mobile:duration-200"
       :class="{
         'mobile:left-0': isMenuVisibleOnMobile,
         'mobile:left-[-300px]': !isMenuVisibleOnMobile,
       }"
     >
       <div
-        class="cursor-pointer h-min my-auto mobile:my-0 mobile:h-[76px] mobile:p-4 mobile:shadow-cs2 mobile:grid mobile:content-center"
+        class="my-auto h-min cursor-pointer mobile:my-0 mobile:grid mobile:h-[76px] mobile:content-center mobile:p-4 mobile:shadow-cs2"
         @click="goToMain"
       >
-        <div v-if="isAuth" class="flex text-h4 items-center">
+        <div v-if="isAuth" class="flex items-center text-h4">
           <img
-            class="mobile:h-6 tablet:h-6 h-10 w-auto mr-4 mobile:hidden"
+            class="mr-4 h-10 w-auto tablet:h-6 mobile:hidden mobile:h-6"
             src="/src/assets/Logo_2.svg"
           />
           <img
-            class="h-6 w-auto mobile:block hidden mr-3.5"
+            class="mr-3.5 hidden h-6 w-auto mobile:block"
             :src="currentUserIconLink"
           />
           <div>
             <p class="font-semibold">
               <img
-                class="h-4 w-auto inline mobile:hidden"
+                class="inline h-4 w-auto mobile:hidden"
                 :src="currentUserIconLink"
               />
               {{ userName }}
@@ -54,23 +54,23 @@
         <div v-else>
           <img
             alt=""
-            class="block mobile:h-6 tablet:h-6 comp:h-10 w-auto"
+            class="block w-auto comp:h-10 tablet:h-6 mobile:h-6"
             src="/src/assets/Logo.svg"
           />
         </div>
       </div>
 
       <div
-        class="flex mobile:flex-col font-medium mobile:font-semibold text-blue-c-500 comp:p-2 text-h3"
+        class="flex text-h3 font-medium text-blue-c-500 comp:p-2 mobile:flex-col mobile:font-semibold"
       >
         <LocalizationDropDown
           id="langDrop"
-          class="w-[150px] mobile:order-3 mobile:px-4 mobile:w-full h-full mobile:h-[58px]"
+          class="h-full w-[150px] mobile:order-3 mobile:h-[58px] mobile:w-full mobile:px-4"
         />
 
         <div
           v-if="isAuth"
-          class="flex items-center gap-x-6 mobile:gap-x-1 ml-7 mobile:ml-0 mobile:flex-col-reverse"
+          class="ml-7 flex items-center gap-x-6 mobile:ml-0 mobile:flex-col-reverse mobile:gap-x-1"
         >
           <div
             v-if="getRole !== userRoles.organizationAdmin"
@@ -79,7 +79,7 @@
             @click="showSettingModal"
           >
             <svg
-              class="mobile:fill-gray-c-500 fill-blue-c-500 h-6 w-auto block"
+              class="block h-6 w-auto fill-blue-c-500 mobile:fill-gray-c-500"
               fill="none"
               height="20"
               viewBox="0 0 20 20"
@@ -92,7 +92,7 @@
                 fill-rule="evenodd"
               />
             </svg>
-            <p class="h-min hidden mobile:block mobile:grow">
+            <p class="hidden h-min mobile:block mobile:grow">
               {{ $t('header.settings') }}
             </p>
           </div>
@@ -103,7 +103,7 @@
           >
             <div
               v-if="RequestsCount > 0"
-              class="absolute bg-red-c-500 rounded-[32px] py-0.5 px-1 font-semibold text-b3 text-white top-[-15px] right-[-5px] h-6 min-w-[22px] w-min text-center mobile:static mobile:order-3"
+              class="absolute top-[-15px] right-[-5px] h-6 w-min min-w-[22px] rounded-[32px] bg-red-c-500 py-0.5 px-1 text-center text-b3 font-semibold text-white mobile:static mobile:order-3"
             >
               {{ RequestsCount }}
             </div>
@@ -114,13 +114,13 @@
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                class="mobile:fill-gray-c-500 fill-blue-c-500"
+                class="fill-blue-c-500 mobile:fill-gray-c-500"
                 clip-rule="evenodd"
                 d="M9.9931 7.17581C9.45934 7.52724 9.00618 8.03052 8.49257 8.67669C8.21101 9.03092 7.68763 9.096 7.32357 8.82205C6.9595 8.5481 6.89262 8.03887 7.17417 7.68464C7.70222 7.0203 8.29072 6.33865 9.05904 5.83278C9.85145 5.31106 10.7961 5 12 5C14.9228 5 17 6.95808 17 8.8346C17 10.5196 15.7383 12.2862 12.8334 13.6309V15.1351C12.8334 15.5829 12.4603 15.9459 12 15.9459C11.5398 15.9459 11.1667 15.5829 11.1667 15.1351V13.1081V12.5747L11.6702 12.3635C14.657 11.1109 15.3333 9.6736 15.3333 8.8346C15.3333 8.09274 14.2689 6.62162 12 6.62162C11.1206 6.62162 10.5028 6.84023 9.9931 7.17581ZM12 17.9811C12.4603 17.9811 12.8334 18.3441 12.8334 18.7919V19.1892C12.8334 19.637 12.4603 20 12 20C11.5398 20 11.1667 19.637 11.1667 19.1892V18.7919C11.1667 18.3441 11.5398 17.9811 12 17.9811Z"
                 fill-rule="evenodd"
               />
               <rect
-                class="mobile:stroke-gray-c-500 stroke-blue-c-500"
+                class="stroke-blue-c-500 mobile:stroke-gray-c-500"
                 height="22"
                 rx="7"
                 stroke-width="2"
@@ -129,7 +129,7 @@
                 y="1"
               />
             </svg>
-            <p class="h-min hidden mobile:block mobile:grow">
+            <p class="hidden h-min mobile:block mobile:grow">
               {{ $t('header.requests') }}
             </p>
           </div>
@@ -141,7 +141,7 @@
           >
             <div>
               <svg
-                class="h-4 ml-1 w-auto fill-gray-c-500"
+                class="ml-1 h-4 w-auto fill-gray-c-500"
                 fill="none"
                 height="12"
                 viewBox="0 0 14 12"
@@ -157,14 +157,14 @@
 
               <!--									<img src="/src/assets/Organizations/List.svg" class="h-4 ml-1 w-auto">-->
             </div>
-            <p class="h-min hidden mobile:block">
+            <p class="hidden h-min mobile:block">
               {{ $t('dashboard.organizations') }}
             </p>
           </div>
 
           <MenuItemLink
             v-if="getRole == userRoles.organizationAdmin"
-            class="w-full hidden mobile:block order-3"
+            class="order-3 hidden w-full mobile:block"
             to="/organization/profile"
           >
             <template #image>
@@ -177,7 +177,7 @@
 
           <MenuItemLink
             v-if="getRole == userRoles.organizationAdmin"
-            class="w-full hidden mobile:block order-2"
+            class="order-2 hidden w-full mobile:block"
             to="/organization/change-history"
           >
             <template #image>
@@ -189,7 +189,7 @@
           </MenuItemLink>
           <MenuItemLink
             v-if="getRole == userRoles.organizationAdmin"
-            class="w-full hidden mobile:block order-1"
+            class="order-1 hidden w-full mobile:block"
             to="/organization/settings"
           >
             <template #image>
@@ -210,14 +210,14 @@
       >
         <router-link to="/main">
           <div
-            class="inline-block px-3 py-2 rounded-l-lg border"
+            class="inline-block rounded-l-lg border px-3 py-2"
             :class="{
               'border-blue-c-500 bg-blue-c-500 text-white': !isDashboardPage,
               'border-gray-c-300': isDashboardPage,
             }"
           >
             <svg
-              class="mobile:inline hidden"
+              class="hidden mobile:inline"
               :class="{
                 'fill-white': !isDashboardPage,
                 'fill-gray-c-600': isDashboardPage,
@@ -250,7 +250,7 @@
         </router-link>
         <router-link :to="dashboardPath">
           <div
-            class="px-3 py-2 rounded-r-lg border inline-block"
+            class="inline-block rounded-r-lg border px-3 py-2"
             :class="{
               'border-blue-c-500 bg-blue-c-500 text-white': isDashboardPage,
               'border-gray-c-300': !isDashboardPage,
@@ -322,7 +322,7 @@
       <button-text1
         v-if="isAuth"
         id="logoutButton"
-        class="h-min my-auto"
+        class="my-auto h-min"
         @click="LogOutUser"
       >
         {{ $t('header.logout') }}
@@ -437,26 +437,26 @@ export default {
     isDashboardPage() {
       let res = false
       switch (this.getRole) {
-      case this.userRoles.organizationAdmin:
-        res = this.isPathMatched('/organization')
-        break
-      case this.userRoles.platformAdmin:
-        res = this.isPathMatched('/admin')
-        break
-      default:
-        res = false
+        case this.userRoles.organizationAdmin:
+          res = this.isPathMatched('/organization')
+          break
+        case this.userRoles.platformAdmin:
+          res = this.isPathMatched('/admin')
+          break
+        default:
+          res = false
       }
       return res
     },
     currentUserIconLink() {
       switch (this.getRole) {
-      case this.userRoles.aidWorker:
-        return '/userIcons/User.svg'
-      case this.userRoles.platformAdmin:
-        return '/userIcons/platform-adm.svg'
-        break
-      default:
-        return '/userIcons/User.svg'
+        case this.userRoles.aidWorker:
+          return '/userIcons/User.svg'
+        case this.userRoles.platformAdmin:
+          return '/userIcons/platform-adm.svg'
+          break
+        default:
+          return '/userIcons/User.svg'
       }
     },
     isPlatformAdmin() {
@@ -471,15 +471,15 @@ export default {
     dashboardPath() {
       let path = '/'
       switch (this.getRole) {
-      case this.userRoles.organizationAdmin:
-        path = '/organization'
-        break
-      case this.userRoles.platformAdmin:
-        path = '/admin'
-        break
-      default:
-        path = '/'
-        break
+        case this.userRoles.organizationAdmin:
+          path = '/organization'
+          break
+        case this.userRoles.platformAdmin:
+          path = '/admin'
+          break
+        default:
+          path = '/'
+          break
       }
       return path
     },
@@ -498,14 +498,14 @@ export default {
 @tailwind utilities;
 
 .menu-item {
-  @apply hover:bg-blue-c-200 rounded-lg p-1  cursor-pointer
-	 flex gap-4 items-center;
+  @apply flex cursor-pointer items-center  gap-4
+	 rounded-lg p-1 hover:bg-blue-c-200;
 }
 .menu-item-mobile {
-  @apply mobile:rounded-none mobile:px-4 mobile:h-[58px] mobile:w-full mobile:text-gray-c-500;
+  @apply mobile:h-[58px] mobile:w-full mobile:rounded-none mobile:px-4 mobile:text-gray-c-500;
 }
 .org-menu-item {
-  @apply hover:bg-blue-c-200 rounded-lg p-1  cursor-pointer
-	mobile:flex hidden gap-4 items-center mobile:rounded-none mobile:px-4 mobile:h-[58px] mobile:w-full mobile:text-gray-c-500;
+  @apply hidden cursor-pointer items-center  gap-4
+	rounded-lg p-1 hover:bg-blue-c-200 mobile:flex mobile:h-[58px] mobile:w-full mobile:rounded-none mobile:px-4 mobile:text-gray-c-500;
 }
 </style>

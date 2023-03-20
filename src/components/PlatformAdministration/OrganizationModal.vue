@@ -6,7 +6,7 @@
     :isHideOnClick="true"
   >
     <div
-      class="bg-white w-[480px] mx-auto mobile:w-full relative p-6 rounded-lg"
+      class="relative mx-auto w-[480px] rounded-lg bg-white p-6 mobile:w-full"
       @click.stop
     >
       <img
@@ -14,17 +14,17 @@
         src="/src/assets/close.svg"
         @click="closeThisModal"
       />
-      <div class="text-h2 text-center font-semibold">
+      <div class="text-center text-h2 font-semibold">
         {{ $t('dashboard.addOrganization') }}
       </div>
-      <div class="flex flex-col gap-4 mt-4 mb-6">
+      <div class="mt-4 mb-6 flex flex-col gap-4">
         <div>
           <label class="text-h4 text-gray-c-500" for="inpRegNewOrgName">{{
             $t('dashboard.organizationName')
           }}</label>
           <input1
             v-model.trim="organization.createOrgName"
-            class="w-full mt-1"
+            class="mt-1 w-full"
             inp-id="inpRegNewOrgName"
             :placeholder="$t('dashboard.namePlaceholder')"
           />
@@ -35,7 +35,7 @@
           }}</label>
           <input1
             v-model.trim="organization.createOrgSite"
-            class="w-full mt-1"
+            class="mt-1 w-full"
             inp-id="inpRegNewOrgSite"
             placeholder="organization.com"
           />

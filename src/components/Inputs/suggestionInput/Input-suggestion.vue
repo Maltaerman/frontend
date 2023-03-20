@@ -85,20 +85,20 @@ export default {
 }
 
 .simple-typeahead-input {
-  @apply border font-normal
-	outline-none text-h3 px-4 py-2
-	hover:border-blue-c-400 focus:border-blue-c-500
-	disabled:bg-gray-c-100 disabled:hover:border-gray-c-300
-	disabled:text-gray-c-500 w-full;
+  @apply w-full border
+	px-4 py-2 text-h3 font-normal
+	outline-none hover:border-blue-c-400
+	focus:border-blue-c-500 disabled:bg-gray-c-100
+	disabled:text-gray-c-500 disabled:hover:border-gray-c-300;
 }
 
 .simple-typeahead-list {
-  @apply absolute left-0 right-0 font-normal
-	border border-t-0 border-gray-c-300
-	rounded-bl-xl rounded-br-xl overflow-hidden z-50;
+  @apply absolute left-0 right-0 z-50
+	overflow-hidden rounded-bl-xl rounded-br-xl
+	border border-t-0 border-gray-c-300 font-normal;
 }
 .simple-typeahead-list-item {
-  @apply w-full bg-white text-h3 px-4 py-2;
+  @apply w-full bg-white px-4 py-2 text-h3;
 }
 .simple-typeahead-list-item-active {
   @apply bg-blue-c-100;

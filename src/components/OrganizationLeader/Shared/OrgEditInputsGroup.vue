@@ -31,7 +31,7 @@
         class="text-area my-2 min-h-[144px]"
         :placeholder="$t('OrganizationRegistration.OrgDescPlaceholder')"
       />
-      <div class="text-h4 text-gray-c-500 text-right">
+      <div class="text-right text-h4 text-gray-c-500">
         {{ DescSymbolLimStr }}
       </div>
     </div>
@@ -42,23 +42,23 @@
       </div>
 
       <div
-        class="relative h-[160px] my-2 border border-gray-c-300 rounded-xl grid justify-center content-center"
+        class="relative my-2 grid h-[160px] content-center justify-center rounded-xl border border-gray-c-300"
       >
         <div
           v-if="!logoImgSrc"
-          class="w-[100px] h-[100px] bg-gray-200 rounded-full grid justify-center content-center"
+          class="grid h-[100px] w-[100px] content-center justify-center rounded-full bg-gray-200"
         >
-          <div class="text-gray-c-500 font-medium">Logo</div>
+          <div class="font-medium text-gray-c-500">Logo</div>
         </div>
         <img
           v-if="logoImgSrc"
-          class="block w-full h-full object-contain"
+          class="block h-full w-full object-contain"
           :src="logoImgSrc"
           title="Logo"
         />
         <SVG_basket_red
           v-if="logoImgSrc"
-          class="absolute cursor-pointer top-2 right-2"
+          class="absolute top-2 right-2 cursor-pointer"
           @click="ClearLogo"
         />
       </div>

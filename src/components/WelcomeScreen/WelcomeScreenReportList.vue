@@ -1,29 +1,29 @@
 <template>
   <transition-group
-    class="flex flex-col flex-nowrap overflow-hidden container-height"
+    class="container-height flex flex-col flex-nowrap overflow-hidden"
     name="report-appear"
     tag="div"
   >
     <div
       v-for="report in visibleElements"
       :key="`rep${report.id}`"
-      class="item-height flex flex-nowrap items-center w-full group hover:bg-blue-c-100 shrink-0 grow-0 cursor-pointer"
+      class="item-height group flex w-full shrink-0 grow-0 cursor-pointer flex-nowrap items-center hover:bg-blue-c-100"
       @click="OnReportClick(report)"
     >
       <div
-        class="w-0.5 h-3/5 bg-gray-c-300 group-hover:h-full group-hover:bg-blue-c-400 duration-200 shrink-0 grow-0"
+        class="h-3/5 w-0.5 shrink-0 grow-0 bg-gray-c-300 duration-200 group-hover:h-full group-hover:bg-blue-c-400"
       />
-      <div class="grow-0 h-full py-2 pr-4 pl-3.5 grow-0 shrink-0">
+      <div class="h-full shrink-0 grow-0 grow-0 py-2 pr-4 pl-3.5">
         <div
-          class="text-h4 mobile:text-b3 group-hover:text-blue-c-400 group-hover:font-semibold duration-100"
+          class="text-h4 duration-100 group-hover:font-semibold group-hover:text-blue-c-400 mobile:text-b3"
         >
           {{ ReportAddressFull(report) }}
         </div>
         <div
-          class="flex flex-nowrap pt-1 items-center font-semibold text-b3 gap-2 text-gray-c-500"
+          class="flex flex-nowrap items-center gap-2 pt-1 text-b3 font-semibold text-gray-c-500"
         >
           <div
-            class="bg-white rounded-2xl border border-gray-c-200 px-2 py-0.5"
+            class="rounded-2xl border border-gray-c-200 bg-white px-2 py-0.5"
             :class="
               getTextColorClass(
                 reportFlags.buildingCondition,
@@ -31,7 +31,7 @@
               )
             "
           >
-            <div class="h-3 w-3 inline-block">
+            <div class="inline-block h-3 w-3">
               <SVG_building_condition
                 class="h-full w-full"
                 :class="
@@ -75,7 +75,7 @@ export default {
     },
     reportsList: {
       type: Array,
-      default: [],
+      default: () => [],
     },
   },
   emits: ['report-click'],

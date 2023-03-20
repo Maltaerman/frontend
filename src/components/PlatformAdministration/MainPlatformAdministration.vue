@@ -4,19 +4,19 @@
     @settingClose="hideSettings"
   />
   <div
-    class="flex h-[calc(100vh-62px)] comp:h-[calc(100vh-74px)] mobile:overflow-y-auto tablet:overflow-y-auto"
+    class="flex h-[calc(100vh-62px)] comp:h-[calc(100vh-74px)] tablet:overflow-y-auto mobile:overflow-y-auto"
   >
-    <div class="shrink-0 comp:w-[320px] shadow-cs1 mobile:hidden">
+    <div class="shrink-0 shadow-cs1 comp:w-[320px] mobile:hidden">
       <div
-        class="w-full h-[200px] flex flex-col gap-2 place-items-center place-content-center shadow-cs2"
+        class="flex h-[200px] w-full flex-col place-content-center place-items-center gap-2 shadow-cs2"
       >
-        <div class="w-[60px] h-[60px] rounded-full bg-blue-c-100 px-5 py-3">
+        <div class="h-[60px] w-[60px] rounded-full bg-blue-c-100 px-5 py-3">
           <img
-            class="w-full h-full"
+            class="h-full w-full"
             src="/src/assets/Organizations/Emblem.svg"
           />
         </div>
-        <p class="w-min text-h3 text-gray-c-600 font-semibold">
+        <p class="w-min text-h3 font-semibold text-gray-c-600">
           {{ $t('dashboard.admin') }}
         </p>
       </div>
@@ -38,23 +38,23 @@
         </MenuItemLink>
 
         <div
-          class="group p-1 w-full cursor-pointer h-[58px] flex gap-4 items-center px-6 text-h3"
+          class="group flex h-[58px] w-full cursor-pointer items-center gap-4 p-1 px-6 text-h3"
           @click="showSettings"
         >
           <div class="h-5 w-5">
             <SVG_settings class="fill-gray-c-500 group-hover:fill-blue-c-400" />
           </div>
           <p
-            class="h-min text-gray-c-500 group-hover:text-blue-c-400 font-semibold"
+            class="h-min font-semibold text-gray-c-500 group-hover:text-blue-c-400"
           >
             {{ $t('dashboard.settings') }}
           </p>
         </div>
       </div>
     </div>
-    <div class="w-full h-full flex flex-col">
-      <router-view class="grow shrink"></router-view>
-      <Footer class="w-full grow-0 shrink-0" />
+    <div class="flex h-full w-full flex-col">
+      <router-view class="shrink grow"></router-view>
+      <Footer class="w-full shrink-0 grow-0" />
     </div>
   </div>
 </template>

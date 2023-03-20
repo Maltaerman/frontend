@@ -1,11 +1,11 @@
 <template>
   <div
-    class="h-[182px] min-w-[240px] mobile:w-full border border-gray-c-300 rounded-lg p-4 cursor-pointer relative group"
+    class="group relative h-[182px] min-w-[240px] cursor-pointer rounded-lg border border-gray-c-300 p-4 mobile:w-full"
     @click.stop="goToOrgProfile"
     @mouseleave="HideMenu"
   >
     <div
-      class="absolute top-2 right-4 cursor-pointer px-1 py-3 rounded-full hover:bg-blue-c-200"
+      class="absolute top-2 right-4 cursor-pointer rounded-full px-1 py-3 hover:bg-blue-c-200"
       @click.stop="ShowMenu"
     >
       <img src="/src/assets/dots.svg" />
@@ -13,7 +13,7 @@
 
     <div
       ref="menu"
-      class="p-2 rounded-lg shadow-cs3 absolute top-1 right-6 w-[230px] h-[84px] font-semibold bg-white"
+      class="absolute top-1 right-6 h-[84px] w-[230px] rounded-lg bg-white p-2 font-semibold shadow-cs3"
       :class="{
         hidden: !isMenuVisible,
         absolute: isMenuVisible,
@@ -21,13 +21,13 @@
       @click.stop
     >
       <button
-        class="p-1 text-h3 text-blue-c-500 cursor-pointer hover:bg-blue-c-100 w-full text-left"
+        class="w-full cursor-pointer p-1 text-left text-h3 text-blue-c-500 hover:bg-blue-c-100"
         @click.stop="goToOrgProfile"
       >
         {{ $t('general.details') }}
       </button>
       <button
-        class="p-1 text-h3 text-red-c-500 cursor-pointer hover:bg-blue-c-100 w-full text-left"
+        class="w-full cursor-pointer p-1 text-left text-h3 text-red-c-500 hover:bg-blue-c-100"
         @click="removeOrg"
       >
         {{ $t('general.delete') }}
@@ -35,7 +35,7 @@
     </div>
 
     <svg
-      class="block h-[60px] w-[60px] mx-auto mt-6"
+      class="mx-auto mt-6 block h-[60px] w-[60px]"
       fill="none"
       viewBox="0 0 60 60"
       xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +50,7 @@
     </svg>
 
     <div
-      class="text-body-1 text-center font-semibold mt-4 mb-1 break-words group-hover:text-blue-c-500"
+      class="text-body-1 mt-4 mb-1 break-words text-center font-semibold group-hover:text-blue-c-500"
     >
       {{ organization.name }}
     </div>

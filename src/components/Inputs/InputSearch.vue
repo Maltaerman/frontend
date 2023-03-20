@@ -8,7 +8,7 @@
   >
     <div class="h-full w-5">
       <SVG_search
-        class="mt-0.5 w-full h-auto"
+        class="mt-0.5 h-auto w-full"
         :class="{
           'fill-blue-c-500': isFocused,
           'fill-gray-c-500': !isFocused,
@@ -17,7 +17,7 @@
     </div>
     <input
       v-model="modelValue"
-      class="outline-none w-full"
+      class="w-full outline-none"
       :placeholder="placeholder"
       type="text"
       @focusin="OnFocus(true)"

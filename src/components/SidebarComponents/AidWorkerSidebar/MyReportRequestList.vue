@@ -1,6 +1,6 @@
 <template>
-  <div class="p-6 relative">
-    <div class="text-h4 mb-4 text-gray-c-600">
+  <div class="relative p-6">
+    <div class="mb-4 text-h4 text-gray-c-600">
       {{ $t('aidWorkerSideBar.expireMessage') }}
     </div>
     <ReportRequestListItem
@@ -25,7 +25,6 @@ import api from '../../../http_client/index.js'
 import Loader from '../../Loader.vue'
 
 import ReportRequestListItem from './ReportRequestListItem.vue'
-
 
 export default {
   name: 'MyReportRequestList',

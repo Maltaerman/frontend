@@ -1,9 +1,9 @@
 <template>
   <div
-    class="absolute top-0 left-0 h-full w-full bg-white bg-opacity-50 grid place-items-center z-10"
+    class="absolute top-0 left-0 z-10 grid h-full w-full place-items-center bg-white bg-opacity-50"
   >
     <svg
-      class="h-[80px] w-[80px] fill-blue-c-500 opacity-100 animate-spin"
+      class="h-[80px] w-[80px] animate-spin fill-blue-c-500 opacity-100"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >

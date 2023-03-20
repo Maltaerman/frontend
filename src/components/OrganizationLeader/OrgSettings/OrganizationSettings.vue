@@ -8,16 +8,16 @@
         </div>
         <OrgEditInputsGroup
           v-model="organization"
-          class="comp:max-w-[480px] w-full"
+          class="w-full comp:max-w-[480px]"
         />
       </div>
       <div>
         <Button1
-          class="w-full h-min comp:w-min flex flex-nowrap items-center justify-center gap-2"
+          class="flex h-min w-full flex-nowrap items-center justify-center gap-2 comp:w-min"
           :disabled="!isOrgSaveButtonAvailable"
           @click="editUserOrganization"
         >
-          <SVG_save class="fill-white inline-block h-[18px] w-auto" />
+          <SVG_save class="inline-block h-[18px] w-auto fill-white" />
           <p>
             {{ $t('general.save') }}
           </p>
@@ -26,7 +26,7 @@
     </div>
     <div class="mt-[48px]">
       <div class="subTitle">{{ $t('userSettings.personalSettings') }}</div>
-      <div class="py-6 flex flex-col gap-6 comp:flex-row comp:justify-between">
+      <div class="flex flex-col gap-6 py-6 comp:flex-row comp:justify-between">
         <div class="grow comp:max-w-[480px]">
           <ChangeMailNameInputs
             v-if="userEditUI.currentState === userEditUI.name"
@@ -38,17 +38,17 @@
             v-model="userPassUpdate"
             @validation="setIsPassValid"
           />
-          <Button2 class="w-full comp:w-[200px] mt-6" @click="UserEditUISwitch">
+          <Button2 class="mt-6 w-full comp:w-[200px]" @click="UserEditUISwitch">
             {{ userSettingsButtonText }}
           </Button2>
         </div>
         <div>
           <Button1
-            class="w-full h-min comp:w-min flex flex-nowrap items-center justify-center gap-2"
+            class="flex h-min w-full flex-nowrap items-center justify-center gap-2 comp:w-min"
             :disabled="!isUserSaveButtonAvailable"
             @click="saveUserDataButtonAction"
           >
-            <SVG_save class="fill-white inline-block h-[18px] w-auto" />
+            <SVG_save class="inline-block h-[18px] w-auto fill-white" />
             <p>
               {{ $t('general.save') }}
             </p>
@@ -106,14 +106,14 @@ export default {
     }),
     UserEditUISwitch() {
       switch (this.userEditUI.currentState) {
-      case this.userEditUI.name:
-        this.userEditUI.currentState = this.userEditUI.pass
-        break
-      case this.userEditUI.pass:
-        this.userEditUI.currentState = this.userEditUI.name
-        break
-      default:
-        break
+        case this.userEditUI.name:
+          this.userEditUI.currentState = this.userEditUI.pass
+          break
+        case this.userEditUI.pass:
+          this.userEditUI.currentState = this.userEditUI.name
+          break
+        default:
+          break
       }
     },
     onOgrEdit(data) {
@@ -191,14 +191,14 @@ export default {
     },
     saveUserDataButtonAction() {
       switch (this.userEditUI.currentState) {
-      case this.userEditUI.name:
-        this.updateUserData()
-        break
-      case this.userEditUI.pass:
-        this.updatesUserPass()
-        break
-      default:
-        break
+        case this.userEditUI.name:
+          this.updateUserData()
+          break
+        case this.userEditUI.pass:
+          this.updatesUserPass()
+          break
+        default:
+          break
       }
     },
   },
@@ -210,28 +210,28 @@ export default {
     userSettingsButtonText() {
       let text = 'Error'
       switch (this.userEditUI.currentState) {
-      case this.userEditUI.name:
-        text = this.$t('userSettings.change-password')
-        break
-      case this.userEditUI.pass:
-        text = this.$t('general.back')
-        break
-      default:
-        break
+        case this.userEditUI.name:
+          text = this.$t('userSettings.change-password')
+          break
+        case this.userEditUI.pass:
+          text = this.$t('general.back')
+          break
+        default:
+          break
       }
       return text
     },
     isUserSaveButtonAvailable() {
       let res = false
       switch (this.userEditUI.currentState) {
-      case this.userEditUI.name:
-        res = this.isNameMailValid
-        break
-      case this.userEditUI.pass:
-        res = this.userPassUpdate.isAllValid
-        break
-      default:
-        break
+        case this.userEditUI.name:
+          res = this.isNameMailValid
+          break
+        case this.userEditUI.pass:
+          res = this.userPassUpdate.isAllValid
+          break
+        default:
+          break
       }
       return res
     },
