@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "npx cypress run",
-    "test-open": "npx cypress open"
+    "test-open": "npx cypress open",
+    "px": "prettier --write ."
   },
   "dependencies": {
     "@cypress/vite-dev-server": "^5.0.0",
