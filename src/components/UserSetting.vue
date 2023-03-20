@@ -7,10 +7,10 @@
     :is-modal-visible="isSettingVisible"
   >
     <div
-      class="w-[600px] h-screen bg-white p-9 mobile:p-4 tablet:p-4 animate-userSettingsAppear relative mobile:w-full tablet:w-[480px] mobile:h-min mobile:rounded-lg"
-      @click.stop
-      :class="{ 'animate-userSettingsAppear': isSettingVisible }"
       id="userSettings"
+      class="w-[600px] h-screen bg-white p-9 mobile:p-4 tablet:p-4 animate-userSettingsAppear relative mobile:w-full tablet:w-[480px] mobile:h-min mobile:rounded-lg"
+      :class="{ 'animate-userSettingsAppear': isSettingVisible }"
+      @click.stop
     >
       <Loader v-if="isShowLoader"></Loader>
       <!--      Header-->
@@ -20,8 +20,8 @@
         {{ $t('userSettings.header') }}
         <img
           class="w-min h-min absolute top-0 mobile:right-0 hidden mobile:block"
-          @click="closeModal"
           src="/close.svg"
+          @click="closeModal"
         />
       </div>
       <button-text1
@@ -39,18 +39,18 @@
         <div :class="{ 'mobile:hidden': isPassChangeVisible }">
           <label for="setting-name">{{ $t('userSettings.name') }}</label>
           <input-1
-            inp-id="setting-name"
-            :placeholder="$t('userSettings.name')"
             v-model="username"
             class="block text-black mt-1 mb-6"
+            inp-id="setting-name"
+            :placeholder="$t('userSettings.name')"
           />
           <label for="setting-mail">{{ $t('userSettings.email') }}</label>
           <input-1
-            inp-id="setting-mail"
-            :placeholder="$t('userSettings.email')"
             v-model="email"
             class="text-black mt-1"
             disabled
+            inp-id="setting-mail"
+            :placeholder="$t('userSettings.email')"
           />
         </div>
 
@@ -68,8 +68,8 @@
           <ButtonOptions
             id="updatePassword"
             :button-color="'blue'"
-            @valueChange="changePassVisibility"
             :checked="isPassChangeVisible"
+            @valueChange="changePassVisibility"
           >
             {{ $t('userSettings.change-password') }}
           </ButtonOptions>
@@ -78,34 +78,34 @@
         <div v-show="isPassChangeVisible" id="passChangeBlock">
           <label for="setting-pass">{{ $t('userSettings.password') }}</label>
           <input-pass
+            v-model="oldPass"
+            class="text-black mt-1 mb-6"
             inp-id="setting-pass"
             :placeholder="$t('userSettings.password')"
-            class="text-black mt-1 mb-6"
-            v-model="oldPass"
           />
           <label for="setting-new-pass">{{
             $t('userSettings.new-password')
           }}</label>
           <input-pass
+            v-model="newPass"
+            class="text-black mt-1"
             inp-id="setting-new-pass"
             :placeholder="$t('userSettings.new-password')"
-            class="text-black mt-1"
-            v-model="newPass"
           />
 
           <div class="flex flex-row-reverse gap-3 py-6">
             <button1
-              :disabled="isChangePassButtonDisabled"
               id="changePassButton"
+              :disabled="isChangePassButtonDisabled"
               @click="updateUserPassword"
             >
               {{ $t('general.save') }}
             </button1>
             <ButtonOptions
               :button-color="'blue'"
+              :checked="isPassChangeVisible"
               class="hidden mobile:block"
               @valueChange="changePassVisibility"
-              :checked="isPassChangeVisible"
             >
               {{ $t('userSettings.change-password') }}
             </ButtonOptions>
@@ -117,19 +117,23 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
+import api from '../http_client/index.js'
+
+import ButtonOptions from './Buttons/Button-options.vue'
+import Button1 from './Buttons/Button_1.vue'
 import ButtonText1 from './Buttons/Button_text_1.vue'
 import Input1 from './Inputs/Input-1.vue'
 import InputPass from './Inputs/Input-pass.vue'
-import ButtonOptions from './Buttons/Button-options.vue'
-import ModalTemplate from './Modals/ModalTemplate.vue'
-import Button1 from './Buttons/Button_1.vue'
-import { mapGetters, mapMutations } from 'vuex'
-import api from '../http_client/index.js'
 import Loader from './Loader.vue'
+import ModalTemplate from './Modals/ModalTemplate.vue'
+
+
+
 
 export default {
   name: 'UserSetting',
-  emits: ['close'],
   components: {
     Loader,
     Button1,
@@ -145,6 +149,7 @@ export default {
       default: false,
     },
   },
+  emits: ['close'],
   data() {
     return {
       isPassChangeVisible: false,

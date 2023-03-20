@@ -2,8 +2,8 @@
   <div>
     <organization-change-log-item
       v-for="item in sortedChangedLogs"
-      :logs="item"
       :key="`item${item[0].id}`"
+      :logs="item"
       @record-visibility-toggle="toggleVisibility"
     />
   </div>
@@ -13,15 +13,20 @@
 import OrganizationChangeLogItem from './OrganizationChangeLogItem.vue'
 export default {
   name: 'OrganizationChangeLogList',
-  emits: ['record-visibility-toggle'],
   components: { OrganizationChangeLogItem },
   props: {
     logs: Array,
   },
+  emits: ['record-visibility-toggle'],
   data() {
     return {
       sortedChangedLogs: [],
     }
+  },
+  watch: {
+    logs(newVal) {
+      this.sortChangedLogs()
+    },
   },
   methods: {
     sortChangedLogs() {
@@ -36,11 +41,6 @@ export default {
     },
     toggleVisibility(id) {
       this.$emit('record-visibility-toggle', id)
-    },
-  },
-  watch: {
-    logs(newVal) {
-      this.sortChangedLogs()
     },
   },
 }

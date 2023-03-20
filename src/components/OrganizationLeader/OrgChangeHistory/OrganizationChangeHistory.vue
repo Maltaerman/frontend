@@ -3,30 +3,30 @@
     <div class="title">{{ $t('OrganizationChangeLog.title') }}</div>
 
     <div
-      data-search-inputs-group
       class="my-3 flex flex-col gap-2.5 comp:flex-row comp:gap-3"
+      data-search-inputs-group
     >
       <input-search
+        v-model="query"
         class="w-full comp:max-w-[400px] shrink grow"
         :placeholder="$t('OrganizationChangeLog.searchPlaceholder')"
-        v-model="query"
       />
       <drop-down-select
-        class="w-full comp:max-w-[320px] shrink grow"
         v-model="selectedAidWorker"
+        class="w-full comp:max-w-[320px] shrink grow"
         :options="aidWorkerDropSuggestion"
       />
       <VueDatePicker
-        :locale="$i18n.locale"
-        :enable-time-picker="false"
-        placeholder="Date"
-        auto-apply
-        close-on-auto-apply
-        :range="true"
-        class="w-full min-w-[260px] text-h3"
         v-model="dateInterval"
-        :max-date="new Date()"
+        auto-apply
+        class="w-full min-w-[260px] text-h3"
+        close-on-auto-apply
+        :enable-time-picker="false"
         input-class-name="date-input-org-change-history"
+        :locale="$i18n.locale"
+        :max-date="new Date()"
+        placeholder="Date"
+        :range="true"
       />
     </div>
     <div class="mb-6 flex justify-end">
@@ -46,14 +46,19 @@
 
 <script>
 //TODO datetime picker style
-import InputSearch from '../../Inputs/InputSearch.vue'
-import DropDownSelect from '../../Inputs/DropDownSelect.vue'
-import { mapActions, mapGetters } from 'vuex'
-import OrganizationChangeLogList from './OrganizationChangeLogList.vue'
-import StoreEvents from '../../../store/storeEventSystem.js'
 import VueDatePicker from '@vuepic/vue-datepicker'
-import Button1 from '../../Buttons/Button_1.vue'
+import { mapActions, mapGetters } from 'vuex'
+
 import api from '../../../http_client/index.js'
+import StoreEvents from '../../../store/storeEventSystem.js'
+import Button1 from '../../Buttons/Button_1.vue'
+import DropDownSelect from '../../Inputs/DropDownSelect.vue'
+import InputSearch from '../../Inputs/InputSearch.vue'
+
+import OrganizationChangeLogList from './OrganizationChangeLogList.vue'
+
+
+
 export default {
   name: 'OrganizationChangeHistory',
   components: {

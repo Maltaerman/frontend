@@ -3,16 +3,18 @@
     <Loader v-if="isLoader" />
     <HistoryItem
       v-for="logItem in sortedChangedLogs"
-      :logs="logItem"
       :key="`historyItem${logItem[0].id}`"
+      :logs="logItem"
     />
   </div>
 </template>
 
 <script>
-import HistoryItem from './HistoryItem.vue'
 import { mapActions, mapState } from 'vuex'
+
 import Loader from '../../Loader.vue'
+
+import HistoryItem from './HistoryItem.vue'
 
 export default {
   name: 'History',

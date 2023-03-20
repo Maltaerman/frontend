@@ -1,9 +1,9 @@
 <template>
   <modal-template
-    :is-modal-visible="isModalVisible"
+    :class-list="`grid place-content-center px-2`"
     :close-func="close"
     :is-hide-on-click="isHideOnClick"
-    :class-list="`grid place-content-center px-2`"
+    :is-modal-visible="isModalVisible"
   >
     <transition name="modal-anim">
       <div
@@ -23,18 +23,18 @@
 
         <div class="flex flex-col gap-4 mt-4 mb-2">
           <input-suggest
-            :placeholder="$t('dashboard.organizationSearchPlaceholder')"
             v-model.trim="requestedOrg"
             :item-projection-function="suggestionProjection"
+            :placeholder="$t('dashboard.organizationSearchPlaceholder')"
             :suggestion="suggestionsC"
             @select-item="setSelectedItem"
           />
           <input1
-            placeholder="E-mail"
-            class="outline-none"
-            validation-type="mail"
-            :validation-message="$t('validations.mailNotValid')"
             v-model.trim="mail"
+            class="outline-none"
+            placeholder="E-mail"
+            :validation-message="$t('validations.mailNotValid')"
+            validation-type="mail"
           />
         </div>
 
@@ -52,11 +52,12 @@
 </template>
 
 <script>
-import ModalTemplate from './ModalTemplate.vue'
-import input1 from '../Inputs/Input-1.vue'
 import api from '../../http_client/index.js'
-import regex from '../mixins/regex.js'
+import input1 from '../Inputs/Input-1.vue'
 import InputSuggest from '../Inputs/suggestionInput/Input-suggestion.vue'
+import regex from '../mixins/regex.js'
+
+import ModalTemplate from './ModalTemplate.vue'
 export default {
   name: 'UserInviteModal',
   components: { InputSuggest, ModalTemplate, input1 },
@@ -87,6 +88,28 @@ export default {
       isLoader: false,
       suggestions: [],
     }
+  },
+  computed: {
+    suggestionsC() {
+      return this.suggestions.slice(0, 5)
+    },
+    InviteSendingAvailable() {
+      return this.organization && this.isMail(this.mail)
+    },
+  },
+  watch: {
+    isModalVisible(newVal) {
+      if (newVal)
+        this.$nextTick(() => {
+          this.animTrigger = true
+        })
+    },
+    requestedOrg(n) {
+      this.organization = undefined
+      if (!n || n.length < 3) {
+        this.suggestions = []
+      } else this.getOrganization()
+    },
   },
   methods: {
     close() {
@@ -148,28 +171,6 @@ export default {
     setSelectedItem(item) {
       this.organization = item
       this.suggestions = []
-    },
-  },
-  computed: {
-    suggestionsC() {
-      return this.suggestions.slice(0, 5)
-    },
-    InviteSendingAvailable() {
-      return this.organization && this.isMail(this.mail)
-    },
-  },
-  watch: {
-    isModalVisible(newVal) {
-      if (newVal)
-        this.$nextTick(() => {
-          this.animTrigger = true
-        })
-    },
-    requestedOrg(n) {
-      this.organization = undefined
-      if (!n || n.length < 3) {
-        this.suggestions = []
-      } else this.getOrganization()
     },
   },
 }

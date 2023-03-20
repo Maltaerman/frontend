@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-nowrap gap-2">
     <div
-      @mouseleave="ToggleDrop(false)"
-      @focusout="ToggleDrop(false)"
       class="relative w-[140px]"
+      @focusout="ToggleDrop(false)"
+      @mouseleave="ToggleDrop(false)"
     >
       <button
         id="dropButton"
@@ -11,15 +11,15 @@
         @click="ToggleDrop(!isDropped)"
       >
         <img
-          src="/src/assets/dropdown-arrow.svg"
           class="w-3.5 h-2 transition-all duration-300"
           :class="{
             'rotate-0': !isDropped,
             'rotate-180': isDropped,
           }"
+          src="/src/assets/dropdown-arrow.svg"
         />
         <div class="flex items-center gap-2 pr-3">
-          <img :src="code.flag" class="w-6 h-4" />
+          <img class="w-6 h-4" :src="code.flag" />
           <div id="current-code">{{ code.value }}</div>
         </div>
       </button>
@@ -40,12 +40,12 @@
           }"
           @click.stop="setCode(codeItem.code)"
         >
-          <img :src="codeItem.flag" class="w-6 h-4" />
+          <img class="w-6 h-4" :src="codeItem.flag" />
           <div>{{ codeItem.value }}</div>
         </div>
       </div>
     </div>
-    <input ref="tel" class="input-1" v-model="inp" @keyup="keyAction" />
+    <input ref="tel" v-model="inp" class="input-1" @keyup="keyAction" />
   </div>
 </template>
 
@@ -53,11 +53,11 @@
 import regex from '../mixins/regex.js'
 export default {
   name: 'TelInput',
-  emits: ['validation', 'update:modelValue', 'enter-click'],
   mixins: [regex],
   props: {
     modelValue: String,
   },
+  emits: ['validation', 'update:modelValue', 'enter-click'],
   data() {
     return {
       code: {
@@ -77,6 +77,21 @@ export default {
       number: '',
     }
   },
+  watch: {
+    inp(newVal) {
+      if (this.onlyDigitsRegex.test(newVal) || newVal === '') {
+        this.number = newVal
+        this.$emit('update:modelValue', `${this.code.value}${this.number}`)
+      } else this.inp = this.number
+      this.numValidation()
+    },
+    code(newVal) {
+      this.numValidation()
+    },
+  },
+  mounted() {
+    this.$refs.tel.focus()
+  },
   methods: {
     ToggleDrop(bool) {
       this.isDropped = bool
@@ -95,21 +110,6 @@ export default {
       if (!e.keyCode) return
       if (e.keyCode === 13) this.$emit('enter-click')
     },
-  },
-  watch: {
-    inp(newVal) {
-      if (this.onlyDigitsRegex.test(newVal) || newVal === '') {
-        this.number = newVal
-        this.$emit('update:modelValue', `${this.code.value}${this.number}`)
-      } else this.inp = this.number
-      this.numValidation()
-    },
-    code(newVal) {
-      this.numValidation()
-    },
-  },
-  mounted() {
-    this.$refs.tel.focus()
   },
 }
 </script>

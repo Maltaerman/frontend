@@ -116,10 +116,10 @@
 
 <script>
 import Button1 from '../../Buttons/Button_1.vue'
-import SVG_Default_User from '../../ComponentsSVG/UserRolesSvg/SVG_Default_User.vue'
-import SVG_Platform_Admin from '../../ComponentsSVG/UserRolesSvg/SVG_Platform_Admin.vue'
 import SVG_edit from '../../ComponentsSVG/Icons/SVG_edit.vue'
 import SVG_eye from '../../ComponentsSVG/Icons/SVG_eye.vue'
+import SVG_Default_User from '../../ComponentsSVG/UserRolesSvg/SVG_Default_User.vue'
+import SVG_Platform_Admin from '../../ComponentsSVG/UserRolesSvg/SVG_Platform_Admin.vue'
 import Footer from '../../SidebarComponents/UserSidebar/Footer.vue'
 export default {
   name: 'UserRoles',

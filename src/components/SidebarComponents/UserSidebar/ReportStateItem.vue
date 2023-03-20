@@ -4,7 +4,7 @@
    <div>
     <div class="flex flex-nowrap flex-row ">
         <div class="mr-1.5 my-auto h-6 w-8">
-          <SVG_status_list :icon="flag" :class-list="getSVGColorClass(flag, flagValue)" />
+          <SVG_status_list :class-list="getSVGColorClass(flag, flagValue)" :icon="flag" />
         </div>
         <p class="grow font-semibold  my-auto uppercase" :class="getTextColorClass(flag, flagValue)">
           {{ GetStatusTranslation(flagValue) }}
@@ -14,7 +14,7 @@
    </div>
       <div class="flex flex-col justify-end items-end">
         <p class="text-gray-c-500  text-h4 font-normal my-auto font-normal px-1">{{ $t('userSideBar.reportedOn')}}</p>
-        <p class="text-gray-c-500  text-h4 font-semibold my-auto px-1" v-if="update">
+        <p v-if="update" class="text-gray-c-500  text-h4 font-semibold my-auto px-1">
           {{ GetDateTimeShort(update) }}
         </p>
       </div>
@@ -29,13 +29,13 @@
 </template>
 
 <script>
-import SVG_status_list from "../../ComponentsSVG/SVG_status_list.vue";
-import dateFormatter from "../../mixins/dateFormatter.js";
-import reportItemFlags from "../../mixins/reportItemFlags.js";
-import Expander from "../../Other/Expander.vue";
+import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
+import Expander from '../../Other/Expander.vue'
+import dateFormatter from '../../mixins/dateFormatter.js'
+import reportItemFlags from '../../mixins/reportItemFlags.js'
 
 export default {
-  name: "ReportStateItem",
+  name: 'ReportStateItem',
   components: { SVG_status_list, Expander },
   mixins: [
     reportItemFlags,
@@ -48,7 +48,7 @@ export default {
     description: String,
     update: [String, Date],
   },
-};
+}
 </script>
 
 <style scoped></style>

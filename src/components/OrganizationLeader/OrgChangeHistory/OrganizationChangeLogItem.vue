@@ -20,11 +20,11 @@
         <div class="grow shrink mobile:pr-6 w-full order-3 comp:order-2">
           <div v-for="item in getChangedLogs(log)" class="my-2.5 font-semibold">
             <div class="flex flex-wrap gap-4 relative group cursor-default">
-              <div class="flex gap-2" v-if="item.old_value">
+              <div v-if="item.old_value" class="flex gap-2">
                 <p class="w-4 h-6">
                   <SVG_status_list
-                    :icon="item.flag"
                     :classList="getSVGColorClass(item.flag, item.old_value)"
+                    :icon="item.flag"
                   />
                 </p>
                 <p
@@ -35,15 +35,15 @@
                 </p>
               </div>
               <img
-                src="/src/assets/change-arrow.svg"
-                class="h-6 w-6"
                 alt="arrow"
+                class="h-6 w-6"
+                src="/src/assets/change-arrow.svg"
               />
               <div class="flex gap-2">
                 <p class="w-4 h-6">
                   <SVG_status_list
-                    :icon="item.flag"
                     :classList="getSVGColorClass(item.flag, item.new_value)"
+                    :icon="item.flag"
                   />
                 </p>
                 <p
@@ -63,8 +63,8 @@
           </div>
 
           <router-link
-            :to="getLocationOverviewRoute(log.location)"
             class="text-h3 mobile:text-h4 tablet:text-h4 text-gray-c-500 font-semibold cursor-pointer"
+            :to="getLocationOverviewRoute(log.location)"
           >
             {{ log.user.username }}
             <span class="font-normal">
@@ -99,16 +99,15 @@
 </template>
 
 <script>
+import Button_2 from '../../Buttons/Button_2.vue'
+import SVG_eye from '../../ComponentsSVG/Icons/SVG_eye.vue'
+import SVG_eye_crossed from '../../ComponentsSVG/Icons/SVG_eye_crossed.vue'
 import dateFormatter from '../../mixins/dateFormatter.js'
 import dynamicContent from '../../mixins/dynamicContent.js'
 import reportItemFlags from '../../mixins/reportItemFlags.js'
-import SVG_eye from '../../ComponentsSVG/Icons/SVG_eye.vue'
-import SVG_eye_crossed from '../../ComponentsSVG/Icons/SVG_eye_crossed.vue'
-import Button_2 from '../../Buttons/Button_2.vue'
 
 export default {
   name: 'OrganizationChangeLogItem',
-  emits: ['record-visibility-toggle'],
   components: {
     SVG_eye,
     Button_2,
@@ -118,6 +117,7 @@ export default {
   props: {
     logs: Array,
   },
+  emits: ['record-visibility-toggle'],
   methods: {
     getDate(strDate) {
       return this.GetDayDateString(strDate).replace(' ', ', ')

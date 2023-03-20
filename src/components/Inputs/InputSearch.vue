@@ -16,12 +16,12 @@
       />
     </div>
     <input
-      @focusin="OnFocus(true)"
-      @focusout="OnFocus(false)"
+      v-model="modelValue"
+      class="outline-none w-full"
       :placeholder="placeholder"
       type="text"
-      class="outline-none w-full"
-      v-model="modelValue"
+      @focusin="OnFocus(true)"
+      @focusout="OnFocus(false)"
     />
   </label>
 </template>
@@ -40,14 +40,14 @@ export default {
       isFocused: false,
     }
   },
-  methods: {
-    OnFocus(value) {
-      this.isFocused = value
-    },
-  },
   watch: {
     modelValue(val) {
       this.$emit('update:modelValue', val)
+    },
+  },
+  methods: {
+    OnFocus(value) {
+      this.isFocused = value
     },
   },
 }

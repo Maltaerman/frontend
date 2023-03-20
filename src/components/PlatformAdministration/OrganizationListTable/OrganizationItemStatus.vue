@@ -23,50 +23,50 @@ export default {
   components: {
     SVG_eye_crossed,
   },
-  data() {
-    return {
-      ORGANIZATION_STATUSES,
-    }
-  },
   props: {
     status: {
       type: String,
       default: '',
     },
   },
-  methods: {
-    getOrganizationStatus() {
-      const { ACTIVE, PENDING, DISABLED } = this.ORGANIZATION_STATUSES
-      switch (this.status) {
-        case ACTIVE:
-          return 'border-green-c-200 text-green-c-500'
-        case PENDING:
-          return 'border-gray-c-200 text-gray-c-500'
-        case DISABLED:
-          return 'border-gray-c-300 text-gray-c-500 fill-gray-c-200'
-        default:
-          break
-      }
-    },
+  data() {
+    return {
+      ORGANIZATION_STATUSES,
+    }
   },
   computed: {
     getStatusTranslate() {
       const { ACTIVE, PENDING, DISABLED } = this.ORGANIZATION_STATUSES
       let status = this.$t('general.error')
       switch (this.status) {
-        case ACTIVE:
-          status = this.$t('general.active')
-          break
-        case PENDING:
-          status = this.$t('general.pending')
-          break
-        case DISABLED:
-          status = this.$t('general.disabled')
-          break
-        default:
-          break
+      case ACTIVE:
+        status = this.$t('general.active')
+        break
+      case PENDING:
+        status = this.$t('general.pending')
+        break
+      case DISABLED:
+        status = this.$t('general.disabled')
+        break
+      default:
+        break
       }
       return status
+    },
+  },
+  methods: {
+    getOrganizationStatus() {
+      const { ACTIVE, PENDING, DISABLED } = this.ORGANIZATION_STATUSES
+      switch (this.status) {
+      case ACTIVE:
+        return 'border-green-c-200 text-green-c-500'
+      case PENDING:
+        return 'border-gray-c-200 text-gray-c-500'
+      case DISABLED:
+        return 'border-gray-c-300 text-gray-c-500 fill-gray-c-200'
+      default:
+        break
+      }
     },
   },
 }

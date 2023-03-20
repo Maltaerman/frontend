@@ -2,32 +2,32 @@
   <div class="max-h-[42px] min-w-screen">
     <div
       class="flex-none"
-      @mouseleave="ToggleDrop(false)"
       @focusout="ToggleDrop(false)"
+      @mouseleave="ToggleDrop(false)"
     >
       <button
-        @click.stop="isDropped = !isDropped"
         class="flex flex-row justify-between w-[168px] h-[42px] mobile:w-full items-center w-48 px-2 text-gray-700 bg-white border-1 border border-gray-c-300 rounded-md shadow focus:outline-none focus:border-blue-500"
         :class="{
           tableView: isTableView,
         }"
+        @click.stop="isDropped = !isDropped"
       >
         <span class="select-none"
           ><img
             v-if="isTableView"
+            alt=""
             class="inline-block w-4 h-4 mb-0.5 mr-1.5 text-gray-c-800"
             :src="getUserRoleIcon(activeFilterValue)"
-            alt=""
           />{{ activeFilterValue }}</span
         >
 
         <img
-          src="/src/assets/dropdown-arrow.svg"
           class="w-3.5 h-2 transition-all duration-300"
           :class="{
             'rotate-0': !isDropped,
             'rotate-180': isDropped,
           }"
+          src="/src/assets/dropdown-arrow.svg"
         />
       </button>
 
@@ -39,15 +39,15 @@
       >
         <li
           v-for="filter in filterList"
+          class="block px-4 py-2 text-gray-c-800 hover:text-blue-c-500 hover:bg-blue-c-100 hover:text-blue-c-500"
           @click="selectFilter(filter)"
           @click.stop="ToggleDrop(false)"
-          class="block px-4 py-2 text-gray-c-800 hover:text-blue-c-500 hover:bg-blue-c-100 hover:text-blue-c-500"
         >
           <img
             v-if="isTableView"
+            alt=""
             class="inline-block w-4 h-4 mb-0.5 mr-1.5 text-gray-c-800"
             :src="getUserRoleIcon(filter)"
-            alt=""
           />
           {{ filter.text }}
         </li>
@@ -57,11 +57,12 @@
 </template>
 
 <script>
-import userRoles from '../../mixins/userRoles'
 import OrgLeaderIcon from '../../../assets/Org-leader.svg?url'
 import User from '../../../assets/User.svg?url'
+import userRoles from '../../mixins/userRoles'
 export default {
   name: 'OrganizationDropdown',
+  mixins: [userRoles],
   props: {
     filterList: {
       type: Array,
@@ -74,7 +75,6 @@ export default {
       default: false,
     },
   },
-  mixins: [userRoles],
   data() {
     return {
       isDropped: false,
@@ -89,10 +89,10 @@ export default {
     getUserRoleIcon(role) {
       const mappedRole = this.mapRoleDisplayTextToValue(role)
       switch (mappedRole) {
-        case this.rolesDisplayText['Organization leader']:
-          return OrgLeaderIcon
-        default:
-          return User
+      case this.rolesDisplayText['Organization leader']:
+        return OrgLeaderIcon
+      default:
+        return User
       }
     },
     ToggleDrop(boolean) {

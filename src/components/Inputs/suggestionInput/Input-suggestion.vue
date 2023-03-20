@@ -2,18 +2,18 @@
   <div class="relative">
     <vue3-simple-typeahead
       id="typeahead_id"
-      :placeholder="placeholder"
-      :items="suggestionC"
-      :minInputLength="1"
       :class="{
         'rounded-xl': isBorderRounded,
         'rounded-tl-xl rounded-tr-xl': !isBorderRounded,
       }"
       :itemProjection="itemProjectionFunction"
+      :items="suggestionC"
+      :minInputLength="1"
+      :placeholder="placeholder"
+      @onBlur="onBlurEventHandler"
+      @onFocus="onFocusEventHandler"
       @onInput="onInputEventHandler"
       @selectItem="selectItemEventHandler"
-      @onFocus="onFocusEventHandler"
-      @onBlur="onBlurEventHandler"
     >
       <template #list-item-text="slot">
         <span v-html="slot.boldMatchText(slot.itemProjection(slot.item))" />
@@ -25,7 +25,6 @@
 <script>
 export default {
   name: 'InputSuggest',
-  emits: ['select-item', 'update:modelValue', 'on-focus', 'on-blur'],
   props: {
     suggestion: Array,
     maxSuggestionVisible: {
@@ -44,8 +43,20 @@ export default {
     },
     placeholder: String,
   },
+  emits: ['select-item', 'update:modelValue', 'on-focus', 'on-blur'],
   data() {
     return {}
+  },
+  computed: {
+    isBorderRounded() {
+      if (this.suggestion && this.suggestion.length > 0) return false
+      else return true
+    },
+    suggestionC() {
+      return this.suggestion
+        ? this.suggestion.slice(0, this.maxSuggestionVisible)
+        : []
+    },
   },
   methods: {
     onInputEventHandler(e) {
@@ -59,17 +70,6 @@ export default {
     },
     onBlurEventHandler() {
       this.$emit('on-blur')
-    },
-  },
-  computed: {
-    isBorderRounded() {
-      if (this.suggestion && this.suggestion.length > 0) return false
-      else return true
-    },
-    suggestionC() {
-      return this.suggestion
-        ? this.suggestion.slice(0, this.maxSuggestionVisible)
-        : []
     },
   },
 }

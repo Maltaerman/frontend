@@ -1,5 +1,5 @@
 <template>
-  <div @focusout="onLeave" tabindex="1">
+  <div tabindex="1" @focusout="onLeave">
     <div
       class="input-1 flex flex-nowrap justify-between items-center cursor-pointer"
       @click="Drop"
@@ -13,12 +13,12 @@
     </div>
     <div class="relative">
       <transition name="drop">
-        <ul class="drop-container overflow-y-auto-custom z-10" v-if="isDropped">
+        <ul v-if="isDropped" class="drop-container overflow-y-auto-custom z-10">
           <li
             v-for="item in options"
             class="drop-item"
-            @click="SetSelectedItem(item)"
             :class="SelectedItemClass(item)"
+            @click="SetSelectedItem(item)"
           >
             {{ item.text }}
           </li>

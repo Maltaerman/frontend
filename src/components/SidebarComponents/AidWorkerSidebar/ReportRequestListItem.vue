@@ -18,7 +18,7 @@
         </div>
         <div class="text-h4 text-gray-c-500">
           {{ locationRequest.city }}
-          <img src="/Marker-gray.svg" class="inline-block" />
+          <img class="inline-block" src="/Marker-gray.svg" />
           {{
             locationRequest.distance
               ? locationRequest.distance.toFixed(0) + ' km'
@@ -30,12 +30,12 @@
         class="text-h3 text-blue-c-500 font-semibold pb-2 shadow-cs2 cursor-pointer"
         @click="setSelectedRequest(locationRequest)"
       >
-        <img src="/Marker-blue.svg" class="inline-block mr-1" />
+        <img class="inline-block mr-1" src="/Marker-blue.svg" />
         {{ markerAddress }}
       </div>
       <div class="flex justify-between mt-4 items-baseline">
         <div>
-          <button-1 @click="this.Reporting">
+          <button-1 @click="Reporting">
             {{ $t('aidWorkerSideBar.takeRequest') }}
           </button-1>
           <button-2
@@ -48,8 +48,8 @@
         </div>
 
         <button-text-1
-          @click="AddToMyRequests"
           v-if="!isMyRequest && itemUsageTabName === 'requestsList'"
+          @click="AddToMyRequests"
         >
           {{ $t('aidWorkerSideBar.addToMyList') }}
         </button-text-1>
@@ -58,7 +58,7 @@
           v-else-if="isMyRequest && itemUsageTabName === 'requestsList'"
           class="text-h3 font-medium text-blue-c-500 p-2"
         >
-          <img src="/completed2.svg" class="inline-block mr-2" />
+          <img class="inline-block mr-2" src="/completed2.svg" />
           {{ $t('aidWorkerSideBar.myRequest') }}
         </div>
       </div>
@@ -69,6 +69,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+
 import api from '../../../http_client/index.js'
 import Loader from '../../Loader.vue'
 import dateFormatter from '../../mixins/dateFormatter.js'
@@ -76,7 +77,6 @@ import dateFormatter from '../../mixins/dateFormatter.js'
 export default {
   name: 'ReportRequestListItem',
   components: { Loader },
-  emits: ['remove-from-my-list', 'add-to-my-list'],
   mixins: [dateFormatter],
   props: {
     locationRequest: {
@@ -91,6 +91,7 @@ export default {
       },
     },
   },
+  emits: ['remove-from-my-list', 'add-to-my-list'],
   data() {
     return {
       isLoaderVisible: false,

@@ -1,17 +1,17 @@
 <template>
   <div class="flex flex-col gap-6">
     <InputPass
-      inp-id="setting-pass"
-      :placeholder="$t('userSettings.password')"
       v-model="modelValue.old_password"
+      inp-id="setting-pass"
       :label="$t('userSettings.password')"
+      :placeholder="$t('userSettings.password')"
       :validation-message="$t('validations.passNotValid')"
     />
     <InputPass
-      :label="$t('userSettings.new-password')"
-      inp-id="setting-new-pass"
-      :placeholder="$t('userSettings.new-password')"
       v-model="modelValue.new_password"
+      inp-id="setting-new-pass"
+      :label="$t('userSettings.new-password')"
+      :placeholder="$t('userSettings.new-password')"
       :validation-message="$t('validations.passNotValid')"
     />
   </div>
@@ -22,8 +22,8 @@ import InputPass from '../Inputs/Input-pass.vue'
 import regex from '../mixins/regex.js'
 export default {
   name: 'ChangePassInputs',
-  mixins: [regex],
   components: { InputPass },
+  mixins: [regex],
   props: {
     modelValue: Object,
   },
@@ -32,20 +32,20 @@ export default {
       isDataValid: false,
     }
   },
-  methods: {
-    Validation() {
-      this.isDataValid =
-        this.isPass(this.modelValue.old_password) &&
-        this.isPass(this.modelValue.new_password)
-      this.$emit('validation', this.isDataValid)
-    },
-  },
   watch: {
     'modelValue.old_password'() {
       this.Validation()
     },
     'modelValue.new_password'() {
       this.Validation()
+    },
+  },
+  methods: {
+    Validation() {
+      this.isDataValid =
+        this.isPass(this.modelValue.old_password) &&
+        this.isPass(this.modelValue.new_password)
+      this.$emit('validation', this.isDataValid)
     },
   },
 }

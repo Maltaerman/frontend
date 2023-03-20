@@ -1,31 +1,32 @@
 <template>
-  <div class="p-6" ref="viewport">
+  <div ref="viewport" class="p-6">
     <ReportRequestListItem
-      v-if="unreviewedMarkers.length > 0"
       v-for="item in unreviewedMarkers"
+      v-if="unreviewedMarkers.length > 0"
       :key="`request${item.id}`"
-      :location-request="item"
       itemUsageTabName="requestsList"
+      :location-request="item"
       @add-to-my-list="OnAddToMyList"
     />
     <div v-else class="mt-6 text-center text-h3 text-gray-c-800">
       {{ $t('aidWorkerSideBar.allListEmpty') }}
     </div>
-    <div ref="scrollObserver" class="relative h-[80px]" v-if="pageMax < 0">
+    <div v-if="pageMax < 0" ref="scrollObserver" class="relative h-[80px]">
       <Loader v-show="isLoaderVisible" />
     </div>
   </div>
 </template>
 
 <script>
-import ReportRequestListItem from './ReportRequestListItem.vue'
-import api from '../../../http_client/index.js'
 import { mapGetters } from 'vuex'
+
+import api from '../../../http_client/index.js'
 import Loader from '../../Loader.vue'
+
+import ReportRequestListItem from './ReportRequestListItem.vue'
 
 export default {
   name: 'ReportsRequestsList',
-  emits: ['next-page', 'add-to-my-list'],
   components: {
     ReportRequestListItem,
     Loader,
@@ -48,6 +49,7 @@ export default {
       default: false,
     },
   },
+  emits: ['next-page', 'add-to-my-list'],
   data() {
     return {
       /*unreviewedMarkers: [],
@@ -55,14 +57,6 @@ export default {
 			pageMax: -1,
 			isLoaderVisible : false*/
     }
-  },
-  methods: {
-    GetNextPage() {
-      this.$emit('next-page')
-    },
-    OnAddToMyList(req) {
-      this.$emit('add-to-my-list', req)
-    },
   },
   mounted() {
     let options = {
@@ -79,6 +73,14 @@ export default {
     }
     let observer = new IntersectionObserver(callback, options)
     observer.observe(this.$refs.scrollObserver)
+  },
+  methods: {
+    GetNextPage() {
+      this.$emit('next-page')
+    },
+    OnAddToMyList(req) {
+      this.$emit('add-to-my-list', req)
+    },
   },
   computed: {
     ...mapGetters(['isAuth']),

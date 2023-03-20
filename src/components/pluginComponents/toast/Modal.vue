@@ -10,25 +10,25 @@
     >
       <img
         v-if="type !== types.wait"
-        src="/src/assets/close.svg"
         class="absolute top-6 right-6 cursor-pointer"
+        src="/src/assets/close.svg"
         @click="close"
       />
       <div>
         <img
           v-if="isType(types.success)"
-          src="/src/assets/Completed.svg"
           class="mx-auto"
+          src="/src/assets/Completed.svg"
         />
         <img
           v-if="isType(types.error)"
-          src="/src/assets/Error.svg"
           class="mx-auto"
+          src="/src/assets/Error.svg"
         />
         <img
           v-if="isType(types.wait)"
-          src="/src/assets/Loader.svg"
           class="animate-spin mx-auto"
+          src="/src/assets/Loader.svg"
         />
         <p class="text-h2 text-center mt-5 font-semibold" :class="textStyle">
           {{ message }}
@@ -39,9 +39,9 @@
 </template>
 
 <script>
-import removeElement from './remove-helper.js'
-import messageTypes from './messageTypes.js'
 import eventSystem from './event-system.js'
+import messageTypes from './messageTypes.js'
+import removeElement from './remove-helper.js'
 
 export default {
   name: 'Toaster',
@@ -74,22 +74,6 @@ export default {
       timeoutID: 0,
     }
   },
-  methods: {
-    bgClose() {
-      if (this.isCloseOnBg) {
-        clearTimeout(this.timeoutID)
-        this.close()
-      }
-    },
-    close(arg = []) {
-      this.isAct = false
-      this.onClose()
-      removeElement(this.$el)
-    },
-    isType(type) {
-      return type === this.type
-    },
-  },
   computed: {
     textStyle() {
       return {
@@ -115,6 +99,22 @@ export default {
   },
   beforeUnmount() {
     eventSystem.$off('toast-close', this.close)
+  },
+  methods: {
+    bgClose() {
+      if (this.isCloseOnBg) {
+        clearTimeout(this.timeoutID)
+        this.close()
+      }
+    },
+    close(arg = []) {
+      this.isAct = false
+      this.onClose()
+      removeElement(this.$el)
+    },
+    isType(type) {
+      return type === this.type
+    },
   },
 }
 </script>

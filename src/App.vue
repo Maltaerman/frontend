@@ -3,8 +3,9 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import userRoles from './components/mixins/userRoles.js'
+
 import routerHelper from './components/mixins/routerHelper.js'
+import userRoles from './components/mixins/userRoles.js'
 
 export default {
   name: 'App',

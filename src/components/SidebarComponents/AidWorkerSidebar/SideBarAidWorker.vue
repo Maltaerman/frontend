@@ -10,18 +10,18 @@
     >
       <TabItemButton
         class="w-full"
-        @click="setSelectedTab(`All requests`)"
-        target-tab-value="All requests"
         :current-tab-value="selectedTabItem"
+        target-tab-value="All requests"
+        @click="setSelectedTab(`All requests`)"
       >
         {{ $t('aidWorkerSideBar.allRequests') }} ({{ RequestsCount }})
       </TabItemButton>
 
       <TabItemButton
         class="w-full"
-        @click="setSelectedTab(`My requests`)"
-        target-tab-value="My requests"
         :current-tab-value="selectedTabItem"
+        target-tab-value="My requests"
+        @click="setSelectedTab(`My requests`)"
       >
         {{ $t('aidWorkerSideBar.myRequests') }} ({{ MyUnreviewedMarkerCount }})
       </TabItemButton>
@@ -30,12 +30,12 @@
       <keep-alive>
         <ReportsRequestsList
           v-if="selectedTabItem === `All requests`"
-          :unreviewed-markers="requestedMarkers.unreviewedMarkers"
           :is-loader-visible="requestedMarkers.isLoaderVisible"
           :page="requestedMarkers.page"
           :page-max="requestedMarkers.pageMax"
-          @next-page="GetReportsRequest"
+          :unreviewed-markers="requestedMarkers.unreviewedMarkers"
           @add-to-my-list="OnAddToMyList"
+          @next-page="GetReportsRequest"
         />
       </keep-alive>
       <MyReportRequestList
@@ -49,10 +49,12 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import ReportsRequestsList from './ReportsRequestsList.vue'
-import MyReportRequestList from './MyReportRequestList.vue'
-import TabItemButton from '../../Other/TabItemButton.vue'
+
 import api from '../../../http_client/index.js'
+import TabItemButton from '../../Other/TabItemButton.vue'
+
+import MyReportRequestList from './MyReportRequestList.vue'
+import ReportsRequestsList from './ReportsRequestsList.vue'
 
 export default {
   name: 'SideBarAidWorker',

@@ -7,15 +7,15 @@
           {{ $t('organizationProfile.organizationSettings') }}
         </div>
         <OrgEditInputsGroup
-          class="comp:max-w-[480px] w-full"
           v-model="organization"
+          class="comp:max-w-[480px] w-full"
         />
       </div>
       <div>
         <Button1
           class="w-full h-min comp:w-min flex flex-nowrap items-center justify-center gap-2"
-          @click="editUserOrganization"
           :disabled="!isOrgSaveButtonAvailable"
+          @click="editUserOrganization"
         >
           <SVG_save class="fill-white inline-block h-[18px] w-auto" />
           <p>
@@ -38,15 +38,15 @@
             v-model="userPassUpdate"
             @validation="setIsPassValid"
           />
-          <Button2 @click="UserEditUISwitch" class="w-full comp:w-[200px] mt-6">
+          <Button2 class="w-full comp:w-[200px] mt-6" @click="UserEditUISwitch">
             {{ userSettingsButtonText }}
           </Button2>
         </div>
         <div>
           <Button1
-            @click="saveUserDataButtonAction"
-            :disabled="!isUserSaveButtonAvailable"
             class="w-full h-min comp:w-min flex flex-nowrap items-center justify-center gap-2"
+            :disabled="!isUserSaveButtonAvailable"
+            @click="saveUserDataButtonAction"
           >
             <SVG_save class="fill-white inline-block h-[18px] w-auto" />
             <p>
@@ -60,15 +60,17 @@
 </template>
 
 <script>
-import OrgEditInputsGroup from '../Shared/OrgEditInputsGroup.vue'
+import { popScopeId } from 'vue'
 import { mapActions, mapGetters } from 'vuex'
+
+import StoreEvents from '../../../store/storeEventSystem.js'
 import Button1 from '../../Buttons/Button_1.vue'
+import Button2 from '../../Buttons/Button_2.vue'
 import SVG_save from '../../ComponentsSVG/Icons/SVG_save.vue'
 import ChangeMailNameInputs from '../../User/ChangeMailNameInputs.vue'
 import ChangePassInputs from '../../User/ChangePassInputs.vue'
-import Button2 from '../../Buttons/Button_2.vue'
-import StoreEvents from '../../../store/storeEventSystem.js'
-import { popScopeId } from 'vue'
+import OrgEditInputsGroup from '../Shared/OrgEditInputsGroup.vue'
+
 export default {
   name: 'OrganizationSettings',
   components: {
@@ -104,14 +106,14 @@ export default {
     }),
     UserEditUISwitch() {
       switch (this.userEditUI.currentState) {
-        case this.userEditUI.name:
-          this.userEditUI.currentState = this.userEditUI.pass
-          break
-        case this.userEditUI.pass:
-          this.userEditUI.currentState = this.userEditUI.name
-          break
-        default:
-          break
+      case this.userEditUI.name:
+        this.userEditUI.currentState = this.userEditUI.pass
+        break
+      case this.userEditUI.pass:
+        this.userEditUI.currentState = this.userEditUI.name
+        break
+      default:
+        break
       }
     },
     onOgrEdit(data) {
@@ -189,14 +191,14 @@ export default {
     },
     saveUserDataButtonAction() {
       switch (this.userEditUI.currentState) {
-        case this.userEditUI.name:
-          this.updateUserData()
-          break
-        case this.userEditUI.pass:
-          this.updatesUserPass()
-          break
-        default:
-          break
+      case this.userEditUI.name:
+        this.updateUserData()
+        break
+      case this.userEditUI.pass:
+        this.updatesUserPass()
+        break
+      default:
+        break
       }
     },
   },
@@ -208,28 +210,28 @@ export default {
     userSettingsButtonText() {
       let text = 'Error'
       switch (this.userEditUI.currentState) {
-        case this.userEditUI.name:
-          text = this.$t('userSettings.change-password')
-          break
-        case this.userEditUI.pass:
-          text = this.$t('general.back')
-          break
-        default:
-          break
+      case this.userEditUI.name:
+        text = this.$t('userSettings.change-password')
+        break
+      case this.userEditUI.pass:
+        text = this.$t('general.back')
+        break
+      default:
+        break
       }
       return text
     },
     isUserSaveButtonAvailable() {
       let res = false
       switch (this.userEditUI.currentState) {
-        case this.userEditUI.name:
-          res = this.isNameMailValid
-          break
-        case this.userEditUI.pass:
-          res = this.userPassUpdate.isAllValid
-          break
-        default:
-          break
+      case this.userEditUI.name:
+        res = this.isNameMailValid
+        break
+      case this.userEditUI.pass:
+        res = this.userPassUpdate.isAllValid
+        break
+      default:
+        break
       }
       return res
     },

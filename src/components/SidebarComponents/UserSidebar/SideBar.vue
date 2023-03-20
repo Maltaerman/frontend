@@ -14,16 +14,16 @@
     >
       <TabItemButton
         class="w-full"
-        target-tab-value="Overview"
         :current-tab-value="selectedTabItem"
+        target-tab-value="Overview"
         @click="setSelectedTab('Overview')"
       >
         {{ $t('userSideBar.overview') }}
       </TabItemButton>
       <TabItemButton
         class="w-full"
-        target-tab-value="History"
         :current-tab-value="selectedTabItem"
+        target-tab-value="History"
         @click="setSelectedTab(`History`)"
       >
         {{ $t('userSideBar.change-history') }}
@@ -32,11 +32,11 @@
     <div class="pt-6 grow">
       <keep-alive>
         <Overview
-          v-if="this.selectedTabItem === `Overview` && selectedMarkerData"
+          v-if="selectedTabItem === `Overview` && selectedMarkerData"
         />
       </keep-alive>
       <keep-alive>
-        <History v-if="this.selectedTabItem === `History`" />
+        <History v-if="selectedTabItem === `History`" />
       </keep-alive>
     </div>
   </div>
@@ -44,32 +44,34 @@
 </template>
 
 <script>
-import Overview from './Overview.vue'
-import History from './History.vue'
 import { mapState } from 'vuex'
-import NotFound from './NotFound.vue'
+
 import TabItemButton from '../../Other/TabItemButton.vue'
+
+import History from './History.vue'
+import NotFound from './NotFound.vue'
+import Overview from './Overview.vue'
 
 export default {
   name: 'SideBar',
-  props: {
-    selectedMarker: Object,
-  },
   components: {
     TabItemButton,
     History,
     Overview,
     NotFound,
   },
-  methods: {
-    setSelectedTab(tabName) {
-      this.selectedTabItem = tabName
-    },
+  props: {
+    selectedMarker: Object,
   },
   data: function () {
     return {
       selectedTabItem: 'Overview',
     }
+  },
+  methods: {
+    setSelectedTab(tabName) {
+      this.selectedTabItem = tabName
+    },
   },
   computed: {
     ...mapState({

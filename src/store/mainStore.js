@@ -1,9 +1,11 @@
-import VuexPersistence from 'vuex-persist'
-import api from '../http_client/index.js'
 import { createStore } from 'vuex'
+import VuexPersistence from 'vuex-persist'
+
+import api from '../http_client/index.js'
+
+import OrganizationStore from './OrganizationStore.js'
 import ReportLocationState from './ReportedLocationStore.js'
 import UserStore from './UserStore.js'
-import OrganizationStore from './OrganizationStore.js'
 
 const vuexCookie = new VuexPersistence({
   restoreState: (key, storage) => getCookie(key),

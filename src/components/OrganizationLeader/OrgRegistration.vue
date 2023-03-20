@@ -61,8 +61,8 @@
 							{{$t("general.back")}}
 						</Button2>-->
             <Button1
-              :disabled="!isOrgRegistrationEnabled"
               class="grow-[2]"
+              :disabled="!isOrgRegistrationEnabled"
               @click="organizationRegistration"
             >
               {{ $t('general.finish') }}
@@ -75,16 +75,19 @@
 </template>
 
 <script>
-import Header from '../Header.vue'
-import Input1 from '../Inputs/Input-1.vue'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-import Button2 from '../Buttons/Button_2.vue'
-import Button1 from '../Buttons/Button_1.vue'
-import InputPass from '../Inputs/Input-pass.vue'
-import SVG_basket_red from '../ComponentsSVG/SVG_basket_red.vue'
-import OrgEditInputsGroup from './Shared/OrgEditInputsGroup.vue'
+
 import StoreEventSystem from '../../store/storeEventSystem.js'
 import StoreEvents from '../../store/storeEventSystem.js'
+import Button1 from '../Buttons/Button_1.vue'
+import Button2 from '../Buttons/Button_2.vue'
+import SVG_basket_red from '../ComponentsSVG/SVG_basket_red.vue'
+import Header from '../Header.vue'
+import Input1 from '../Inputs/Input-1.vue'
+import InputPass from '../Inputs/Input-pass.vue'
+
+import OrgEditInputsGroup from './Shared/OrgEditInputsGroup.vue'
+
 
 export default {
   name: 'OrgRegistration',

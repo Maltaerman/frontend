@@ -1,16 +1,16 @@
 <template>
   <ModalTemplate
-    :is-modal-visible="isVisible"
-    :closeFunc="cancelButtonClick"
-    :isHideOnClick="isBgClickClose"
     class-list="grid items-center px-6"
+    :closeFunc="cancelButtonClick"
+    :is-modal-visible="isVisible"
+    :isHideOnClick="isBgClickClose"
   >
     <div
       class="bg-white w-[480px] mx-auto mobile:w-full relative p-6 rounded-lg"
     >
       <img
-        src="/src/assets/close.svg"
         class="absolute top-6 right-6 cursor-pointer"
+        src="/src/assets/close.svg"
         @click="cancelButtonClick"
       />
       <div class="text-h2 text-center font-semibold">{{ title }}</div>
@@ -64,16 +64,6 @@ export default {
       type: Function,
     },
   },
-  methods: {
-    cancelButtonClick() {
-      this.cancelButtonFunc()
-      this.closeFunc()
-    },
-    acceptButtonClick() {
-      this.acceptButtonFunc()
-      this.closeFunc()
-    },
-  },
   computed: {
     acceptButtonTextC() {
       return this.acceptButtonText
@@ -84,6 +74,16 @@ export default {
       return this.cancelButtonText
         ? this.cancelButtonText
         : this.$t('general.cancel')
+    },
+  },
+  methods: {
+    cancelButtonClick() {
+      this.cancelButtonFunc()
+      this.closeFunc()
+    },
+    acceptButtonClick() {
+      this.acceptButtonFunc()
+      this.closeFunc()
     },
   },
 }

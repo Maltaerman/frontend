@@ -54,14 +54,15 @@
 </template>
 
 <script>
-import Header from '../Header.vue'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
+
+import api from '../../http_client/index.js'
 import SVG_Org_List from '../ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue'
-import MenuItemLink from '../SidebarComponents/MenuItemLink.vue'
 import SVG_history from '../ComponentsSVG/MenuItemsSvg/SVG_history.vue'
 import SVG_settings from '../ComponentsSVG/SVG_settings.vue'
-import api from '../../http_client/index.js'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import Header from '../Header.vue'
 import Loader from '../Loader.vue'
+import MenuItemLink from '../SidebarComponents/MenuItemLink.vue'
 
 export default {
   name: 'MainOrgLeader',

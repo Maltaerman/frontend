@@ -1,14 +1,14 @@
 <template>
   <ConfirmModal
+    :accept-button-func="ModalAccept"
+    :accept-button-text="$t('reportTools.acceptButtonText')"
+    :cancel-button-func="ModalCancel"
+    :cancel-button-text="$t('reportTools.cancelButtonText')"
+    :close-func="closeLeavePageConfirmModal"
     :is-bg-click-close="false"
     :is-visible="isLeaveModalVisible"
-    :cancel-button-text="$t('reportTools.cancelButtonText')"
-    :accept-button-text="$t('reportTools.acceptButtonText')"
-    :title="$t('general.dataNotSaved')"
     :question="$t('reportTools.beforeLeaveMessage')"
-    :close-func="closeLeavePageConfirmModal"
-    :accept-button-func="ModalAccept"
-    :cancel-button-func="ModalCancel"
+    :title="$t('general.dataNotSaved')"
   />
 
   <div class="overflow-y-auto h-full relative flex flex-col">
@@ -24,7 +24,7 @@
         class="flex flex-nowrap items-center gap-1"
         @click="SaveAndPublish"
       >
-        <img src="/completed.svg" class="inline-block" />
+        <img class="inline-block" src="/completed.svg" />
         <p>
           {{ $t('general.publish') }}
         </p>
@@ -33,12 +33,12 @@
 
     <div id="RequestPreview" class="px-6 mobile:px-4 pb-4 mobile:pb-2 grow">
       <h1 class="font-semibold my-6 text-h1 mobile:text-h1-m tablet:text-h1-m">
-        {{ this.requestedMarker.address }},
+        {{ requestedMarker.address }},
         <span v-if="requestedMarker.street_number">
-          {{ this.requestedMarker.street_number }},
+          {{ requestedMarker.street_number }},
         </span>
-        {{ this.requestedMarker.index }},
-        {{ this.requestedMarker.city }}
+        {{ requestedMarker.index }},
+        {{ requestedMarker.city }}
       </h1>
 
       <h3 class="font-semibold text-h2 mobile:text-h2-m">
@@ -49,10 +49,10 @@
       <div class="mobile:text-h4 text-h3 mt-2 flex-col">
         <ReportStateItem
           v-for="flag of Object.keys(reportFlags)"
-          :flag="flag"
-          :description="requestedMarker.reports[flag].description"
-          :flag-value="requestedMarker.reports[flag].flag"
           :key="`report-${flag}`"
+          :description="requestedMarker.reports[flag].description"
+          :flag="flag"
+          :flag-value="requestedMarker.reports[flag].flag"
           :update="new Date()"
         />
       </div>
@@ -69,15 +69,16 @@
 </template>
 
 <script>
-import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
 import { mapGetters, mapMutations, mapState } from 'vuex'
-import Button2 from '../../Buttons/Button_2.vue'
+
 import api from '../../../http_client/index.js'
-import ModalTemplate from '../../Modals/ModalTemplate.vue'
+import Button2 from '../../Buttons/Button_2.vue'
+import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
 import AwaitModal from '../../Modals/AwaitModal.vue'
+import ModalTemplate from '../../Modals/ModalTemplate.vue'
 import reportItemFlags from '../../mixins/reportItemFlags.js'
-import ReportStateItem from '../UserSidebar/ReportStateItem.vue'
 import Footer from '../UserSidebar/Footer.vue'
+import ReportStateItem from '../UserSidebar/ReportStateItem.vue'
 
 export default {
   name: 'RequestCompletedPreview',

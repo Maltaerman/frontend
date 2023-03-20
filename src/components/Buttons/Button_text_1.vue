@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'button-text-1',
+  name: 'ButtonText1',
   props: {
     color: {
       type: String,

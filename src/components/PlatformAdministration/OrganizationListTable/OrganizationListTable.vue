@@ -31,11 +31,11 @@
 </template>
 
 <script>
-import OrganizationListTableItem from './OrganizationListTableItem.vue'
 import avatar from '../../../assets/Organizations/avatar.svg'
+
+import OrganizationListTableItem from './OrganizationListTableItem.vue'
 export default {
   name: 'OrganizationListTable',
-  emits: ['remove'],
   components: {
     OrganizationListTableItem,
   },
@@ -45,6 +45,7 @@ export default {
       default: [],
     },
   },
+  emits: ['remove'],
   data() {
     return {
       avatar,

@@ -19,7 +19,6 @@
 <script>
 export default {
   name: 'ButtonOptions',
-  emits: ['valueChange'],
   props: {
     buttonColor: {
       type: String,
@@ -32,22 +31,23 @@ export default {
       default: false,
     },
   },
+  emits: ['valueChange'],
   data() {
     return {
       isChecked: false,
     }
-  },
-  methods: {
-    toggleValue() {
-      this.isChecked = !this.isChecked
-      this.$emit('valueChange', this.isChecked)
-    },
   },
   mounted() {
     this.isChecked = this.checked
   },
   updated() {
     this.isChecked = this.checked
+  },
+  methods: {
+    toggleValue() {
+      this.isChecked = !this.isChecked
+      this.$emit('valueChange', this.isChecked)
+    },
   },
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="py-6 px-4 comp:p-9 h-full overflow-y-auto" v-if="organization">
+  <div v-if="organization" class="py-6 px-4 comp:p-9 h-full overflow-y-auto">
     <div
       class="flex row flex-wrap gap-4 justify-between items-center pb-6 comp:pb-9"
     >
@@ -11,9 +11,9 @@
         @click.stop="ShowUserInviteModal"
       >
         <img
+          alt=""
           class="block mb-0.5"
           src="/src/assets/Organizations/addUser.svg"
-          alt=""
         />
         <p class="">{{ $t('organizationProfile.newInvitation') }}</p>
       </button-1>
@@ -22,20 +22,20 @@
       <!-- Need to be reusable becasue its gonna be used in table roles -->
       <DropDownSelect
         v-model="selectedDropOption"
-        :options="dropdownOptions"
         class="max-h-[42px] min-w-[150px]"
+        :options="dropdownOptions"
       />
       <InputSearch
-        class="comp:max-w-[400px]"
         v-model="query"
+        class="comp:max-w-[400px]"
         :placeholder="$t('dashboard.organizationSearchPlaceholder')"
       />
     </div>
 
     <!-- Table of organizations -->
     <div
-      class="mt-4 overflow-x-auto"
       v-if="organization.participants.length > 0"
+      class="mt-4 overflow-x-auto"
     >
       <table class="w-full mobile:w-[720px]">
         <thead>
@@ -59,7 +59,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="shadow-cs2" v-for="worker in visibleParitcipantsList">
+          <tr v-for="worker in visibleParitcipantsList" class="shadow-cs2">
             <td class="table-col-row-item">
               <span v-if="worker.username">{{ worker.username ?? '-' }}</span>
             </td>
@@ -110,10 +110,10 @@
 
   <!--Invite user modal-->
   <ModalTemplate
-    :is-modal-visible="isUserInviteModalVisible"
-    :is-hide-on-click="true"
-    :close-func="CloseUserInviteModal"
     class-list="grid place-items-center px-4"
+    :close-func="CloseUserInviteModal"
+    :is-hide-on-click="true"
+    :is-modal-visible="isUserInviteModalVisible"
   >
     <div
       class="bg-white w-[480px] rounded-lg relative mobile:w-full relative p-6 mx-auto max-h-screen overflow-y-auto"
@@ -134,15 +134,15 @@
       <div class="flex flex-col gap-4 mt-4 mb-2">
         <input1
           v-model="organization.name"
-          disabled
           class="w-full"
+          disabled
           placeholder="Назва"
         />
         <input1
           v-for="(item, index) in invitedUsersList"
           v-model="invitedUsersList[index]"
-          placeholder="Email"
           class="outline-none"
+          placeholder="Email"
         />
       </div>
 
@@ -154,16 +154,16 @@
         >
           <svg
             class="inline-block mr-2"
-            width="14"
+            fill="#2E60B2"
             height="14"
             viewBox="0 0 14 14"
-            fill="#2E60B2"
+            width="14"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fill-rule="evenodd"
               clip-rule="evenodd"
               d="M8 1C8 0.447715 7.55228 0 7 0C6.44772 0 6 0.447715 6 1V6H1C0.447715 6 0 6.44771 0 7C0 7.55228 0.447715 8 1 8H6V13C6 13.5523 6.44772 14 7 14C7.55229 14 8 13.5523 8 13V8H13C13.5523 8 14 7.55228 14 7C14 6.44772 13.5523 6 13 6H8V1Z"
+              fill-rule="evenodd"
             />
           </svg>
           {{ $t('organizationProfile.addMore') }}
@@ -172,8 +172,8 @@
 
       <button-1
         class="w-full mt-6"
-        @click.stop="SendUserInvites"
         :disabled="!isSendInviteButtEnable"
+        @click.stop="SendUserInvites"
       >
         {{ $t('organizationProfile.sendInvite') }}
       </button-1>
@@ -182,11 +182,11 @@
   </ModalTemplate>
   <!---->
   <ConfirmModal
-    :is-visible="ConfirmModal.visible"
-    :question="ConfirmModal.question"
     :accept-button-func="ConfirmModal.accept"
     :cancel-button-func="ConfirmModal.decline"
     :close-func="ConfirmModal.decline"
+    :is-visible="ConfirmModal.visible"
+    :question="ConfirmModal.question"
     :title="ConfirmModal.title"
   />
   <Loader v-if="isLoaderVisible" />
@@ -194,24 +194,25 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import ButtonText1 from '../../Buttons/Button_text_1.vue'
-import dateFormatter from '../../mixins/dateFormatter.js'
-import ButtonTag from '../../Buttons/ButtonTag.vue'
-import ModalTemplate from '../../Modals/ModalTemplate.vue'
-import input1 from '../../Inputs/Input-1.vue'
-import Button2 from '../../Buttons/Button_2.vue'
-import Loader from '../../Loader.vue'
+
 import api from '../../../http_client/index.js'
-import ConfirmModal from '../../Modals/ConfirmModal.vue'
+import ButtonTag from '../../Buttons/ButtonTag.vue'
+import Button2 from '../../Buttons/Button_2.vue'
+import ButtonText1 from '../../Buttons/Button_text_1.vue'
 import CodeInput from '../../Inputs/CodeInput.vue'
+import OrganizationDropdown from '../../PlatformAdministration/shared/OrganizationDropdown.vue'
+import InputSearch from '../../Inputs/InputSearch.vue'
+import DropDownSelect from '../../Inputs/DropDownSelect.vue'
+import input1 from '../../Inputs/Input-1.vue'
 import Input1 from '../../Inputs/Input-1.vue'
 import InputPass from '../../Inputs/Input-pass.vue'
 import TelInput from '../../Inputs/TelInput.vue'
 import InputSuggestion from '../../Inputs/suggestionInput/Input-suggestion.vue'
+import Loader from '../../Loader.vue'
+import ConfirmModal from '../../Modals/ConfirmModal.vue'
+import ModalTemplate from '../../Modals/ModalTemplate.vue'
 import { ORGANIZATION_STATUSES } from '../../PlatformAdministration/constants.js'
-import OrganizationDropdown from '../../PlatformAdministration/shared/OrganizationDropdown.vue'
-import InputSearch from '../../Inputs/InputSearch.vue'
-import DropDownSelect from '../../Inputs/DropDownSelect.vue'
+import dateFormatter from '../../mixins/dateFormatter.js'
 import regex from '../../mixins/regex.js'
 
 export default {
@@ -345,17 +346,17 @@ export default {
     }),
     visibleParitcipantsList() {
       switch (this.activeStatusFilterValue) {
-        case this.defaultStatusFilterValue:
-          return this.organization.participants
+      case this.defaultStatusFilterValue:
+        return this.organization.participants
 
-        default:
-          return this.organization.participants.filter(
-            (worker) =>
-              this.GetCurrentUserStatusText(
-                worker.email_confirmed,
-                worker.is_active,
-              ) === this.activeStatusFilterValue,
-          )
+      default:
+        return this.organization.participants.filter(
+          (worker) =>
+            this.GetCurrentUserStatusText(
+              worker.email_confirmed,
+              worker.is_active,
+            ) === this.activeStatusFilterValue,
+        )
       }
     },
     statusesList() {

@@ -1,24 +1,24 @@
 <template>
   <div class="flex flex-col gap-6">
     <Input1
-      :label="$t('OrganizationRegistration.orgName')"
-      :placeholder="$t('dashboard.organizationName')"
       v-model="modelValue.name"
+      :label="$t('OrganizationRegistration.orgName')"
       :model-value="modelValue.name"
+      :placeholder="$t('dashboard.organizationName')"
     />
 
     <Input1
-      :label="$t('OrganizationRegistration.site')"
-      placeholder="https//:"
       v-model="modelValue.website"
+      :label="$t('OrganizationRegistration.site')"
       :model-value="modelValue.website"
+      placeholder="https//:"
     />
 
     <Input1
-      :label="$t('dashboard.address')"
-      :placeholder="$t('dashboard.orgAddress')"
       v-model="modelValue.address"
+      :label="$t('dashboard.address')"
       :model-value="modelValue.address"
+      :placeholder="$t('dashboard.orgAddress')"
     />
 
     <div data-org-desc>
@@ -26,10 +26,10 @@
         {{ $t('dashboard.orgDescription') }}
       </div>
       <resize-textarea
+        ref="orgDesc"
+        v-model="modelValue.description"
         class="text-area my-2 min-h-[144px]"
         :placeholder="$t('OrganizationRegistration.OrgDescPlaceholder')"
-        v-model="modelValue.description"
-        ref="orgDesc"
       />
       <div class="text-h4 text-gray-c-500 text-right">
         {{ DescSymbolLimStr }}
@@ -52,9 +52,9 @@
         </div>
         <img
           v-if="logoImgSrc"
+          class="block w-full h-full object-contain"
           :src="logoImgSrc"
           title="Logo"
-          class="block w-full h-full object-contain"
         />
         <SVG_basket_red
           v-if="logoImgSrc"
@@ -65,9 +65,9 @@
 
       <input
         ref="fileInp"
-        type="file"
-        class="hidden"
         accept=".jpeg,.png,.jpg"
+        class="hidden"
+        type="file"
         @change.stop="onFileSelect"
       />
 
@@ -79,8 +79,8 @@
 </template>
 
 <script>
-import Input1 from '../../Inputs/Input-1.vue'
 import Button_2 from '../../Buttons/Button_2.vue'
+import Input1 from '../../Inputs/Input-1.vue'
 export default {
   name: 'OrgEditInputsGroup',
   components: {
@@ -95,19 +95,6 @@ export default {
       descSymbolLim: 300,
       logoImgSrc: undefined,
     }
-  },
-  methods: {
-    selectFile() {
-      this.$refs.fileInp.click()
-    },
-    onFileSelect(e) {
-      //this.$emit("update:logo", e.target.files[0])
-      this.modelValue.logo = e.target.files[0]
-    },
-    ClearLogo() {
-      //this.$emit("update:logo", undefined)
-      this.modelValue.logo = undefined
-    },
   },
   computed: {
     DescSymbolLimStr() {
@@ -139,6 +126,19 @@ export default {
       }
 
       reader.readAsDataURL(newVal)
+    },
+  },
+  methods: {
+    selectFile() {
+      this.$refs.fileInp.click()
+    },
+    onFileSelect(e) {
+      //this.$emit("update:logo", e.target.files[0])
+      this.modelValue.logo = e.target.files[0]
+    },
+    ClearLogo() {
+      //this.$emit("update:logo", undefined)
+      this.modelValue.logo = undefined
     },
   },
 }

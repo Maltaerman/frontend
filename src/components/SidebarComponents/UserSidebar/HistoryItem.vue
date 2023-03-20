@@ -19,11 +19,11 @@
         <div class="w-4/5 mobile:pr-6">
           <div v-for="item in getChangedLogs(log)" class="my-2.5 font-semibold">
             <div class="flex flex-wrap gap-2 relative group cursor-default">
-              <div class="flex gap-2" v-if="item.old_value">
+              <div v-if="item.old_value" class="flex gap-2">
                 <p class="w-4 h-6">
                   <SVG_status_list
-                    :icon="item.flag"
                     :classList="getSVGColorClass(item.flag, item.old_value)"
+                    :icon="item.flag"
                   />
                 </p>
                 <p
@@ -34,15 +34,15 @@
                 </p>
               </div>
               <img
-                src="/src/assets/change-arrow.svg"
-                class="h-6 w-6"
                 alt="arrow"
+                class="h-6 w-6"
+                src="/src/assets/change-arrow.svg"
               />
               <div class="flex gap-2">
                 <p class="w-4 h-6">
                   <SVG_status_list
-                    :icon="item.flag"
                     :classList="getSVGColorClass(item.flag, item.new_value)"
+                    :icon="item.flag"
                   />
                 </p>
                 <p
@@ -80,16 +80,16 @@
 <script>
 import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
 import Expander from '../../Other/Expander.vue'
+import dateFormatter from '../../mixins/dateFormatter.js'
 import dynamicContent from '../../mixins/dynamicContent.js'
 import reportItemFlags from '../../mixins/reportItemFlags.js'
-import dateFormatter from '../../mixins/dateFormatter.js'
 export default {
   name: 'HistoryItem',
-  mixins: [dynamicContent, reportItemFlags, dateFormatter],
   components: {
     Expander,
     SVG_status_list,
   },
+  mixins: [dynamicContent, reportItemFlags, dateFormatter],
   props: {
     log: Object,
     logs: {

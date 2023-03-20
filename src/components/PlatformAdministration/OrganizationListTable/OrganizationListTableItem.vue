@@ -11,9 +11,9 @@
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
-            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
             clip-rule="evenodd"
+            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+            fill-rule="evenodd"
           ></path>
         </svg>
       </div>
@@ -36,19 +36,19 @@
     </td>
     <td class="p-2 relative">
       <div
-        @click.stop="ShowMenu"
         class="w-[25px] top-2 right-4 cursor-pointer px-1 py-3 rounded-full absolute hover:bg-blue-c-200"
+        @click.stop="ShowMenu"
       >
         <img src="/src/assets/dots.svg" />
       </div>
       <div
-        @click.stop
         ref="menu"
         class="p-2 rounded-lg shadow-cs3 absolute top-1 right-6 w-[230px] h-[84px] font-semibold bg-white"
         :class="{
           hidden: !isMenuVisible,
           absolute: isMenuVisible,
         }"
+        @click.stop
       >
         <button
           class="p-1 text-h3 text-blue-c-500 cursor-pointer hover:bg-blue-c-100 w-full text-left"
@@ -69,8 +69,10 @@
 
 <script>
 import { mapActions } from 'vuex'
-import OrganizationListStatus from './OrganizationItemStatus.vue'
+
 import { ORGANIZATION_STATUSES } from '../constants.js'
+
+import OrganizationListStatus from './OrganizationItemStatus.vue'
 
 export default {
   name: 'OrganizationListTableItem',
