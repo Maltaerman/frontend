@@ -1,52 +1,54 @@
 <template>
   <div class="relative">
-    <Loader v-if="isLoader"/>
-		<HistoryItem v-for="logItem in sortedChangedLogs" :logs="logItem" :key="`historyItem${logItem[0].id}`"/>
+    <Loader v-if="isLoader" />
+    <HistoryItem
+      v-for="logItem in sortedChangedLogs"
+      :logs="logItem"
+      :key="`historyItem${logItem[0].id}`"
+    />
   </div>
 </template>
 
 <script>
-import HistoryItem from "./HistoryItem.vue";
-import {mapActions, mapState} from "vuex";
-import Loader from "../../Loader.vue";
+import HistoryItem from './HistoryItem.vue'
+import { mapActions, mapState } from 'vuex'
+import Loader from '../../Loader.vue'
 
 export default {
-  name: "History",
-	components: {Loader, HistoryItem},
-  data(){
+  name: 'History',
+  components: { Loader, HistoryItem },
+  data() {
     return {
-      sortedChangedLogs : [],
-      isLoader : false
+      sortedChangedLogs: [],
+      isLoader: false,
     }
   },
   methods: {
-		...mapActions({
-			updateSelectedMarkerHistory : "getSelectedDataHistory"
-		}),
-    sortChangedLogs(){
-      this.isLoader = true;
-      let result = this.changeLogs.reduce((dates, log)=>{
-				if(log.hidden)
-					return dates;
-        let date = log.created_at.split("T")[0];
-        if(!dates[date])
-          dates[date] = []
+    ...mapActions({
+      updateSelectedMarkerHistory: 'getSelectedDataHistory',
+    }),
+    sortChangedLogs() {
+      this.isLoader = true
+      let result = this.changeLogs.reduce((dates, log) => {
+        if (log.hidden) return dates
+        let date = log.created_at.split('T')[0]
+        if (!dates[date]) dates[date] = []
         dates[date].push(log)
         return dates
-      }, {});
-      this.sortedChangedLogs = result;
-      this.isLoader = false;
-    }
+      }, {})
+      this.sortedChangedLogs = result
+      this.isLoader = false
+    },
   },
-	computed : {
-		...mapState({
-			changeLogs: state => state.selectedMarkerHistoryData,
-			selectedMarkerData: state => state.selectedMarkerData
-		}),
+  computed: {
+    ...mapState({
+      changeLogs: (state) => state.selectedMarkerHistoryData,
+      selectedMarkerData: (state) => state.selectedMarkerData,
+    }),
     /*isLoader(){
       return this.sortedChangedLogs.length <=0
     }*/
-		/*sortedChangedLogs(){
+    /*sortedChangedLogs(){
 			let result = this.changeLogs.reduce((dates, log)=>{
 				let date = log.created_at.split("T")[0];
 				if(!dates[date])
@@ -56,21 +58,20 @@ export default {
 			}, {});
 			return result;
 		}*/
-	},
+  },
   watch: {
-    selectedMarkerData(){
-      this.updateSelectedMarkerHistory();
+    selectedMarkerData() {
+      this.updateSelectedMarkerHistory()
     },
-    changeLogs(){
-      this.sortChangedLogs();
-    }
+    changeLogs() {
+      this.sortChangedLogs()
+    },
   },
   mounted() {
-    this.updateSelectedMarkerHistory();
-    this.sortChangedLogs();
+    this.updateSelectedMarkerHistory()
+    this.sortChangedLogs()
   },
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

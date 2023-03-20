@@ -9,10 +9,13 @@ export default defineConfig({
   plugins: [
     vue(),
     svgLoader({
-      defaultImport: 'url' // or 'raw'
+      defaultImport: 'url', // or 'raw'
     }),
     VueI18nPlugin({
-      include: resolve(dirname(fileURLToPath(import.meta.url)), './src/libs/i18n/locales/**')
-    })
-  ]
+      include: resolve(
+        dirname(fileURLToPath(import.meta.url)),
+        './src/libs/i18n/locales/**',
+      ),
+    }),
+  ],
 })

@@ -1,28 +1,28 @@
-export default function (instance){
+export default function (instance) {
   return {
-    getOrganizationsById(id){
-      return instance.get(`/organizations/${id}`);
+    getOrganizationsById(id) {
+      return instance.get(`/organizations/${id}`)
     },
-    getOrganizationByName(query, options){
+    getOrganizationByName(query, options) {
       return instance.get('/organizations/search', {
-        params : {
-          query
+        params: {
+          query,
         },
-        options
-      });
+        options,
+      })
     },
-    getOrganizationList(page, limit){
-      return instance.get("/organizations/all", {
-          params : {
-            page,
-            limit
-          }
-        });
+    getOrganizationList(page, limit) {
+      return instance.get('/organizations/all', {
+        params: {
+          page,
+          limit,
+        },
+      })
     },
-    createOrganization(name, website){
+    createOrganization(name, website) {
       return instance.post('/organizations/create', {
-          name,
-          website
+        name,
+        website,
       })
     },
 
@@ -34,20 +34,22 @@ export default function (instance){
     //    city: "string",
     //    country: "string"
     // }
-    editOrganization(id, data){
+    editOrganization(id, data) {
       return instance.put(`/organizations/${id}/edit`, data)
     },
-    sendUserInvite(organization_id, emails){
-      return instance.put(`/organizations/${organization_id}/invite`,
-        {emails : emails}
-      )
+    sendUserInvite(organization_id, emails) {
+      return instance.put(`/organizations/${organization_id}/invite`, {
+        emails: emails,
+      })
     },
 
-    removeOrganization(id){
-      return instance.delete(`/organizations/${id}`);
+    removeOrganization(id) {
+      return instance.delete(`/organizations/${id}`)
     },
-    removeOrganizationMember(organization_id, user_id){
-      return instance.put(`/organizations/${organization_id}/remove?user_id=${user_id}`)
+    removeOrganizationMember(organization_id, user_id) {
+      return instance.put(
+        `/organizations/${organization_id}/remove?user_id=${user_id}`,
+      )
     },
     // orgData : {
     //  name : string,
@@ -55,8 +57,8 @@ export default function (instance){
     //  address : string,
     //  emails : [string]
     //}
-    inviteOrganization(orgData){
-      return instance.post("/organizations/add", orgData);
-    }
+    inviteOrganization(orgData) {
+      return instance.post('/organizations/add', orgData)
+    },
   }
 }

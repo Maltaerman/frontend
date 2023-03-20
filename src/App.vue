@@ -1,77 +1,70 @@
 <template>
-	<router-view></router-view>
+  <router-view></router-view>
 </template>
 <script>
-import {mapActions, mapGetters} from "vuex";
-import userRoles from "./components/mixins/userRoles.js";
-import routerHelper from "./components/mixins/routerHelper.js";
+import { mapActions, mapGetters } from 'vuex'
+import userRoles from './components/mixins/userRoles.js'
+import routerHelper from './components/mixins/routerHelper.js'
 
 export default {
-	name: "App",
-	mixins : [
-		userRoles,
-		routerHelper
-	],
-	data () {
-		return {
-			UpdateRequestCountTimeout :300000,
-			updateId : undefined,
-			onPageChangeEvents : [
-				this.CheckIsOrgActive
-			]
-		}
-	},
-	computed : {
-		...mapGetters([
-			"isAuth",
-			"getLocalization",
-			"getUser"
-		])
-	},
-	methods : {
-		...mapActions(["getRequestsCount"]),
-		UpdateRequestCount(){
-			if(this.isAuth){
-				this.getRequestsCount();
-				this.updateId = setTimeout(this.UpdateRequestCount, this.UpdateRequestCountTimeout)
-			}
-		},
-		//if user is org leader and organization is not activated
-		//move user to org registration page
-		CheckIsOrgActive(){
-			if(this.getUser && this.getUser.role === this.userRoles.organizationAdmin
-				&& !this.getUser.organization_model.activated)
-				this.$router.push("/organization-registration");
-			//else
-			//	this.onPageChangeEvents.splice(this.onPageChangeEvents.indexOf(this.CheckIsOrgActive), 1);
-		}
-	},
-	watch : {
-		isAuth : function (newValue){
-			this.UpdateRequestCount();
+  name: 'App',
+  mixins: [userRoles, routerHelper],
+  data() {
+    return {
+      UpdateRequestCountTimeout: 300000,
+      updateId: undefined,
+      onPageChangeEvents: [this.CheckIsOrgActive],
+    }
+  },
+  computed: {
+    ...mapGetters(['isAuth', 'getLocalization', 'getUser']),
+  },
+  methods: {
+    ...mapActions(['getRequestsCount']),
+    UpdateRequestCount() {
+      if (this.isAuth) {
+        this.getRequestsCount()
+        this.updateId = setTimeout(
+          this.UpdateRequestCount,
+          this.UpdateRequestCountTimeout,
+        )
+      }
+    },
+    //if user is org leader and organization is not activated
+    //move user to org registration page
+    CheckIsOrgActive() {
+      if (
+        this.getUser &&
+        this.getUser.role === this.userRoles.organizationAdmin &&
+        !this.getUser.organization_model.activated
+      )
+        this.$router.push('/organization-registration')
+      //else
+      //	this.onPageChangeEvents.splice(this.onPageChangeEvents.indexOf(this.CheckIsOrgActive), 1);
+    },
+  },
+  watch: {
+    isAuth: function (newValue) {
+      this.UpdateRequestCount()
 
-			if(newValue){
-				this.CheckIsOrgActive();
-			}
-			else{
-				if(this.updateId)
-					clearTimeout(this.updateId)
-			}
-		},
-		$route : function (newValue){
-			if(newValue){
-				this.CheckIsOrgActive()
-				//this.onPageChangeEvents.forEach(func=>func())
-			}
-			else{
-				if(this.updateId)
-					clearTimeout(this.updateId)
-			}
-		}
-	},
-	created() {
-		this.UpdateRequestCount();
-	},
+      if (newValue) {
+        this.CheckIsOrgActive()
+      } else {
+        if (this.updateId) clearTimeout(this.updateId)
+      }
+    },
+    $route: function (newValue) {
+      if (newValue) {
+        this.CheckIsOrgActive()
+        //this.onPageChangeEvents.forEach(func=>func())
+      } else {
+        if (this.updateId) clearTimeout(this.updateId)
+      }
+    },
+  },
+  created() {
+    this.UpdateRequestCount()
+  },
 }
 </script>
 <style>
