@@ -13,14 +13,11 @@
     "px": "prettier --write ."
   },
   "dependencies": {
-    "@cypress/vite-dev-server": "^5.0.0",
     "@fawmi/vue-google-maps": "^0.9.72",
-    "@intlify/unplugin-vue-i18n": "^0.8.0",
-    "@intlify/vite-plugin-vue-i18n": "^6.0.3",
+    "@intlify/unplugin-vue-i18n": "^0.9.3",
     "@vuepic/vue-datepicker": "^4.0.1",
     "axios": "^0.27.2",
     "cypress": "^11.2.0",
-    "cypress-vite": "^1.2.1",
     "resize-textarea-vue3": "^1.1.1",
     "vue": "^3.2.37",
     "vue-i18n": "^9.2.2",
@@ -30,8 +27,10 @@
     "vuex-persist": "^3.1.3"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^3.0.3",
+    "@cypress/vite-dev-server": "^5.0.5",
+    "@vitejs/plugin-vue": "^4.1.0",
     "autoprefixer": "^10.4.8",
+    "cypress-vite": "^1.3.1",
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.7.0",
     "eslint-plugin-import": "^2.27.5",
@@ -42,7 +41,7 @@
     "prettier-eslint": "^15.0.1",
     "prettier-plugin-tailwindcss": "^0.2.5",
     "tailwindcss": "^3.1.8",
-    "vite": "^3.0.7",
+    "vite": "^4.2.1",
     "vite-plugin-eslint": "^1.8.1",
     "vite-svg-loader": "^4.0.0"
   }
