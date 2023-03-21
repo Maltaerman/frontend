@@ -1,0 +1,26 @@
+name: CI checks
+run-name: Pull request validation
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev, prod]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    container:
+      image: node:lts-alpine
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run formatting check
+        run: npx prettier . --check
+
+      - name: Shutdown
+        run: echo "Brilliant!"
