@@ -9,7 +9,7 @@
     </div>
 
     <div
-      v-for="(log, index) in logs"
+      v-for="(logObject, index) in logs"
       :key="index"
       class="flex w-full gap-x-4 py-4 px-6 shadow-cs2"
     >
@@ -17,28 +17,38 @@
         <div
           class="pt-2.5 text-h3 font-normal text-gray-c-500 tablet:text-h4 mobile:text-h4"
         >
-          {{ new Date(log.created_at).toTimeString().split(' ')[0] }}
+          {{ new Date(logObject.created_at).toTimeString().split(' ')[0] }}
         </div>
 
         <div class="w-4/5 mobile:pr-6">
           <div
-            v-for="(item, idx) in getChangedLogs(log)"
+            v-for="(changedLogItem, idx) in getChangedLogs(logObject)"
             :key="idx"
             class="my-2.5 font-semibold"
           >
             <div class="group relative flex cursor-default flex-wrap gap-2">
-              <div v-if="item.old_value" class="flex gap-2">
+              <div v-if="changedLogItem.old_value" class="flex gap-2">
                 <p class="h-6 w-4">
                   <SVG_status_list
-                    :classList="getSVGColorClass(item.flag, item.old_value)"
-                    :icon="item.flag"
+                    :classList="
+                      getSVGColorClass(
+                        changedLogItem.flag,
+                        changedLogItem.old_value,
+                      )
+                    "
+                    :icon="changedLogItem.flag"
                   />
                 </p>
                 <p
                   class="my-auto grow text-h3 uppercase tablet:text-h4 mobile:text-h4"
-                  :class="getTextColorClass(item.flag, item.old_value)"
+                  :class="
+                    getTextColorClass(
+                      changedLogItem.flag,
+                      changedLogItem.old_value,
+                    )
+                  "
                 >
-                  {{ GetStatusTranslation(item.old_value) }}
+                  {{ GetStatusTranslation(changedLogItem.old_value) }}
                 </p>
               </div>
               <img
@@ -49,35 +59,45 @@
               <div class="flex gap-2">
                 <p class="h-6 w-4">
                   <SVG_status_list
-                    :classList="getSVGColorClass(item.flag, item.new_value)"
-                    :icon="item.flag"
+                    :classList="
+                      getSVGColorClass(
+                        changedLogItem.flag,
+                        changedLogItem.new_value,
+                      )
+                    "
+                    :icon="changedLogItem.flag"
                   />
                 </p>
                 <p
                   class="my-auto grow text-base text-h3 uppercase tablet:text-h4 mobile:text-h4"
-                  :class="getTextColorClass(item.flag, item.new_value)"
+                  :class="
+                    getTextColorClass(
+                      changedLogItem.flag,
+                      changedLogItem.new_value,
+                    )
+                  "
                 >
-                  {{ GetStatusTranslation(item.new_value) }}
-                  <!--										{{item.new_value}}-->
+                  {{ GetStatusTranslation(changedLogItem.new_value) }}
+                  <!--										{{changedLogItem.new_value}}-->
                 </p>
               </div>
               <div class="tooltip">
-                {{ getTooltipText(item.flag) }}
+                {{ getTooltipText(changedLogItem.flag) }}
               </div>
             </div>
-            <Expander v-if="item.description" class="font-normal">
-              {{ item.description }}
+            <Expander v-if="changedLogItem.description" class="font-normal">
+              {{ changedLogItem.description }}
             </Expander>
           </div>
 
           <div
             class="text-h3 font-semibold text-gray-c-500 tablet:text-h4 mobile:text-h4"
           >
-            {{ log.user.username }}
+            {{ logObject.user.username }}
             <span class="font-normal">
               {{ $t('general.in') }}
             </span>
-            {{ log.user.organization_model.name }}
+            {{ logObject.user.organization_model.name }}
           </div>
         </div>
       </div>

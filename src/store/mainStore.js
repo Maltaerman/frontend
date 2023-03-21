@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import VuexPersistence from 'vuex-persist'
+import VuexPersistence /* eslint-disable-line import/no-named-as-default */ from 'vuex-persist'
 
 import api from '../http_client/index.js'
 

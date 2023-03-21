@@ -97,13 +97,6 @@ export default {
       },
     }
   },
-
-  watch: {
-    userOrganization(newVal) {
-      if (newVal) this.organization = { ...newVal }
-      else this.organization = {}
-    },
-  },
   computed: {
     ...mapGetters({
       userOrganization: 'getUserOrganization',
@@ -149,6 +142,13 @@ export default {
       return isChanged.some((x) => x == true)
     },
   },
+  watch: {
+    userOrganization(newVal) {
+      if (newVal) this.organization = { ...newVal }
+      else this.organization = {}
+    },
+  },
+
   beforeMount() {
     this.organization = { ...this.userOrganization }
     this.user = { ...this.userData }

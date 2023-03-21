@@ -98,7 +98,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="[worker, index] in organizationParticipantsVisibleList"
+            v-for="(worker, index) in organizationParticipantsVisibleList"
             :key="index"
             class="h-[58px] shadow-cs2"
           >

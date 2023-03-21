@@ -19,6 +19,7 @@ module.exports = {
     'vue/require-valid-default-prop': ['off'],
     'import/core-modules': 0,
     'vue/v-on-event-hyphenation': ['off'],
+    'vue/no-mutating-props': ['off'],
     'vue/multi-word-component-names': ['off'], // to get rid of in future
     // 'vue/no-use-v-if-with-v-for': 'off',
     'vue/attributes-order': ['error', { alphabetical: true }],

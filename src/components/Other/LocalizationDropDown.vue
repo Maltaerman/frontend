@@ -30,11 +30,11 @@
       :class="{
         'h-0': !isDropped,
         //FIXME opened height = available lang amount * list item height, in this case 58px
-        'h-[116px]': isDropped,
+        'h-[116px]': isDropped && availableLang.length > 0,
       }"
     >
       <button
-        v-for="[langItem, index] in availableLang"
+        v-for="(langItem, index) in availableLang"
         :key="index"
         class="flex h-[58px] w-full cursor-pointer items-center gap-2 p-2 text-h3 hover:bg-blue-c-200 mobile:gap-4 mobile:p-0"
         :class="{
@@ -66,6 +66,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this)
     this.lang = this.availableLang.find((x) => x.code === this.$i18n.locale)
   },
   methods: {

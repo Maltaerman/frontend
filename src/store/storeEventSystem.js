@@ -1,15 +1,15 @@
 //TODO event system store
 class StoreEventSystemPrototype {
-  static events = {
-    // eslint-disable-line
-    onUserOrganizationUpdate: 'onUserOrganizationUpdate',
-    onUserDataUpdate: 'onUserDataUpdate',
-    onUserPasswordUpdate: 'onUserPassUpdate',
-    onOrganizationChangeLogUpdate: 'onOrganizationChangeLogUpdate',
-    organizationRegistration: 'organizationRegistration',
+  constructor() {
+    this.events = {
+      onUserOrganizationUpdate: 'onUserOrganizationUpdate',
+      onUserDataUpdate: 'onUserDataUpdate',
+      onUserPasswordUpdate: 'onUserPassUpdate',
+      onOrganizationChangeLogUpdate: 'onOrganizationChangeLogUpdate',
+      organizationRegistration: 'organizationRegistration',
+    }
+    this.onUserOrganizationUpdate = []
   }
-
-  onUserOrganizationUpdate = []
 
   subscribe(event, method) {
     if (!this[event]) this[event] = []

@@ -119,7 +119,7 @@
 </template>
 
 <script>
-import { mapMutations , mapGetters } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 
 import api from '../../http_client/index.js'
 import CodeInput from '../Inputs/CodeInput.vue'

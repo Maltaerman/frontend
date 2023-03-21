@@ -16,7 +16,9 @@
       @selectItem="selectItemEventHandler"
     >
       <template #list-item-text="slot">
-        <span v-html="slot.boldMatchText(slot.itemProjection(slot.item))" />
+        <span>
+          {{ slot.boldMatchText(slot.itemProjection(slot.item)) }}
+        </span>
       </template>
     </vue3-simple-typeahead>
   </div>
