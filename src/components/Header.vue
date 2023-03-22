@@ -354,6 +354,8 @@ import UserSetting from './UserSetting.vue'
 import routerHelper from './mixins/routerHelper.js'
 import userRoles from './mixins/userRoles.js'
 
+import LoginModal from '@/components/Authorization/LoginModal.vue'
+
 export default {
   name: 'Header',
   components: {
@@ -365,6 +367,7 @@ export default {
     LocalizationDropDown,
     ButtonText1,
     UserSetting,
+    LoginModal,
   },
   mixins: [userRoles, routerHelper],
   props: {

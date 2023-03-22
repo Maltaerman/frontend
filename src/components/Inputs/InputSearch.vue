@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import SVG_search from '../ComponentsSVG/Icons/SVG_search.vue'
+import SVG_search from '@/components/ComponentsSVG/Icons/SVG_search.vue'
 export default {
   name: 'InputSearch',
   components: { SVG_search },

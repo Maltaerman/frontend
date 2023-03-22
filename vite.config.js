@@ -5,8 +5,7 @@ import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import eslint from 'vite-plugin-eslint'
 import svgLoader from 'vite-svg-loader'
-const path = require('path')
-
+import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -27,9 +26,4 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  //   resolve: {
-  //     alias: {
-  //       '@': '/src', // Add any other aliases you need
-  //     },
-  // }
 })

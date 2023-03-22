@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import regex from '../mixins/regex.js'
+import regex from '@/components/mixins/regex.js'
 
 export default {
   name: 'InputPass',

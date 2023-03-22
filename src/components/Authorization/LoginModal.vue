@@ -149,10 +149,10 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-import api from '@/http_client/index.js'
 import Button1 from '@/components/Buttons/Button_1.vue'
-import Loader from '../Loader.vue'
-import regex from '../mixins/regex.js'
+import Loader from '@/components/Loader.vue'
+import regex from '@/components/mixins/regex.js'
+import api from '@/http_client/index.js'
 
 export default {
   name: 'LoginModal',
