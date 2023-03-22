@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import routerHelper from '../mixins/routerHelper.js'
+import routerHelper from '@/components/mixins/routerHelper.js'
 
 export default {
   name: 'MenuItemLink',

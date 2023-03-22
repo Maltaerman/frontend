@@ -1,3 +1,4 @@
+@/components
 <template>
   <div class="mb-6">
     <div class="w-full bg-gray-c-100 py-2 px-6 shadow-cs2">
@@ -107,10 +108,10 @@
 </template>
 
 <script>
-import SVG_eye from '../../ComponentsSVG/Icons/SVG_eye.vue'
-import dateFormatter from '../../mixins/dateFormatter.js'
-import dynamicContent from '../../mixins/dynamicContent.js'
-import reportItemFlags from '../../mixins/reportItemFlags.js'
+import SVG_eye from '@/components/ComponentsSVG/Icons/SVG_eye.vue'
+import dateFormatter from '@/components/mixins/dateFormatter.js'
+import dynamicContent from '@/components/mixins/dynamicContent.js'
+import reportItemFlags from '@/components/mixins/reportItemFlags.js'
 
 export default {
   name: 'OrganizationChangeLogItem',

@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import Input1 from '../../Inputs/Input-1.vue'
+import Input1 from '@/components/Inputs/Input-1.vue'
 export default {
   name: 'RoleCreating',
   components: { Input1 },

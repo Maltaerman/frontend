@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import avatar from '../../../assets/Organizations/avatar.svg'
+import avatar from '@/assets/Organizations/avatar.svg'
 
-import OrganizationListTableItem from './OrganizationListTableItem.vue'
+import OrganizationListTableItem from '@/components/PlatformAdministration/OrganizationListTable/OrganizationListTableItem.vue'
 export default {
   name: 'OrganizationListTable',
   components: {

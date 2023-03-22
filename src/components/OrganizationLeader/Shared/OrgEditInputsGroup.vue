@@ -79,8 +79,8 @@
 </template>
 
 <script>
-import Button_2 from '../../Buttons/Button_2.vue'
-import Input1 from '../../Inputs/Input-1.vue'
+import Button_2 from '@/components/Buttons/Button_2.vue'
+import Input1 from '@/components/Inputs/Input-1.vue'
 export default {
   name: 'OrgEditInputsGroup',
   components: {

@@ -58,9 +58,9 @@
 </template>
 
 <script>
-import OrgLeaderIcon from '../../../assets/Org-leader.svg'
-import User from '../../../assets/User.svg'
-import userRoles from '../../mixins/userRoles'
+import OrgLeaderIcon from '@/assets/Org-leader.svg'
+import User from '@/assets/User.svg'
+import userRoles from '@/components/mixins/userRoles'
 
 export default {
   name: 'OrganizationDropdown',

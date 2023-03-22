@@ -94,11 +94,11 @@
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex'
 
-import api from '../../http_client/index.js'
-import Header from '../Header.vue'
-import coordsHelper from '../mixins/coordsHelper.js'
+import api from '@/http_client/index.js'
+import Header from '@/components/Header.vue'
+import coordsHelper from '@/components/mixins/coordsHelper.js'
 
-import WelcomeScreenReportList from './WelcomeScreenReportList.vue'
+import WelcomeScreenReportList from '@/components/WelcomeScreen/WelcomeScreenReportList.vue'
 
 export default {
   name: 'WelcomeScreen',

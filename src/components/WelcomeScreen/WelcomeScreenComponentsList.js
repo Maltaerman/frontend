@@ -1,4 +1,4 @@
-import WelcomeScreen from './WelcomeScreen.vue'
-import WelcomeScreenReportList from './WelcomeScreenReportList.vue'
+import WelcomeScreen from '@/components/WelcomeScreen/WelcomeScreen.vue'
+import WelcomeScreenReportList from '@/components/WelcomeScreen/WelcomeScreenReportList.vue'
 
 export default [WelcomeScreen, WelcomeScreenReportList]

@@ -57,10 +57,10 @@
 </template>
 
 <script>
-import SVG_building_condition from '../ComponentsSVG/SVG_building_condition.vue'
-import dateFormatter from '../mixins/dateFormatter.js'
-import dynamicContent from '../mixins/dynamicContent.js'
-import reportItemFlags from '../mixins/reportItemFlags.js'
+import SVG_building_condition from '@/components/ComponentsSVG/SVG_building_condition.vue'
+import dateFormatter from '@/components/mixins/dateFormatter.js'
+import dynamicContent from '@/components/mixins/dynamicContent.js'
+import reportItemFlags from '@/components/mixins/reportItemFlags.js'
 
 export default {
   name: 'WelcomeScreenReportList',

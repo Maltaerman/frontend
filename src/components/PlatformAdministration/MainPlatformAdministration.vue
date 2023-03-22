@@ -60,12 +60,12 @@
 </template>
 
 <script>
-import SVG_Org_List from '../ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue'
-import SVG_settings from '../ComponentsSVG/SVG_settings.vue'
-import SVG_Default_User from '../ComponentsSVG/UserRolesSvg/SVG_Default_User.vue'
-import Header from '../Header.vue'
-import MenuItemLink from '../SidebarComponents/MenuItemLink.vue'
-import RouterHelper from '../mixins/routerHelper.js'
+import SVG_Org_List from '@/components/ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue'
+import SVG_settings from '@/components/ComponentsSVG/SVG_settings.vue'
+import SVG_Default_User from '@/components/ComponentsSVG/UserRolesSvg/SVG_Default_User.vue'
+import Header from '@/components/Header.vue'
+import MenuItemLink from '@/components/SidebarComponents/MenuItemLink.vue'
+import RouterHelper from '@/components/mixins/routerHelper.js'
 export default {
   name: 'MainPlatformAdministration',
   components: {

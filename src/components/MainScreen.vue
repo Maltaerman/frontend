@@ -15,8 +15,8 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import Header from './Header.vue'
-import GoogleMap from './MapComponents/GoogleMap.vue'
+import Header from '@/components/Header.vue'
+import GoogleMap from '@/components/MapComponents/GoogleMap.vue'
 
 export default {
   name: 'MainScreen',
