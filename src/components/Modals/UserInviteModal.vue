@@ -1,6 +1,6 @@
 <template>
   <modal-template
-    :class-list="`grid place-content-center px-2`"
+    class="grid place-content-center px-2"
     :close-func="close"
     :is-hide-on-click="isHideOnClick"
     :is-modal-visible="isModalVisible"
