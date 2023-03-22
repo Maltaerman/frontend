@@ -3,8 +3,9 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import userRoles from './components/mixins/userRoles.js'
+
 import routerHelper from './components/mixins/routerHelper.js'
+import userRoles from './components/mixins/userRoles.js'
 
 export default {
   name: 'App',
@@ -12,6 +13,7 @@ export default {
   data() {
     return {
       UpdateRequestCountTimeout: 300000,
+
       updateId: undefined,
       onPageChangeEvents: [this.CheckIsOrgActive],
     }
@@ -19,6 +21,29 @@ export default {
   computed: {
     ...mapGetters(['isAuth', 'getLocalization', 'getUser']),
   },
+  watch: {
+    isAuth: function (newValue) {
+      this.UpdateRequestCount()
+
+      if (newValue) {
+        this.CheckIsOrgActive()
+      } else {
+        if (this.updateId) clearTimeout(this.updateId)
+      }
+    },
+    $route: function (newValue) {
+      if (newValue) {
+        this.CheckIsOrgActive()
+        //this.onPageChangeEvents.forEach(func=>func())
+      } else {
+        if (this.updateId) clearTimeout(this.updateId)
+      }
+    },
+  },
+  created() {
+    this.UpdateRequestCount()
+  },
+
   methods: {
     ...mapActions(['getRequestsCount']),
     UpdateRequestCount() {
@@ -42,28 +67,6 @@ export default {
       //else
       //	this.onPageChangeEvents.splice(this.onPageChangeEvents.indexOf(this.CheckIsOrgActive), 1);
     },
-  },
-  watch: {
-    isAuth: function (newValue) {
-      this.UpdateRequestCount()
-
-      if (newValue) {
-        this.CheckIsOrgActive()
-      } else {
-        if (this.updateId) clearTimeout(this.updateId)
-      }
-    },
-    $route: function (newValue) {
-      if (newValue) {
-        this.CheckIsOrgActive()
-        //this.onPageChangeEvents.forEach(func=>func())
-      } else {
-        if (this.updateId) clearTimeout(this.updateId)
-      }
-    },
-  },
-  created() {
-    this.UpdateRequestCount()
   },
 }
 </script>

@@ -9,27 +9,27 @@
         }"
       >
         <div class="w-[44px] cursor-pointer rounded-xl">
-          <img src="/search.svg" class="h-full w-full object-scale-down" />
+          <img class="h-full w-full object-scale-down" src="/search.svg" />
         </div>
         <GMapAutocomplete
           id="autocomplete"
           ref="autocomplete"
-          :placeholder="$t('welcomeScreen.searchAddress')"
-          @place_changed="setPlace"
           class="block w-full bg-transparent text-h3 outline-none"
-          :select-first-on-enter="true"
           :options="{
             fields: [`geometry`, `name`],
           }"
+          :placeholder="$t('welcomeScreen.searchAddress')"
+          :select-first-on-enter="true"
+          :v-model="searchRequest"
           @focusin="OnInputFocus(true)"
           @focusout="OnInputFocus(false)"
-          :v-model="this.searchRequest"
+          @place_changed="setPlace"
         />
         <div
           class="w-[40px] cursor-pointer rounded-xl"
-          @click="this.ClearSearchRequest"
+          @click="ClearSearchRequest"
         >
-          <img src="/close.svg" class="h-full w-full object-scale-down" />
+          <img class="h-full w-full object-scale-down" src="/close.svg" />
         </div>
       </div>
     </div>
@@ -38,13 +38,8 @@
     <GMapMap
       ref="map"
       :center="currentMapCenter"
-      :zoom="currentMapZoom"
-      map-type-id="roadmap"
-      style="width: 100%; height: 100%"
-      @zoom_changed="OnMapZoomChanged"
-      @center_changed="OnMapCenterChanged"
       :click="true"
-      @click="ClickHandler"
+      map-type-id="roadmap"
       :options="{
         zoomControl: false,
         mapTypeControl: false,
@@ -75,19 +70,26 @@
           },
         ],
       }"
+      style="width: 100%; height: 100%"
+      :zoom="currentMapZoom"
+      @center_changed="OnMapCenterChanged"
+      @click="ClickHandler"
+      @zoom_changed="OnMapZoomChanged"
     >
       <GMapMarker
-        :v-if="this.isClickMarker"
         key="customMarker"
+        :clickable="false"
         :draggable="false"
-        :position="this.ClickMarkerCoords"
         :icon="{
           url: '/map-marker.svg',
           scaledSize: { width: 40, height: 40 },
         }"
-        :clickable="false"
+        :position="ClickMarkerCoords"
+        :v-if="isClickMarker"
       />
       <GMapCluster
+        :maxZoom="13"
+        :minimumClusterSize="2"
         :styles="[
           {
             textColor: 'black',
@@ -100,38 +102,37 @@
             boxShadow: '2px 2px 10px 0px rgba(115, 118, 128, 0.11)',
           },
         ]"
-        :minimumClusterSize="2"
         :zoomOnClick="true"
-        :maxZoom="13"
       >
         <!--      Зелені маркера -->
         <GMapMarker
-          v-for="(m, index) in this.reviewedMarkers"
+          v-for="(m, index) in reviewedMarkers"
           :key="index"
-          :position="m.position"
-          icon="/map-pin.svg"
           :clickable="true"
           :draggable="false"
+          icon="/map-pin.svg"
+          :position="m.position"
           @click="getMarkerInfo(m)"
         />
         <!--      Сині маркера -->
-        <GMapMarker
-          v-if="getRole !== userRoles.user"
-          v-for="(m, index) in this.requestedMarkers"
-          :key="index"
-          :position="m.position"
-          icon="/question-map-pin.svg"
-          :clickable="isRoleHaveAccess(getRole, userRoles.aidWorker)"
-          :draggable="false"
-          @click="getRequestedMarkerInfo(m)"
-        />
+        <div v-if="getRole !== userRoles.user">
+          <GMapMarker
+            v-for="(m, index) in requestedMarkers"
+            :key="index"
+            :clickable="isRoleHaveAccess(getRole, userRoles.aidWorker)"
+            :draggable="false"
+            icon="/question-map-pin.svg"
+            :position="m.position"
+            @click="getRequestedMarkerInfo(m)"
+          />
+        </div>
       </GMapCluster>
     </GMapMap>
     <img
       v-if="isLoaderVisible"
-      src="/src/assets/Loader.svg"
-      class="absolute bottom-6 right-6 block h-8 w-8 animate-spin"
       alt="Loader..."
+      class="absolute bottom-6 right-6 block h-8 w-8 animate-spin"
+      src="/src/assets/Loader.svg"
     />
   </div>
 </template>
@@ -139,9 +140,10 @@
 <script>
 import axios from 'axios'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-import userRoles from '../mixins/userRoles.js'
-import routerHelper from '../mixins/routerHelper.js'
+
 import coordsHelper from '../mixins/coordsHelper.js'
+import routerHelper from '../mixins/routerHelper.js'
+import userRoles from '../mixins/userRoles.js'
 
 export default {
   name: 'GoogleMap',
@@ -168,6 +170,61 @@ export default {
       selectedMarker: 'selectedReport',
       notFoundMarker: 'notFoundedMarker',
     }),
+  },
+  watch: {
+    getMapCenter: function (newValue) {
+      //FIXME костилі для того, щоб центр мапи змінювався
+      // при повторному присвоєнні ідентичного значення
+      if (newValue && newValue.lng && newValue.lat) {
+        this.currentMapCenter = {
+          lat: newValue.lat + 0.000005,
+          lng: newValue.lng + 0.000005,
+        }
+        setTimeout(() => {
+          this.currentMapCenter = this.coordsFormatter(newValue)
+          this.currentMapZoom =
+            this.currentMapZoom >= 17 ? this.currentMapZoom : 17
+          if (
+            this.requestedMarkers.length <= 0 ||
+            this.reviewedMarkers.length <= 0
+          ) {
+            this.getMarkersByMapCenter(this.currentMapCenter)
+          }
+        }, 500)
+      }
+    },
+  },
+  created() {
+    let center = this.coordsFormatter({
+      lng: this.$route.query.lng,
+      lat: this.$route.query.lat,
+    })
+    if (center.lat && center.lng) this.currentMapCenter = center
+    else this.currentMapCenter = this.getMapCenter
+    this.OnMapCenterChanged(this.currentMapCenter)
+
+    //region Check if we have selected marker in store
+    let isId = this.$route.query.id && Number(this.$route.query.id)
+    let isSelectedMarkerId =
+      this.selectedMarker &&
+      isId &&
+      this.selectedMarker.id == this.$route.query.id
+    let isNotFoundMarkerId =
+      this.notFoundMarker &&
+      isId &&
+      this.notFoundMarker.id == this.$route.query.id
+    //endregion
+
+    if (!isNotFoundMarkerId && !isSelectedMarkerId && isId) {
+      this.getMarkerById({
+        locationId: Number(this.$route.query.id),
+        callbackFailed: () =>
+          this.$toast.error(this.$t('general.errorMessage')),
+      })
+    }
+    setTimeout(() => {
+      this.currentMapZoom = 18
+    }, 1000)
   },
   methods: {
     ...mapMutations(['setNoDataMarker', 'setSelectedMarker', 'setMapCenter']),
@@ -320,61 +377,6 @@ export default {
       /*console.log(`isLatInRange = ${isLatInRange}; isLngInRange = ${isLngInRange}`)*/
       return isLatInRange && isLngInRange
     },
-  },
-  watch: {
-    getMapCenter: function (newValue) {
-      //FIXME костилі для того, щоб центр мапи змінювався
-      // при повторному присвоєнні ідентичного значення
-      if (newValue && newValue.lng && newValue.lat) {
-        this.currentMapCenter = {
-          lat: newValue.lat + 0.000005,
-          lng: newValue.lng + 0.000005,
-        }
-        setTimeout(() => {
-          this.currentMapCenter = this.coordsFormatter(newValue)
-          this.currentMapZoom =
-            this.currentMapZoom >= 17 ? this.currentMapZoom : 17
-          if (
-            this.requestedMarkers.length <= 0 ||
-            this.reviewedMarkers.length <= 0
-          ) {
-            this.getMarkersByMapCenter(this.currentMapCenter)
-          }
-        }, 500)
-      }
-    },
-  },
-  created() {
-    let center = this.coordsFormatter({
-      lng: this.$route.query.lng,
-      lat: this.$route.query.lat,
-    })
-    if (center.lat && center.lng) this.currentMapCenter = center
-    else this.currentMapCenter = this.getMapCenter
-    this.OnMapCenterChanged(this.currentMapCenter)
-
-    //region Check if we have selected marker in store
-    let isId = this.$route.query.id && Number(this.$route.query.id)
-    let isSelectedMarkerId =
-      this.selectedMarker &&
-      isId &&
-      this.selectedMarker.id == this.$route.query.id
-    let isNotFoundMarkerId =
-      this.notFoundMarker &&
-      isId &&
-      this.notFoundMarker.id == this.$route.query.id
-    //endregion
-
-    if (!isNotFoundMarkerId && !isSelectedMarkerId && isId) {
-      this.getMarkerById({
-        locationId: Number(this.$route.query.id),
-        callbackFailed: () =>
-          this.$toast.error(this.$t('general.errorMessage')),
-      })
-    }
-    setTimeout(() => {
-      this.currentMapZoom = 18
-    }, 1000)
   },
 }
 </script>

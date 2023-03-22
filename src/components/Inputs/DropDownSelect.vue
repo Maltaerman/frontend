@@ -1,5 +1,5 @@
 <template>
-  <div @focusout="onLeave" tabindex="1">
+  <div tabindex="1" @focusout="onLeave">
     <div
       class="input-1 flex cursor-pointer flex-nowrap items-center justify-between"
       @click="Drop"
@@ -13,12 +13,13 @@
     </div>
     <div class="relative">
       <transition name="drop">
-        <ul class="drop-container overflow-y-auto-custom z-10" v-if="isDropped">
+        <ul v-if="isDropped" class="drop-container overflow-y-auto-custom z-10">
           <li
-            v-for="item in options"
+            v-for="(item, index) in options"
+            :key="index"
             class="drop-item"
-            @click="SetSelectedItem(item)"
             :class="SelectedItemClass(item)"
+            @click="SetSelectedItem(item)"
           >
             {{ item.text }}
           </li>
@@ -35,6 +36,7 @@ export default {
     modelValue: Object,
     options: Array,
   },
+  emits: ['update:modelValue'],
   data() {
     return {
       isDropped: false,

@@ -1,14 +1,14 @@
 <template>
   <transition-group
+    class="container-height flex flex-col flex-nowrap overflow-hidden"
     name="report-appear"
     tag="div"
-    class="container-height flex flex-col flex-nowrap overflow-hidden"
   >
     <div
       v-for="report in visibleElements"
-      v-bind:key="`rep${report.id}`"
-      @click="OnReportClick(report)"
+      :key="`rep${report.id}`"
       class="item-height group flex w-full shrink-0 grow-0 cursor-pointer flex-nowrap items-center hover:bg-blue-c-100"
+      @click="OnReportClick(report)"
     >
       <div
         class="h-3/5 w-0.5 shrink-0 grow-0 bg-gray-c-300 duration-200 group-hover:h-full group-hover:bg-blue-c-400"
@@ -57,8 +57,8 @@
 </template>
 
 <script>
-import dateFormatter from '../mixins/dateFormatter.js'
 import SVG_building_condition from '../ComponentsSVG/SVG_building_condition.vue'
+import dateFormatter from '../mixins/dateFormatter.js'
 import dynamicContent from '../mixins/dynamicContent.js'
 import reportItemFlags from '../mixins/reportItemFlags.js'
 
@@ -67,7 +67,6 @@ export default {
   components: {
     SVG_building_condition,
   },
-  emits: ['report-click'],
   mixins: [dateFormatter, dynamicContent, reportItemFlags],
   props: {
     delay: {
@@ -76,9 +75,10 @@ export default {
     },
     reportsList: {
       type: Array,
-      default: [],
+      default: () => [],
     },
   },
+  emits: ['report-click'],
   data() {
     return {
       lastVisibleItemIndex: 0,
@@ -86,6 +86,18 @@ export default {
       animId: 0,
       cycles: 0,
     }
+  },
+  computed: {
+    itemHeight() {
+      if (document.body.clientWidth <= 480) return '64px'
+      else return '67px'
+    },
+  },
+  mounted() {
+    this.startAnimation()
+  },
+  beforeUnmount() {
+    clearInterval(this.animId)
   },
   methods: {
     GetVisibleElements() {
@@ -111,18 +123,6 @@ export default {
     OnReportClick(report) {
       this.$emit('report-click', report)
     },
-  },
-  computed: {
-    itemHeight() {
-      if (document.body.clientWidth <= 480) return '64px'
-      else return '67px'
-    },
-  },
-  mounted() {
-    this.startAnimation()
-  },
-  beforeUnmount() {
-    clearInterval(this.animId)
   },
 }
 </script>

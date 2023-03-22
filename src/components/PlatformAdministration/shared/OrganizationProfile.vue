@@ -1,7 +1,7 @@
 <template>
   <div
-    class="h-full overflow-y-auto p-9 mobile:py-6 mobile:px-4"
     v-if="organization"
+    class="h-full overflow-y-auto p-9 mobile:py-6 mobile:px-4"
   >
     <div class="row flex flex-wrap justify-between gap-4">
       <div class="text-body-2 h-min font-semibold mobile:grow">
@@ -12,9 +12,9 @@
         @click.stop="ShowUserInviteModal"
       >
         <img
+          alt=""
           class="mb-0.5 mr-1.5 inline-block"
           src="/src/assets/Organizations/addUser.svg"
-          alt=""
         />
         <span>{{ $t('organizationProfile.newInvitation') }}</span>
       </button-1>
@@ -22,8 +22,8 @@
     <div class="row my-4 mb-4 flex flex-wrap justify-start gap-4">
       <!-- Need to be reusable becasue its gonna be used in table roles -->
       <OrganizationDropdown
-        :filter-list="statusesList"
         :active-filter-value="activeStatusFilterValue.text"
+        :filter-list="statusesList"
         @filterChange="onStatusFilterChange"
       />
       <div class="min-w-screen flex flex-wrap justify-start">
@@ -33,40 +33,40 @@
             'border-blue-c-500': isInputFocused,
             'border-gray-c-300': !isInputFocused,
           }"
+          @click="ActivateInput"
           @focusin="OnDivFocus(true)"
           @focusout="OnDivFocus(false)"
-          @click="ActivateInput"
         >
           <svg
             class="fill-gray-c-500"
-            width="18"
             height="18"
             viewBox="0 0 18 18"
+            width="18"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fill-rule="evenodd"
               clip-rule="evenodd"
               d="M7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14C8.57234 14 10.0236 13.4816 11.1922 12.6064L16.2929 17.7071C16.6834 18.0976 17.3166 18.0976 17.7071 17.7071C18.0976 17.3166 18.0976 16.6834 17.7071 16.2929L12.6064 11.1922C13.4816 10.0236 14 8.57234 14 7C14 3.13401 10.866 0 7 0ZM2 7C2 4.23858 4.23858 2 7 2C9.76142 2 12 4.23858 12 7C12 9.76142 9.76142 12 7 12C4.23858 12 2 9.76142 2 7Z"
+              fill-rule="evenodd"
             />
             <path
-              fill-rule="evenodd"
               clip-rule="evenodd"
               d="M7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14C8.57234 14 10.0236 13.4816 11.1922 12.6064L16.2929 17.7071C16.6834 18.0976 17.3166 18.0976 17.7071 17.7071C18.0976 17.3166 18.0976 16.6834 17.7071 16.2929L12.6064 11.1922C13.4816 10.0236 14 8.57234 14 7C14 3.13401 10.866 0 7 0ZM2 7C2 4.23858 4.23858 2 7 2C9.76142 2 12 4.23858 12 7C12 9.76142 9.76142 12 7 12C4.23858 12 2 9.76142 2 7Z"
               fill-opacity="0.2"
+              fill-rule="evenodd"
             />
           </svg>
 
           <input
+            id="inpOrgSearch"
             ref="inp"
+            v-model="searchedParticipantValue"
             class="w-full bg-transparent px-4 py-2 text-h3 outline-none"
+            :placeholder="$t('dashboard.organizationSearchPlaceholder')"
+            @click.stop
             @focusin="OnInputFocus(true)"
             @focusout="OnInputFocus(false)"
-            @click.stop
-            :placeholder="$t('dashboard.organizationSearchPlaceholder')"
-            v-model="searchedParticipantValue"
             @input="updateParticipantsVisibleList"
-            id="inpOrgSearch"
           />
         </div>
       </div>
@@ -74,8 +74,8 @@
 
     <!-- Table of organizations -->
     <div
-      class="mt-4 mr-4 overflow-x-scroll mobile:w-auto"
       v-if="organization.participants.length > 0"
+      class="mt-4 mr-4 overflow-x-scroll mobile:w-auto"
     >
       <table class="w-full min-w-[799px] table-auto">
         <thead>
@@ -98,8 +98,9 @@
         </thead>
         <tbody>
           <tr
+            v-for="(worker, index) in organizationParticipantsVisibleList"
+            :key="index"
             class="h-[58px] shadow-cs2"
-            v-for="worker in organizationParticipantsVisibleList"
           >
             <td class="table-col-row-item">{{ worker.id + 1 }}</td>
             <td class="table-col-row-item">
@@ -118,9 +119,9 @@
 
             <td class="table-col-row-item">
               <OrganizationDropdown
-                :is-table-view="true"
-                :filter-list="rolesList"
                 :active-filter-value="getRoleTextToDisplay(worker.role)"
+                :filter-list="rolesList"
+                :is-table-view="true"
                 @filterChange="onWorkerRoleChange($event, worker)"
               />
             </td>
@@ -165,14 +166,14 @@
 
   <!--	Edit organization modal-->
   <ModalTemplate
-    :is-modal-visible="isEditModalVisible"
-    :is-hide-on-click="true"
     class-list="grid place-items-center px-4"
     :close-func="CloseEditModal"
+    :is-hide-on-click="true"
+    :is-modal-visible="isEditModalVisible"
   >
     <div
-      @click.stop
       class="veve relative mx-auto max-h-screen w-[480px] overflow-y-auto rounded-lg bg-white p-6 mobile:w-full"
+      @click.stop
     >
       <button
         class="absolute top-6 right-6 cursor-pointer"
@@ -216,10 +217,10 @@
   <!--	-->
   <!--Invite user modal-->
   <ModalTemplate
-    :is-modal-visible="isUserInviteModalVisible"
-    :is-hide-on-click="true"
-    :close-func="CloseUserInviteModal"
     class-list="grid place-items-center px-4"
+    :close-func="CloseUserInviteModal"
+    :is-hide-on-click="true"
+    :is-modal-visible="isUserInviteModalVisible"
   >
     <div
       class="relative relative mx-auto max-h-screen w-[480px] overflow-y-auto rounded-lg bg-white p-6 mobile:w-full"
@@ -240,15 +241,16 @@
       <div class="mt-4 mb-2 flex flex-col gap-4">
         <input1
           v-model="organization.name"
-          disabled
           class="w-full"
+          disabled
           placeholder="Назва"
         />
         <input1
           v-for="(item, index) in invitedUsersList"
+          :key="index"
           v-model="invitedUsersList[index]"
-          placeholder="Email"
           class="outline-none"
+          placeholder="Email"
         />
       </div>
 
@@ -260,16 +262,16 @@
         >
           <svg
             class="mr-2 inline-block"
-            width="14"
+            fill="#2E60B2"
             height="14"
             viewBox="0 0 14 14"
-            fill="#2E60B2"
+            width="14"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fill-rule="evenodd"
               clip-rule="evenodd"
               d="M8 1C8 0.447715 7.55228 0 7 0C6.44772 0 6 0.447715 6 1V6H1C0.447715 6 0 6.44771 0 7C0 7.55228 0.447715 8 1 8H6V13C6 13.5523 6.44772 14 7 14C7.55229 14 8 13.5523 8 13V8H13C13.5523 8 14 7.55228 14 7C14 6.44772 13.5523 6 13 6H8V1Z"
+              fill-rule="evenodd"
             />
           </svg>
           {{ $t('organizationProfile.addMore') }}
@@ -278,8 +280,8 @@
 
       <button-1
         class="mt-6 w-full"
-        @click.stop="SendUserInvites"
         :disabled="!isSendInviteButtEnable"
+        @click.stop="SendUserInvites"
       >
         {{ $t('organizationProfile.sendInvite') }}
       </button-1>
@@ -289,42 +291,38 @@
   <!---->
   <!--Remove organization modal-->
   <RemoveOrgModal
-    :is-visible="isRemovedModalVisible"
-    :organization="organization"
     :close-func="closeRemoveModal"
+    :is-visible="isRemovedModalVisible"
     :on-remove-success="onRemoveSuccess"
+    :organization="organization"
   />
   <!---->
   <ConfirmModal
-    :is-visible="ConfirmModal.visible"
-    :question="ConfirmModal.question"
     :accept-button-func="ConfirmModal.accept"
     :cancel-button-func="ConfirmModal.decline"
     :close-func="ConfirmModal.decline"
+    :is-visible="ConfirmModal.visible"
+    :question="ConfirmModal.question"
     :title="ConfirmModal.title"
   />
   <Loader v-if="isLoaderVisible" />
 </template>
 
 <script>
-import ButtonText1 from '../../Buttons/Button_text_1.vue'
-import dateFormatter from '../../mixins/dateFormatter.js'
-import ButtonTag from '../../Buttons/ButtonTag.vue'
-import ModalTemplate from '../../Modals/ModalTemplate.vue'
-import input1 from '../../Inputs/Input-1.vue'
-import Button2 from '../../Buttons/Button_2.vue'
-import Loader from '../../Loader.vue'
 import api from '../../../http_client/index.js'
-import RemoveOrgModal from '../RemoveOrgModal.vue'
+import ButtonTag from '../../Buttons/ButtonTag.vue'
+import Button2 from '../../Buttons/Button_2.vue'
+import ButtonText1 from '../../Buttons/Button_text_1.vue'
+import { default as input1 } from '../../Inputs/Input-1.vue'
+import Loader from '../../Loader.vue'
 import ConfirmModal from '../../Modals/ConfirmModal.vue'
-import CodeInput from '../../Inputs/CodeInput.vue'
-import Input1 from '../../Inputs/Input-1.vue'
-import InputPass from '../../Inputs/Input-pass.vue'
-import TelInput from '../../Inputs/TelInput.vue'
-import InputSuggestion from '../../Inputs/suggestionInput/Input-suggestion.vue'
-import OrganizationDropdown from './OrganizationDropdown.vue'
+import ModalTemplate from '../../Modals/ModalTemplate.vue'
+import dateFormatter from '../../mixins/dateFormatter.js'
 import userRoles from '../../mixins/userRoles'
+import RemoveOrgModal from '../RemoveOrgModal.vue'
 import { PARTICIPANT_STATUSES } from '../constants'
+
+import OrganizationDropdown from './OrganizationDropdown.vue'
 
 export default {
   name: 'OrganizationProfile',
@@ -337,11 +335,6 @@ export default {
     input1,
     Loader,
     RemoveOrgModal,
-    CodeInput,
-    Input1,
-    InputPass,
-    TelInput,
-    InputSuggestion,
     OrganizationDropdown,
   },
   mixins: [dateFormatter, userRoles],
@@ -374,6 +367,41 @@ export default {
         visible: false,
       },
     }
+  },
+  computed: {
+    rolesList() {
+      return Object.keys(this.userRoles).map((role) => ({
+        value: role,
+        text: this.$t(`roles.${role}`),
+      }))
+    },
+    statusesList() {
+      const { participants } = this.organization
+      const uniqueStatuses = participants
+        .map(({ email_confirmed, is_active }) => ({
+          value: this.GetCurrentUserStatus(email_confirmed, is_active),
+          text: this.GetCurrentUserStatusText(email_confirmed, is_active),
+        }))
+        .filter(
+          (status, index, self) =>
+            index ===
+            self.findIndex(
+              (s) => s.value === status.value && s.text === status.text,
+            ),
+        )
+
+      return [this.defaultStatusFilterValue, ...new Set(uniqueStatuses)]
+    },
+    isAddInviteButtVisible() {
+      return this.invitedUsersList.length < 5
+    },
+    isSendInviteButtEnable() {
+      return this.invitedUsersList.some((x) => x.length > 6)
+    },
+  },
+  async created() {
+    await this.getOrganization()
+    this.organizationParticipantsVisibleList = this.organization.participants
   },
   methods: {
     GetOrgJoinDate() {
@@ -475,7 +503,7 @@ export default {
           this.invitedUsersList = ['']
           this.$toast.success(this.$t('organizationProfile.successInvite'))
         })
-        .catch((err) => {
+        .catch(() => {
           this.CloseUserInviteModal()
           this.$toast.error(this.$t('general.errorMessage'))
           //throw err
@@ -508,7 +536,7 @@ export default {
           this.organization = res.data
           this.isLoaderVisible = false
         })
-        .catch((err) => {
+        .catch(() => {
           this.isLoaderVisible = false
           this.$toast.error(this.$t('general.errorMessage'), {
             duration: false,
@@ -534,7 +562,7 @@ export default {
           const updatedWorkerData = res.data
           this.organization.participants.splice(workerId, 1, updatedWorkerData)
         })
-        .catch((err) => {
+        .catch(() => {
           this.$toast.error(this.$t('general.errorMessage'), {
             duration: false,
             onClose: () => this.$router.push('/admin/organizations'),
@@ -559,7 +587,7 @@ export default {
             }),
           )
         })
-        .catch((err) => {
+        .catch(() => {
           this.isLoaderVisible = false
           this.$toast.error(
             this.$t('organizationProfile.userRemovedError', {
@@ -611,41 +639,6 @@ export default {
           break
       }
     },
-  },
-  computed: {
-    rolesList() {
-      return Object.keys(this.userRoles).map((role) => ({
-        value: role,
-        text: this.$t(`roles.${role}`),
-      }))
-    },
-    statusesList() {
-      const { participants } = this.organization
-      const uniqueStatuses = participants
-        .map(({ email_confirmed, is_active }) => ({
-          value: this.GetCurrentUserStatus(email_confirmed, is_active),
-          text: this.GetCurrentUserStatusText(email_confirmed, is_active),
-        }))
-        .filter(
-          (status, index, self) =>
-            index ===
-            self.findIndex(
-              (s) => s.value === status.value && s.text === status.text,
-            ),
-        )
-
-      return [this.defaultStatusFilterValue, ...new Set(uniqueStatuses)]
-    },
-    isAddInviteButtVisible() {
-      return this.invitedUsersList.length < 5
-    },
-    isSendInviteButtEnable() {
-      return this.invitedUsersList.some((x) => x.length > 6)
-    },
-  },
-  async created() {
-    await this.getOrganization()
-    this.organizationParticipantsVisibleList = this.organization.participants
   },
 }
 </script>

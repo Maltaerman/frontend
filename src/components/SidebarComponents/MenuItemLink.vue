@@ -4,7 +4,7 @@
       class="group flex h-[58px] w-full cursor-pointer items-center gap-4 p-1 px-6 text-h3 hover:bg-white"
       :class="{ 'bg-blue-c-200': isPathMatched(to) }"
     >
-      <div class="h-5 w-5" ref="image_container">
+      <div ref="image_container" class="h-5 w-5">
         <slot name="image"></slot>
       </div>
       <div
@@ -29,6 +29,14 @@ export default {
       required: true,
     },
   },
+  watch: {
+    $route() {
+      this.updateSVG()
+    },
+  },
+  mounted() {
+    this.updateSVG()
+  },
   methods: {
     updateSVG() {
       let imgSvg = this.$refs.image_container.firstElementChild
@@ -43,14 +51,6 @@ export default {
         }
       }
     },
-  },
-  watch: {
-    $route(to, from) {
-      this.updateSVG()
-    },
-  },
-  mounted() {
-    this.updateSVG()
   },
 }
 </script>

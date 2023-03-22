@@ -1,14 +1,14 @@
 <template>
   <ConfirmModal
+    :accept-button-func="PageLeaveAccepted"
+    :accept-button-text="$t('reportTools.acceptButtonText')"
+    :cancel-button-func="PageLeaveCanceled"
+    :cancel-button-text="$t('reportTools.cancelButtonText')"
+    :close-func="closeLeavePageConfirmModal"
     :is-bg-click-close="false"
     :is-visible="isLeaveModalVisible"
-    :cancel-button-text="$t('reportTools.cancelButtonText')"
-    :accept-button-text="$t('reportTools.acceptButtonText')"
-    :title="$t('general.dataNotSaved')"
     :question="$t('reportTools.beforeLeaveMessage')"
-    :close-func="closeLeavePageConfirmModal"
-    :accept-button-func="PageLeaveAccepted"
-    :cancel-button-func="PageLeaveCanceled"
+    :title="$t('general.dataNotSaved')"
   />
   <div class="h-full overflow-y-auto py-4 px-6">
     <div class="mb-2 flex flex-wrap justify-between">
@@ -20,9 +20,9 @@
           {{ $t('general.cancel') }}
         </button-3>
         <button-1
-          @click="PreviewFinishedReport"
           class="min-w-[80px] mobile:grow"
           :disabled="saveButtDisabled"
+          @click="PreviewFinishedReport"
         >
           {{ $t('general.save') }}
         </button-1>
@@ -39,8 +39,8 @@
         </div>
         <input1
           v-model="updatedReport.city"
-          :placeholder="$t('reportTools.city')"
           class="w-full rounded-xl"
+          :placeholder="$t('reportTools.city')"
           :validation-func="AddressValidation"
           validation-message="Мінімальна довжина 2 символи"
         />
@@ -51,8 +51,8 @@
         </div>
         <input1
           v-model="updatedReport.address"
-          :placeholder="$t('reportTools.street')"
           class="w-full rounded-xl"
+          :placeholder="$t('reportTools.street')"
           :validation-func="AddressValidation"
           validation-message="Мінімальна довжина 2 символи"
         />
@@ -63,8 +63,8 @@
         </div>
         <input1
           v-model="updatedReport.street_number"
-          :placeholder="$t('reportTools.streetNumber')"
           class="w-full rounded-xl"
+          :placeholder="$t('reportTools.streetNumber')"
         />
       </label>
     </div>
@@ -80,32 +80,31 @@
         </div>
         <div class="flex flex-wrap gap-2">
           <ReportRadio
-            :label="label"
             v-model="updatedReport.reports[label.name].flag"
             :checked-op="updatedReport.reports[label.name].flag"
+            :label="label"
           />
         </div>
       </div>
       <resize-textarea
+        v-model="updatedReport.reports[label.name].description"
         class="text-area"
         :placeholder="$t('reportTools.textAreaPlaceholder')"
-        v-model="updatedReport.reports[label.name].description"
       />
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
-import Button3 from '../../Buttons/Button_3.vue'
+import { mapActions, mapGetters } from 'vuex'
+
 import Button1 from '../../Buttons/Button_1.vue'
-import ButtonTag from '../../Buttons/ButtonTag.vue'
-import ModalTemplate from '../../Modals/ModalTemplate.vue'
+import Button3 from '../../Buttons/Button_3.vue'
+import ReportRadio from '../../Buttons/ReportRadio.vue'
+import Input1 from '../../Inputs/Input-1.vue'
 import ConfirmModal from '../../Modals/ConfirmModal.vue'
 import helper from '../../mixins/helper.js'
-import ReportRadio from '../../Buttons/ReportRadio.vue'
 import reportItemFlags from '../../mixins/reportItemFlags.js'
-import Input1 from '../../Inputs/Input-1.vue'
 
 export default {
   name: 'ReportTools',
@@ -113,12 +112,20 @@ export default {
     Input1,
     ReportRadio,
     ConfirmModal,
-    ModalTemplate,
-    ButtonTag,
     Button1,
     Button3,
   },
   mixins: [helper, reportItemFlags],
+  beforeRouteLeave(to, from, next) {
+    if (this.isEqual2(this.getSelectedLocationRequest, this.updatedReport))
+      next()
+    if (this.isPageLeaveConfirmed) next()
+    else {
+      this.isLeaveModalVisible = true
+      this.targetLeaveRef = to.fullPath
+      next(false)
+    }
+  },
   data() {
     return {
       updatedReport: {},
@@ -155,6 +162,29 @@ export default {
       targetLeaveRef: '',
     }
   },
+  computed: {
+    ...mapGetters(['getSelectedLocationRequest']),
+    saveButtDisabled() {
+      if (this.$route.params.previewUpdating) {
+        return false
+      } else {
+        return (
+          this.updatedReport.city?.length < 2 ||
+          this.updatedReport.address?.length < 2 ||
+          !this.updatedReport.reports ||
+          this.isEqual2(this.getSelectedLocationRequest, this.updatedReport)
+        )
+      }
+    },
+  },
+  created() {
+    if (this.getSelectedLocationRequest)
+      this.updatedReport = JSON.parse(
+        JSON.stringify(this.getSelectedLocationRequest),
+      )
+    if (!this.getSelectedLocationRequest.reports)
+      this.updatedReport.reports = { ...this.defaultReport }
+  },
   methods: {
     /*		...mapMutations(['setSelectedMarker']),*/
     ...mapActions(['setSelectedRequest']),
@@ -180,39 +210,6 @@ export default {
     AddressValidation(value) {
       return value.length >= 2
     },
-  },
-  computed: {
-    ...mapGetters(['getSelectedLocationRequest']),
-    saveButtDisabled() {
-      if (this.$route.params.previewUpdating) {
-        return false
-      } else {
-        return (
-          this.updatedReport.city?.length < 2 ||
-          this.updatedReport.address?.length < 2 ||
-          !this.updatedReport.reports ||
-          this.isEqual2(this.getSelectedLocationRequest, this.updatedReport)
-        )
-      }
-    },
-  },
-  beforeRouteLeave(to, from, next) {
-    if (this.isEqual2(this.getSelectedLocationRequest, this.updatedReport))
-      next()
-    if (this.isPageLeaveConfirmed) next()
-    else {
-      this.isLeaveModalVisible = true
-      this.targetLeaveRef = to.fullPath
-      next(false)
-    }
-  },
-  created() {
-    if (this.getSelectedLocationRequest)
-      this.updatedReport = JSON.parse(
-        JSON.stringify(this.getSelectedLocationRequest),
-      )
-    if (!this.getSelectedLocationRequest.reports)
-      this.updatedReport.reports = { ...this.defaultReport }
   },
 }
 </script>

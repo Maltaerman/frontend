@@ -5,8 +5,8 @@
         <div class="flex flex-row flex-nowrap">
           <div class="my-auto mr-1.5 h-6 w-8">
             <SVG_status_list
-              :icon="flag"
               :class-list="getSVGColorClass(flag, flagValue)"
+              :icon="flag"
             />
           </div>
           <p
@@ -28,8 +28,8 @@
           {{ $t('userSideBar.reportedOn') }}
         </p>
         <p
-          class="my-auto px-1 text-h4 font-semibold text-gray-c-500"
           v-if="update"
+          class="my-auto px-1 text-h4 font-semibold text-gray-c-500"
         >
           {{ GetDateTimeShort(update) }}
         </p>
@@ -46,9 +46,9 @@
 
 <script>
 import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
+import Expander from '../../Other/Expander.vue'
 import dateFormatter from '../../mixins/dateFormatter.js'
 import reportItemFlags from '../../mixins/reportItemFlags.js'
-import Expander from '../../Other/Expander.vue'
 
 export default {
   name: 'ReportStateItem',

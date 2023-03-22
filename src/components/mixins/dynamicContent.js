@@ -1,4 +1,3 @@
-import i18n from '../../libs/i18n/index.js'
 import stringFormatter from './StringFormatter.js'
 
 export default {

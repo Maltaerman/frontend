@@ -1,27 +1,27 @@
 <template>
   <div
-    @mouseleave="ToggleDrop(false)"
     class="relative font-semibold text-gray-c-500"
+    @mouseleave="ToggleDrop(false)"
   >
     <button
       id="dropButton"
       class="flex h-full w-full items-center justify-end gap-3 text-h3 mobile:justify-between"
-      @click.stop="isDropped = !isDropped"
       :class="{
         'text-gray-c-600 mobile:bg-blue-c-100': isDropped,
       }"
+      @click.stop="isDropped = !isDropped"
     >
       <div class="flex items-center gap-2 mobile:gap-4">
-        <img :src="lang.flag" class="h-4 w-6" />
+        <img class="h-4 w-6" :src="lang.flag" />
         <div id="current-language">{{ lang.value }}</div>
       </div>
       <img
-        src="/src/assets/dropdown-arrow.svg"
         class="h-2 w-3.5 transition-all duration-300"
         :class="{
           'rotate-0': !isDropped,
           'rotate-180': isDropped,
         }"
+        src="/src/assets/dropdown-arrow.svg"
       />
     </button>
     <div
@@ -30,18 +30,19 @@
       :class="{
         'h-0': !isDropped,
         //FIXME opened height = available lang amount * list item height, in this case 58px
-        'h-[116px]': isDropped,
+        'h-[116px]': isDropped && availableLang.length > 0,
       }"
     >
       <button
-        v-for="langItem in availableLang"
+        v-for="(langItem, index) in availableLang"
+        :key="index"
         class="flex h-[58px] w-full cursor-pointer items-center gap-2 p-2 text-h3 hover:bg-blue-c-200 mobile:gap-4 mobile:p-0"
         :class="{
           'text-blue-c-400 comp:bg-blue-c-100': langItem.code == lang.code,
         }"
         @click.stop="setLang(langItem)"
       >
-        <img :src="langItem.flag" class="h-4 w-6" />
+        <img class="h-4 w-6" :src="langItem.flag" />
         <div class="w-full text-left">{{ langItem.value }}</div>
       </button>
     </div>
@@ -64,6 +65,10 @@ export default {
       isDropped: false,
     }
   },
+  mounted() {
+    console.log(this)
+    this.lang = this.availableLang.find((x) => x.code === this.$i18n.locale)
+  },
   methods: {
     ...mapMutations(['setLocalization']),
     ToggleDrop(bool) {
@@ -75,9 +80,6 @@ export default {
       this.setLocalization(item.code)
       this.isDropped = false
     },
-  },
-  mounted() {
-    this.lang = this.availableLang.find((x) => x.code === this.$i18n.locale)
   },
 }
 </script>

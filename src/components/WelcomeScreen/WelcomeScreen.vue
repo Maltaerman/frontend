@@ -6,7 +6,7 @@
     <div
       class="mx-auto flex w-[600px] shrink grow flex-col items-center justify-center px-4 text-h3 mobile:w-full mobile:text-h4"
     >
-      <img src="/src/assets/fullLogo.svg" class="inline-block w-[310px]" />
+      <img class="inline-block w-[310px]" src="/src/assets/fullLogo.svg" />
       <p class="mt-6 text-justify text-gray-c-500">
         {{ $t('welcomeScreen.helperText') }}
       </p>
@@ -17,15 +17,14 @@
         <div class="w-[44px] cursor-pointer rounded-xl">
           <img
             alt="search"
-            src="/search.svg"
             class="h-full w-full object-scale-down"
+            src="/search.svg"
           />
         </div>
         <GMapAutocomplete
           id="autocomplete"
           ref="autocomplete"
-          :placeholder="$t('welcomeScreen.searchAddress')"
-          @place_changed="GetMarker"
+          v-model="searchRequest"
           class="block w-full bg-transparent text-h3 outline-none"
           :options="{
             fields: [`geometry`, `name`],
@@ -33,33 +32,34 @@
               country: [`ua`],
             },
           }"
+          :placeholder="$t('welcomeScreen.searchAddress')"
+          :select-first-on-enter="true"
           @focusin="OnInputFocus(true)"
           @focusout="OnInputFocus(false)"
-          v-model="this.searchRequest"
-          :select-first-on-enter="true"
+          @place_changed="GetMarker"
         />
         <div
           class="w-[40px] cursor-pointer rounded-xl"
-          @click="this.ClearSearchRequest"
+          @click="ClearSearchRequest"
         >
           <img
             id="close-button"
-            src="/close.svg"
             alt="close"
             class="h-full w-full object-scale-down"
+            src="/close.svg"
           />
         </div>
       </div>
 
-      <div class="w-full" v-if="recentReports.length > 0">
+      <div v-if="recentReports.length > 0" class="w-full">
         <div class="z-10 mb-2 bg-white font-semibold">
           {{ $t('welcomeScreen.recentlyReports') }}
         </div>
         <WelcomeScreenReportList
-          :reports-list="recentReports"
-          :delay="5000"
-          @report-click="RecentReportClick"
           class="w-full"
+          :delay="5000"
+          :reports-list="recentReports"
+          @report-click="RecentReportClick"
         />
       </div>
 
@@ -92,28 +92,66 @@
 </template>
 
 <script>
-import Header from '../Header.vue'
-import Test from '../Test.vue'
-import { mapState, mapActions, mapMutations } from 'vuex'
-import SVG_building_condition from '../ComponentsSVG/SVG_building_condition.vue'
-import WelcomeScreenReportList from './WelcomeScreenReportList.vue'
+import { mapActions, mapMutations, mapState } from 'vuex'
+
 import api from '../../http_client/index.js'
+import Header from '../Header.vue'
 import coordsHelper from '../mixins/coordsHelper.js'
+
+import WelcomeScreenReportList from './WelcomeScreenReportList.vue'
+
 export default {
   name: 'WelcomeScreen',
-  mixins: [coordsHelper],
   components: {
     WelcomeScreenReportList,
-    SVG_building_condition,
     Header,
-    Test,
   },
+  mixins: [coordsHelper],
   data: function () {
     return {
       searchRequest: null,
       isInputFocused: false,
       recentReports: [],
     }
+  },
+  computed: {
+    ...mapState(['selectedMarkerData', 'notFoundedMarkerData']),
+    AboutUrl() {
+      let url
+      switch (this.$i18n.locale) {
+        case 'ua':
+          url = 'https://about.projectdim.org/main.html'
+          break
+        case 'en':
+          url = 'https://about.projectdim.org/main-en.html'
+          break
+        default:
+          url = 'https://about.projectdim.org/main.html'
+          break
+      }
+      return url
+    },
+  },
+  watch: {
+    selectedMarkerData: function (newVal) {
+      if (newVal !== null)
+        this.$router.push({
+          path: '/main/overview',
+          query: { id: newVal.id, ...newVal.position },
+        })
+    },
+    notFoundedMarkerData: function (newVal) {
+      if (newVal !== null) {
+        console.log(newVal)
+        this.$router.push({
+          path: '/main/overview',
+          query: { id: newVal.id, ...newVal.position },
+        })
+      }
+    },
+  },
+  mounted() {
+    this.GetRecentReports()
   },
   methods: {
     ...mapActions({
@@ -155,45 +193,6 @@ export default {
           console.error(err)
         })
     },
-  },
-  computed: {
-    ...mapState(['selectedMarkerData', 'notFoundedMarkerData']),
-    AboutUrl() {
-      let url
-      switch (this.$i18n.locale) {
-        case 'ua':
-          url = 'https://about.projectdim.org/main.html'
-          break
-        case 'en':
-          url = 'https://about.projectdim.org/main-en.html'
-          break
-        default:
-          url = 'https://about.projectdim.org/main.html'
-          break
-      }
-      return url
-    },
-  },
-  watch: {
-    selectedMarkerData: function (newVal) {
-      if (newVal !== null)
-        this.$router.push({
-          path: '/main/overview',
-          query: { id: newVal.id, ...newVal.position },
-        })
-    },
-    notFoundedMarkerData: function (newVal) {
-      if (newVal !== null) {
-        console.log(newVal)
-        this.$router.push({
-          path: '/main/overview',
-          query: { id: newVal.id, ...newVal.position },
-        })
-      }
-    },
-  },
-  mounted() {
-    this.GetRecentReports()
   },
 }
 </script>

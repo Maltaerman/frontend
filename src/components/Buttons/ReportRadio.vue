@@ -1,11 +1,15 @@
 <template>
-  <label class="cursor-pointer" v-for="option in label.options">
+  <label
+    v-for="(option, index) in label.options"
+    :key="index"
+    class="cursor-pointer"
+  >
     <input
-      type="radio"
+      :checked="checkedOp === option.value"
       class="peer sr-only"
       :name="label.name"
+      type="radio"
       @change="updateModel(option.value)"
-      :checked="checkedOp === option.value"
     />
     <div
       class="hover:bg-gray-c-10 rounded-lg border bg-transparent py-1 px-2 text-center align-middle text-h3 font-medium disabled:border-gray-c-200 disabled:text-gray-c-400 tablet:text-h4 mobile:text-h4"
@@ -23,6 +27,7 @@ export default {
     label: Object,
     checkedOp: String,
   },
+  emits: ['update:modelValue'],
   methods: {
     updateModel(option) {
       this.$emit('update:modelValue', option)

@@ -7,10 +7,10 @@
     :is-modal-visible="isSettingVisible"
   >
     <div
-      class="relative h-screen w-[600px] animate-userSettingsAppear bg-white p-9 tablet:w-[480px] tablet:p-4 mobile:h-min mobile:w-full mobile:rounded-lg mobile:p-4"
-      @click.stop
-      :class="{ 'animate-userSettingsAppear': isSettingVisible }"
       id="userSettings"
+      class="relative h-screen w-[600px] animate-userSettingsAppear bg-white p-9 tablet:w-[480px] tablet:p-4 mobile:h-min mobile:w-full mobile:rounded-lg mobile:p-4"
+      :class="{ 'animate-userSettingsAppear': isSettingVisible }"
+      @click.stop
     >
       <Loader v-if="isShowLoader"></Loader>
       <!--      Header-->
@@ -20,8 +20,8 @@
         {{ $t('userSettings.header') }}
         <img
           class="absolute top-0 hidden h-min w-min mobile:right-0 mobile:block"
-          @click="closeModal"
           src="/close.svg"
+          @click="closeModal"
         />
       </div>
       <button-text1
@@ -39,18 +39,18 @@
         <div :class="{ 'mobile:hidden': isPassChangeVisible }">
           <label for="setting-name">{{ $t('userSettings.name') }}</label>
           <input-1
-            inp-id="setting-name"
-            :placeholder="$t('userSettings.name')"
             v-model="username"
             class="mt-1 mb-6 block text-black"
+            inp-id="setting-name"
+            :placeholder="$t('userSettings.name')"
           />
           <label for="setting-mail">{{ $t('userSettings.email') }}</label>
           <input-1
-            inp-id="setting-mail"
-            :placeholder="$t('userSettings.email')"
             v-model="email"
             class="mt-1 text-black"
             disabled
+            inp-id="setting-mail"
+            :placeholder="$t('userSettings.email')"
           />
         </div>
 
@@ -68,8 +68,8 @@
           <ButtonOptions
             id="updatePassword"
             :button-color="'blue'"
-            @valueChange="changePassVisibility"
             :checked="isPassChangeVisible"
+            @valueChange="changePassVisibility"
           >
             {{ $t('userSettings.change-password') }}
           </ButtonOptions>
@@ -78,34 +78,34 @@
         <div v-show="isPassChangeVisible" id="passChangeBlock">
           <label for="setting-pass">{{ $t('userSettings.password') }}</label>
           <input-pass
+            v-model="oldPass"
+            class="mt-1 mb-6 text-black"
             inp-id="setting-pass"
             :placeholder="$t('userSettings.password')"
-            class="mt-1 mb-6 text-black"
-            v-model="oldPass"
           />
           <label for="setting-new-pass">{{
             $t('userSettings.new-password')
           }}</label>
           <input-pass
+            v-model="newPass"
+            class="mt-1 text-black"
             inp-id="setting-new-pass"
             :placeholder="$t('userSettings.new-password')"
-            class="mt-1 text-black"
-            v-model="newPass"
           />
 
           <div class="flex flex-row-reverse gap-3 py-6">
             <button1
-              :disabled="isChangePassButtonDisabled"
               id="changePassButton"
+              :disabled="isChangePassButtonDisabled"
               @click="updateUserPassword"
             >
               {{ $t('general.save') }}
             </button1>
             <ButtonOptions
               :button-color="'blue'"
+              :checked="isPassChangeVisible"
               class="hidden mobile:block"
               @valueChange="changePassVisibility"
-              :checked="isPassChangeVisible"
             >
               {{ $t('userSettings.change-password') }}
             </ButtonOptions>
@@ -117,19 +117,20 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
+import api from '../http_client/index.js'
+
+import ButtonOptions from './Buttons/Button-options.vue'
+import Button1 from './Buttons/Button_1.vue'
 import ButtonText1 from './Buttons/Button_text_1.vue'
 import Input1 from './Inputs/Input-1.vue'
 import InputPass from './Inputs/Input-pass.vue'
-import ButtonOptions from './Buttons/Button-options.vue'
-import ModalTemplate from './Modals/ModalTemplate.vue'
-import Button1 from './Buttons/Button_1.vue'
-import { mapGetters, mapMutations } from 'vuex'
-import api from '../http_client/index.js'
 import Loader from './Loader.vue'
+import ModalTemplate from './Modals/ModalTemplate.vue'
 
 export default {
   name: 'UserSetting',
-  emits: ['close'],
   components: {
     Loader,
     Button1,
@@ -145,6 +146,7 @@ export default {
       default: false,
     },
   },
+  emits: ['close'],
   data() {
     return {
       isPassChangeVisible: false,
@@ -155,6 +157,41 @@ export default {
       newPass: '',
       username: '',
       email: '',
+    }
+  },
+  computed: {
+    ...mapGetters(['getUser']),
+    saveButDisable() {
+      return (
+        this.username === this.getUser.username &&
+        this.email === this.getUser.email
+      )
+    },
+  },
+  watch: {
+    getUser() {
+      if (this.getUser) {
+        this.username = this.getUser.username
+        this.email = this.getUser.email
+      }
+    },
+    username() {
+      this.updateSaveButDisable()
+    },
+    email() {
+      this.updateSaveButDisable()
+    },
+    newPass() {
+      this.updateSavePassDisable()
+    },
+    oldPass() {
+      this.updateSavePassDisable()
+    },
+  },
+  mounted() {
+    if (this.getUser) {
+      this.username = this.getUser.username
+      this.email = this.getUser.email
     }
   },
   methods: {
@@ -194,7 +231,7 @@ export default {
             this.$t('userSettings.userDataUpdatedSuccessMess'),
           )
         })
-        .catch((err) => {
+        .catch(() => {
           this.$toast.error(this.$t('userSettings.userDataUpdatedErrorMess'))
         })
         .finally(() => {
@@ -210,12 +247,12 @@ export default {
       this.isShowLoader = true
       await api.user
         .UpdateUserPass(updatedPass)
-        .then((res) => {
+        .then(() => {
           this.$toast.success(
             this.$t('userSettings.userDataUpdatedSuccessMess'),
           )
         })
-        .catch((err) => {
+        .catch(() => {
           this.$toast.error(this.$t('userSettings.userDataUpdatedErrorMess'))
         })
         .finally(() => {
@@ -224,41 +261,6 @@ export default {
           this.isShowLoader = false
         })
     },
-  },
-  computed: {
-    ...mapGetters(['getUser']),
-    saveButDisable() {
-      return (
-        this.username === this.getUser.username &&
-        this.email === this.getUser.email
-      )
-    },
-  },
-  watch: {
-    getUser(newValue) {
-      if (this.getUser) {
-        this.username = this.getUser.username
-        this.email = this.getUser.email
-      }
-    },
-    username(newVal) {
-      this.updateSaveButDisable()
-    },
-    email(newVal) {
-      this.updateSaveButDisable()
-    },
-    newPass(newVal) {
-      this.updateSavePassDisable()
-    },
-    oldPass(newVal) {
-      this.updateSavePassDisable()
-    },
-  },
-  mounted() {
-    if (this.getUser) {
-      this.username = this.getUser.username
-      this.email = this.getUser.email
-    }
   },
 }
 </script>

@@ -8,7 +8,11 @@
       </p>
     </div>
 
-    <div v-for="log in logs" class="flex w-full gap-x-4 py-4 shadow-cs2">
+    <div
+      v-for="(log, index) in logs"
+      :key="index"
+      class="flex w-full gap-x-4 py-4 shadow-cs2"
+    >
       <div
         class="comm:gap-9 flex w-full flex-wrap justify-between comp:flex-nowrap"
       >
@@ -18,13 +22,17 @@
           {{ new Date(log.created_at).toTimeString().split(' ')[0] }}
         </div>
         <div class="order-3 w-full shrink grow comp:order-2 mobile:pr-6">
-          <div v-for="item in getChangedLogs(log)" class="my-2.5 font-semibold">
+          <div
+            v-for="(item, idx) in getChangedLogs(log)"
+            :key="idx"
+            class="my-2.5 font-semibold"
+          >
             <div class="group relative flex cursor-default flex-wrap gap-4">
-              <div class="flex gap-2" v-if="item.old_value">
+              <div v-if="item.old_value" class="flex gap-2">
                 <p class="h-6 w-4">
                   <SVG_status_list
-                    :icon="item.flag"
                     :classList="getSVGColorClass(item.flag, item.old_value)"
+                    :icon="item.flag"
                   />
                 </p>
                 <p
@@ -35,15 +43,15 @@
                 </p>
               </div>
               <img
-                src="/src/assets/change-arrow.svg"
-                class="h-6 w-6"
                 alt="arrow"
+                class="h-6 w-6"
+                src="/src/assets/change-arrow.svg"
               />
               <div class="flex gap-2">
                 <p class="h-6 w-4">
                   <SVG_status_list
-                    :icon="item.flag"
                     :classList="getSVGColorClass(item.flag, item.new_value)"
+                    :icon="item.flag"
                   />
                 </p>
                 <p
@@ -63,8 +71,8 @@
           </div>
 
           <router-link
-            :to="getLocationOverviewRoute(log.location)"
             class="cursor-pointer text-h3 font-semibold text-gray-c-500 tablet:text-h4 mobile:text-h4"
+            :to="getLocationOverviewRoute(log.location)"
           >
             {{ log.user.username }}
             <span class="font-normal">
@@ -99,25 +107,21 @@
 </template>
 
 <script>
+import SVG_eye from '../../ComponentsSVG/Icons/SVG_eye.vue'
 import dateFormatter from '../../mixins/dateFormatter.js'
 import dynamicContent from '../../mixins/dynamicContent.js'
 import reportItemFlags from '../../mixins/reportItemFlags.js'
-import SVG_eye from '../../ComponentsSVG/Icons/SVG_eye.vue'
-import SVG_eye_crossed from '../../ComponentsSVG/Icons/SVG_eye_crossed.vue'
-import Button_2 from '../../Buttons/Button_2.vue'
 
 export default {
   name: 'OrganizationChangeLogItem',
-  emits: ['record-visibility-toggle'],
   components: {
     SVG_eye,
-    Button_2,
-    SVG_eye_crossed,
   },
   mixins: [dynamicContent, reportItemFlags, dateFormatter],
   props: {
     logs: Array,
   },
+  emits: ['record-visibility-toggle'],
   methods: {
     getDate(strDate) {
       return this.GetDayDateString(strDate).replace(' ', ', ')
