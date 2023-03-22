@@ -6,14 +6,14 @@
 
     <div>
       <VueDatePicker
-        locale="ua"
-        :enable-time-picker="false"
-        placeholder="Date"
-        utc
+        v-model="date"
         auto-apply
         close-on-auto-apply
-        v-model="date"
+        :enable-time-picker="false"
+        locale="ua"
+        placeholder="Date"
         :range="true"
+        utc
       />
     </div>
     <div>
@@ -23,22 +23,12 @@
 </template>
 
 <script>
-import UserInviteModal from './Modals/UserInviteModal.vue'
-import InputSuggest from './Inputs/suggestionInput/Input-suggestion.vue'
-import OrgEditInputsGroup from './OrganizationLeader/Shared/OrgEditInputsGroup.vue'
-import ChangePassInputs from './User/ChangePassInputs.vue'
-import ChangeMailNameInputs from './User/ChangeMailNameInputs.vue'
 import VueDatePicker from '@vuepic/vue-datepicker'
 
 export default {
   name: 'Test',
   components: {
     VueDatePicker,
-    ChangeMailNameInputs,
-    ChangePassInputs,
-    OrgEditInputsGroup,
-    InputSuggest,
-    UserInviteModal,
   },
   data() {
     return {
@@ -75,6 +65,24 @@ export default {
       },
     }
   },
+  computed: {
+    OrgStr() {
+      return JSON.stringify(this.organization)
+    },
+    dateStr() {
+      if (!this.date) return ''
+      return (
+        new Date(this.date[0]).toDateString() +
+        '\n\r' +
+        new Date(this.date[1]).toDateString()
+      )
+    },
+  },
+  watch: {
+    date(newVal) {
+      console.log(newVal)
+    },
+  },
   methods: {
     Test1() {
       this.items = null
@@ -93,24 +101,6 @@ export default {
     },
     onValidation(res) {
       console.log(res)
-    },
-  },
-  computed: {
-    OrgStr() {
-      return JSON.stringify(this.organization)
-    },
-    dateStr() {
-      if (!this.date) return ''
-      return (
-        new Date(this.date[0]).toDateString() +
-        '\n\r' +
-        new Date(this.date[1]).toDateString()
-      )
-    },
-  },
-  watch: {
-    date(newVal) {
-      console.log(newVal)
     },
   },
 }

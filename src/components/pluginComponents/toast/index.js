@@ -1,7 +1,8 @@
 import { h, render } from 'vue'
+
 import Modal from './Modal.vue'
-import messageTypes from './messageTypes.js'
 import eventSystem from './event-system.js'
+import messageTypes from './messageTypes.js'
 
 const mount = (comp, { props, children, element, app } = {}) => {
   let el = element ? element : document.createElement('div')

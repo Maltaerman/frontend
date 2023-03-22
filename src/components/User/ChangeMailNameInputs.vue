@@ -1,21 +1,21 @@
 <template>
   <div class="flex flex-col gap-6">
     <Input1
-      :label="$t('userSettings.name')"
-      inp-id="setting-name"
-      :placeholder="$t('userSettings.name')"
       v-model="modelValue.username"
-      validation-type="name"
+      inp-id="setting-name"
+      :label="$t('userSettings.name')"
+      :placeholder="$t('userSettings.name')"
       :validation-message="$t('validations.minLength', { amount: 2 })"
+      validation-type="name"
     />
     <Input1
-      :label="$t('userSettings.email')"
-      inp-id="setting-mail"
-      :placeholder="$t('userSettings.email')"
       v-model="modelValue.email"
-      validation-type="mail"
-      :validation-message="$t('validations.mailNotValid')"
       disabled
+      inp-id="setting-mail"
+      :label="$t('userSettings.email')"
+      :placeholder="$t('userSettings.email')"
+      :validation-message="$t('validations.mailNotValid')"
+      validation-type="mail"
     />
   </div>
 </template>
@@ -25,26 +25,18 @@ import Input1 from '../Inputs/Input-1.vue'
 import regex from '../mixins/regex.js'
 export default {
   name: 'ChangeMailNameInputs',
-  mixins: [regex],
-  emits: ['validation'],
   components: {
     Input1,
   },
+  mixins: [regex],
   props: {
     modelValue: Object,
   },
+  emits: ['validation'],
   data() {
     return {
       isDataValid: false,
     }
-  },
-  methods: {
-    Validation() {
-      this.isDataValid =
-        this.isMail(this.modelValue.email) &&
-        this.isName(this.modelValue.username)
-      this.$emit('validation', this.isDataValid)
-    },
   },
   watch: {
     'modelValue.username'() {
@@ -56,6 +48,14 @@ export default {
   },
   mounted() {
     this.Validation()
+  },
+  methods: {
+    Validation() {
+      this.isDataValid =
+        this.isMail(this.modelValue.email) &&
+        this.isName(this.modelValue.username)
+      this.$emit('validation', this.isDataValid)
+    },
   },
 }
 </script>

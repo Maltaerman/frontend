@@ -13,18 +13,15 @@
 </template>
 
 <script>
-import SideBar from './SidebarComponents/UserSidebar/SideBar.vue'
-import NotFound from './SidebarComponents/UserSidebar/NotFound.vue'
-import GoogleMap from './MapComponents/GoogleMap.vue'
+import { mapGetters } from 'vuex'
+
 import Header from './Header.vue'
-import { mapGetters, mapState } from 'vuex'
+import GoogleMap from './MapComponents/GoogleMap.vue'
 
 export default {
   name: 'MainScreen',
   components: {
     Header,
-    SideBar,
-    NotFound,
     GoogleMap,
   },
   computed: {

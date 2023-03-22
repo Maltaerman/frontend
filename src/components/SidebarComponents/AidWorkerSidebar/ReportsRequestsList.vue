@@ -1,31 +1,32 @@
 <template>
-  <div class="p-6" ref="viewport">
-    <ReportRequestListItem
-      v-if="unreviewedMarkers.length > 0"
-      v-for="item in unreviewedMarkers"
-      :key="`request${item.id}`"
-      :location-request="item"
-      itemUsageTabName="requestsList"
-      @add-to-my-list="OnAddToMyList"
-    />
+  <div ref="viewport" class="p-6">
+    <div v-if="unreviewedMarkers.length > 0">
+      <ReportRequestListItem
+        v-for="item in unreviewedMarkers"
+        :key="`request${item.id}`"
+        itemUsageTabName="requestsList"
+        :location-request="item"
+        @add-to-my-list="OnAddToMyList"
+      />
+    </div>
     <div v-else class="mt-6 text-center text-h3 text-gray-c-800">
       {{ $t('aidWorkerSideBar.allListEmpty') }}
     </div>
-    <div ref="scrollObserver" class="relative h-[80px]" v-if="pageMax < 0">
+    <div v-if="pageMax < 0" ref="scrollObserver" class="relative h-[80px]">
       <Loader v-show="isLoaderVisible" />
     </div>
   </div>
 </template>
 
 <script>
-import ReportRequestListItem from './ReportRequestListItem.vue'
-import api from '../../../http_client/index.js'
 import { mapGetters } from 'vuex'
+
 import Loader from '../../Loader.vue'
+
+import ReportRequestListItem from './ReportRequestListItem.vue'
 
 export default {
   name: 'ReportsRequestsList',
-  emits: ['next-page', 'add-to-my-list'],
   components: {
     ReportRequestListItem,
     Loader,
@@ -48,6 +49,7 @@ export default {
       default: false,
     },
   },
+  emits: ['next-page', 'add-to-my-list'],
   data() {
     return {
       /*unreviewedMarkers: [],
@@ -56,19 +58,14 @@ export default {
 			isLoaderVisible : false*/
     }
   },
-  methods: {
-    GetNextPage() {
-      this.$emit('next-page')
-    },
-    OnAddToMyList(req) {
-      this.$emit('add-to-my-list', req)
-    },
+  computed: {
+    ...mapGetters(['isAuth']),
   },
   mounted() {
     let options = {
       threshold: 0,
     }
-    let callback = (entries, observer) => {
+    let callback = (entries) => {
       if (
         entries[0].isIntersecting &&
         !this.isLoaderVisible &&
@@ -80,8 +77,13 @@ export default {
     let observer = new IntersectionObserver(callback, options)
     observer.observe(this.$refs.scrollObserver)
   },
-  computed: {
-    ...mapGetters(['isAuth']),
+  methods: {
+    GetNextPage() {
+      this.$emit('next-page')
+    },
+    OnAddToMyList(req) {
+      this.$emit('add-to-my-list', req)
+    },
   },
 }
 </script>

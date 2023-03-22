@@ -7,11 +7,12 @@
       <!--	#region  Build status v2-->
       <div class="text-h3 mobile:text-h4">
         <ReportStateItem
-          v-for="flag of Object.keys(reportFlags)"
-          :organization-name="selectedMarker.organization_name"
+          v-for="(flag, index) of Object.keys(reportFlags)"
+          :key="index"
+          :description="selectedMarker.reports[flag].description"
           :flag="flag"
           :flag-value="selectedMarker.reports[flag].flag"
-          :description="selectedMarker.reports[flag].description"
+          :organization-name="selectedMarker.organization_name"
           :update="selectedMarker.updated_at"
         />
       </div>
@@ -31,9 +32,9 @@
 
 <script>
 import { mapActions, mapGetters, mapState } from 'vuex'
-import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
+
 import reportItemFlags from '../../mixins/reportItemFlags.js'
-import Expander from '../../Other/Expander.vue'
+
 import Footer from './Footer.vue'
 import ReportStateItem from './ReportStateItem.vue'
 
@@ -42,8 +43,6 @@ export default {
   components: {
     Footer,
     ReportStateItem,
-    Expander,
-    SVG_status_list,
   },
   mixins: [reportItemFlags],
   data: function () {

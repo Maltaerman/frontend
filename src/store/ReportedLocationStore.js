@@ -1,5 +1,4 @@
 import api from '../http_client/index.js'
-import { createStore } from 'vuex'
 
 export default {
   state() {

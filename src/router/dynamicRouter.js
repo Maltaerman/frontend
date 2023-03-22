@@ -14,10 +14,11 @@ const UserRolesList = () => import('../components/PlatformAdministration/Roles/U
 const RoleCreating = () => import('../components/PlatformAdministration/Roles/RoleCreating.vue')
 const OrganizationRegistration = () => import('../components/OrganizationLeader/OrgRegistration.vue')
 
-import { store } from '../store/mainStore.js'
 import { createRouter, createWebHistory } from 'vue-router'
-import userRoles from '../components/mixins/userRoles.js'
+
 import orgLeaderRouter from '../components/OrganizationLeader/OrgLeaderRouter.js'
+import userRoles from '../components/mixins/userRoles.js'
+import { store } from '../store/mainStore.js'
 
 const mainRouter = [
   {
@@ -133,7 +134,7 @@ export const Router = createRouter({
   },
 })
 
-Router.beforeEach((to, form) => {
+Router.beforeEach((to) => {
   if (to.meta.requiresAuth && !store.getters.isAuth) {
     console.log('None authorize')
     return {

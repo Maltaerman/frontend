@@ -1,8 +1,8 @@
 <template>
   <ModalTemplate
     class-list="grid place-items-center p-4"
-    :is-modal-visible="isVisible"
     :close-func="closeThisModal"
+    :is-modal-visible="isVisible"
     :isHideOnClick="true"
   >
     <div
@@ -10,8 +10,8 @@
       @click.stop
     >
       <img
-        src="/src/assets/close.svg"
         class="absolute top-6 right-6 cursor-pointer"
+        src="/src/assets/close.svg"
         @click="closeThisModal"
       />
       <div class="text-center text-h2 font-semibold">
@@ -19,24 +19,24 @@
       </div>
       <div class="mt-4 mb-6 flex flex-col gap-4">
         <div>
-          <label for="inpRegNewOrgName" class="text-h4 text-gray-c-500">{{
+          <label class="text-h4 text-gray-c-500" for="inpRegNewOrgName">{{
             $t('dashboard.organizationName')
           }}</label>
           <input1
-            inp-id="inpRegNewOrgName"
             v-model.trim="organization.createOrgName"
             class="mt-1 w-full"
+            inp-id="inpRegNewOrgName"
             :placeholder="$t('dashboard.namePlaceholder')"
           />
         </div>
         <div>
-          <label for="inpRegNewOrgSite" class="text-h4 text-gray-c-500">{{
+          <label class="text-h4 text-gray-c-500" for="inpRegNewOrgSite">{{
             $t('dashboard.website')
           }}</label>
           <input1
-            inp-id="inpRegNewOrgSite"
             v-model.trim="organization.createOrgSite"
             class="mt-1 w-full"
+            inp-id="inpRegNewOrgSite"
             placeholder="organization.com"
           />
         </div>
@@ -54,17 +54,16 @@
 </template>
 
 <script>
-import ModalTemplate from '../Modals/ModalTemplate.vue'
 import Input1 from '../Inputs/Input-1.vue'
+import ModalTemplate from '../Modals/ModalTemplate.vue'
 import StringFormatter from '../mixins/StringFormatter'
 export default {
-  inheritAttrs: false,
-  emits: ['addOrganization'],
-  mixins: [StringFormatter],
   components: {
     ModalTemplate,
     Input1,
   },
+  mixins: [StringFormatter],
+  inheritAttrs: false,
   props: {
     isVisible: {
       type: Boolean,
@@ -77,6 +76,7 @@ export default {
       type: Boolean,
     },
   },
+  emits: ['addOrganization'],
   data() {
     return {
       organization: {

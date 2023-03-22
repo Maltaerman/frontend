@@ -11,31 +11,31 @@
         </div>
         <div>
           <div class="mb-6">
-            <label for="user-pass" class="mb-1 block text-h4 text-gray-c-500">
+            <label class="mb-1 block text-h4 text-gray-c-500" for="user-pass">
               Новий пароль
             </label>
             <input-pass
-              tabindex="3"
-              :validation-message="$t('validations.passNotValid')"
               v-model="pass"
-              @validation="onPassValid"
               class="outline-none"
               inp-id="user-pass"
+              tabindex="3"
+              :validation-message="$t('validations.passNotValid')"
+              @validation="onPassValid"
             />
           </div>
           <div class="mb-6">
             <label
-              for="user-pass-conf"
               class="mb-1 block text-h4 text-gray-c-500"
+              for="user-pass-conf"
             >
               Повторіть новий пароль
             </label>
             <input-pass
-              tabindex="4"
               v-model="passConfirm"
               class="outline-none"
               inp-id="user-pass-conf"
               :placeholder="$t('userRegistration.passRepeatPlaceholder')"
+              tabindex="4"
               :validation-func="isPassEquals"
               :validation-message="$t('validations.passNotEquals')"
             />
@@ -43,9 +43,9 @@
         </div>
 
         <button-1
+          class="w-full"
           :disabled="isButtonDisabled"
           tabindex="7"
-          class="w-full"
           @click="ResetPass"
         >
           {{ $t('general.confirm') }}
@@ -57,10 +57,10 @@
 </template>
 
 <script>
-import regex from '../mixins/regex.js'
+import api from '../../http_client/index.js'
 import Header from '../Header.vue'
 import InputPass from '../Inputs/Input-pass.vue'
-import api from '../../http_client/index.js'
+import regex from '../mixins/regex.js'
 
 export default {
   name: 'PasswordReset',
@@ -82,6 +82,9 @@ export default {
     isButtonDisabled() {
       return !this.isPassValid || !this.isPassEquals()
     },
+  },
+  mounted() {
+    this.GetIsResetAvailable()
   },
   methods: {
     onPassValid(value) {
@@ -123,9 +126,6 @@ export default {
           this.$toast.error('Error', this.$toast.options(false, false))
         })
     },
-  },
-  mounted() {
-    this.GetIsResetAvailable()
   },
 }
 </script>

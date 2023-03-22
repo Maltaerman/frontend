@@ -7,15 +7,15 @@
           {{ $t('organizationProfile.organizationSettings') }}
         </div>
         <OrgEditInputsGroup
-          class="w-full comp:max-w-[480px]"
           v-model="organization"
+          class="w-full comp:max-w-[480px]"
         />
       </div>
       <div>
         <Button1
           class="flex h-min w-full flex-nowrap items-center justify-center gap-2 comp:w-min"
-          @click="editUserOrganization"
           :disabled="!isOrgSaveButtonAvailable"
+          @click="editUserOrganization"
         >
           <SVG_save class="inline-block h-[18px] w-auto fill-white" />
           <p>
@@ -38,15 +38,15 @@
             v-model="userPassUpdate"
             @validation="setIsPassValid"
           />
-          <Button2 @click="UserEditUISwitch" class="mt-6 w-full comp:w-[200px]">
+          <Button2 class="mt-6 w-full comp:w-[200px]" @click="UserEditUISwitch">
             {{ userSettingsButtonText }}
           </Button2>
         </div>
         <div>
           <Button1
-            @click="saveUserDataButtonAction"
-            :disabled="!isUserSaveButtonAvailable"
             class="flex h-min w-full flex-nowrap items-center justify-center gap-2 comp:w-min"
+            :disabled="!isUserSaveButtonAvailable"
+            @click="saveUserDataButtonAction"
           >
             <SVG_save class="inline-block h-[18px] w-auto fill-white" />
             <p>
@@ -60,15 +60,16 @@
 </template>
 
 <script>
-import OrgEditInputsGroup from '../Shared/OrgEditInputsGroup.vue'
 import { mapActions, mapGetters } from 'vuex'
+
+import StoreEvents from '../../../store/storeEventSystem.js'
 import Button1 from '../../Buttons/Button_1.vue'
+import Button2 from '../../Buttons/Button_2.vue'
 import SVG_save from '../../ComponentsSVG/Icons/SVG_save.vue'
 import ChangeMailNameInputs from '../../User/ChangeMailNameInputs.vue'
 import ChangePassInputs from '../../User/ChangePassInputs.vue'
-import Button2 from '../../Buttons/Button_2.vue'
-import StoreEvents from '../../../store/storeEventSystem.js'
-import { popScopeId } from 'vue'
+import OrgEditInputsGroup from '../Shared/OrgEditInputsGroup.vue'
+
 export default {
   name: 'OrganizationSettings',
   components: {
@@ -95,6 +96,88 @@ export default {
         name: 'name',
       },
     }
+  },
+  computed: {
+    ...mapGetters({
+      userOrganization: 'getUserOrganization',
+      userData: 'getUser',
+    }),
+    userSettingsButtonText() {
+      let text = 'Error'
+      switch (this.userEditUI.currentState) {
+        case this.userEditUI.name:
+          text = this.$t('userSettings.change-password')
+          break
+        case this.userEditUI.pass:
+          text = this.$t('general.back')
+          break
+        default:
+          break
+      }
+      return text
+    },
+    isUserSaveButtonAvailable() {
+      let res = false
+      switch (this.userEditUI.currentState) {
+        case this.userEditUI.name:
+          res = this.isNameMailValid
+          break
+        case this.userEditUI.pass:
+          res = this.userPassUpdate.isAllValid
+          break
+        default:
+          break
+      }
+      return res
+    },
+    isOrgSaveButtonAvailable() {
+      if (!this.userOrganization) return false
+      let isChanged = [
+        this.organization.name !== this.userOrganization.name,
+        this.organization.website !== this.userOrganization.website,
+        this.organization.description !== this.userOrganization.description,
+        this.organization.address !== this.userOrganization.address,
+        this.organization.logo !== this.userOrganization.logo,
+      ]
+      return isChanged.some((x) => x == true)
+    },
+  },
+  watch: {
+    userOrganization(newVal) {
+      if (newVal) this.organization = { ...newVal }
+      else this.organization = {}
+    },
+  },
+
+  beforeMount() {
+    this.organization = { ...this.userOrganization }
+    this.user = { ...this.userData }
+    StoreEvents.subscribe(
+      StoreEvents.events.onUserOrganizationUpdate,
+      this.onOgrEdit,
+    )
+    StoreEvents.subscribe(
+      StoreEvents.events.onUserDataUpdate,
+      this.onUserDataUpdate,
+    )
+    StoreEvents.subscribe(
+      StoreEvents.events.onUserPasswordUpdate,
+      this.onUserPassUpdate,
+    )
+  },
+  beforeUnmount() {
+    StoreEvents.unsubscribe(
+      StoreEvents.events.onUserOrganizationUpdate,
+      this.onOgrEdit,
+    )
+    StoreEvents.unsubscribe(
+      StoreEvents.events.onUserDataUpdate,
+      this.onUserDataUpdate,
+    )
+    StoreEvents.unsubscribe(
+      StoreEvents.events.onUserPasswordUpdate,
+      this.onUserPassUpdate,
+    )
   },
   methods: {
     ...mapActions({
@@ -199,87 +282,6 @@ export default {
           break
       }
     },
-  },
-  computed: {
-    ...mapGetters({
-      userOrganization: 'getUserOrganization',
-      userData: 'getUser',
-    }),
-    userSettingsButtonText() {
-      let text = 'Error'
-      switch (this.userEditUI.currentState) {
-        case this.userEditUI.name:
-          text = this.$t('userSettings.change-password')
-          break
-        case this.userEditUI.pass:
-          text = this.$t('general.back')
-          break
-        default:
-          break
-      }
-      return text
-    },
-    isUserSaveButtonAvailable() {
-      let res = false
-      switch (this.userEditUI.currentState) {
-        case this.userEditUI.name:
-          res = this.isNameMailValid
-          break
-        case this.userEditUI.pass:
-          res = this.userPassUpdate.isAllValid
-          break
-        default:
-          break
-      }
-      return res
-    },
-    isOrgSaveButtonAvailable() {
-      if (!this.userOrganization) return false
-      let isChanged = [
-        this.organization.name !== this.userOrganization.name,
-        this.organization.website !== this.userOrganization.website,
-        this.organization.description !== this.userOrganization.description,
-        this.organization.address !== this.userOrganization.address,
-        this.organization.logo !== this.userOrganization.logo,
-      ]
-      return isChanged.some((x) => x == true)
-    },
-  },
-  watch: {
-    userOrganization(newVal) {
-      if (newVal) this.organization = { ...newVal }
-      else this.organization = {}
-    },
-  },
-  beforeMount() {
-    this.organization = { ...this.userOrganization }
-    this.user = { ...this.userData }
-    StoreEvents.subscribe(
-      StoreEvents.events.onUserOrganizationUpdate,
-      this.onOgrEdit,
-    )
-    StoreEvents.subscribe(
-      StoreEvents.events.onUserDataUpdate,
-      this.onUserDataUpdate,
-    )
-    StoreEvents.subscribe(
-      StoreEvents.events.onUserPasswordUpdate,
-      this.onUserPassUpdate,
-    )
-  },
-  beforeUnmount() {
-    StoreEvents.unsubscribe(
-      StoreEvents.events.onUserOrganizationUpdate,
-      this.onOgrEdit,
-    )
-    StoreEvents.unsubscribe(
-      StoreEvents.events.onUserDataUpdate,
-      this.onUserDataUpdate,
-    )
-    StoreEvents.unsubscribe(
-      StoreEvents.events.onUserPasswordUpdate,
-      this.onUserPassUpdate,
-    )
   },
 }
 </script>

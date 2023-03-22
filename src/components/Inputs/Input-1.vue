@@ -11,15 +11,15 @@
       {{ label }}
     </div>
     <input
-      :value="modelValue"
-      :type="type"
-      class="input-1 outline-none"
-      @input="updateInput"
-      :placeholder="placeholder"
-      :class="validationStyle"
-      :disabled="disabled"
       :id="inpId"
       ref="inp"
+      class="input-1 outline-none"
+      :class="validationStyle"
+      :disabled="disabled"
+      :placeholder="placeholder"
+      :type="type"
+      :value="modelValue"
+      @input="updateInput"
     />
     <div
       v-if="!isValidStyle && validationMessage"
@@ -34,9 +34,8 @@
 import regex from '../mixins/regex.js'
 
 export default {
-  name: 'Input-1',
+  name: 'Input1',
   mixins: [regex],
-  emits: ['validation', 'update:modelValue'],
   props: {
     modelValue: String,
     validationType: {
@@ -51,7 +50,7 @@ export default {
     },
     validationFunc: {
       type: Function,
-      default: (val) => true,
+      default: () => true,
     },
     placeholder: String,
     disabled: Boolean,
@@ -62,10 +61,24 @@ export default {
     inpId: String,
     label: String,
   },
+  emits: ['validation', 'update:modelValue'],
   data() {
     return {
       isValidStyle: true,
     }
+  },
+  computed: {
+    validationStyle() {
+      return {
+        'border-gray-c-300': this.isValidStyle,
+        'border-red-c-500': !this.isValidStyle,
+      }
+    },
+  },
+  watch: {
+    /*modelValue(){
+			this.validate();
+		}*/
   },
   methods: {
     updateInput(event) {
@@ -97,19 +110,6 @@ export default {
       if (isValueValid || this.value === '') this.isValidStyle = true
       this.$emit('validation', isValueValid)
       return isValueValid
-    },
-  },
-  watch: {
-    /*modelValue(){
-			this.validate();
-		}*/
-  },
-  computed: {
-    validationStyle() {
-      return {
-        'border-gray-c-300': this.isValidStyle,
-        'border-red-c-500': !this.isValidStyle,
-      }
     },
   },
 }

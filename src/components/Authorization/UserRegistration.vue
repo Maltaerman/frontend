@@ -11,64 +11,64 @@
         </div>
         <div>
           <div class="mb-6">
-            <label for="user-name" class="mb-1 block text-h4 text-gray-c-500">
+            <label class="mb-1 block text-h4 text-gray-c-500" for="user-name">
               {{ $t('userRegistration.name') }}
             </label>
             <input-1
-              tabindex="1"
-              inp-id="user-name"
               v-model="userName"
-              validation-type="name"
               class="mt-1 w-full outline-none"
+              inp-id="user-name"
               :placeholder="$t('userRegistration.fullName')"
-              @validation="onNameValidate"
+              tabindex="1"
               :validation-message="
                 $t('validations.minNameLength', { amount: 2 })
               "
+              validation-type="name"
+              @validation="onNameValidate"
             />
           </div>
           <div class="mb-6">
-            <label for="user-mail" class="mb-1 block text-h4 text-gray-c-500">
+            <label class="mb-1 block text-h4 text-gray-c-500" for="user-mail">
               {{ $t('userRegistration.email') }}
             </label>
             <input-1
-              :disabled="true"
-              tabindex="2"
-              inp-id="user-mail"
               v-model="userMail"
-              validation-type="mail"
               class="mt-1 w-full outline-none"
+              :disabled="true"
+              inp-id="user-mail"
               :placeholder="$t('userRegistration.email')"
-              @validation="onMailValidate"
+              tabindex="2"
               :validation-message="$t('validations.mailNotValid')"
+              validation-type="mail"
+              @validation="onMailValidate"
             />
           </div>
           <div class="mb-6">
-            <label for="user-pass" class="mb-1 block text-h4 text-gray-c-500">
+            <label class="mb-1 block text-h4 text-gray-c-500" for="user-pass">
               {{ $t('userRegistration.password') }}
             </label>
             <input-pass
-              tabindex="3"
-              :validation-message="$t('validations.passNotValid')"
               v-model="pass"
-              @validation="onPassValid"
               class="outline-none"
               inp-id="user-pass"
+              tabindex="3"
+              :validation-message="$t('validations.passNotValid')"
+              @validation="onPassValid"
             />
           </div>
           <div class="mb-6">
             <label
-              for="user-pass-conf"
               class="mb-1 block text-h4 text-gray-c-500"
+              for="user-pass-conf"
             >
               {{ $t('userRegistration.newPassConf') }}
             </label>
             <input-pass
-              tabindex="4"
               v-model="passConfirm"
               class="outline-none"
               inp-id="user-pass-conf"
               :placeholder="$t('userRegistration.passRepeatPlaceholder')"
+              tabindex="4"
               :validation-func="isPassEquals"
               :validation-message="$t('validations.passNotEquals')"
             />
@@ -83,21 +83,21 @@
           />
           <div>
             {{ $t('userRegistration.terms.part1') }}
-            <a tabindex="5" href="" class="link-1" target="_blank">
+            <a class="link-1" href="" tabindex="5" target="_blank">
               {{ $t('userRegistration.terms.part2') }}
             </a>
             {{ $t('userRegistration.terms.part3') }}
-            <a tabindex="6" href="" class="link-1" target="_blank">
+            <a class="link-1" href="" tabindex="6" target="_blank">
               {{ $t('userRegistration.terms.part4') }}
             </a>
           </div>
         </div>
 
         <button-1
-          tabindex="7"
-          @click="CreateUser"
           class="w-full"
           :disabled="!isRegEnabled"
+          tabindex="7"
+          @click="CreateUser"
         >
           {{ $t('userRegistration.createProfile') }}
         </button-1>
@@ -107,15 +107,17 @@
   <Loader v-if="isLoaderVisible" class="z-[9999]" />
 </template>
 <script>
+import { mapActions } from 'vuex'
+
+import api from '../../http_client/index.js'
+import Button1 from '../Buttons/Button_1.vue'
 import Header from '../Header.vue'
 import input1 from '../Inputs/Input-1.vue'
 import InputPass from '../Inputs/Input-pass.vue'
-import Button1 from '../Buttons/Button_1.vue'
-import regex from '../mixins/regex.js'
 import Loader from '../Loader.vue'
-import api from '../../http_client/index.js'
+import regex from '../mixins/regex.js'
 import userRoles from '../mixins/userRoles.js'
-import { mapActions } from 'vuex'
+
 export default {
   name: 'UserRegistration',
   components: {
@@ -142,6 +144,21 @@ export default {
       isLoaderVisible: false,
       access_token: undefined,
     }
+  },
+  computed: {
+    isRegEnabled() {
+      return (
+        this.isMailValid &&
+        this.isNameValid &&
+        this.isPassValid &&
+        this.isPassEquals() &&
+        this.isTermsAccept
+      )
+    },
+  },
+  mounted() {
+    this.GetUserRegInfo()
+    this.logOut()
   },
   methods: {
     ...mapActions({
@@ -228,21 +245,6 @@ export default {
           )
         })
     },
-  },
-  computed: {
-    isRegEnabled() {
-      return (
-        this.isMailValid &&
-        this.isNameValid &&
-        this.isPassValid &&
-        this.isPassEquals() &&
-        this.isTermsAccept
-      )
-    },
-  },
-  mounted() {
-    this.GetUserRegInfo()
-    this.logOut()
   },
 }
 </script>

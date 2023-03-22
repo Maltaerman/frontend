@@ -1,10 +1,10 @@
 <template>
   <div v-if="isVisible">
     <ModalTemplate
-      :is-modal-visible="isModalVisible"
-      :is-hide-on-click="true"
-      :close-func="closeThisComponent"
       class-list="grid place-items-center px-4"
+      :close-func="closeThisComponent"
+      :is-hide-on-click="true"
+      :is-modal-visible="isModalVisible"
     >
       <div
         class="relative relative mx-auto max-h-screen w-[480px] overflow-y-auto rounded-lg bg-white p-6 mobile:w-full"
@@ -32,8 +32,8 @@
         <input-1 v-model="inputValue" class="w-full" />
 
         <button-1
-          :disabled="!isRemoveAvailable"
           class="mt-6 w-full"
+          :disabled="!isRemoveAvailable"
           @click.stop="removeOrg"
         >
           Видалити
@@ -45,16 +45,23 @@
 </template>
 
 <script>
-import ModalTemplate from '../Modals/ModalTemplate.vue'
+import api from '../../http_client/index.js'
 import input1 from '../Inputs/Input-1.vue'
 import Loader from '../Loader.vue'
-import api from '../../http_client/index.js'
+import ModalTemplate from '../Modals/ModalTemplate.vue'
 export default {
   name: 'RemoveOrgModal',
   components: {
     ModalTemplate,
     input1,
     Loader,
+  },
+  props: {
+    organization: Object,
+    isVisible: Boolean,
+    onRemoveSuccess: Function,
+    onRemoveFailed: Function,
+    closeFunc: Function,
   },
   emits: ['on-remove-success', 'on-remove-failed'],
   data() {
@@ -64,12 +71,10 @@ export default {
       isLoaderVisible: false,
     }
   },
-  props: {
-    organization: Object,
-    isVisible: false,
-    onRemoveSuccess: Function,
-    onRemoveFailed: Function,
-    closeFunc: Function,
+  computed: {
+    isRemoveAvailable() {
+      return this.organization.name.trim() === this.inputValue
+    },
   },
   methods: {
     closeThisComponent() {
@@ -89,7 +94,7 @@ export default {
       this.isLoaderVisible = true
       await api.organizations
         .removeOrganization(this.organization.id)
-        .then((res) => {
+        .then(() => {
           this.isModalVisible = false
           this.isLoaderVisible = false
           this.$toast.success(
@@ -102,7 +107,7 @@ export default {
             },
           )
         })
-        .catch((err) => {
+        .catch(() => {
           this.isModalVisible = false
           this.isLoaderVisible = false
           this.$toast.error(
@@ -116,11 +121,6 @@ export default {
           )
         })
         .finally(() => {})
-    },
-  },
-  computed: {
-    isRemoveAvailable() {
-      return this.organization.name.trim() === this.inputValue
     },
   },
 }

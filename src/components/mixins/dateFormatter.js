@@ -124,7 +124,6 @@ export default {
       } catch (err) {
         console.error('isSameDay func error')
         throw err
-        return false
       }
     },
   },

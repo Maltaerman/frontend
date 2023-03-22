@@ -1,18 +1,19 @@
-import WelcomeScreen from '../components/WelcomeScreen/WelcomeScreen.vue'
-import MainScreen from '../components/MainScreen.vue'
-import Test from '../components/Test.vue'
-import SideBar from '../components/SidebarComponents/UserSidebar/SideBar.vue'
-import SideBarAidWorker from '../components/SidebarComponents/AidWorkerSidebar/SideBarAidWorker.vue'
-import ReportTools from '../components/SidebarComponents/AidWorkerSidebar/ReportTools.vue'
-import RequestCompletedPreview from '../components/SidebarComponents/AidWorkerSidebar/RequestCompletedPreview.vue'
-import { store } from '../store/mainStore.js'
 import { createRouter, createWebHistory } from 'vue-router'
+
+import PasswordReset from '../components/Authorization/PasswordReset.vue'
+import UserRegistration from '../components/Authorization/UserRegistration.vue'
+import MainScreen from '../components/MainScreen.vue'
 import MainPlatformAdministration from '../components/PlatformAdministration/MainPlatformAdministration.vue'
 import OrganizationsList from '../components/PlatformAdministration/OrganizationsList.vue'
 import OrganizationProfile from '../components/PlatformAdministration/shared/OrganizationProfile.vue'
-import UserRegistration from '../components/Authorization/UserRegistration.vue'
+import ReportTools from '../components/SidebarComponents/AidWorkerSidebar/ReportTools.vue'
+import RequestCompletedPreview from '../components/SidebarComponents/AidWorkerSidebar/RequestCompletedPreview.vue'
+import SideBarAidWorker from '../components/SidebarComponents/AidWorkerSidebar/SideBarAidWorker.vue'
+import SideBar from '../components/SidebarComponents/UserSidebar/SideBar.vue'
+import Test from '../components/Test.vue'
+import WelcomeScreen from '../components/WelcomeScreen/WelcomeScreen.vue'
 import userRoles from '../components/mixins/userRoles.js'
-import PasswordReset from '../components/Authorization/PasswordReset.vue'
+import { store } from '../store/mainStore.js'
 
 const mainRouter = [
   {
@@ -90,7 +91,7 @@ const mainRouter = [
   { path: '/test', component: Test },
   {
     path: '/:pathMatch(.*)*',
-    redirect: (to) => {
+    redirect: () => {
       return {
         path: '/main',
       }
@@ -100,12 +101,12 @@ const mainRouter = [
 export const Router = createRouter({
   routes: mainRouter,
   history: createWebHistory(),
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior() {
     return { top: 0 }
   },
 })
 
-Router.beforeEach((to, form) => {
+Router.beforeEach((to) => {
   if (to.meta.requiresAuth && !store.getters.isAuth) {
     return {
       path: '/main',
