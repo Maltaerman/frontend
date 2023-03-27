@@ -80,9 +80,9 @@ import { mapActions, mapGetters } from 'vuex'
 import {
   default as StoreEvents,
   default as StoreEventSystem,
-} from '../../store/storeEventSystem.js'
-import Button1 from '../Buttons/Button_1.vue'
-import Header from '../Header.vue'
+} from '@/store/storeEventSystem.js'
+import Button1 from '@/components/Buttons/Button_1.vue'
+import Header from '@/components/Header.vue'
 
 import OrgEditInputsGroup from './Shared/OrgEditInputsGroup.vue'
 

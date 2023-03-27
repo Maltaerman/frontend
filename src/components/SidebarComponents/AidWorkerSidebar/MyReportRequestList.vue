@@ -21,9 +21,9 @@
 </template>
 
 <script>
-import Loader from '../../Loader.vue'
+import Loader from '@/components/Loader.vue'
 
-import ReportRequestListItem from './ReportRequestListItem.vue'
+import ReportRequestListItem from '@/components/SidebarComponents/AidWorkerSidebar/ReportRequestListItem.vue'
 
 export default {
   name: 'MyReportRequestList',

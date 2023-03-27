@@ -2,6 +2,14 @@ module.exports = {
   env: {
     node: true,
   },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [['@', './src']],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.vue'],
+      },
+    },
+  },
   extends: [
     'eslint:recommended',
     'plugin:vue/vue3-recommended',

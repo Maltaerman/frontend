@@ -309,20 +309,19 @@
 </template>
 
 <script>
-import api from '../../../http_client/index.js'
-import ButtonTag from '../../Buttons/ButtonTag.vue'
-import Button2 from '../../Buttons/Button_2.vue'
-import ButtonText1 from '../../Buttons/Button_text_1.vue'
-import { default as input1 } from '../../Inputs/Input-1.vue'
-import Loader from '../../Loader.vue'
-import ConfirmModal from '../../Modals/ConfirmModal.vue'
-import ModalTemplate from '../../Modals/ModalTemplate.vue'
-import dateFormatter from '../../mixins/dateFormatter.js'
-import userRoles from '../../mixins/userRoles'
-import RemoveOrgModal from '../RemoveOrgModal.vue'
-import { PARTICIPANT_STATUSES } from '../constants'
-
-import OrganizationDropdown from './OrganizationDropdown.vue'
+import api from '@/http_client/index.js'
+import ButtonTag from '@/components/Buttons/ButtonTag.vue'
+import Button2 from '@/components/Buttons/Button_2.vue'
+import ButtonText1 from '@/components/Buttons/Button_text_1.vue'
+import { default as input1 } from '@/components/Inputs/Input-1.vue'
+import Loader from '@/components/Loader.vue'
+import ConfirmModal from '@/components/Modals/ConfirmModal.vue'
+import ModalTemplate from '@/components/Modals/ModalTemplate.vue'
+import dateFormatter from '@/components/mixins/dateFormatter.js'
+import userRoles from '@/components/mixins/userRoles'
+import RemoveOrgModal from '@/components/PlatformAdministration/RemoveOrgModal.vue'
+import { PARTICIPANT_STATUSES } from '@/components/PlatformAdministration/constants.js'
+import OrganizationDropdown from '@/components/PlatformAdministration/shared/OrganizationDropdown.vue'
 
 export default {
   name: 'OrganizationProfile',

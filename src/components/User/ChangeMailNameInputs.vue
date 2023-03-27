@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import Input1 from '../Inputs/Input-1.vue'
-import regex from '../mixins/regex.js'
+import Input1 from '@/components/Inputs/Input-1.vue'
+import regex from '@/components/mixins/regex.js'
 export default {
   name: 'ChangeMailNameInputs',
   components: {

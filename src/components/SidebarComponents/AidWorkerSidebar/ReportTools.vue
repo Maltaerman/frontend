@@ -98,13 +98,13 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import Button1 from '../../Buttons/Button_1.vue'
-import Button3 from '../../Buttons/Button_3.vue'
-import ReportRadio from '../../Buttons/ReportRadio.vue'
-import Input1 from '../../Inputs/Input-1.vue'
-import ConfirmModal from '../../Modals/ConfirmModal.vue'
-import helper from '../../mixins/helper.js'
-import reportItemFlags from '../../mixins/reportItemFlags.js'
+import Button1 from '@/components/Buttons/Button_1.vue'
+import Button3 from '@/components/Buttons/Button_3.vue'
+import ReportRadio from '@/components/Buttons/ReportRadio.vue'
+import Input1 from '@/components/Inputs/Input-1.vue'
+import ConfirmModal from '@/components/Modals/ConfirmModal.vue'
+import helper from '@/components/mixins/helper.js'
+import reportItemFlags from '@/components/mixins/reportItemFlags.js'
 
 export default {
   name: 'ReportTools',

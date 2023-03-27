@@ -70,9 +70,9 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 
-import api from '../../../http_client/index.js'
-import Loader from '../../Loader.vue'
-import dateFormatter from '../../mixins/dateFormatter.js'
+import api from '@/http_client/index.js'
+import Loader from '@/components/Loader.vue'
+import dateFormatter from '@/components/mixins/dateFormatter.js'
 
 export default {
   name: 'ReportRequestListItem',

@@ -135,15 +135,15 @@
 <script>
 import axios from 'axios'
 
-import api from '../../http_client/index.js'
-import Button1 from '../Buttons/Button_1.vue'
-import Loader from '../Loader.vue'
-import UserInviteModal from '../Modals/UserInviteModal.vue'
-import StringFormatter from '../mixins/StringFormatter.js'
+import api from '@/http_client/index.js'
+import Button1 from '@/components/Buttons/Button_1.vue'
+import Loader from '@/components/Loader.vue'
+import UserInviteModal from '@/components/Modals/UserInviteModal.vue'
+import StringFormatter from '@/components/mixins/StringFormatter.js'
 
-import OrgInviteModal from './OrgInviteModal.vue'
-import OrganizationListTable from './OrganizationListTable/OrganizationListTable.vue'
-import RemoveOrgModal from './RemoveOrgModal.vue'
+import OrgInviteModal from '@/components/PlatformAdministration/OrgInviteModal.vue'
+import OrganizationListTable from '@/components/PlatformAdministration/OrganizationListTable/OrganizationListTable.vue'
+import RemoveOrgModal from '@/components/PlatformAdministration/RemoveOrgModal.vue'
 
 export default {
   name: 'OrganizationsList',

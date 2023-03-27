@@ -38,14 +38,13 @@
 </template>
 
 <script>
-import reportItemFlags from '../mixins/reportItemFlags.js'
-
-import SVG_building_condition from './SVG_building_condition.vue'
-import SVG_car_entrance from './SVG_car_entrance.vue'
-import SVG_electricity from './SVG_electricity.vue'
-import SVG_fuel_station from './SVG_fuel_station.vue'
-import SVG_hospital from './SVG_hospital.vue'
-import SVG_water from './SVG_water.vue'
+import SVG_building_condition from '@/components/ComponentsSVG/SVG_building_condition.vue'
+import SVG_car_entrance from '@/components/ComponentsSVG/SVG_car_entrance.vue'
+import SVG_electricity from '@/components/ComponentsSVG/SVG_electricity.vue'
+import SVG_fuel_station from '@/components/ComponentsSVG/SVG_fuel_station.vue'
+import SVG_hospital from '@/components/ComponentsSVG/SVG_hospital.vue'
+import SVG_water from '@/components/ComponentsSVG/SVG_water.vue'
+import reportItemFlags from '@/components/mixins/reportItemFlags.js'
 
 export default {
   name: 'SVGStatusList',

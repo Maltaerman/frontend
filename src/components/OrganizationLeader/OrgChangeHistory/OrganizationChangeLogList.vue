@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import OrganizationChangeLogItem from './OrganizationChangeLogItem.vue'
+import OrganizationChangeLogItem from '@/components/OrganizationLeader/OrgChangeHistory/OrganizationChangeLogItem.vue'
 export default {
   name: 'OrganizationChangeLogList',
   components: { OrganizationChangeLogItem },

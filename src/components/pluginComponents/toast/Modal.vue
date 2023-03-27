@@ -39,9 +39,9 @@
 </template>
 
 <script>
-import eventSystem from './event-system.js'
-import messageTypes from './messageTypes.js'
-import removeElement from './remove-helper.js'
+import eventSystem from '@/components/pluginComponents/toast/event-system.js'
+import messageTypes from '@/components/pluginComponents/toast/messageTypes.js'
+import removeElement from '@/components/pluginComponents/toast/remove-helper.js'
 
 export default {
   name: 'Toaster',

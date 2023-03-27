@@ -141,9 +141,9 @@
 import axios from 'axios'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-import coordsHelper from '../mixins/coordsHelper.js'
-import routerHelper from '../mixins/routerHelper.js'
-import userRoles from '../mixins/userRoles.js'
+import coordsHelper from '@/components/mixins/coordsHelper.js'
+import routerHelper from '@/components/mixins/routerHelper.js'
+import userRoles from '@/components/mixins/userRoles.js'
 
 export default {
   name: 'GoogleMap',
