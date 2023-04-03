@@ -71,11 +71,11 @@
 <script>
 import { mapGetters, mapMutations, mapState } from 'vuex'
 
-import api from '@/http_client/index.js'
-import Button2 from '@/components/Buttons/Button_2.vue'
-import reportItemFlags from '@/components/mixins/reportItemFlags.js'
-import Footer from '@/components/SidebarComponents/UserSidebar/Footer.vue'
-import ReportStateItem from '@/components/SidebarComponents/UserSidebar/ReportStateItem.vue'
+import api from '../../../http_client/index.js'
+import Button2 from '../../Buttons/Button_2.vue'
+import reportItemFlags from '../../mixins/reportItemFlags.js'
+import Footer from '../UserSidebar/Footer.vue'
+import ReportStateItem from '../UserSidebar/ReportStateItem.vue'
 
 export default {
   name: 'RequestCompletedPreview',

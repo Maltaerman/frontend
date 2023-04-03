@@ -88,12 +88,12 @@
 </template>
 
 <script>
-import api from '@/http_client/index.js'
-import ButtonText1 from '@/components/Buttons/Button_text_1.vue'
-import Input1 from '@/components/Inputs/Input-1.vue'
-import ModalTemplate from '@/components/Modals/ModalTemplate.vue'
-import StringFormatter from '@/components/mixins/StringFormatter'
-import regex from '@/components/mixins/regex.js'
+import api from '../../http_client/index.js'
+import ButtonText1 from '../Buttons/Button_text_1.vue'
+import Input1 from '../Inputs/Input-1.vue'
+import ModalTemplate from '../Modals/ModalTemplate.vue'
+import StringFormatter from '../mixins/StringFormatter'
+import regex from '../mixins/regex.js'
 export default {
   components: {
     ButtonText1,

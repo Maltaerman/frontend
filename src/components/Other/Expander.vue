@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import helper from '@/components/mixins/helper.js'
+import helper from '../mixins/helper.js'
 
 export default {
   name: 'Expander',

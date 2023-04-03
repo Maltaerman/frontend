@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import InputPass from '@/components/Inputs/Input-pass.vue'
-import regex from '@/components/mixins/regex.js'
+import InputPass from '../Inputs/Input-pass.vue'
+import regex from '../mixins/regex.js'
 export default {
   name: 'ChangePassInputs',
   components: { InputPass },

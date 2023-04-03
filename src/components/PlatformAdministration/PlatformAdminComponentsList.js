@@ -1,8 +1,8 @@
-import MainPlatformAdministration from '@/components/PlatformAdministration/MainPlatformAdministration.vue'
-import OrganizationListItem from '@/components/PlatformAdministration/OrganizationListItem.vue'
-import OrganizationsList from '@/components/PlatformAdministration/OrganizationsList.vue'
-import RemoveOrgModal from '@/components/PlatformAdministration/RemoveOrgModal.vue'
-import OrganizationProfile from '@/components/PlatformAdministration/shared/OrganizationProfile.vue'
+import MainPlatformAdministration from './MainPlatformAdministration.vue'
+import OrganizationListItem from './OrganizationListItem.vue'
+import OrganizationsList from './OrganizationsList.vue'
+import RemoveOrgModal from './RemoveOrgModal.vue'
+import OrganizationProfile from './shared/OrganizationProfile.vue'
 
 export default [
   MainPlatformAdministration,

@@ -1,13 +1,13 @@
-import SVG_eye from '@/components/ComponentsSVG/Icons/SVG_eye.vue'
-import SVG_eye_crossed from '@/components/ComponentsSVG/Icons/SVG_eye_crossed.vue'
-import SVG_basket_red from '@/components/ComponentsSVG/SVG_basket_red.vue'
-import SVG_building_condition from '@/components/ComponentsSVG/SVG_building_condition.vue'
-import SVG_car_entrance from '@/components/ComponentsSVG/SVG_car_entrance.vue'
-import SVG_electricity from '@/components/ComponentsSVG/SVG_electricity.vue'
-import SVG_fuel_station from '@/components/ComponentsSVG/SVG_fuel_station.vue'
-import SVG_hospital from '@/components/ComponentsSVG/SVG_hospital.vue'
-import SVG_status_list from '@/components/ComponentsSVG/SVG_status_list.vue'
-import SVG_water from '@/components/ComponentsSVG/SVG_water.vue'
+import SVG_eye from './Icons/SVG_eye.vue'
+import SVG_eye_crossed from './Icons/SVG_eye_crossed.vue'
+import SVG_basket_red from './SVG_basket_red.vue'
+import SVG_building_condition from './SVG_building_condition.vue'
+import SVG_car_entrance from './SVG_car_entrance.vue'
+import SVG_electricity from './SVG_electricity.vue'
+import SVG_fuel_station from './SVG_fuel_station.vue'
+import SVG_hospital from './SVG_hospital.vue'
+import SVG_status_list from './SVG_status_list.vue'
+import SVG_water from './SVG_water.vue'
 
 export default [
   SVG_water,

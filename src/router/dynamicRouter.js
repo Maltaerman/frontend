@@ -16,9 +16,9 @@ const OrganizationRegistration = () => import('../components/OrganizationLeader/
 
 import { createRouter, createWebHistory } from 'vue-router'
 
-import orgLeaderRouter from '@/components/OrganizationLeader/OrgLeaderRouter.js'
-import userRoles from '@/components/mixins/userRoles.js'
-import { store } from '@/store/mainStore.js'
+import orgLeaderRouter from '../components/OrganizationLeader/OrgLeaderRouter.js'
+import userRoles from '../components/mixins/userRoles.js'
+import { store } from '../store/mainStore.js'
 
 const mainRouter = [
   {

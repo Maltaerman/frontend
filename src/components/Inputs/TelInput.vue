@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import regex from '@/components/mixins/regex.js'
+import regex from '../mixins/regex.js'
 export default {
   name: 'TelInput',
   mixins: [regex],

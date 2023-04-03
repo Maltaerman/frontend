@@ -57,11 +57,10 @@
 </template>
 
 <script>
+import api from '../../http_client/index.js'
+import Header from '../Header.vue'
+import InputPass from '../Inputs/Input-pass.vue'
 import regex from '../mixins/regex.js'
-
-import Header from '@/components/Header.vue'
-import InputPass from '@/components/Inputs/Input-pass.vue'
-import api from '@/http_client/index.js'
 
 export default {
   name: 'PasswordReset',

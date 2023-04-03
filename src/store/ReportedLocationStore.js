@@ -1,4 +1,4 @@
-import api from '@/http_client/index.js'
+import api from '../http_client/index.js'
 
 export default {
   state() {

@@ -21,9 +21,9 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import Loader from '@/components/Loader.vue'
+import Loader from '../../Loader.vue'
 
-import ReportRequestListItem from '@/components/SidebarComponents/AidWorkerSidebar/ReportRequestListItem.vue'
+import ReportRequestListItem from './ReportRequestListItem.vue'
 
 export default {
   name: 'ReportsRequestsList',

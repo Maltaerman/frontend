@@ -1,3 +1,3 @@
-import GoogleMap from '@/components/MapComponents/GoogleMap.vue'
+import GoogleMap from './GoogleMap.vue'
 
 export default [GoogleMap]

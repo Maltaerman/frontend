@@ -1,9 +1,9 @@
-import changelogs from '@/http_client/changelogs.js'
-import guest from '@/http_client/guest.js'
-import instance from '@/http_client/instance.js'
-import locations from '@/http_client/locations.js'
-import organizations from '@/http_client/organizations.js'
-import user from '@/http_client/user.js'
+import changelogs from './changelogs.js'
+import guest from './guest.js'
+import instance from './instance.js'
+import locations from './locations.js'
+import organizations from './organizations.js'
+import user from './user.js'
 
 /*export default {
     locations: locations(instance),
