@@ -343,18 +343,16 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import ButtonText1 from '@/components/Buttons/Button_text_1.vue'
-import SVG_Org_List from '@/components/ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue'
-import SVG_history from '@/components/ComponentsSVG/MenuItemsSvg/SVG_history.vue'
-import SVG_users from '@/components/ComponentsSVG/MenuItemsSvg/SVG_users.vue'
-import SVG_settings from '@/components/ComponentsSVG/SVG_settings.vue'
-import LocalizationDropDown from '@/components/Other/LocalizationDropDown.vue'
-import MenuItemLink from '@/components/SidebarComponents/MenuItemLink.vue'
-import UserSetting from '@/components/UserSetting.vue'
-import routerHelper from '@/components/mixins/routerHelper.js'
-import userRoles from '@/components/mixins/userRoles.js'
-
-import LoginModal from '@/components/Authorization/LoginModal.vue'
+import ButtonText1 from './Buttons/Button_text_1.vue'
+import SVG_Org_List from './ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue'
+import SVG_history from './ComponentsSVG/MenuItemsSvg/SVG_history.vue'
+import SVG_users from './ComponentsSVG/MenuItemsSvg/SVG_users.vue'
+import SVG_settings from './ComponentsSVG/SVG_settings.vue'
+import LocalizationDropDown from './Other/LocalizationDropDown.vue'
+import MenuItemLink from './SidebarComponents/MenuItemLink.vue'
+import UserSetting from './UserSetting.vue'
+import routerHelper from './mixins/routerHelper.js'
+import userRoles from './mixins/userRoles.js'
 
 export default {
   name: 'Header',
@@ -367,7 +365,6 @@ export default {
     LocalizationDropDown,
     ButtonText1,
     UserSetting,
-    LoginModal,
   },
   mixins: [userRoles, routerHelper],
   props: {

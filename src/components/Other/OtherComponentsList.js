@@ -1,5 +1,5 @@
-import Expander from '@/components/Other/Expander.vue'
-import LocalizationDropDown from '@/components/Other/LocalizationDropDown.vue'
-import TabItemButton from '@/components/Other/TabItemButton.vue'
+import Expander from './Expander.vue'
+import LocalizationDropDown from './LocalizationDropDown.vue'
+import TabItemButton from './TabItemButton.vue'
 
 export default [Expander, LocalizationDropDown, TabItemButton]

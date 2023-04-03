@@ -56,12 +56,12 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 
-import api from '@/http_client/index.js'
-import SVG_Org_List from '@/components/ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue'
-import SVG_history from '@/components/ComponentsSVG/MenuItemsSvg/SVG_history.vue'
-import SVG_settings from '@/components/ComponentsSVG/SVG_settings.vue'
-import Header from '@/components/Header.vue'
-import MenuItemLink from '@/components/SidebarComponents/MenuItemLink.vue'
+import api from '../../http_client/index.js'
+import SVG_Org_List from '../ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue'
+import SVG_history from '../ComponentsSVG/MenuItemsSvg/SVG_history.vue'
+import SVG_settings from '../ComponentsSVG/SVG_settings.vue'
+import Header from '../Header.vue'
+import MenuItemLink from '../SidebarComponents/MenuItemLink.vue'
 
 export default {
   name: 'MainOrgLeader',

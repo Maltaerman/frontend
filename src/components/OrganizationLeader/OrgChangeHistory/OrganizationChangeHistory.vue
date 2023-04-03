@@ -49,11 +49,11 @@
 import VueDatePicker from '@vuepic/vue-datepicker'
 import { mapActions, mapGetters } from 'vuex'
 
-import api from '@/http_client/index.js'
-import StoreEvents from '@/store/storeEventSystem.js'
-import Button1 from '@/components/Buttons/Button_1.vue'
-import DropDownSelect from '@/components/Inputs/DropDownSelect.vue'
-import InputSearch from '@/components/Inputs/InputSearch.vue'
+import api from '../../../http_client/index.js'
+import StoreEvents from '../../../store/storeEventSystem.js'
+import Button1 from '../../Buttons/Button_1.vue'
+import DropDownSelect from '../../Inputs/DropDownSelect.vue'
+import InputSearch from '../../Inputs/InputSearch.vue'
 
 import OrganizationChangeLogList from './OrganizationChangeLogList.vue'
 

@@ -70,9 +70,9 @@
 <script>
 import { mapActions } from 'vuex'
 
-import { ORGANIZATION_STATUSES } from '@/components/PlatformAdministration/constants.js'
+import { ORGANIZATION_STATUSES } from '../constants.js'
 
-import OrganizationListStatus from '@/components/PlatformAdministration/OrganizationListTable/OrganizationItemStatus.vue'
+import OrganizationListStatus from './OrganizationItemStatus.vue'
 
 export default {
   name: 'OrganizationListTableItem',

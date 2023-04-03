@@ -1,9 +1,9 @@
-import MyReportRequestList from '@/components/SidebarComponents/AidWorkerSidebar/MyReportRequestList.vue'
-import ReportRequestListItem from '@/components/SidebarComponents/AidWorkerSidebar/ReportRequestListItem.vue'
-import ReportTools from '@/components/SidebarComponents/AidWorkerSidebar/ReportTools.vue'
-import ReportsRequestsList from '@/components/SidebarComponents/AidWorkerSidebar/ReportsRequestsList.vue'
-import RequestCompletedPreview from '@/components/SidebarComponents/AidWorkerSidebar/RequestCompletedPreview.vue'
-import SideBarAidWorker from '@/components/SidebarComponents/AidWorkerSidebar/SideBarAidWorker.vue'
+import MyReportRequestList from './MyReportRequestList.vue'
+import ReportRequestListItem from './ReportRequestListItem.vue'
+import ReportTools from './ReportTools.vue'
+import ReportsRequestsList from './ReportsRequestsList.vue'
+import RequestCompletedPreview from './RequestCompletedPreview.vue'
+import SideBarAidWorker from './SideBarAidWorker.vue'
 
 export default [
   MyReportRequestList,

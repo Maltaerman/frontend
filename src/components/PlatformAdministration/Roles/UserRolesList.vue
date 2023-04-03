@@ -115,10 +115,10 @@
 </template>
 
 <script>
-import Button1 from '@/components/Buttons/Button_1.vue'
-import SVG_edit from '@/components/ComponentsSVG/Icons/SVG_edit.vue'
-import SVG_eye from '@/components/ComponentsSVG/Icons/SVG_eye.vue'
-import SVG_Platform_Admin from '@/components/ComponentsSVG/UserRolesSvg/SVG_Platform_Admin.vue'
+import Button1 from '../../Buttons/Button_1.vue'
+import SVG_edit from '../../ComponentsSVG/Icons/SVG_edit.vue'
+import SVG_eye from '../../ComponentsSVG/Icons/SVG_eye.vue'
+import SVG_Platform_Admin from '../../ComponentsSVG/UserRolesSvg/SVG_Platform_Admin.vue'
 export default {
   name: 'UserRoles',
   components: {
