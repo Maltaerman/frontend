@@ -13,7 +13,7 @@
     "px": "prettier --write ."
   },
   "dependencies": {
-    "@fawmi/vue-google-maps": "^0.9.72",
+    "@fawmi/vue-google-maps": "^0.9.79",
     "@intlify/unplugin-vue-i18n": "^0.9.3",
     "@vuepic/vue-datepicker": "^4.0.1",
     "axios": "^0.27.2",
