@@ -50,11 +50,10 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import api from '@/http_client/index.js'
 import TabItemButton from '@/components/Other/TabItemButton.vue'
-
 import MyReportRequestList from '@/components/SidebarComponents/AidWorkerSidebar//MyReportRequestList.vue'
 import ReportsRequestsList from '@/components/SidebarComponents/AidWorkerSidebar//ReportsRequestsList.vue'
+import api from '@/http_client/index.js'
 
 export default {
   name: 'SideBarAidWorker',

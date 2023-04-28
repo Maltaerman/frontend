@@ -121,11 +121,11 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex'
 
-import api from '@/http_client/index.js'
 import CodeInput from '@/components/Inputs/CodeInput.vue'
 import TelInput from '@/components/Inputs/TelInput.vue'
 import ProgressBar from '@/components/Other/ProgressBar.vue'
 import regex from '@/components/mixins/regex.js'
+import api from '@/http_client/index.js'
 export default {
   name: 'SendReportRequestModal',
   components: { ProgressBar, TelInput, CodeInput },

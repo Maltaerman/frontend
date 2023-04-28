@@ -200,7 +200,8 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import api from '@/http_client/index.js'
+import Loader from '../../Loader.vue'
+
 import ButtonTag from '@/components/Buttons/ButtonTag.vue'
 import ButtonText1 from '@/components/Buttons/Button_text_1.vue'
 import DropDownSelect from '@/components/Inputs/DropDownSelect.vue'
@@ -209,11 +210,11 @@ import {
   default as Input1,
 } from '@/components/Inputs/Input-1.vue'
 import InputSearch from '@/components/Inputs/InputSearch.vue'
-import Loader from '../../Loader.vue'
 import ConfirmModal from '@/components/Modals/ConfirmModal.vue'
 import ModalTemplate from '@/components/Modals/ModalTemplate.vue'
 import dateFormatter from '@/components/mixins/dateFormatter.js'
 import regex from '@/components/mixins/regex.js'
+import api from '@/http_client/index.js'
 
 export default {
   name: 'OrganizationProfile',

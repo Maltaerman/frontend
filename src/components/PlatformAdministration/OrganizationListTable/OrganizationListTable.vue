@@ -32,7 +32,6 @@
 
 <script>
 import avatar from '@/assets/Organizations/avatar.svg'
-
 import OrganizationListTableItem from '@/components/PlatformAdministration/OrganizationListTable/OrganizationListTableItem.vue'
 export default {
   name: 'OrganizationListTable',

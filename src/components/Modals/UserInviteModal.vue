@@ -52,12 +52,13 @@
 </template>
 
 <script>
-import api from '@/http_client/index.js'
+import ModalTemplate from './ModalTemplate.vue'
+
 import input1 from '@/components/Inputs/Input-1.vue'
 import InputSuggest from '@/components/Inputs/suggestionInput/Input-suggestion.vue'
 import regex from '@/components/mixins/regex.js'
+import api from '@/http_client/index.js'
 
-import ModalTemplate from './ModalTemplate.vue'
 export default {
   name: 'UserInviteModal',
   components: { InputSuggest, ModalTemplate, input1 },

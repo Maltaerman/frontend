@@ -119,8 +119,6 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 
-import api from '@/http_client/index.js'
-
 import ButtonOptions from '@/components/Buttons/Button-options.vue'
 import Button1 from '@/components/Buttons/Button_1.vue'
 import ButtonText1 from '@/components/Buttons/Button_text_1.vue'
@@ -128,6 +126,7 @@ import Input1 from '@/components/Inputs/Input-1.vue'
 import InputPass from '@/components/Inputs/Input-pass.vue'
 import Loader from '@/components/Loader.vue'
 import ModalTemplate from '@/components/Modals/ModalTemplate.vue'
+import api from '@/http_client/index.js'
 
 export default {
   name: 'UserSetting',

@@ -77,14 +77,14 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
+import OrgEditInputsGroup from './Shared/OrgEditInputsGroup.vue'
+
+import Button1 from '@/components/Buttons/Button_1.vue'
+import Header from '@/components/Header.vue'
 import {
   default as StoreEvents,
   default as StoreEventSystem,
 } from '@/store/storeEventSystem.js'
-import Button1 from '@/components/Buttons/Button_1.vue'
-import Header from '@/components/Header.vue'
-
-import OrgEditInputsGroup from './Shared/OrgEditInputsGroup.vue'
 
 export default {
   name: 'OrgRegistration',

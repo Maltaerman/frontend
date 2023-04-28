@@ -2,7 +2,6 @@ import { createStore } from 'vuex'
 import VuexPersistence /* eslint-disable-line import/no-named-as-default */ from 'vuex-persist'
 
 import api from '@/http_client/index.js'
-
 import OrganizationStore from '@/store/OrganizationStore.js'
 import ReportLocationState from '@/store/ReportedLocationStore.js'
 import UserStore from '@/store/UserStore.js'

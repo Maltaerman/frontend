@@ -343,6 +343,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
+import LoginModal from '@/components/Authorization/LoginModal.vue'
 import ButtonText1 from '@/components/Buttons/Button_text_1.vue'
 import SVG_Org_List from '@/components/ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue'
 import SVG_history from '@/components/ComponentsSVG/MenuItemsSvg/SVG_history.vue'
@@ -353,8 +354,6 @@ import MenuItemLink from '@/components/SidebarComponents/MenuItemLink.vue'
 import UserSetting from '@/components/UserSetting.vue'
 import routerHelper from '@/components/mixins/routerHelper.js'
 import userRoles from '@/components/mixins/userRoles.js'
-
-import LoginModal from '@/components/Authorization/LoginModal.vue'
 
 export default {
   name: 'Header',

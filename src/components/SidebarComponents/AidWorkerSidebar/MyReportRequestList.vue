@@ -22,7 +22,6 @@
 
 <script>
 import Loader from '@/components/Loader.vue'
-
 import ReportRequestListItem from '@/components/SidebarComponents/AidWorkerSidebar/ReportRequestListItem.vue'
 
 export default {

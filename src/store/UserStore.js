@@ -1,7 +1,5 @@
 import userRoles from '@/components/mixins/userRoles.js'
 import api from '@/http_client/index.js'
-
-// eslint-disable-next-line import/namespace
 import StoreEvents from '@/store/storeEventSystem.js'
 
 export default {

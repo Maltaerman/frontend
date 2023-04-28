@@ -62,13 +62,13 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import StoreEvents from '@/store/storeEventSystem.js'
 import Button1 from '@/components/Buttons/Button_1.vue'
 import Button2 from '@/components/Buttons/Button_2.vue'
 import SVG_save from '@/components/ComponentsSVG/Icons/SVG_save.vue'
+import OrgEditInputsGroup from '@/components/OrganizationLeader/Shared/OrgEditInputsGroup.vue'
 import ChangeMailNameInputs from '@/components/User/ChangeMailNameInputs.vue'
 import ChangePassInputs from '@/components/User/ChangePassInputs.vue'
-import OrgEditInputsGroup from '@/components/OrganizationLeader/Shared/OrgEditInputsGroup.vue'
+import StoreEvents from '@/store/storeEventSystem.js'
 
 export default {
   name: 'OrganizationSettings',
