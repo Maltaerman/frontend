@@ -95,7 +95,7 @@
 import { mapActions, mapMutations, mapState } from 'vuex'
 
 import api from '../../http_client/index.js'
-import Header from '../Header.vue'
+import Header from '../Header/HeaderV2.vue'
 import coordsHelper from '../mixins/coordsHelper.js'
 
 import WelcomeScreenReportList from './WelcomeScreenReportList.vue'

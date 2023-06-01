@@ -1,5 +1,5 @@
 <template>
-  <Header />
+  <Header/>
   <div
     class="flex h-[calc(100vh-62px)] comp:h-[calc(100vh-74px)] tablet:flex-col mobile:flex-col"
   >
@@ -15,7 +15,7 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import Header from './Header.vue'
+import Header from './Header/HeaderV2.vue'
 import GoogleMap from './MapComponents/GoogleMap.vue'
 
 export default {

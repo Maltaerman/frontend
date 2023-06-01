@@ -58,7 +58,7 @@
 
 <script>
 import api from '../../http_client/index.js'
-import Header from '../Header.vue'
+import Header from '../Header/HeaderV2.vue'
 import InputPass from '../Inputs/Input-pass.vue'
 import regex from '../mixins/regex.js'
 

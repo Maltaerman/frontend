@@ -82,7 +82,7 @@ import {
   default as StoreEventSystem,
 } from '../../store/storeEventSystem.js'
 import Button1 from '../Buttons/Button_1.vue'
-import Header from '../Header.vue'
+import Header from '../Header/HeaderV2.vue';
 
 import OrgEditInputsGroup from './Shared/OrgEditInputsGroup.vue'
 

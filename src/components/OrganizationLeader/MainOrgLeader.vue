@@ -1,5 +1,5 @@
 <template>
-  <Header />
+  <Header/>
   <div
     class="flex h-[calc(100vh-62px)] comp:h-[calc(100vh-74px)] tablet:overflow-y-auto mobile:overflow-y-auto"
   >
@@ -60,7 +60,7 @@ import api from '../../http_client/index.js'
 import SVG_Org_List from '../ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue'
 import SVG_history from '../ComponentsSVG/MenuItemsSvg/SVG_history.vue'
 import SVG_settings from '../ComponentsSVG/SVG_settings.vue'
-import Header from '../Header.vue'
+import Header from '../Header/HeaderV2.vue'
 import MenuItemLink from '../SidebarComponents/MenuItemLink.vue'
 
 export default {

@@ -14,7 +14,7 @@
 </template>
 <script>
 export default {
-  name: 'SVGBuildingCondition',
+  name: 'SVGeyeCrossed',
   props: {
     width: Number,
     height: Number,

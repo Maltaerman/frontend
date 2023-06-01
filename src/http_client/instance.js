@@ -5,6 +5,7 @@ import { store } from '../store/mainStore.js'
 const instance = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_REMOTE,
   //baseURL: "http://192.168.0.114:7000/api/v1",
+  //baseURL : 'https://api.dev.dim.dev/api/v1/',
   withCredentials: false,
   headers: {
     accept: 'application/json',

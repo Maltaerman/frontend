@@ -113,7 +113,10 @@
           icon="/map-pin.svg"
           :position="m.position"
           @click="getMarkerInfo(m)"
-        />
+        >
+          <MarkerInfoWindow v-if="selectedMarker?.id === m.location_id && !isClickMarker"
+                            :marker="selectedMarker"/>
+        </GMapMarker>
         <!--      Сині маркера -->
         <div v-if="getRole !== userRoles.user">
           <GMapMarker
@@ -145,8 +148,11 @@ import coordsHelper from '../mixins/coordsHelper.js'
 import routerHelper from '../mixins/routerHelper.js'
 import userRoles from '../mixins/userRoles.js'
 
+import MarkerInfoWindow from './MarkerInfoWindow.vue'
+
 export default {
   name: 'GoogleMap',
+  components: { MarkerInfoWindow },
   mixins: [userRoles, routerHelper, coordsHelper],
   data: function () {
     return {
@@ -259,6 +265,7 @@ export default {
     /////////
     getMarkerInfo(marker) {
       this.isClickMarker = false
+      this.ClickMarkerCoords = null
       this.getMarkerById({
         locationId: marker.location_id,
         callbackFailed: () =>
@@ -381,7 +388,7 @@ export default {
 }
 </script>
 
-<style scoped></style>
+
 
 The following map types are available in the Maps JavaScript API: "roadmap"
 displays the default road map view. This is the default map type. "satellite"

@@ -111,7 +111,7 @@ import { mapActions } from 'vuex'
 
 import api from '../../http_client/index.js'
 import Button1 from '../Buttons/Button_1.vue'
-import Header from '../Header.vue'
+import Header from '../Header/HeaderV2.vue'
 import input1 from '../Inputs/Input-1.vue'
 import InputPass from '../Inputs/Input-pass.vue'
 import Loader from '../Loader.vue'

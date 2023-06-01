@@ -63,7 +63,7 @@
 import SVG_Org_List from '../ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue'
 import SVG_settings from '../ComponentsSVG/SVG_settings.vue'
 import SVG_Default_User from '../ComponentsSVG/UserRolesSvg/SVG_Default_User.vue'
-import Header from '../Header.vue'
+import Header from '../Header/HeaderV2.vue'
 import MenuItemLink from '../SidebarComponents/MenuItemLink.vue'
 import RouterHelper from '../mixins/routerHelper.js'
 export default {
