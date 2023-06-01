@@ -1,5 +1,5 @@
 <template>
-  <Header/>
+  <Header />
   <div
     class="flex h-[calc(100vh-62px)] comp:h-[calc(100vh-74px)] tablet:flex-col mobile:flex-col"
   >

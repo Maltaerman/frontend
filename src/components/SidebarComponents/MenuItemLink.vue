@@ -8,10 +8,10 @@
         <slot name="image"></slot>
       </div>
       <div
-        class="h-min font-semibold text-gray-c-500 group-hover:text-blue-c-400 w-full"
+        class="h-min w-full font-semibold text-gray-c-500 group-hover:text-blue-c-400"
         :class="{ 'text-blue-c-500': isPathMatched(to) }"
       >
-        <slot name="text"/>
+        <slot name="text" />
       </div>
     </div>
   </router-link>

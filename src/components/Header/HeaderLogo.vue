@@ -1,42 +1,47 @@
 <template>
-	<div class="h-full w-fit">
-		<router-link v-if="!isAuth" class="h-full w-auto block" to="/">
-			<img class="h-full w-auto" src="/logo/Logo.svg">
-		</router-link>
-		<div v-else class="h-full">
-			<router-link class="hidden comp:flex comp:flex-nowrap comp:items-center comp:gap-[18px]" to="/">
-				<img src="/logo/Logo-mini.svg">
-				<div>
-					<div class="flex flex-nowrap gap-1.5">
-						<img :src="currentUserIconLink">
-						<p class="text-b3 font-semibold whitespace-normal">{{ getUser.username }}</p>
-					</div>
-					<div class="text-b3 text-gray-500 mt-0.5">
-						{{ getUser.organization_model?.name ?? "" }}
-					</div>
-				</div>
-			</router-link>
-			<button class="h-full comp:hidden w-10 py-0.5" @click="showMenu">
-				<img class="h-full " src="/menu-burger.svg">
-			</button>
-		</div>
-	</div>
+  <div class="h-full w-fit">
+    <router-link v-if="!isAuth" class="block h-full w-auto" to="/">
+      <img class="h-full w-auto" src="/logo/Logo.svg" />
+    </router-link>
+    <div v-else class="h-full">
+      <router-link
+        class="hidden comp:flex comp:flex-nowrap comp:items-center comp:gap-[18px]"
+        to="/"
+      >
+        <img src="/logo/Logo-mini.svg" />
+        <div>
+          <div class="flex flex-nowrap gap-1.5">
+            <img :src="currentUserIconLink" />
+            <p class="whitespace-normal text-b3 font-semibold">
+              {{ getUser.username }}
+            </p>
+          </div>
+          <div class="mt-0.5 text-b3 text-gray-500">
+            {{ getUser.organization_model?.name ?? '' }}
+          </div>
+        </div>
+      </router-link>
+      <button class="h-full w-10 py-0.5 comp:hidden" @click="showMenu">
+        <img class="h-full" src="/menu-burger.svg" />
+      </button>
+    </div>
+  </div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 
 import userRoles from '../mixins/userRoles.js'
 
 export default {
-	name: 'HeaderLogo',
-	mixins: [userRoles],
-	emits: ['menu'],
+  name: 'HeaderLogo',
+  mixins: [userRoles],
+  emits: ['menu'],
   computed: {
     ...mapGetters({
       isAuth: 'isAuth',
       getUser: 'getUser',
-      getRole: 'getRole'
+      getRole: 'getRole',
     }),
     isDefaultLogo() {
       return !this.isAuth
@@ -54,13 +59,11 @@ export default {
     },
   },
   methods: {
-		showMenu() {
-			this.$emit('menu')
-		}
-	},
+    showMenu() {
+      this.$emit('menu')
+    },
+  },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

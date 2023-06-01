@@ -114,8 +114,10 @@
           :position="m.position"
           @click="getMarkerInfo(m)"
         >
-          <MarkerInfoWindow v-if="selectedMarker?.id === m.location_id && !isClickMarker"
-                            :marker="selectedMarker"/>
+          <MarkerInfoWindow
+            v-if="selectedMarker?.id === m.location_id && !isClickMarker"
+            :marker="selectedMarker"
+          />
         </GMapMarker>
         <!--      Сині маркера -->
         <div v-if="getRole !== userRoles.user">
@@ -387,8 +389,6 @@ export default {
   },
 }
 </script>
-
-
 
 The following map types are available in the Maps JavaScript API: "roadmap"
 displays the default road map view. This is the default map type. "satellite"
