@@ -1,44 +1,44 @@
 <template>
-  <div id="header-container" class="h-[62px] comp:h-[72px]">
-    <header class="header fixed top-0 z-[100] bg-white">
-      <HeaderLogo @menu="showMenu" />
-      <div class="flex flex-nowrap items-center gap-8" deta-right-part-header>
-        <HeaderLocalizationDropDown :class="{ 'mobile:hidden': isAuth }" />
+  <header
+    id="header-container"
+    class="header sticky top-0 z-[100] h-[62px] bg-white bg-yellow-400 comp:h-[72px]"
+  >
+    <HeaderLogo @menu="showMenu" />
+    <div class="flex flex-nowrap items-center gap-8" deta-right-part-header>
+      <HeaderLocalizationDropDown :class="{ 'mobile:hidden': isAuth }" />
 
-        <HeaderRoundedButtons
-          v-if="isRoleHaveAccess(getRole, userRoles.organizationAdmin)"
-          :user-role="getRole"
-        />
+      <HeaderRoundedButtons
+        v-if="isRoleHaveAccess(getRole, userRoles.organizationAdmin)"
+        :user-role="getRole"
+      />
 
-        <div
-          v-if="isAuth"
-          class="hidden flex-nowrap gap-[26px] comp:flex"
-          data-aid-worker-buttons
-        >
-          <button v-if="getRole === userRoles.aidWorker" @click="showSettings">
-            <SVG_settings class="fill-blue-c-500" />
-          </button>
-          <router-link class="relative block" to="/main/requests">
-            <img alt="" src="/question-mark.svg" />
-            <div
-              v-if="RequestsCount > 0"
-              class="absolute top-[-15px] right-[-5px] min-w-[22px] rounded-[32px] bg-red-c-500 py-0.5 px-1 text-center text-b3 font-semibold text-white"
-            >
-              {{ RequestsCount }}
-            </div>
-          </router-link>
-        </div>
-
-        <button
-          class="text-body-1 font-medium text-blue-c-500"
-          @click="logButtonAction"
-        >
-          {{ logButtonContent }}
+      <div
+        v-if="isAuth"
+        class="hidden flex-nowrap gap-[26px] comp:flex"
+        data-aid-worker-buttons
+      >
+        <button v-if="getRole === userRoles.aidWorker" @click="showSettings">
+          <SVG_settings class="fill-blue-c-500" />
         </button>
+        <router-link class="relative block" to="/main/requests">
+          <img alt="" src="/question-mark.svg" />
+          <div
+            v-if="RequestsCount > 0"
+            class="absolute top-[-15px] right-[-5px] min-w-[22px] rounded-[32px] bg-red-c-500 py-0.5 px-1 text-center text-b3 font-semibold text-white"
+          >
+            {{ RequestsCount }}
+          </div>
+        </router-link>
       </div>
-    </header>
-  </div>
 
+      <button
+        class="text-body-1 font-medium text-blue-c-500"
+        @click="logButtonAction"
+      >
+        {{ logButtonContent }}
+      </button>
+    </div>
+  </header>
   <LoginModal :close-func="closeModal" :is-modal-visible="isLoginModal" />
   <UserSetting
     v-if="isAuth"

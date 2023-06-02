@@ -7,7 +7,7 @@
     <div
       v-for="report in visibleElements"
       :key="`rep${report.id}`"
-      class="item-height group flex w-full shrink-0 grow-0 cursor-pointer flex-nowrap items-center hover:bg-blue-c-100"
+      class="item-height group flex w-full shrink-0 grow-0 cursor-pointer flex-nowrap items-center bg-white hover:bg-blue-c-100"
       @click="OnReportClick(report)"
     >
       <div
@@ -111,11 +111,12 @@ export default {
       if (this.visibleElements.length >= 3) this.visibleElements.splice(0, 1)
       this.visibleElements.push(this.reportsList[index])
     },
-    startAnimation() {
+    async startAnimation() {
       clearInterval(this.animId)
       for (let i = 0; i < this.reportsList.length; i++) {
         this.visibleElements.push(this.reportsList[i])
         this.lastVisibleItemIndex = i
+        await new Promise((resolve) => setTimeout(() => resolve(true), 1000))
         if (i == 2) break
       }
       this.animId = setInterval(this.GetVisibleElements, this.delay)

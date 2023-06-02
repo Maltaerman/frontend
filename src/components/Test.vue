@@ -1,68 +1,31 @@
 <template>
   <div class="h-full overflow-y-auto p-6">
     <h1 class="w-full py-2 text-center text-2xl">Welcome to test screen</h1>
-    <button-text-1 @click="Test1"> Test </button-text-1>
-    <button-text-1 @click="Test2"> ShowModal </button-text-1>
-
     <div>
-      <VueDatePicker
-        v-model="date"
-        auto-apply
-        close-on-auto-apply
-        :enable-time-picker="false"
-        locale="ua"
-        placeholder="Date"
-        :range="true"
-        utc
+      <SearchDropDown
+        v-model="dpVal"
+        class="w-[250px]"
+        :options="getDpOption"
       />
     </div>
-    <div>
-      {{ dateStr }}
+    <div class="h-[60px] w-full bg-red-500 text-center">
+      {{ dpVal }}
     </div>
   </div>
 </template>
 
 <script>
-import VueDatePicker from '@vuepic/vue-datepicker'
+import DropDownOption from './Inputs/SearchDropDown/DropDownOption'
+import SearchDropDown from './Inputs/SearchDropDown/SearchDropDown.vue'
 
 export default {
   name: 'Test',
   components: {
-    VueDatePicker,
+    SearchDropDown,
   },
   data() {
     return {
-      date: undefined,
-      mess: 'Message',
-      modalVisible: false,
-      items: [
-        'Golden Retriever t',
-        'Cat',
-        'Cat',
-        'Cat',
-        'Cat',
-        'Cat',
-        'Cat',
-        'Cat',
-        'Squirrel',
-        'Golden Retriever t',
-        'Cat',
-        'Squirrel',
-        'Golden Retriever t',
-        'Cat',
-        'Squirrel',
-      ],
-      organization: {
-        name: '',
-        site: '',
-        address: '',
-        description: '',
-        logo: undefined,
-      },
-      userData: {
-        mail: 'mailtest@gmail.com',
-        name: 'UserName',
-      },
+      dpVal: undefined,
     }
   },
   computed: {
@@ -76,6 +39,17 @@ export default {
         '\n\r' +
         new Date(this.date[1]).toDateString()
       )
+    },
+    getDpOption() {
+      let res = []
+      for (let i = 1; i < 21; i++) {
+        res.push(
+          DropDownOption(`option ${i}`, {
+            value: `Value is ${i}`,
+          }),
+        )
+      }
+      return res
     },
   },
   watch: {

@@ -48,6 +48,12 @@
                 @enter-click="numInpEnterClick"
                 @validation="onNumValidation"
               />
+              <!--              <TelInputV2
+                v-model="telNum"
+                class="my-6"
+                @enter-click="numInpEnterClick"
+                @validation="onNumValidation"
+              />-->
               <button-1
                 class="w-full"
                 :disabled="!isNumValid"
@@ -124,11 +130,18 @@ import { mapMutations, mapGetters } from 'vuex'
 import api from '../../http_client/index.js'
 import CodeInput from '../Inputs/CodeInput.vue'
 import TelInput from '../Inputs/TelInput.vue'
+//import TelInputV2 from '../Inputs/TelInputV2.vue'
 import ProgressBar from '../Other/ProgressBar.vue'
 import regex from '../mixins/regex.js'
+
 export default {
   name: 'SendReportRequestModal',
-  components: { ProgressBar, TelInput, CodeInput },
+  components: {
+    //TelInputV2,
+    ProgressBar,
+    TelInput,
+    CodeInput,
+  },
   mixins: [regex],
   props: {
     isModalVisible: {

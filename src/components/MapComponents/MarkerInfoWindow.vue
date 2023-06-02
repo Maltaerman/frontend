@@ -45,9 +45,12 @@ export default {
 <style>
 button.gm-ui-hover-effect {
   /*hide marker info window close button must be set in global CSS scope*/
-  visibility: hidden !important;
+  display: none !important;
 }
 .gm-style .gm-style-iw-c {
   padding: 0 !important;
+}
+.gm-style-iw-d {
+  overflow: auto !important;
 }
 </style>

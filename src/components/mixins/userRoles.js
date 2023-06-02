@@ -32,6 +32,12 @@ export default {
     },
 
     isRoleHaveAccess(userRole, requireRole) {
+      if (!userRole) {
+        console.log(
+          'isRoleHaveAccess method user role is FALSE or NULL Oor UNDEFINED',
+        )
+        return false
+      }
       let roles = {
         user: ['user'],
         aid_worker: ['user', 'aid_worker'],

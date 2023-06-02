@@ -4,7 +4,7 @@
   >
     <Header class="shrink-0 grow-0" />
     <div
-      class="mx-auto flex w-[600px] shrink grow flex-col items-center justify-center px-4 text-h3 mobile:w-full mobile:text-h4"
+      class="mx-auto flex w-[600px] shrink shrink grow grow basis-1 flex-col items-center justify-center px-4 text-h3 mobile:w-full mobile:text-h4"
     >
       <img class="inline-block w-[310px]" src="/src/assets/fullLogo.svg" />
       <p class="mt-6 text-justify text-gray-c-500">
