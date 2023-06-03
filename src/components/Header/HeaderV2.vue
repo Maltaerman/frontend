@@ -1,7 +1,7 @@
 <template>
   <header
     id="header-container"
-    class="header sticky top-0 z-[100] h-[62px] bg-white bg-yellow-400 comp:h-[72px]"
+    class="header sticky top-0 z-[100] h-[62px] bg-white comp:h-[72px]"
   >
     <HeaderLogo @menu="showMenu" />
     <div class="flex flex-nowrap items-center gap-8" deta-right-part-header>

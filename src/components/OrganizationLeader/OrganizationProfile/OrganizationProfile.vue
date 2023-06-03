@@ -258,7 +258,6 @@ export default {
       switch (this.activeStatusFilterValue) {
         case this.defaultStatusFilterValue:
           return this.organization.participants
-
         default:
           return this.organization.participants.filter(
             (worker) =>
@@ -289,18 +288,20 @@ export default {
       }
     },
     dropdownOptions() {
-      let options = this.organization.participants.map((worker) => {
-        let t = this.GetCurrentUserStatusText(
-          worker.email_confirmed,
-          worker.is_active,
-        )
-        return {
-          text: t,
-          item: t,
-        }
-      })
-      console.log([this.dropdownDefault, ...options])
-      return [this.dropdownDefault, ...options]
+      if (this.organization && this.organization.participants) {
+        let options = this.organization.participants.map((worker) => {
+          let t = this.GetCurrentUserStatusText(
+            worker.email_confirmed,
+            worker.is_active,
+          )
+          return {
+            text: t,
+            item: t,
+          }
+        })
+        console.log([this.dropdownDefault, ...options])
+        return [this.dropdownDefault, ...options]
+      } else return [this.dropdownDefault]
     },
   },
   watch: {
