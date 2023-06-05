@@ -141,7 +141,7 @@ export default {
     },
     onChangeLogsUpdate(data) {
       if (data instanceof Error) {
-        this.$toast(this.$t('general.errorMessage'))
+        this.$toast.error(this.$t('general.errorMessage'))
         return
       } else {
         this.logs = data

@@ -2,10 +2,11 @@
   <router-view></router-view>
 </template>
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 import routerHelper from './components/mixins/routerHelper.js'
 import userRoles from './components/mixins/userRoles.js'
+import api from './http_client'
 
 export default {
   name: 'App',
@@ -42,10 +43,12 @@ export default {
   },
   created() {
     this.UpdateRequestCount()
+    this.LoadPhoneCodes()
   },
 
   methods: {
     ...mapActions(['getRequestsCount']),
+    ...mapMutations(['setPhoneCodes']),
     UpdateRequestCount() {
       if (this.isAuth) {
         this.getRequestsCount()
@@ -67,6 +70,15 @@ export default {
       //else
       //	this.onPageChangeEvents.splice(this.onPageChangeEvents.indexOf(this.CheckIsOrgActive), 1);
     },
+    LoadPhoneCodes(){
+      api.guest.getPhoneCodes()
+        .then(res=>{
+          this.setPhoneCodes(res.data)
+        })
+        .catch(err=>{
+          console.error(err)
+        })
+    }
   },
 }
 </script>

@@ -11,6 +11,7 @@ export default {
       loggedUserCredentials: null,
       userOrganization: { name: '...' },
       lang: 'ua',
+      phoneCodes : null
     }
   },
   mutations: {
@@ -29,6 +30,9 @@ export default {
     setUserOrganizationModel(state, model) {
       state.loggedUserInfo.organziation_model = model
     },
+    setPhoneCodes(state, codes){
+      state.phoneCodes = codes
+    }
   },
   getters: {
     getToken(state) {
@@ -54,6 +58,9 @@ export default {
     getLocalization(state) {
       return state.lang
     },
+    getPhoneCodes(state){
+      return state.phoneCodes
+    }
   },
   actions: {
     async GetUserOrganizationAction(context) {

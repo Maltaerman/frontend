@@ -50,6 +50,7 @@
               <div class="flex gap-2">
                 <p class="h-6 w-4">
                   <SVG_status_list
+                    class="w-full h-full"
                     :classList="getSVGColorClass(item.flag, item.new_value)"
                     :icon="item.flag"
                   />
@@ -108,6 +109,7 @@
 
 <script>
 import SVG_eye from '../../ComponentsSVG/Icons/SVG_eye.vue'
+import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
 import dateFormatter from '../../mixins/dateFormatter.js'
 import dynamicContent from '../../mixins/dynamicContent.js'
 import reportItemFlags from '../../mixins/reportItemFlags.js'
@@ -116,6 +118,7 @@ export default {
   name: 'OrganizationChangeLogItem',
   components: {
     SVG_eye,
+    SVG_status_list
   },
   mixins: [dynamicContent, reportItemFlags, dateFormatter],
   props: {
