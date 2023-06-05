@@ -42,13 +42,13 @@
               <div class="text-body-1 mt-2 text-gray-c-600">
                 {{ $t('addressReqModal.step1Tips') }}
               </div>
-<!--              <TelInput
+              <!--              <TelInput
                 v-model="telNum"
                 class="my-6"
                 @enter-click="numInpEnterClick"
                 @validation="onNumValidation"
               />-->
-               <TelInputV2
+              <TelInputV2
                 v-model="telNum"
                 class="my-6"
                 @enter-click="numInpEnterClick"
@@ -177,7 +177,7 @@ export default {
     ...mapGetters({
       notFoundedMarker: 'notFoundedMarker',
       getRequestMarkers: 'getRequestMarkers',
-      getPhoneCodes : 'getPhoneCodes'
+      getPhoneCodes: 'getPhoneCodes',
     }),
     timer() {
       let min = Math.trunc(this.codeExpiredIn / 60)
@@ -198,7 +198,7 @@ export default {
     },
   },
   created() {
-    if(!this.getPhoneCodes){
+    if (!this.getPhoneCodes) {
       this.LoadPhoneCodes()
     }
   },
@@ -209,7 +209,7 @@ export default {
     ...mapMutations({
       setUnreviewedMarkers: 'setUnreviewedMarkers',
       setNotFoundMarker: 'setNoDataMarker',
-      setPhoneCodes : 'setPhoneCodes'
+      setPhoneCodes: 'setPhoneCodes',
     }),
     hide() {
       this.isClosedClick = true
@@ -227,14 +227,15 @@ export default {
         this.closeFunc()
       }, 400)
     },
-    LoadPhoneCodes(){
-      api.guest.getPhoneCodes()
-        .then(res=>{
+    LoadPhoneCodes() {
+      api.guest
+        .getPhoneCodes()
+        .then((res) => {
           this.setPhoneCodes(res.data)
         })
-        .catch(err=>{
+        .catch((err) => {
           console.error(err)
-          setTimeout(()=>{
+          setTimeout(() => {
             this.$toast.error(this.$t('general.errorMessage'))
           }, 100)
           this.hide()

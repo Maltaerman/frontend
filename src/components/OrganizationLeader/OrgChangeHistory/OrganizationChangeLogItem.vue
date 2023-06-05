@@ -50,7 +50,7 @@
               <div class="flex gap-2">
                 <p class="h-6 w-4">
                   <SVG_status_list
-                    class="w-full h-full"
+                    class="h-full w-full"
                     :classList="getSVGColorClass(item.flag, item.new_value)"
                     :icon="item.flag"
                   />
@@ -118,7 +118,7 @@ export default {
   name: 'OrganizationChangeLogItem',
   components: {
     SVG_eye,
-    SVG_status_list
+    SVG_status_list,
   },
   mixins: [dynamicContent, reportItemFlags, dateFormatter],
   props: {

@@ -70,15 +70,16 @@ export default {
       //else
       //	this.onPageChangeEvents.splice(this.onPageChangeEvents.indexOf(this.CheckIsOrgActive), 1);
     },
-    LoadPhoneCodes(){
-      api.guest.getPhoneCodes()
-        .then(res=>{
+    LoadPhoneCodes() {
+      api.guest
+        .getPhoneCodes()
+        .then((res) => {
           this.setPhoneCodes(res.data)
         })
-        .catch(err=>{
+        .catch((err) => {
           console.error(err)
         })
-    }
+    },
   },
 }
 </script>

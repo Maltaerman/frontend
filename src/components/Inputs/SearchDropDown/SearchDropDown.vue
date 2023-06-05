@@ -9,7 +9,7 @@
         type="text"
         :value="inputValue"
         @focusin.stop="isDropped = true"
-        @input="e=>updateValue(e.target.value)"
+        @input="(e) => updateValue(e.target.value)"
       />
       <button @click.stop="dropBehavior">
         <img
@@ -29,11 +29,12 @@
     >
       <div
         v-if="visibleOptions.length"
-        class="overflow-y-auto-custom h-full max-h-[200px] snap-y">
+        class="overflow-y-auto-custom h-full max-h-[200px] snap-y"
+      >
         <div
           v-for="(op, index) in visibleOptions"
           :key="index"
-          class="cursor-pointer snap-start px-4 py-2 text-h3 text-left"
+          class="cursor-pointer snap-start px-4 py-2 text-left text-h3"
           :class="{
             'hover:bg-blue-c-100 hover:text-blue-c-500': !isOptionIsModelValue(
               op.value,
@@ -45,9 +46,7 @@
           {{ op.text }}
         </div>
       </div>
-      <div v-else class="py-2 text-h3">
-        Нічого не знайдено
-      </div>
+      <div v-else class="py-2 text-h3">Нічого не знайдено</div>
     </div>
   </div>
 </template>
@@ -70,7 +69,7 @@ export default {
   data() {
     return {
       isDropped: false,
-      preventDropped : true,
+      preventDropped: true,
       preselectedValue: undefined,
       inputValue: '',
     }
@@ -81,37 +80,36 @@ export default {
         let res = this.options.filter((x) =>
           x.text.toLowerCase().includes(this.inputValue.toLowerCase()),
         )
-          return res.length<=1 ? this.options : res
+        return res.length <= 1 ? this.options : res
       } else return this.options
     },
   },
-  watch : {
-    isDropped(newVal){
-      if(!newVal)
-        this.updateInputText()
-    }
+  watch: {
+    isDropped(newVal) {
+      if (!newVal) this.updateInputText()
+    },
   },
   created() {
     this.updateInputText()
   },
   methods: {
-    updateInputText(){
-      if(this.modelValue) {
-        let selected = this.options.find(x => JSON.stringify(x.value) === JSON.stringify(this.modelValue))
-        if(selected)
-          this.inputValue = selected.text
+    updateInputText() {
+      if (this.modelValue) {
+        let selected = this.options.find(
+          (x) => JSON.stringify(x.value) === JSON.stringify(this.modelValue),
+        )
+        if (selected) this.inputValue = selected.text
       }
     },
-    containerFocusLost(){
-      setTimeout(()=> {
+    containerFocusLost() {
+      setTimeout(() => {
         this.isDropped = false
         this.preventDropped = false
-        setTimeout(()=>this.preventDropped = true, 50)
+        setTimeout(() => (this.preventDropped = true), 50)
       }, 100)
     },
-    dropBehavior(){
-      if(this.preventDropped)
-        this.isDropped = !this.isDropped
+    dropBehavior() {
+      if (this.preventDropped) this.isDropped = !this.isDropped
     },
     setValue(option) {
       this.inputValue = option.text
@@ -122,13 +120,12 @@ export default {
         return JSON.stringify(this.modelValue) === JSON.stringify(optionValue)
       } else return optionValue === this.modelValue
     },
-    updateValue(val){
+    updateValue(val) {
       this.inputValue = val
       this.isDropped = true
       console.log(this.inputValue)
-    }
+    },
   },
-
 }
 </script>
 

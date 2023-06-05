@@ -29,17 +29,17 @@ export default {
       number: '',
     }
   },
-  computed : {
+  computed: {
     ...mapGetters({
-      getPhoneCodes : 'getPhoneCodes'
+      getPhoneCodes: 'getPhoneCodes',
     }),
-    availableCode(){
+    availableCode() {
       let op = []
-      this.getPhoneCodes.forEach(el=>{
+      this.getPhoneCodes.forEach((el) => {
         op.push(DropDownOption(`${el.verbose_name} ${el.phone_code}`, el))
       })
       return op
-    }
+    },
   },
   watch: {
     inp(newVal) {
