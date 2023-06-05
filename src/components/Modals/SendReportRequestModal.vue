@@ -110,7 +110,7 @@
         </div>
         <div
           v-else-if="animStep == 2"
-          class="mx-auto grid h-[164px] w-[500px] items-center gap-6 rounded-xl bg-white px-[26px] py-10"
+          class="mx-auto grid h-[164px] w-[500px] items-center gap-6 rounded-xl bg-white px-[26px] py-10 mobile:w-full"
           @click.stop
         >
           <div class="subTitle text-center text-gray-c-800">
