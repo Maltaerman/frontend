@@ -1,7 +1,19 @@
 <template>
   <div class="flex flex-col gap-6">
     <SearchDropDown v-model="code" :options="availableCode" />
-    <input ref="tel" v-model="inp" class="input-1" @keyup="keyAction" />
+    <label
+      class="flex w-full flex-nowrap gap-1 overflow-hidden rounded-lg border py-2 px-4 focus-within:border-blue-c-500 hover:border-blue-c-400 disabled:bg-gray-c-100 disabled:hover:border-gray-c-300"
+    >
+      <p class="block cursor-text text-gray-c-400">
+        {{ code.phone_code }}
+      </p>
+      <input
+        ref="tel"
+        v-model="inp"
+        class="block shrink grow basis-1 text-h3 font-normal outline-none disabled:text-gray-c-500"
+        @keyup="keyAction"
+      />
+    </label>
   </div>
 </template>
 
