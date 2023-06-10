@@ -282,15 +282,14 @@ export default {
     },
     //operationResult is {data: data(org or error), isSuccess : isRequestSuccess}
     onAddOrganization(operationResult) {
-      if(operationResult.data instanceof Error){
+      if (operationResult.data instanceof Error) {
         let errMess = this.$t('general.errorMessage')
         if (operationResult.data.response.status == 400)
           errMess = this.$t('dashboard.organizationExist', {
             orgName: operationResult.data.response.data.organization.name,
           })
         this.$toast.error(errMess)
-      }
-      else{
+      } else {
         /*let org = {...operationResult.data, participants : operationResult.data.emails}
         this.organizationsList = [org, ...this.organizationsList]*/
         this.$toast.success(

@@ -135,7 +135,10 @@ export default {
       )
     },
     isAddEmailVisible() {
-      return this.organization.emails.length < 3 && this.organization.emails.every((x) => this.isMail(x))
+      return (
+        this.organization.emails.length < 3 &&
+        this.organization.emails.every((x) => this.isMail(x))
+      )
     },
     //TODO remove from here
   },
@@ -154,7 +157,7 @@ export default {
       this.closeCreateOrgModal()
     },
     onAddOrganization(data, isRequestSuccess) {
-      this.$emit('addOrganization', {data: data, isSuccess : isRequestSuccess})
+      this.$emit('addOrganization', { data: data, isSuccess: isRequestSuccess })
       this.closeThisModal()
     },
     addEmail() {
@@ -167,7 +170,7 @@ export default {
         .then(() => {
           this.onAddOrganization(this.organization, true)
         })
-        .catch((err)=>{
+        .catch((err) => {
           let data = err
           data.response.data.organization = this.organization
           this.onAddOrganization(data, false)
