@@ -115,6 +115,7 @@
       :close-create-org-modal="closeCreateOrgModal"
       :is-loader-visible="modals.createOrgModalLoaderVisible"
       :is-visible="modals.createOrgModalVisible"
+      @addOrganization="onAddOrganization"
     />
 
     <RemoveOrgModal
@@ -237,8 +238,6 @@ export default {
       this.modals.createOrgModalVisible = true
     },
     closeCreateOrgModal() {
-      this.createOrgName = ''
-      this.createOrgSite = ''
       this.modals.createOrgModalVisible = false
     },
     ResetSearchResult() {
@@ -281,42 +280,26 @@ export default {
           this.isLoaderVisible = false
         })
     },
-    onAddOrganization({ createOrgName, createOrgSite }) {
-      this.createOrgName = createOrgName
-      this.createOrgSite = createOrgSite
-      this.addOrganizations()
-    },
-    async addOrganizations() {
-      console.log('wiisz mje?')
-      console.log(this.TrimTurbo(this.createOrgName).length < 3)
-      if (this.TrimTurbo(this.createOrgName).length < 3) {
-        return
+    //operationResult is {data: data(org or error), isSuccess : isRequestSuccess}
+    onAddOrganization(operationResult) {
+      if(operationResult.data instanceof Error){
+        let errMess = this.$t('general.errorMessage')
+        if (operationResult.data.response.status == 400)
+          errMess = this.$t('dashboard.organizationExist', {
+            orgName: operationResult.data.response.data.organization.name,
+          })
+        this.$toast.error(errMess)
       }
-      this.createOrgName = this.TrimTurbo(this.createOrgName)
-      this.modals.createOrgModalLoaderVisible = true
-      await api.organizations
-        .createOrganization(this.createOrgName, this.createOrgSite)
-        .then((res) => {
-          this.organizationsList = [res.data, ...this.organizationsList]
-          this.closeCreateOrgModal()
-          this.$toast.success(
-            this.$t('dashboard.organizationAddSuccess', {
-              orgName: this.createOrgName,
-            }),
-          )
-        })
-        .catch((err) => {
-          let errMess = this.$t('general.errorMessage')
-          if (err.response.status == 400)
-            errMess = this.$t('dashboard.organizationExist', {
-              orgName: this.createOrgName,
-            })
-          this.closeCreateOrgModal()
-          this.$toast.error(errMess)
-        })
-        .finally(() => {
-          this.modals.createOrgModalLoaderVisible = false
-        })
+      else{
+        /*let org = {...operationResult.data, participants : operationResult.data.emails}
+        this.organizationsList = [org, ...this.organizationsList]*/
+        this.$toast.success(
+          this.$t('dashboard.organizationAddSuccess', {
+            orgName: operationResult.data.name,
+          }),
+        )
+        this.GetOrganizationList(this.currentLastPage)
+      }
     },
     async GetOrganizationByName() {
       if (this.searchController.SearchedOrgName.length < 3) {

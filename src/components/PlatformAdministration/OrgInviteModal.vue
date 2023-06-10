@@ -135,7 +135,7 @@ export default {
       )
     },
     isAddEmailVisible() {
-      return this.organization.emails.length < 3
+      return this.organization.emails.length < 3 && this.organization.emails.every((x) => this.isMail(x))
     },
     //TODO remove from here
   },
@@ -151,12 +151,11 @@ export default {
   },
   methods: {
     closeThisModal() {
-      console.log('joł')
       this.closeCreateOrgModal()
     },
-    onAddOrganization() {
-      console.log('adding from modal')
-      this.$emit('addOrganization', this.organization)
+    onAddOrganization(data, isRequestSuccess) {
+      this.$emit('addOrganization', {data: data, isSuccess : isRequestSuccess})
+      this.closeThisModal()
     },
     addEmail() {
       if (this.organization.emails.length < 3) this.organization.emails.push('')
@@ -165,12 +164,13 @@ export default {
       if (!this.isAllDataValid) return
       await api.organizations
         .inviteOrganization(this.organization)
-        .then((res) => {
-          console.log(res)
-          this.onAddOrganization()
+        .then(() => {
+          this.onAddOrganization(this.organization, true)
         })
-        .catch((err) => {
-          console.error(err)
+        .catch((err)=>{
+          let data = err
+          data.response.data.organization = this.organization
+          this.onAddOrganization(data, false)
         })
     },
   },
