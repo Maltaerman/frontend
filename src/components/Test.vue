@@ -11,16 +11,19 @@
     <div class="h-[60px] w-full bg-red-500 text-center">
       {{ dpVal }}
     </div>
+    <ProgressBar :progress="50" />
   </div>
 </template>
 
 <script>
 import DropDownOption from './Inputs/SearchDropDown/DropDownOption'
 import SearchDropDown from './Inputs/SearchDropDown/SearchDropDown.vue'
+import ProgressBar from './Other/ProgressBar.vue'
 
 export default {
   name: 'Test',
   components: {
+    ProgressBar,
     SearchDropDown,
   },
   data() {

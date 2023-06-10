@@ -11,5 +11,8 @@ export default function guest(instance) {
         lng,
       })
     },
+    getPhoneCodes() {
+      return instance.get('/phone-codes/all')
+    },
   }
 }

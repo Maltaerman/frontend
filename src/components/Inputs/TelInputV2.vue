@@ -1,59 +1,33 @@
 <template>
   <div class="flex flex-col gap-6">
-    <div
-      class="relative w-[140px]"
-      @focusout="ToggleDrop(false)"
-      @mouseleave="ToggleDrop(false)"
+    <SearchDropDown v-model="code" :options="availableCode" />
+    <label
+      class="flex w-full flex-nowrap gap-1 overflow-hidden rounded-lg border py-2 px-4 focus-within:border-blue-c-500 hover:border-blue-c-400 disabled:bg-gray-c-100 disabled:hover:border-gray-c-300"
     >
-      <button
-        id="dropButton"
-        class="flex h-full items-center justify-end gap-2 text-h3 font-semibold text-gray-c-500 mobile:justify-start"
-        @click="ToggleDrop(!isDropped)"
-      >
-        <img
-          class="h-2 w-3.5 transition-all duration-300"
-          :class="{
-            'rotate-0': !isDropped,
-            'rotate-180': isDropped,
-          }"
-          src="/src/assets/dropdown-arrow.svg"
-        />
-        <div class="flex items-center gap-2 pr-3">
-          <img class="h-4 w-6" :src="code.flag" />
-          <div id="current-code">{{ code.value }}</div>
-        </div>
-      </button>
-      <div
-        id="codeList"
-        class="absolute w-full rounded-lg bg-white shadow-cs4 transition-all duration-300 mobile:rounded-none mobile:shadow-none"
-        :class="{
-          'h-0 overflow-hidden': !isDropped,
-          //FIXME opened height = available lang amount * list item height, in this case 58px
-          'overflow-y-auto-custom h-[174px] overflow-x-hidden ': isDropped,
-        }"
-      >
-        <div
-          v-for="(codeItem, index) in availableCode"
-          :key="index"
-          class="flex h-[58px] w-full cursor-pointer items-center gap-2 p-2 text-h3 font-semibold text-gray-c-500 hover:bg-blue-c-200 mobile:shadow-cs3"
-          :class="{
-            'bg-blue-c-100 text-blue-c-400': codeItem.code == code.code,
-          }"
-          @click.stop="setCode(codeItem.code)"
-        >
-          <img class="h-4 w-6" :src="codeItem.flag" />
-          <div>{{ codeItem.value }}</div>
-        </div>
-      </div>
-    </div>
-    <input ref="tel" v-model="inp" class="input-1" @keyup="keyAction" />
+      <p class="block cursor-text text-gray-c-400">
+        {{ code.phone_code }}
+      </p>
+      <input
+        ref="tel"
+        v-model="inp"
+        class="block shrink grow basis-1 text-h3 font-normal outline-none disabled:text-gray-c-500"
+        @keyup="keyAction"
+      />
+    </label>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import regex from '../mixins/regex.js'
+
+import DropDownOption from './SearchDropDown/DropDownOption'
+import SearchDropDown from './SearchDropDown/SearchDropDown.vue'
+
 export default {
   name: 'TelInputV2',
+  components: { SearchDropDown },
   mixins: [regex],
   props: {
     modelValue: String,
@@ -61,28 +35,29 @@ export default {
   emits: ['validation', 'update:modelValue', 'enter-click'],
   data() {
     return {
-      code: {
-        code: 'ua',
-        value: '+380',
-        flag: '/Flags/UA_flag.svg',
-        numLength: 9,
-      },
-      availableCode: [
-        { code: 'ua', value: '+380', flag: '/Flags/UA_flag.svg', numLength: 9 },
-        { code: 'pl', value: '+48', flag: '/Flags/PL_flag.svg', numLength: 9 },
-        { code: 'uk', value: '+44', flag: '/Flags/UK_flag.svg', numLength: 10 },
-        { code: 'us', value: '+1', flag: '/Flags/USA_flag.svg', numLength: 10 },
-      ],
+      code: undefined,
       isDropped: false,
       inp: '',
       number: '',
     }
   },
+  computed: {
+    ...mapGetters({
+      getPhoneCodes: 'getPhoneCodes',
+    }),
+    availableCode() {
+      let op = []
+      this.getPhoneCodes.forEach((el) => {
+        op.push(DropDownOption(`${el.verbose_name} ${el.phone_code}`, el))
+      })
+      return op
+    },
+  },
   watch: {
     inp(newVal) {
       if (this.onlyDigitsRegex.test(newVal) || newVal === '') {
         this.number = newVal
-        this.$emit('update:modelValue', `${this.code.value}${this.number}`)
+        this.$emit('update:modelValue', `${this.code.phone_code}${this.number}`)
       } else this.inp = this.number
       this.numValidation()
     },
@@ -93,18 +68,18 @@ export default {
   mounted() {
     this.$refs.tel.focus()
   },
+  created() {
+    this.code = this.availableCode[0].value
+  },
   methods: {
-    ToggleDrop(bool) {
-      this.isDropped = bool
-    },
     setCode(code) {
       this.code = this.availableCode.find((x) => x.code === code)
     },
     numValidation() {
-      //let regex = new RegExp(`[0-9]{${this.code.numLength}}`);
       let isValid =
         this.onlyDigitsRegex.test(this.number) &&
-        this.number.length === this.code.numLength
+        this.number.length >= this.code.min_length &&
+        this.number.length <= this.code.max_length
       this.$emit('validation', isValid)
     },
     keyAction(e) {

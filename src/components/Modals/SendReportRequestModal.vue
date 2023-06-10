@@ -42,18 +42,18 @@
               <div class="text-body-1 mt-2 text-gray-c-600">
                 {{ $t('addressReqModal.step1Tips') }}
               </div>
-              <TelInput
-                v-model="telNum"
-                class="my-6"
-                @enter-click="numInpEnterClick"
-                @validation="onNumValidation"
-              />
-              <!--              <TelInputV2
+              <!--              <TelInput
                 v-model="telNum"
                 class="my-6"
                 @enter-click="numInpEnterClick"
                 @validation="onNumValidation"
               />-->
+              <TelInputV2
+                v-model="telNum"
+                class="my-6"
+                @enter-click="numInpEnterClick"
+                @validation="onNumValidation"
+              />
               <button-1
                 class="w-full"
                 :disabled="!isNumValid"
@@ -110,7 +110,7 @@
         </div>
         <div
           v-else-if="animStep == 2"
-          class="mx-auto grid h-[164px] w-[500px] items-center gap-6 rounded-xl bg-white px-[26px] py-10"
+          class="mx-auto grid h-[164px] w-[500px] items-center gap-6 rounded-xl bg-white px-[26px] py-10 mobile:w-full"
           @click.stop
         >
           <div class="subTitle text-center text-gray-c-800">
@@ -129,17 +129,17 @@ import { mapMutations, mapGetters } from 'vuex'
 
 import api from '../../http_client/index.js'
 import CodeInput from '../Inputs/CodeInput.vue'
-import TelInput from '../Inputs/TelInput.vue'
-//import TelInputV2 from '../Inputs/TelInputV2.vue'
+//import TelInput from '../Inputs/TelInput.vue'
+import TelInputV2 from '../Inputs/TelInputV2.vue'
 import ProgressBar from '../Other/ProgressBar.vue'
 import regex from '../mixins/regex.js'
 
 export default {
   name: 'SendReportRequestModal',
   components: {
-    //TelInputV2,
+    TelInputV2,
     ProgressBar,
-    TelInput,
+    //TelInput,
     CodeInput,
   },
   mixins: [regex],
@@ -177,6 +177,7 @@ export default {
     ...mapGetters({
       notFoundedMarker: 'notFoundedMarker',
       getRequestMarkers: 'getRequestMarkers',
+      getPhoneCodes: 'getPhoneCodes',
     }),
     timer() {
       let min = Math.trunc(this.codeExpiredIn / 60)
@@ -196,6 +197,11 @@ export default {
       )
     },
   },
+  created() {
+    if (!this.getPhoneCodes) {
+      this.LoadPhoneCodes()
+    }
+  },
   beforeUnmount() {
     clearInterval(this.intervalId)
   },
@@ -203,6 +209,7 @@ export default {
     ...mapMutations({
       setUnreviewedMarkers: 'setUnreviewedMarkers',
       setNotFoundMarker: 'setNoDataMarker',
+      setPhoneCodes: 'setPhoneCodes',
     }),
     hide() {
       this.isClosedClick = true
@@ -219,6 +226,20 @@ export default {
         this.animStep = 1
         this.closeFunc()
       }, 400)
+    },
+    LoadPhoneCodes() {
+      api.guest
+        .getPhoneCodes()
+        .then((res) => {
+          this.setPhoneCodes(res.data)
+        })
+        .catch((err) => {
+          console.error(err)
+          setTimeout(() => {
+            this.$toast.error(this.$t('general.errorMessage'))
+          }, 100)
+          this.hide()
+        })
     },
     async getCode() {
       if (!this.isNumValid) {
