@@ -1,0 +1,14 @@
+{
+  "superAdmin": {
+    "email": "admin@admin.com",
+    "password": "asd112233"
+  },
+  "aidWorker": {
+    "email": "testaidworker@test.com",
+    "password": "asd112233"
+  },
+  "ogranizationalLeader": {
+    "email": "testorgleader@test.com",
+    "password": "asd112233"
+  }
+}

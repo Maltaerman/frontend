@@ -1,9 +1,10 @@
-import { defineConfig } from 'cypress'
-import vitePreprocessor from 'cypress-vite'
+const { defineConfig } = require('cypress');
+const vitePreprocessor = require('cypress-vite');
 
-export default defineConfig({
+module.exports = defineConfig({
   e2e: {
-    setupNodeEvents(on, config) {
+    baseUrl: 'http://localhost:5173',
+    setupNodeEvents(on) {
       on('file:preprocessor', vitePreprocessor())
     },
   },
@@ -14,4 +15,4 @@ export default defineConfig({
       bundler: 'vite',
     },
   },
-})
+});

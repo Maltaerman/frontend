@@ -22,10 +22,7 @@ const app = createApp(App)
 // найближчі мережеві продуктові магазини
 // пропозиції моєї мами
 
-app.use(store)
-app.use(Router)
-app.use(i18n)
-app.use(VueGoogleMaps, {
+app.use(store).use(Router).use(i18n).use(VueGoogleMaps, {
   load: {
     key: import.meta.env.VITE_GMAPS_APIKEY,
     language: store.getters.getLocalization,

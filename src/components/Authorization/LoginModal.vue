@@ -1,17 +1,28 @@
+<!-- eslint-disable max-len -->
 <template>
   <teleport to="body">
     <div
       v-if="isModalVisible"
       id="loginModal"
-      class="fixed top-0 left-0 right-0 bottom-0 z-[1050] grid h-screen w-screen place-items-center overflow-y-hidden bg-black/30 mobile:px-2"
+      class="
+        fixed top-0 left-0 right-0 bottom-0 z-[1050] grid h-screen w-screen
+        place-items-center overflow-y-hidden bg-black/30 mobile:px-2
+      "
       @click="hide"
     >
       <div
-        class="relative mx-auto flex h-min w-[480px] animate-appear overflow-hidden rounded-xl bg-white px-6 pb-6 pt-9 mobile:w-full"
+        class="
+          relative mx-auto flex h-min w-[480px]
+          animate-appear overflow-hidden rounded-xl
+          bg-white px-6 pb-6 pt-9 mobile:w-full
+        "
         :class="{ 'animate-disappear': isClosedClick }"
         @click.stop
       >
-        <button class="absolute top-5 right-6 h-4 w-4" @click="hide">
+        <button
+          class="absolute top-5 right-6 h-4 w-4"
+          @click="hide"
+        >
           <svg
             fill="none"
             height="14"
@@ -34,13 +45,16 @@
             />
           </svg>
         </button>
-        <transition mode="out-in" name="modal-anim">
+        <transition
+          mode="out-in"
+          name="modal-anim"
+        >
           <div
             v-if="state === states.login"
             class="w-full py-1 text-center text-h2 font-semibold tablet:text-h2-m mobile:text-h2-m"
           >
             {{ $t('login.header') }}
-            <div>
+            <form @submit.prevent="login">
               <Input-1
                 ref="emailInput"
                 v-model="email"
@@ -51,7 +65,11 @@
                 :validation-message="$t('login.error')"
                 validation-type="mail"
               />
-              <Input-pass v-model="pass" class="w-full" name="password" />
+              <Input-pass
+                v-model="pass"
+                class="w-full"
+                name="password"
+              />
               <button-text-1
                 class="my-3 block font-semibold"
                 @click="toPassReset"
@@ -62,13 +80,16 @@
                 id="loginButton"
                 class="block w-full"
                 :disabled="isLoginButtonDisabled"
-                @click="login"
+                type="submit"
               >
                 {{ $t('login.logIn') }}
               </button-1>
-            </div>
+            </form>
           </div>
-          <div v-else-if="state === states.error" class="flex grow flex-col">
+          <div
+            v-else-if="state === states.error"
+            class="flex grow flex-col"
+          >
             <div class="flex grow mobile:flex-col">
               <div class="w-[30px] mobile:w-full">
                 <svg
@@ -100,9 +121,12 @@
               </div>
             </div>
 
-            <button1 class="mt-6 w-full" @click="toDefaultState">{{
-              $t('login.understood')
-            }}</button1>
+            <button1
+              class="mt-6 w-full"
+              @click="toDefaultState"
+            >
+              {{ $t('login.understood') }}
+            </button1>
           </div>
           <div
             v-else-if="state === states.passReset"
@@ -141,7 +165,7 @@
             </div>
           </div>
         </transition>
-        <Loader v-if="isLoaderVisible"></Loader>
+        <Loader v-if="isLoaderVisible" />
       </div>
     </div>
   </teleport>
@@ -222,7 +246,7 @@ export default {
       }, 400)
     },
     getErrorMessageToDisplay(response) {
-      let { detail } = response.data
+      let { detail } = response.data || {}
       let info = ''
       switch (response.status) {
         case 400:
