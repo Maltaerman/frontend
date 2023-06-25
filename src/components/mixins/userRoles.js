@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     getRoleTextToDisplay(role) {
-      return role ? this.$t(`roles.${role}`) : this.$t(`roles.noRole`)
+      return role ? this.$t(`roles.${role}`) : this.$t('roles.noRole')
     },
     mapRoleDisplayTextToValue(roleDisplayText) {
       return this.rolesDisplayText[roleDisplayText]
@@ -33,12 +33,12 @@ export default {
 
     isRoleHaveAccess(userRole, requireRole) {
       if (!userRole) {
-        console.log(
+        window.console.log(
           'isRoleHaveAccess method user role is FALSE or NULL Oor UNDEFINED',
         )
         return false
       }
-      let roles = {
+      const roles = {
         user: ['user'],
         aid_worker: ['user', 'aid_worker'],
         organizational_leader: ['user', 'aid_worker', 'organizational_leader'],

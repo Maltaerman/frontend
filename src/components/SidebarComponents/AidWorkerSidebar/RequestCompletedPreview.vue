@@ -13,7 +13,9 @@
 
   <div class="relative flex h-full flex-col overflow-y-auto">
     <div
-      class="sticky top-0 right-0 left-0 z-50 flex flex-wrap justify-between gap-2 bg-blue-c-500 p-6"
+      class="
+        sticky top-0 right-0 left-0 z-50 flex flex-wrap justify-between gap-2 bg-blue-c-500 p-6
+      "
     >
       <p
         class="grid content-center align-middle text-h3 font-semibold text-white"
@@ -24,14 +26,20 @@
         class="flex flex-nowrap items-center gap-1"
         @click="SaveAndPublish"
       >
-        <img class="inline-block" src="/completed.svg" />
+        <img
+          class="inline-block"
+          src="/completed.svg"
+        >
         <p>
           {{ $t('general.publish') }}
         </p>
       </Button2>
     </div>
 
-    <div id="RequestPreview" class="grow px-6 pb-4 mobile:px-4 mobile:pb-2">
+    <div
+      id="RequestPreview"
+      class="grow px-6 pb-4 mobile:px-4 mobile:pb-2"
+    >
       <h1 class="my-6 text-h1 font-semibold tablet:text-h1-m mobile:text-h1-m">
         {{ requestedMarker.address }},
         <span v-if="requestedMarker.street_number">
@@ -45,7 +53,7 @@
         {{ $t('userSideBar.general-status') }}
       </h3>
 
-      <!--	#region  Build status v2-->
+      <!--#region  Build status v2-->
       <div class="mt-2 flex-col text-h3 mobile:text-h4">
         <ReportStateItem
           v-for="flag of Object.keys(reportFlags)"
@@ -56,10 +64,13 @@
           :update="new Date()"
         />
       </div>
-      <!--	  #endRegion-->
+      <!--#endRegion-->
 
       <router-link to="/main/submit-report">
-        <button-1 v-if="isAuth" class="mt-4 w-full">
+        <button-1
+          v-if="isAuth"
+          class="mt-4 w-full"
+        >
           {{ $t('userSideBar.reportButton') }}
         </button-1>
       </router-link>
@@ -71,9 +82,9 @@
 <script>
 import { mapGetters, mapMutations, mapState } from 'vuex'
 
-import api from '../../../http_client/index.js'
+import api from '../../../http_client/index'
 import Button2 from '../../Buttons/Button_2.vue'
-import reportItemFlags from '../../mixins/reportItemFlags.js'
+import reportItemFlags from '../../mixins/reportItemFlags'
 import Footer from '../UserSidebar/Footer.vue'
 import ReportStateItem from '../UserSidebar/ReportStateItem.vue'
 
@@ -81,12 +92,14 @@ export default {
   name: 'RequestCompletedPreview',
   components: {
     ReportStateItem,
+    // eslint-disable-next-line vue/no-reserved-component-names
     Footer,
     Button2,
   },
   mixins: [reportItemFlags],
   beforeRouteLeave(to, from, next) {
-    if (to.fullPath == '/main/submit-report') {
+    if (to.fullPath === '/main/submit-report') {
+      // eslint-disable-next-line no-param-reassign
       to.params = { previewUpdating: true }
       next()
     } else if (this.isPageLeaveConfirmed) next()
@@ -96,7 +109,7 @@ export default {
       next(false)
     }
   },
-  data: function () {
+  data() {
     return {
       issueMessage: '',
       isLeaveModalVisible: false,
@@ -127,8 +140,9 @@ export default {
     }),
     async SaveAndPublish() {
       this.$toast.wait(this.$t('general.publishing'))
-      let payload = { ...this.requestedMarker }
+      const payload = { ...this.requestedMarker }
 
+      // eslint-disable-next-line max-len
       let requestSender //= this.requestedMarker.id ? api.locations.submitLocationReport : api.locations.addReportByAdmin
 
       if (this.requestedMarker.id) {
@@ -138,7 +152,7 @@ export default {
         requestSender = api.locations.addReportByAdmin
       }
 
-      console.log(payload)
+      window.console.log(payload)
 
       await requestSender(payload)
         .then((res) => {
@@ -149,7 +163,7 @@ export default {
           if (
             !this.getReviewedMarkers.find((x) => x.location_id === res.data.id)
           ) {
-            let newMapMarker = {
+            const newMapMarker = {
               location_id: res.data.id,
               position: res.data.position,
               status: res.data.status,
@@ -171,7 +185,7 @@ export default {
         .catch((err) => {
           this.$toast.clear()
           this.$toast.error(this.$t('general.errorMessage'))
-          console.error(err)
+          window.console.error(err)
         })
     },
     closeResultModal() {

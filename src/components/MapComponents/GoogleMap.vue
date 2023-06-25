@@ -1,15 +1,21 @@
 <template>
-  <div id="mapContainer" class="relative h-full">
+  <div
+    id="mapContainer"
+    class="relative h-full"
+  >
     <div class="absolute top-6 z-10 w-full mobile:top-3.5">
       <div
-        class="mx-[30px] flex h-10 flex-nowrap rounded-xl border border-2 bg-white mobile:mx-4"
+        class="mx-[30px] flex h-10 flex-nowrap rounded-xl border-2 bg-white mobile:mx-4"
         :class="{
           'border-blue-c-500': isInputFocused,
           'border-gray-c-300': !isInputFocused,
         }"
       >
         <div class="w-[44px] cursor-pointer rounded-xl">
-          <img class="h-full w-full object-scale-down" src="/search.svg" />
+          <img
+            class="h-full w-full object-scale-down"
+            src="/search.svg"
+          >
         </div>
         <GMapAutocomplete
           id="autocomplete"
@@ -29,12 +35,15 @@
           class="w-[40px] cursor-pointer rounded-xl"
           @click="ClearSearchRequest"
         >
-          <img class="h-full w-full object-scale-down" src="/close.svg" />
+          <img
+            class="h-full w-full object-scale-down"
+            src="/close.svg"
+          >
         </div>
       </div>
     </div>
-    <!--		:click="true"
-		@click="ClickHandler"-->
+    <!--:click="true"
+    @click="ClickHandler"-->
     <GMapMap
       ref="map"
       :center="currentMapCenter"
@@ -88,8 +97,8 @@
         :v-if="isClickMarker"
       />
       <GMapCluster
-        :maxZoom="13"
-        :minimumClusterSize="2"
+        :max-zoom="13"
+        :minimum-cluster-size="2"
         :styles="[
           {
             textColor: 'black',
@@ -102,7 +111,7 @@
             boxShadow: '2px 2px 10px 0px rgba(115, 118, 128, 0.11)',
           },
         ]"
-        :zoomOnClick="true"
+        :zoom-on-click="true"
       >
         <!--      Зелені маркера -->
         <GMapMarker
@@ -138,7 +147,7 @@
       alt="Loader..."
       class="absolute bottom-6 right-6 block h-8 w-8 animate-spin"
       src="/src/assets/Loader.svg"
-    />
+    >
   </div>
 </template>
 
@@ -146,9 +155,9 @@
 import axios from 'axios'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-import coordsHelper from '../mixins/coordsHelper.js'
-import routerHelper from '../mixins/routerHelper.js'
-import userRoles from '../mixins/userRoles.js'
+import coordsHelper from '../mixins/coordsHelper'
+import routerHelper from '../mixins/routerHelper'
+import userRoles from '../mixins/userRoles'
 
 import MarkerInfoWindow from './MarkerInfoWindow.vue'
 
@@ -156,7 +165,7 @@ export default {
   name: 'GoogleMap',
   components: { MarkerInfoWindow },
   mixins: [userRoles, routerHelper, coordsHelper],
-  data: function () {
+  data() {
     return {
       currentMapZoom: 17,
       currentMapCenter: { lat: 49.23414701332752, lng: 28.46228865225255 },
@@ -180,8 +189,8 @@ export default {
     }),
   },
   watch: {
-    getMapCenter: function (newValue) {
-      //FIXME костилі для того, щоб центр мапи змінювався
+    getMapCenter(newValue) {
+      // FIXME костилі для того, щоб центр мапи змінювався
       // при повторному присвоєнні ідентичного значення
       if (newValue && newValue.lng && newValue.lat) {
         this.currentMapCenter = {
@@ -190,11 +199,10 @@ export default {
         }
         setTimeout(() => {
           this.currentMapCenter = this.coordsFormatter(newValue)
-          this.currentMapZoom =
-            this.currentMapZoom >= 17 ? this.currentMapZoom : 17
+          this.currentMapZoom = this.currentMapZoom >= 17 ? this.currentMapZoom : 17
           if (
-            this.requestedMarkers.length <= 0 ||
-            this.reviewedMarkers.length <= 0
+            this.requestedMarkers.length <= 0
+            || this.reviewedMarkers.length <= 0
           ) {
             this.getMarkersByMapCenter(this.currentMapCenter)
           }
@@ -203,7 +211,7 @@ export default {
     },
   },
   created() {
-    let center = this.coordsFormatter({
+    const center = this.coordsFormatter({
       lng: this.$route.query.lng,
       lat: this.$route.query.lat,
     })
@@ -211,23 +219,20 @@ export default {
     else this.currentMapCenter = this.getMapCenter
     this.OnMapCenterChanged(this.currentMapCenter)
 
-    //region Check if we have selected marker in store
-    let isId = this.$route.query.id && Number(this.$route.query.id)
-    let isSelectedMarkerId =
-      this.selectedMarker &&
-      isId &&
-      this.selectedMarker.id == this.$route.query.id
-    let isNotFoundMarkerId =
-      this.notFoundMarker &&
-      isId &&
-      this.notFoundMarker.id == this.$route.query.id
-    //endregion
+    // region Check if we have selected marker in store
+    const isId = this.$route.query.id && Number(this.$route.query.id)
+    const isSelectedMarkerId = this.selectedMarker
+      && isId
+      && this.selectedMarker.id === this.$route.query.id
+    const isNotFoundMarkerId = this.notFoundMarker
+      && isId
+      && this.notFoundMarker.id === this.$route.query.id
+    // endregion
 
     if (!isNotFoundMarkerId && !isSelectedMarkerId && isId) {
       this.getMarkerById({
         locationId: Number(this.$route.query.id),
-        callbackFailed: () =>
-          this.$toast.error(this.$t('general.errorMessage')),
+        callbackFailed: () => this.$toast.error(this.$t('general.errorMessage')),
       })
     }
     setTimeout(() => {
@@ -247,7 +252,7 @@ export default {
       this.$router.push('/main/overview')
       this.getGooglePlaceInfo(event.latLng)
     },
-    //FIXME coords
+    // FIXME coords
     OnMapCenterChanged(coords) {
       this.isLoaderVisible = true
       clearTimeout(this.intervalId)
@@ -257,25 +262,23 @@ export default {
       )
     },
     async GetMarkersByMapCenter(coords) {
-      let payload = {
+      const payload = {
         ...this.coordsFormatter(coords),
         zoom: this.currentMapZoom,
       }
       await this.getMarkersByMapCenter(payload)
       this.isLoaderVisible = false
     },
-    /////////
+    /// //////
     getMarkerInfo(marker) {
       this.isClickMarker = false
       this.ClickMarkerCoords = null
       this.getMarkerById({
         locationId: marker.location_id,
-        callbackFailed: () =>
-          this.$toast.error(this.$t('general.errorMessage')),
+        callbackFailed: () => this.$toast.error(this.$t('general.errorMessage')),
       })
       setTimeout(() => {
-        this.currentMapZoom =
-          this.currentMapZoom >= 17 ? this.currentMapZoom : 17
+        this.currentMapZoom = this.currentMapZoom >= 17 ? this.currentMapZoom : 17
       }, 500)
     },
     getRequestedMarkerInfo(marker) {
@@ -283,11 +286,11 @@ export default {
       this.ClickMarkerCoords = null
       this.getGooglePlaceInfo(marker.position)
       setTimeout(() => {
-        this.currentMapZoom =
-          this.currentMapZoom >= 17 ? this.currentMapZoom : 17
+        this.currentMapZoom = this.currentMapZoom >= 17 ? this.currentMapZoom : 17
       }, 500)
     },
     async getGooglePlaceInfo(coords) {
+      // eslint-disable-next-line no-param-reassign
       coords = this.coordsFormatter(coords)
       await axios
         .get(
@@ -296,21 +299,19 @@ export default {
           },${coords.lng}&key=${import.meta.env.VITE_GMAPS_APIKEY}`,
         )
         .then((res) => {
-          let googlePlace = res.data.results.find((x) =>
-            Object.keys(x.geometry).includes('bounds'),
-          )
+          const googlePlace = res.data.results.find((x) => Object.keys(x.geometry).includes('bounds'))
           if (
-            googlePlace &&
-            this.checkIsCoordsInObjViewport(coords, googlePlace)
+            googlePlace
+            && this.checkIsCoordsInObjViewport(coords, googlePlace)
           ) {
-            let ExistedMarker = this.CheckIsReportedMarkerExist2(googlePlace)
+            const ExistedMarker = this.CheckIsReportedMarkerExist2(googlePlace)
             if (ExistedMarker) {
               this.getMarkerInfo(ExistedMarker)
               this.isClickMarker = false
               this.ClickMarkerCoords = null
             } else {
-              let isPlaceRequested = this.GetRequestMarkerIsExist(googlePlace)
-              let notFoundedMarker = {
+              const isPlaceRequested = this.GetRequestMarkerIsExist(googlePlace)
+              const notFoundedMarker = {
                 position: this.coordsFormatter(googlePlace.geometry.location),
                 address: googlePlace.formatted_address,
                 id: isPlaceRequested ? isPlaceRequested.location_id : undefined,
@@ -318,22 +319,23 @@ export default {
               this.setNoDataMarker(notFoundedMarker)
             }
           } else {
-            let notFoundedMarker = {
+            const notFoundedMarker = {
               position: coords,
               address: res.data.results[0].formatted_address,
             }
             this.setNoDataMarker(notFoundedMarker)
           }
         })
-        .catch((err) => console.log(err))
+        .catch((err) => window.console.log(err))
     },
     CheckIsReportedMarkerExist(googlePlacesArray) {
-      let marker = undefined
+      let marker
+      // eslint-disable-next-line no-plusplus
       for (let i = 0; i < googlePlacesArray.length; i++) {
         marker = this.reviewedMarkers.find((x) => {
-          let xx = this.coordsFormatter(x.position)
-          let yy = this.coordsFormatter(googlePlacesArray[i].geometry.location)
-          return xx.lat == yy.lat && xx.lng == yy.lng
+          const xx = this.coordsFormatter(x.position)
+          const yy = this.coordsFormatter(googlePlacesArray[i].geometry.location)
+          return xx.lat === yy.lat && xx.lng === yy.lng
         })
         if (marker) {
           break
@@ -342,15 +344,15 @@ export default {
       return marker ?? false
     },
     CheckIsReportedMarkerExist2(googlePlace) {
-      let marker = this.reviewedMarkers.find((x) => {
-        return this.checkIsCoordsInObjViewport(x.position, googlePlace)
-      })
+      const marker = this.reviewedMarkers.find(
+        (x) => this.checkIsCoordsInObjViewport(x.position, googlePlace),
+      )
       return marker ?? false
     },
     GetRequestMarkerIsExist(googlePlace) {
-      let marker = this.requestedMarkers.find((x) => {
-        return this.checkIsCoordsInObjViewport(x.position, googlePlace)
-      })
+      const marker = this.requestedMarkers.find(
+        (x) => this.checkIsCoordsInObjViewport(x.position, googlePlace),
+      )
       return marker ?? false
     },
     OnMapZoomChanged(arg) {
@@ -360,30 +362,28 @@ export default {
       this.isInputFocused = arg
     },
     setPlace(arg) {
-      console.log(arg)
-      let position = this.coordsFormatter(arg.geometry.location)
+      window.console.log(arg)
+      const position = this.coordsFormatter(arg.geometry.location)
       this.GetMarkerByCoords({ name: arg.name, position })
       this.$router.push('/main/overview')
     },
     ClearSearchRequest() {
-      let autocomplete = document.getElementById('autocomplete')
+      const autocomplete = document.getElementById('autocomplete')
       autocomplete.value = ''
     },
     checkIsCoordsInObjViewport(coords, obj) {
       if (!coords || !obj) return false
-      let viewport = obj.geometry.bounds
+      const viewport = obj.geometry.bounds
       if (!viewport) {
-        console.error('Object bounds is null')
+        window.console.error('Object bounds is null')
         return false
       }
-      let isLatInRange =
-        coords.lat >= viewport.southwest.lat &&
-        coords.lat <= viewport.northeast.lat
-      let isLngInRange =
-        coords.lng >= viewport.southwest.lng &&
-        coords.lng <= viewport.northeast.lng
+      const isLatInRange = coords.lat >= viewport.southwest.lat
+        && coords.lat <= viewport.northeast.lat
+      const isLngInRange = coords.lng >= viewport.southwest.lng
+        && coords.lng <= viewport.northeast.lng
 
-      /*console.log(`isLatInRange = ${isLatInRange}; isLngInRange = ${isLngInRange}`)*/
+      /* console.log(`isLatInRange = ${isLatInRange}; isLngInRange = ${isLngInRange}`) */
       return isLatInRange && isLngInRange
     },
   },

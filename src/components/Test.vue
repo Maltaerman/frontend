@@ -1,6 +1,8 @@
 <template>
   <div class="h-full overflow-y-auto p-6">
-    <h1 class="w-full py-2 text-center text-2xl">Welcome to test screen</h1>
+    <h1 class="w-full py-2 text-center text-2xl">
+      Welcome to test screen
+    </h1>
     <div>
       <SearchDropDown
         v-model="dpVal"
@@ -21,6 +23,7 @@ import SearchDropDown from './Inputs/SearchDropDown/SearchDropDown.vue'
 import ProgressBar from './Other/ProgressBar.vue'
 
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: 'Test',
   components: {
     ProgressBar,
@@ -38,14 +41,14 @@ export default {
     dateStr() {
       if (!this.date) return ''
       return (
-        new Date(this.date[0]).toDateString() +
-        '\n\r' +
-        new Date(this.date[1]).toDateString()
+        `${new Date(this.date[0]).toDateString()
+        }\n\r${
+          new Date(this.date[1]).toDateString()}`
       )
     },
     getDpOption() {
-      let res = []
-      for (let i = 1; i < 21; i++) {
+      const res = []
+      for (let i = 1; i < 21; i += 1) {
         res.push(
           DropDownOption(`option ${i}`, {
             value: `Value is ${i}`,
@@ -57,7 +60,7 @@ export default {
   },
   watch: {
     date(newVal) {
-      console.log(newVal)
+      window.console.log(newVal)
     },
   },
   methods: {
@@ -77,7 +80,7 @@ export default {
       this.mess = 'qwertyyyyy'
     },
     onValidation(res) {
-      console.log(res)
+      window.console.log(res)
     },
   },
 }

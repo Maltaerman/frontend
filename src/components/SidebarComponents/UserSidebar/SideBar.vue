@@ -5,7 +5,9 @@
     class="overflow-y-auto-custom flex h-full flex-col shadow-cs1"
   >
     <h1
-      class="my-6 px-6 text-h1 font-semibold tablet:px-4 tablet:text-h1-m mobile:px-4 mobile:text-h1-m"
+      class="
+        my-6 px-6 text-h1 font-semibold tablet:px-4 tablet:text-h1-m mobile:px-4 mobile:text-h1-m
+      "
     >
       {{ selectedMarkerAddress }}
     </h1>
@@ -59,9 +61,10 @@ export default {
     NotFound,
   },
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     selectedMarker: Object,
   },
-  data: function () {
+  data() {
     return {
       selectedTabItem: 'Overview',
     }
@@ -72,16 +75,14 @@ export default {
     }),
     selectedMarkerAddress() {
       let address = ''
-      if (this.selectedMarkerData.address)
-        address += `${this.selectedMarkerData.address}, `
-      if (this.selectedMarkerData.street_number)
-        address += `${this.selectedMarkerData.street_number}, `
-      if (this.selectedMarkerData.index)
-        address += `${this.selectedMarkerData.index}, `
-      if (this.selectedMarkerData.city)
-        address += `${this.selectedMarkerData.city}`
+      if (this.selectedMarkerData.address) address += `${this.selectedMarkerData.address}, `
+      if (this.selectedMarkerData.street_number) address += `${this.selectedMarkerData.street_number}, `
+      if (this.selectedMarkerData.index) address += `${this.selectedMarkerData.index}, `
+      if (this.selectedMarkerData.city) address += `${this.selectedMarkerData.city}`
       let trim = 0
+      // eslint-disable-next-line for-direction, no-plusplus
       for (let i = address.length - 1; i <= 0; i--) {
+        // eslint-disable-next-line no-plusplus
         if (address[i] === ' ' || address[i] === ',') trim++
         else break
       }

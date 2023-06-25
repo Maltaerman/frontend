@@ -6,7 +6,7 @@
       :class="classList"
       @click="hide"
     >
-      <slot></slot>
+      <slot />
     </div>
   </teleport>
 </template>
@@ -23,6 +23,7 @@ export default {
       type: Function,
       required: true,
     },
+    // eslint-disable-next-line vue/require-default-prop
     classList: {
       type: String,
     },

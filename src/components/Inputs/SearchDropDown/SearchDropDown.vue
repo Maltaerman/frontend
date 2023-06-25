@@ -1,5 +1,8 @@
 <template>
-  <div class="relative z-10" @focusout="containerFocusLost">
+  <div
+    class="relative z-10"
+    @focusout="containerFocusLost"
+  >
     <div
       class="flex flex-nowrap gap-2.5 rounded-lg border border-gray-c-300 px-4 py-2"
       data-input
@@ -10,7 +13,7 @@
         :value="inputValue"
         @focusin.stop="isDropped = true"
         @input="(e) => updateValue(e.target.value)"
-      />
+      >
       <button @click.stop="dropBehavior">
         <img
           class="h-2 w-3.5 transition-all duration-300"
@@ -19,12 +22,14 @@
             'rotate-180': isDropped,
           }"
           src="/src/assets/dropdown-arrow.svg"
-        />
+        >
       </button>
     </div>
     <div
       v-if="isDropped"
-      class="absolute max-h-[208px] w-full overflow-hidden rounded-lg bg-white py-1 pr-1.5 shadow-cs3"
+      class="
+        absolute max-h-[208px] w-full overflow-hidden rounded-lg bg-white py-1 pr-1.5 shadow-cs3
+      "
       data-drop-container
     >
       <div
@@ -46,7 +51,12 @@
           {{ op.text }}
         </div>
       </div>
-      <div v-else class="py-2 text-h3">Нічого не знайдено</div>
+      <div
+        v-else
+        class="py-2 text-h3"
+      >
+        Нічого не знайдено
+      </div>
     </div>
   </div>
 </template>
@@ -60,9 +70,9 @@ export default {
       default: undefined,
     },
     options: {
-      //array of DropDownOption
+      // array of DropDownOption
       type: Array,
-      default: [],
+      default: () => [],
     },
   },
   emits: ['update:modelValue'],
@@ -77,11 +87,11 @@ export default {
   computed: {
     visibleOptions() {
       if (this.inputValue) {
-        let res = this.options.filter((x) =>
-          x.text.toLowerCase().includes(this.inputValue.toLowerCase()),
+        const res = this.options.filter(
+          (x) => x.text.toLowerCase().includes(this.inputValue.toLowerCase()),
         )
         return res.length <= 1 ? this.options : res
-      } else return this.options
+      } return this.options
     },
   },
   watch: {
@@ -95,7 +105,7 @@ export default {
   methods: {
     updateInputText() {
       if (this.modelValue) {
-        let selected = this.options.find(
+        const selected = this.options.find(
           (x) => JSON.stringify(x.value) === JSON.stringify(this.modelValue),
         )
         if (selected) this.inputValue = selected.text
@@ -105,6 +115,7 @@ export default {
       setTimeout(() => {
         this.isDropped = false
         this.preventDropped = false
+        // eslint-disable-next-line no-return-assign
         setTimeout(() => (this.preventDropped = true), 50)
       }, 100)
     },
@@ -116,14 +127,14 @@ export default {
       this.$emit('update:modelValue', option.value)
     },
     isOptionIsModelValue(optionValue) {
-      if (typeof optionValue == 'object') {
+      if (typeof optionValue === 'object') {
         return JSON.stringify(this.modelValue) === JSON.stringify(optionValue)
-      } else return optionValue === this.modelValue
+      } return optionValue === this.modelValue
     },
     updateValue(val) {
       this.inputValue = val
       this.isDropped = true
-      console.log(this.inputValue)
+      window.console.log(this.inputValue)
     },
   },
 }

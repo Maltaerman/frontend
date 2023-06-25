@@ -1,9 +1,9 @@
 <template>
   <ModalTemplate
     class-list="grid items-center px-6"
-    :closeFunc="cancelButtonClick"
+    :close-func="cancelButtonClick"
+    :is-hide-on-click="isBgClickClose"
     :is-modal-visible="isVisible"
-    :isHideOnClick="isBgClickClose"
   >
     <div
       class="relative mx-auto w-[480px] rounded-lg bg-white p-6 mobile:w-full"
@@ -12,16 +12,24 @@
         class="absolute top-6 right-6 cursor-pointer"
         src="/src/assets/close.svg"
         @click="cancelButtonClick"
-      />
-      <div class="text-center text-h2 font-semibold">{{ title }}</div>
+      >
+      <div class="text-center text-h2 font-semibold">
+        {{ title }}
+      </div>
       <div class="mt-2 mb-6 text-center text-gray-c-500">
         {{ question }}
       </div>
       <div class="flex flex-nowrap gap-4">
-        <button-2 class="w-full" @click="cancelButtonClick">
+        <button-2
+          class="w-full"
+          @click="cancelButtonClick"
+        >
           {{ cancelButtonTextC }}
         </button-2>
-        <button-1 class="w-full" @click="acceptButtonClick">
+        <button-1
+          class="w-full"
+          @click="acceptButtonClick"
+        >
           {{ acceptButtonTextC }}
         </button-1>
       </div>
@@ -53,7 +61,9 @@ export default {
       type: String,
       required: true,
     },
+    // eslint-disable-next-line vue/require-default-prop
     acceptButtonText: String,
+    // eslint-disable-next-line vue/require-default-prop
     cancelButtonText: String,
     acceptButtonFunc: {
       required: true,

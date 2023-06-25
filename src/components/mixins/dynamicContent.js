@@ -1,4 +1,6 @@
-import stringFormatter from './StringFormatter.js'
+/* eslint-disable no-plusplus */
+/* eslint-disable for-direction */
+import stringFormatter from './StringFormatter'
 
 export default {
   mixins: [stringFormatter],

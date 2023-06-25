@@ -1,3 +1,4 @@
+<!-- eslint-disable max-len -->
 <template>
   <svg
     class="h-6 w-auto"

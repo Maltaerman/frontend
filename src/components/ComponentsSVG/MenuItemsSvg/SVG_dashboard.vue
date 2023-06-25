@@ -1,5 +1,11 @@
+<!-- eslint-disable max-len -->
 <template>
-  <svg class="hidden" height="20" viewBox="0 0 20 20" width="20">
+  <svg
+    class="hidden"
+    height="20"
+    viewBox="0 0 20 20"
+    width="20"
+  >
     <path
       clip-rule="evenodd"
       d="M0 2C0 0.895432 0.89543 0 2 0H18C19.1046 0 20 0.89543 20 2V19C20 19.5523 19.5523 20 19 20H1C0.447715 20 0 19.5523 0 19V2ZM18 2L2 2V18H18V2Z"

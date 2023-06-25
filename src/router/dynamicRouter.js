@@ -1,3 +1,11 @@
+/* eslint-disable consistent-return */
+/* eslint-disable import/prefer-default-export */
+import { createRouter, createWebHistory } from 'vue-router'
+
+import orgLeaderRouter from '../components/OrganizationLeader/OrgLeaderRouter'
+import userRoles from '../components/mixins/userRoles'
+import { store } from '../store/mainStore'
+
 const WelcomeScreen = () => import('../components/WelcomeScreen/WelcomeScreen.vue')
 const MainScreen = () => import('../components/MainScreen.vue')
 const Test = () => import('../components/Test.vue')
@@ -13,12 +21,6 @@ const PasswordReset = () => import('../components/Authorization/PasswordReset.vu
 const UserRolesList = () => import('../components/PlatformAdministration/Roles/UserRolesList.vue')
 const RoleCreating = () => import('../components/PlatformAdministration/Roles/RoleCreating.vue')
 const OrganizationRegistration = () => import('../components/OrganizationLeader/OrgRegistration.vue')
-
-import { createRouter, createWebHistory } from 'vue-router'
-
-import orgLeaderRouter from '../components/OrganizationLeader/OrgLeaderRouter.js'
-import userRoles from '../components/mixins/userRoles.js'
-import { store } from '../store/mainStore.js'
 
 const mainRouter = [
   {
@@ -118,8 +120,8 @@ const mainRouter = [
   {
     path: '/:pathMatch(.*)*',
     redirect: (to) => {
-      console.log('Path not match redirect')
-      console.log(to)
+      window.console.log('Path not match redirect')
+      window.console.log(to)
       return {
         path: '/main',
       }
@@ -129,27 +131,27 @@ const mainRouter = [
 export const Router = createRouter({
   history: createWebHistory(),
   routes: mainRouter,
-  scrollBehavior: function (to, _from, savedPosition) {
+  scrollBehavior(to, _from, savedPosition) {
     return savedPosition || { top: 0, left: 0 }
   },
 })
 
 Router.beforeEach((to) => {
   if (to.meta.requiresAuth && !store.getters.isAuth) {
-    console.log('None authorize')
+    window.console.log('None authorize')
     return {
       path: '/main',
     }
   }
   if (to.meta.selectedRequest && !store.getters.getSelectedLocationRequest) {
-    console.log('Selected request not exist')
+    window.console.log('Selected request not exist')
     if (store.getters.isAuth) {
       return '/main/requests'
-    } else return '/main'
+    } return '/main'
   }
-  //FIXME
-  /*if(to.meta.minRole && !userRoles.methods.isRoleHaveAccess(store.getters.getRole))
+  // FIXME
+  /* if(to.meta.minRole && !userRoles.methods.isRoleHaveAccess(store.getters.getRole))
     return {
       path : "/"
-    }*/
+    } */
 })

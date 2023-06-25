@@ -1,11 +1,11 @@
 <template>
-  <router-view></router-view>
+  <router-view />
 </template>
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-import routerHelper from './components/mixins/routerHelper.js'
-import userRoles from './components/mixins/userRoles.js'
+import routerHelper from './components/mixins/routerHelper'
+import userRoles from './components/mixins/userRoles'
 import api from './http_client'
 
 export default {
@@ -23,22 +23,18 @@ export default {
     ...mapGetters(['isAuth', 'getLocalization', 'getUser']),
   },
   watch: {
-    isAuth: function (newValue) {
+    isAuth(newValue) {
       this.UpdateRequestCount()
 
       if (newValue) {
         this.CheckIsOrgActive()
-      } else {
-        if (this.updateId) clearTimeout(this.updateId)
-      }
+      } else if (this.updateId) clearTimeout(this.updateId)
     },
-    $route: function (newValue) {
+    $route(newValue) {
       if (newValue) {
         this.CheckIsOrgActive()
-        //this.onPageChangeEvents.forEach(func=>func())
-      } else {
-        if (this.updateId) clearTimeout(this.updateId)
-      }
+        // this.onPageChangeEvents.forEach(func=>func())
+      } else if (this.updateId) clearTimeout(this.updateId)
     },
   },
   created() {
@@ -58,17 +54,16 @@ export default {
         )
       }
     },
-    //if user is org leader and organization is not activated
-    //move user to org registration page
+    // if user is org leader and organization is not activated
+    // move user to org registration page
     CheckIsOrgActive() {
       if (
-        this.getUser &&
-        this.getUser.role === this.userRoles.organizationAdmin &&
-        !this.getUser.organization_model.activated
-      )
-        this.$router.push('/organization-registration')
-      //else
-      //	this.onPageChangeEvents.splice(this.onPageChangeEvents.indexOf(this.CheckIsOrgActive), 1);
+        this.getUser
+        && this.getUser.role === this.userRoles.organizationAdmin
+        && !this.getUser.organization_model.activated
+      ) this.$router.push('/organization-registration')
+      // else
+      // this.onPageChangeEvents.splice(this.onPageChangeEvents.indexOf(this.CheckIsOrgActive), 1);
     },
     LoadPhoneCodes() {
       api.guest
@@ -77,7 +72,7 @@ export default {
           this.setPhoneCodes(res.data)
         })
         .catch((err) => {
-          console.error(err)
+          window.console.error(err)
         })
     },
   },

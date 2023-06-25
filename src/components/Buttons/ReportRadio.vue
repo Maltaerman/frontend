@@ -1,3 +1,4 @@
+<!-- eslint-disable max-len -->
 <template>
   <label
     v-for="(option, index) in label.options"
@@ -10,7 +11,7 @@
       :name="label.name"
       type="radio"
       @change="updateModel(option.value)"
-    />
+    >
     <div
       class="hover:bg-gray-c-10 rounded-lg border bg-transparent py-1 px-2 text-center align-middle text-h3 font-medium disabled:border-gray-c-200 disabled:text-gray-c-400 tablet:text-h4 mobile:text-h4"
       :class="option.class"
@@ -24,7 +25,9 @@
 export default {
   name: 'ReportRadio',
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     label: Object,
+    // eslint-disable-next-line vue/require-default-prop
     checkedOp: String,
   },
   emits: ['update:modelValue'],

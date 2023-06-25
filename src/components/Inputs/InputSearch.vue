@@ -1,6 +1,7 @@
+<!-- eslint-disable vue/no-mutating-props -->
 <template>
   <label
-    class="input-1 block flex flex-nowrap gap-2 border"
+    class="input-1 flex flex-nowrap gap-2 border"
     :class="{
       'border-blue-c-500': isFocused,
       'border-gray-c-300': !isFocused,
@@ -22,17 +23,21 @@
       type="text"
       @focusin="OnFocus(true)"
       @focusout="OnFocus(false)"
-    />
+    >
   </label>
 </template>
 
+<!-- eslint-disable camelcase -->
 <script>
 import SVG_search from '../ComponentsSVG/Icons/SVG_search.vue'
+
 export default {
   name: 'InputSearch',
   components: { SVG_search },
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     modelValue: String,
+    // eslint-disable-next-line vue/require-default-prop
     placeholder: String,
   },
   emits: ['update:modelValue'],

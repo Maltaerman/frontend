@@ -1,7 +1,13 @@
 <template>
-  <div id="sideBarAidWorker" class="h-full overflow-y-auto shadow-cs1">
+  <div
+    id="sideBarAidWorker"
+    class="h-full overflow-y-auto shadow-cs1"
+  >
     <h1
-      class="my-6 px-6 text-h1 font-semibold tablet:px-4 tablet:text-h1-m mobile:px-4 mobile:text-h1-m"
+      class="
+        my-6 px-6 text-h1 font-semibold tablet:px-4
+        tablet:text-h1-m mobile:px-4 mobile:text-h1-m
+      "
     >
       {{ $t('aidWorkerSideBar.header') }}
     </h1>
@@ -50,7 +56,7 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import api from '../../../http_client/index.js'
+import api from '../../../http_client/index'
 import TabItemButton from '../../Other/TabItemButton.vue'
 
 import MyReportRequestList from './MyReportRequestList.vue'
@@ -64,9 +70,10 @@ export default {
     ReportsRequestsList,
   },
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     selectedMarker: Object,
   },
-  data: function () {
+  data() {
     return {
       selectedTabItem: 'All requests',
       userLocation: {},
@@ -104,6 +111,7 @@ export default {
       if (!this.isAuth) return
 
       let payload = {
+        // eslint-disable-next-line no-plusplus
         page: ++this.requestedMarkers.page,
         limit: this.requestedMarkers.limit,
       }
@@ -126,10 +134,9 @@ export default {
       await api.locations
         .getReportsRequests(payload)
         .then((res) => {
-          if (res.data.length === 0)
-            this.requestedMarkers.pageMax = --this.requestedMarkers.page
-          else if (res.data.length < 20)
-            this.requestedMarkers.pageMax = this.requestedMarkers.page
+          // eslint-disable-next-line no-plusplus
+          if (res.data.length === 0) this.requestedMarkers.pageMax = --this.requestedMarkers.page
+          else if (res.data.length < 20) this.requestedMarkers.pageMax = this.requestedMarkers.page
           this.requestedMarkers.unreviewedMarkers = [
             ...this.requestedMarkers.unreviewedMarkers,
             ...res.data,
@@ -153,6 +160,7 @@ export default {
         })
         .catch((err) => {
           this.$toast.error(this.$t('general.errorMessage'))
+          // eslint-disable-next-line no-alert
           alert(err)
         })
         .finally(() => {
@@ -164,13 +172,13 @@ export default {
       this.myList.myUnreviewedMarkers = this.myList.myUnreviewedMarkers.filter(
         (el) => el.id !== req.id,
       )
-      let removedReq = this.requestedMarkers.unreviewedMarkers.find(
+      const removedReq = this.requestedMarkers.unreviewedMarkers.find(
         (x) => x.id === req.id,
       )
       if (removedReq) removedReq.reported_by = req.reported_by
     },
     OnAddToMyList(req) {
-      let addedReq = this.requestedMarkers.unreviewedMarkers.find(
+      const addedReq = this.requestedMarkers.unreviewedMarkers.find(
         (x) => x.id === req.id,
       )
       if (addedReq) {

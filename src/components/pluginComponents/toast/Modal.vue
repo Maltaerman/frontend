@@ -1,7 +1,11 @@
 <template>
   <div
     v-show="isAct"
-    class="fixed top-0 left-0 right-0 bottom-0 z-[9000] flex h-full w-full items-center justify-center overflow-hidden bg-black/30 mobile:px-2"
+    class="
+      fixed top-0 left-0 right-0 bottom-0 z-[9000]
+      flex h-full w-full items-center justify-center
+      overflow-hidden bg-black/30 mobile:px-2
+    "
     @click.stop="bgClose"
   >
     <div
@@ -13,24 +17,27 @@
         class="absolute top-6 right-6 cursor-pointer"
         src="/src/assets/close.svg"
         @click="close"
-      />
+      >
       <div>
         <img
           v-if="isType(types.success)"
           class="mx-auto"
           src="/src/assets/Completed.svg"
-        />
+        >
         <img
           v-if="isType(types.error)"
           class="mx-auto"
           src="/src/assets/Error.svg"
-        />
+        >
         <img
           v-if="isType(types.wait)"
           class="mx-auto animate-spin"
           src="/src/assets/Loader.svg"
-        />
-        <p class="mt-5 text-center text-h2 font-semibold" :class="textStyle">
+        >
+        <p
+          class="mt-5 text-center text-h2 font-semibold"
+          :class="textStyle"
+        >
           {{ message }}
         </p>
       </div>
@@ -39,13 +46,15 @@
 </template>
 
 <script>
-import eventSystem from './event-system.js'
-import messageTypes from './messageTypes.js'
-import removeElement from './remove-helper.js'
+import eventSystem from './event-system'
+import messageTypes from './messageTypes'
+import removeElement from './remove-helper'
 
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: 'Toaster',
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     message: String,
     isCloseOnBg: {
       type: Boolean,
@@ -94,7 +103,7 @@ export default {
     }
   },
   updated() {
-    //beforeUnmount hook don't call. I don't know why
+    // beforeUnmount hook don't call. I don't know why
     if (!this.isAct) eventSystem.$off('toast-close', this.close)
   },
   beforeUnmount() {

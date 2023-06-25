@@ -4,14 +4,23 @@
   >
     <Header class="shrink-0 grow-0" />
     <div
-      class="mx-auto flex w-[600px] shrink shrink grow grow basis-1 flex-col items-center justify-center px-4 text-h3 mobile:w-full mobile:text-h4"
+      class="
+        mx-auto flex w-[600px] shrink grow basis-1
+        flex-col items-center justify-center
+        px-4 text-h3 mobile:w-full mobile:text-h4"
     >
-      <img class="inline-block w-[310px]" src="/src/assets/fullLogo.svg" />
+      <img
+        class="inline-block w-[310px]"
+        src="/src/assets/fullLogo.svg"
+      >
       <p class="mt-6 text-justify text-gray-c-500">
         {{ $t('welcomeScreen.helperText') }}
       </p>
       <div
-        class="mx-[2.5%] mt-6 mb-9 flex h-10 w-full flex-nowrap rounded-xl border border-[2px] border-gray-c-300 bg-white"
+        class="
+          mx-[2.5%] mt-6 mb-9 flex h-10 w-full flex-nowrap
+          rounded-xl border-[2px] border-gray-c-300 bg-white
+        "
         :class="{ 'border-blue-c-500': isInputFocused }"
       >
         <div class="w-[44px] cursor-pointer rounded-xl">
@@ -19,7 +28,7 @@
             alt="search"
             class="h-full w-full object-scale-down"
             src="/search.svg"
-          />
+          >
         </div>
         <GMapAutocomplete
           id="autocomplete"
@@ -47,11 +56,14 @@
             alt="close"
             class="h-full w-full object-scale-down"
             src="/close.svg"
-          />
+          >
         </div>
       </div>
 
-      <div v-if="recentReports.length > 0" class="w-full">
+      <div
+        v-if="recentReports.length > 0"
+        class="w-full"
+      >
         <div class="z-10 mb-2 bg-white font-semibold">
           {{ $t('welcomeScreen.recentlyReports') }}
         </div>
@@ -75,11 +87,20 @@
       <div
         class="flex flex-nowrap gap-6 break-words text-h4 font-semibold text-blue-c-500"
       >
-        <a :href="AboutUrl" target="_blank">{{ $t('footer.about') }}</a>
-        <a href="https://dimblog.wixsite.com/project-dim" target="_blank">{{
+        <a
+          :href="AboutUrl"
+          target="_blank"
+        >{{ $t('footer.about') }}</a>
+        <a
+          href="https://dimblog.wixsite.com/project-dim"
+          target="_blank"
+        >{{
           $t('footer.blog')
         }}</a>
-        <a :href="AboutUrl" target="_blank">❤ {{ $t('footer.support') }}</a>
+        <a
+          :href="AboutUrl"
+          target="_blank"
+        >❤ {{ $t('footer.support') }}</a>
       </div>
       <div
         class="flex flex-nowrap gap-4 text-h4 font-semibold text-gray-c-400 mobile:text-b3"
@@ -94,9 +115,9 @@
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex'
 
-import api from '../../http_client/index.js'
+import api from '../../http_client/index'
 import Header from '../Header/HeaderV2.vue'
-import coordsHelper from '../mixins/coordsHelper.js'
+import coordsHelper from '../mixins/coordsHelper'
 
 import WelcomeScreenReportList from './WelcomeScreenReportList.vue'
 
@@ -104,10 +125,11 @@ export default {
   name: 'WelcomeScreen',
   components: {
     WelcomeScreenReportList,
+    // eslint-disable-next-line vue/no-reserved-component-names
     Header,
   },
   mixins: [coordsHelper],
-  data: function () {
+  data() {
     return {
       searchRequest: null,
       isInputFocused: false,
@@ -133,16 +155,17 @@ export default {
     },
   },
   watch: {
-    selectedMarkerData: function (newVal) {
-      if (newVal !== null)
+    selectedMarkerData(newVal) {
+      if (newVal !== null) {
         this.$router.push({
           path: '/main/overview',
           query: { id: newVal.id, ...newVal.position },
         })
+      }
     },
-    notFoundedMarkerData: function (newVal) {
+    notFoundedMarkerData(newVal) {
       if (newVal !== null) {
-        console.log(newVal)
+        window.console.log(newVal)
         this.$router.push({
           path: '/main/overview',
           query: { id: newVal.id, ...newVal.position },
@@ -165,7 +188,7 @@ export default {
       this.isInputFocused = arg
     },
     ClearSearchRequest() {
-      let autocomplete = document.getElementById('autocomplete')
+      const autocomplete = document.getElementById('autocomplete')
       autocomplete.value = ''
     },
     GetMarker(arg) {
@@ -190,7 +213,7 @@ export default {
           this.recentReports = res.data ?? []
         })
         .catch((err) => {
-          console.error(err)
+          window.console.error(err)
         })
     },
   },

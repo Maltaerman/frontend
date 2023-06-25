@@ -1,3 +1,4 @@
+<!-- eslint-disable max-len -->
 <template>
   <svg
     class="fill-red-c-500"

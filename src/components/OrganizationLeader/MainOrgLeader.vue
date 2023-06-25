@@ -1,17 +1,22 @@
 <template>
   <Header />
   <div
-    class="flex h-[calc(100vh-62px)] comp:h-[calc(100vh-74px)] tablet:overflow-y-auto mobile:overflow-y-auto"
+    class="
+      flex h-[calc(100vh-62px)] comp:h-[calc(100vh-74px)]
+      tablet:overflow-y-auto mobile:overflow-y-auto
+    "
   >
     <div class="shrink-0 shadow-cs1 comp:w-[320px] mobile:hidden">
       <div
-        class="flex h-[200px] w-full flex-col place-content-center place-items-center gap-2 shadow-cs2"
+        class="
+          flex h-[200px] w-full flex-col place-content-center place-items-center gap-2 shadow-cs2
+        "
       >
         <div class="h-[60px] w-[60px] rounded-full bg-blue-c-100 px-5 py-3">
           <img
             class="h-full w-full"
             src="/src/assets/Organizations/Emblem.svg"
-          />
+          >
         </div>
         <p class="w-min text-h3 font-semibold text-gray-c-600">
           {{ $t('dashboard.admin') }}
@@ -48,15 +53,16 @@
       </nav>
     </div>
     <div class="h-full w-full overflow-y-auto">
-      <router-view></router-view>
+      <router-view />
     </div>
   </div>
 </template>
 
+<!-- eslint-disable camelcase -->
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 
-import api from '../../http_client/index.js'
+import api from '../../http_client/index'
 import SVG_Org_List from '../ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue'
 import SVG_history from '../ComponentsSVG/MenuItemsSvg/SVG_history.vue'
 import SVG_settings from '../ComponentsSVG/SVG_settings.vue'
@@ -68,6 +74,7 @@ export default {
   components: {
     SVG_settings,
     SVG_history,
+    // eslint-disable-next-line vue/no-reserved-component-names
     Header,
     SVG_Org_List,
     MenuItemLink,

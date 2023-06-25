@@ -1,5 +1,9 @@
+<!-- eslint-disable max-len -->
 <template>
-  <div v-if="organization" class="h-full overflow-y-auto py-6 px-4 comp:p-9">
+  <div
+    v-if="organization"
+    class="h-full overflow-y-auto py-6 px-4 comp:p-9"
+  >
     <div
       class="row flex flex-wrap items-center justify-between gap-4 pb-6 comp:pb-9"
     >
@@ -7,15 +11,17 @@
         {{ $t('organizationProfile.employees') }}
       </div>
       <button-1
-        class="block flex h-min items-center justify-center gap-1.5 mobile:w-full"
+        class="flex h-min items-center justify-center gap-1.5 mobile:w-full"
         @click.stop="ShowUserInviteModal"
       >
         <img
           alt=""
           class="mb-0.5 block"
           src="/src/assets/Organizations/addUser.svg"
-        />
-        <p class="">{{ $t('organizationProfile.newInvitation') }}</p>
+        >
+        <p class="">
+          {{ $t('organizationProfile.newInvitation') }}
+        </p>
       </button-1>
     </div>
     <div class="row mb-4 flex flex-wrap justify-start gap-4">
@@ -55,7 +61,7 @@
             <th class="table-col-head">
               {{ $t('organizationProfile.lastActivity') }}
             </th>
-            <th></th>
+            <th />
           </tr>
         </thead>
         <tbody>
@@ -103,7 +109,7 @@
                 class="mx-auto block"
                 @click="showRemoveUserConfirm(worker)"
               >
-                <img src="/src/assets/delete.svg" />
+                <img src="/src/assets/delete.svg">
               </button>
             </td>
           </tr>
@@ -120,14 +126,14 @@
     :is-modal-visible="isUserInviteModalVisible"
   >
     <div
-      class="relative relative mx-auto max-h-screen w-[480px] overflow-y-auto rounded-lg bg-white p-6 mobile:w-full"
+      class="relative mx-auto max-h-screen w-[480px] overflow-y-auto rounded-lg bg-white p-6 mobile:w-full"
       @click.stop
     >
       <button
         class="absolute top-6 right-6 cursor-pointer"
         @click="CloseUserInviteModal"
       >
-        <img src="/src/assets/close.svg" />
+        <img src="/src/assets/close.svg">
       </button>
       <div class="text-center text-h2 font-semibold">
         {{ $t('organizationProfile.addEmployee') }}
@@ -182,7 +188,10 @@
       >
         {{ $t('organizationProfile.sendInvite') }}
       </button-1>
-      <Loader v-if="isUserInviteModalLoaderVisible" class="rounded-lg" />
+      <Loader
+        v-if="isUserInviteModalLoaderVisible"
+        class="rounded-lg"
+      />
     </div>
   </ModalTemplate>
   <!---->
@@ -200,17 +209,18 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import api from '../../../http_client/index.js'
+import api from '../../../http_client/index'
 import ButtonTag from '../../Buttons/ButtonTag.vue'
 import ButtonText1 from '../../Buttons/Button_text_1.vue'
 import DropDownSelect from '../../Inputs/DropDownSelect.vue'
+// eslint-disable-next-line import/no-named-default
 import { default as input1, default as Input1 } from '../../Inputs/Input-1.vue'
 import InputSearch from '../../Inputs/InputSearch.vue'
 import Loader from '../../Loader.vue'
 import ConfirmModal from '../../Modals/ConfirmModal.vue'
 import ModalTemplate from '../../Modals/ModalTemplate.vue'
-import dateFormatter from '../../mixins/dateFormatter.js'
-import regex from '../../mixins/regex.js'
+import dateFormatter from '../../mixins/dateFormatter'
+import regex from '../../mixins/regex'
 
 export default {
   name: 'OrganizationProfile',
@@ -260,17 +270,16 @@ export default {
           return this.organization.participants
         default:
           return this.organization.participants.filter(
-            (worker) =>
-              this.GetCurrentUserStatusText(
-                worker.email_confirmed,
-                worker.is_active,
-              ) === this.activeStatusFilterValue,
+            (worker) => this.GetCurrentUserStatusText(
+              worker.email_confirmed,
+              worker.is_active,
+            ) === this.activeStatusFilterValue,
           )
       }
     },
     statusesList() {
-      const roles = this.organization.participants.map((worker) =>
-        this.GetCurrentUserStatusText(worker.email_confirmed, worker.is_active),
+      const roles = this.organization.participants.map(
+        (worker) => this.GetCurrentUserStatusText(worker.email_confirmed, worker.is_active),
       )
 
       return [this.defaultStatusFilterValue, ...new Set(roles)]
@@ -289,8 +298,8 @@ export default {
     },
     dropdownOptions() {
       if (this.organization && this.organization.participants) {
-        let options = this.organization.participants.map((worker) => {
-          let t = this.GetCurrentUserStatusText(
+        const options = this.organization.participants.map((worker) => {
+          const t = this.GetCurrentUserStatusText(
             worker.email_confirmed,
             worker.is_active,
           )
@@ -299,9 +308,9 @@ export default {
             item: t,
           }
         })
-        console.log([this.dropdownDefault, ...options])
+        window.console.log([this.dropdownDefault, ...options])
         return [this.dropdownDefault, ...options]
-      } else return [this.dropdownDefault]
+      } return [this.dropdownDefault]
     },
   },
   watch: {
@@ -316,23 +325,22 @@ export default {
   methods: {
     GetCurrentUserStatusStyle(mailConf, isActive) {
       if (mailConf && isActive) return 'positive'
-      else if (mailConf && !isActive) return 'negative'
-      else if (!mailConf && !isActive) return 'inactive'
-      else return 'negative'
+      if (mailConf && !isActive) return 'negative'
+      if (!mailConf && !isActive) return 'inactive'
+      return 'negative'
     },
     GetCurrentUserStatusText(mailConf, isActive) {
       if (mailConf && isActive) return this.$t('general.active')
-      else if (mailConf && !isActive) return this.$t('general.banned')
-      else if (!mailConf && !isActive) return this.$t('general.pending')
-      else return this.$t('general.error')
+      if (mailConf && !isActive) return this.$t('general.banned')
+      if (!mailConf && !isActive) return this.$t('general.pending')
+      return this.$t('general.error')
     },
     AddUserInvite() {
       if (this.invitedUsersList.length < 5) this.invitedUsersList.push('')
       else this.$toast.info(this.$t('organizationProfile.maxInviteMess'))
     },
     ShowUserInviteModal() {
-      if (!this.invitedUsersList || this.invitedUsersList.length <= 0)
-        this.invitedUsersList = ['']
+      if (!this.invitedUsersList || this.invitedUsersList.length <= 0) this.invitedUsersList = ['']
       this.isUserInviteModalVisible = true
     },
     CloseUserInviteModal() {
@@ -347,6 +355,7 @@ export default {
       )
       this.ConfirmModal.title = this.$t('organizationProfile.deleteUserTitle')
       this.ConfirmModal.accept = () => this.removeWorker(worker)
+      // eslint-disable-next-line no-return-assign
       this.ConfirmModal.decline = () => (this.ConfirmModal.visible = false)
       this.ConfirmModal.visible = true
     },
@@ -359,7 +368,7 @@ export default {
       await api.organizations
         .sendUserInvite(this.organization.id, this.invitedUsersList)
         .then((res) => {
-          console.log(res)
+          window.console.log(res)
           this.organization = res.data
           this.CloseUserInviteModal()
           this.invitedUsersList = ['']
@@ -368,7 +377,7 @@ export default {
         .catch(() => {
           this.CloseUserInviteModal()
           this.$toast.error(this.$t('general.errorMessage'))
-          //throw err
+          // throw err
         })
     },
     async removeWorker(worker) {

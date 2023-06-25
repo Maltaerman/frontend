@@ -12,7 +12,7 @@
     }"
     @click="toggleValue"
   >
-    <slot></slot>
+    <slot />
   </button>
 </template>
 
@@ -20,6 +20,7 @@
 export default {
   name: 'ButtonOptions',
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     buttonColor: {
       type: String,
       validator(value) {

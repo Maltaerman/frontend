@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-mutating-props -->
 <template>
   <div class="flex flex-col gap-6">
     <Input1
@@ -22,7 +23,8 @@
 
 <script>
 import Input1 from '../Inputs/Input-1.vue'
-import regex from '../mixins/regex.js'
+import regex from '../mixins/regex'
+
 export default {
   name: 'ChangeMailNameInputs',
   components: {
@@ -30,6 +32,7 @@ export default {
   },
   mixins: [regex],
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     modelValue: Object,
   },
   emits: ['validation'],
@@ -39,10 +42,12 @@ export default {
     }
   },
   watch: {
-    'modelValue.username'() {
+    // eslint-disable-next-line func-names
+    'modelValue.username': function () {
       this.Validation()
     },
-    'modelValue.email'() {
+    // eslint-disable-next-line func-names
+    'modelValue.email': function () {
       this.Validation()
     },
   },
@@ -51,9 +56,8 @@ export default {
   },
   methods: {
     Validation() {
-      this.isDataValid =
-        this.isMail(this.modelValue.email) &&
-        this.isName(this.modelValue.username)
+      this.isDataValid = this.isMail(this.modelValue.email)
+        && this.isName(this.modelValue.username)
       this.$emit('validation', this.isDataValid)
     },
   },

@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+/* eslint-disable func-names */
 export default function (instance) {
   return {
     getOrganizationsById(id) {
@@ -26,7 +28,7 @@ export default function (instance) {
       })
     },
 
-    //data : {
+    // data : {
     //    name : String
     //    website : String
     //    description : String
@@ -39,7 +41,7 @@ export default function (instance) {
     },
     sendUserInvite(organization_id, emails) {
       return instance.put(`/organizations/${organization_id}/invite`, {
-        emails: emails,
+        emails,
       })
     },
 
@@ -56,7 +58,7 @@ export default function (instance) {
     //  website : string,
     //  address : string,
     //  emails : [string]
-    //}
+    // }
     inviteOrganization(orgData) {
       return instance.post('/organizations/add', orgData)
     },

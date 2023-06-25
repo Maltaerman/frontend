@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import SVG_eye from './Icons/SVG_eye.vue'
 import SVG_eye_crossed from './Icons/SVG_eye_crossed.vue'
 import SVG_basket_red from './SVG_basket_red.vue'

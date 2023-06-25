@@ -11,7 +11,10 @@
         </div>
         <div>
           <div class="mb-6">
-            <label class="mb-1 block text-h4 text-gray-c-500" for="user-pass">
+            <label
+              class="mb-1 block text-h4 text-gray-c-500"
+              for="user-pass"
+            >
               Новий пароль
             </label>
             <input-pass
@@ -53,18 +56,22 @@
       </div>
     </div>
   </div>
-  <Loader v-if="isLoaderVisible" class="z-[9999]" />
+  <Loader
+    v-if="isLoaderVisible"
+    class="z-[9999]"
+  />
 </template>
 
 <script>
-import api from '../../http_client/index.js'
+import api from '../../http_client/index'
 import Header from '../Header/HeaderV2.vue'
 import InputPass from '../Inputs/Input-pass.vue'
-import regex from '../mixins/regex.js'
+import regex from '../mixins/regex'
 
 export default {
   name: 'PasswordReset',
   components: {
+    // eslint-disable-next-line vue/no-reserved-component-names
     Header,
     InputPass,
   },
@@ -106,13 +113,13 @@ export default {
       }
       this.access_token = this.$route.query.access_token
     },
-    //TODO Localization
+    // TODO Localization
     async ResetPass() {
       this.isLoaderVisible = true
       await api.user
         .PassResetConfirm(this.access_token, this.pass)
         .then((res) => {
-          console.log(res)
+          window.console.log(res)
           this.isLoaderVisible = false
           this.$toast.success(
             'Пароль успішно змінено',
@@ -120,7 +127,7 @@ export default {
           )
         })
         .catch((err) => {
-          console.error(err)
+          window.console.error(err)
           this.isLoaderVisible = false
 
           this.$toast.error('Error', this.$toast.options(false, false))

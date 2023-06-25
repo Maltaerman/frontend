@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/v-on-event-hyphenation -->
 <template>
   <div class="relative">
     <vue3-simple-typeahead
@@ -6,9 +7,9 @@
         'rounded-xl': isBorderRounded,
         'rounded-tl-xl rounded-tr-xl': !isBorderRounded,
       }"
-      :itemProjection="itemProjectionFunction"
+      :item-projection="itemProjectionFunction"
       :items="suggestionC"
-      :minInputLength="1"
+      :min-input-length="1"
       :placeholder="placeholder"
       @onBlur="onBlurEventHandler"
       @onFocus="onFocusEventHandler"
@@ -24,6 +25,7 @@
   </div>
 </template>
 
+<!-- eslint-disable vue/require-default-prop -->
 <script>
 export default {
   name: 'InputSuggest',
@@ -35,7 +37,7 @@ export default {
     },
     itemProjectionFunction: {
       type: Function,
-      default: function (item) {
+      default(item) {
         try {
           return item.toString()
         } catch {
@@ -52,7 +54,7 @@ export default {
   computed: {
     isBorderRounded() {
       if (this.suggestion && this.suggestion.length > 0) return false
-      else return true
+      return true
     },
     suggestionC() {
       return this.suggestion
@@ -88,16 +90,16 @@ export default {
 
 .simple-typeahead-input {
   @apply w-full border
-	px-4 py-2 text-h3 font-normal
-	outline-none hover:border-blue-c-400
-	focus:border-blue-c-500 disabled:bg-gray-c-100
-	disabled:text-gray-c-500 disabled:hover:border-gray-c-300;
+  px-4 py-2 text-h3 font-normal
+  outline-none hover:border-blue-c-400
+  focus:border-blue-c-500 disabled:bg-gray-c-100
+  disabled:text-gray-c-500 disabled:hover:border-gray-c-300;
 }
 
 .simple-typeahead-list {
   @apply absolute left-0 right-0 z-50
-	overflow-hidden rounded-bl-xl rounded-br-xl
-	border border-t-0 border-gray-c-300 font-normal;
+  overflow-hidden rounded-bl-xl rounded-br-xl
+  border border-t-0 border-gray-c-300 font-normal;
 }
 .simple-typeahead-list-item {
   @apply w-full bg-white px-4 py-2 text-h3;

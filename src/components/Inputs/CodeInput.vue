@@ -9,7 +9,7 @@
       @focusin="onFocusGet(n - 1)"
       @input="OnInput(n - 1)"
       @keyup="keyAction"
-    />
+    >
   </div>
 </template>
 
@@ -30,21 +30,18 @@ export default {
     }
   },
   mounted() {
-    if (this.$refs['inp0'] && this.$refs['inp0'][0])
-      this.$refs['inp0'][0].focus()
+    if (this.$refs.inp0 && this.$refs.inp0[0]) this.$refs.inp0[0].focus()
   },
   methods: {
     OnInput(inputIndex) {
-      let r = `inp${inputIndex}`
-      let inp = this.$refs[r][0]
+      const r = `inp${inputIndex}`
+      const inp = this.$refs[r][0]
 
-      inp.value =
-        inp.value.length > 0 && /\d/.test(inp.value)
-          ? inp.value[inp.value.length - 1]
-          : ''
+      inp.value = inp.value.length > 0 && /\d/.test(inp.value)
+        ? inp.value[inp.value.length - 1]
+        : ''
 
-      if (inp.value.length === 0 || /\d/.test(inp.value))
-        this.code[inputIndex] = inp.value
+      if (inp.value.length === 0 || /\d/.test(inp.value)) this.code[inputIndex] = inp.value
       else inp.value = this.code[inputIndex]
       this.$emit('update:modelValue', this.code.join(''))
 
@@ -52,23 +49,24 @@ export default {
       else this.moveToPrevInp(inputIndex)
     },
     moveToNextInp(inputIndex) {
-      let r = `inp${inputIndex + 1}`
-      let inp = this.$refs[r] ? this.$refs[r][0] : undefined
+      const r = `inp${inputIndex + 1}`
+      const inp = this.$refs[r] ? this.$refs[r][0] : undefined
       if (inp) inp.focus()
     },
     moveToPrevInp(inputIndex) {
-      let r = `inp${inputIndex - 1}`
-      let inp = this.$refs[r] ? this.$refs[r][0] : undefined
+      const r = `inp${inputIndex - 1}`
+      const inp = this.$refs[r] ? this.$refs[r][0] : undefined
       if (inp) inp.focus()
     },
     onFocusGet(inputIndex) {
+      // eslint-disable-next-line no-plusplus
       for (let i = 0; i < this.digitAmount; i++) {
-        let r = `inp${i}`
-        let inp = this.$refs[r] ? this.$refs[r][0] : undefined
+        const r = `inp${i}`
+        const inp = this.$refs[r] ? this.$refs[r][0] : undefined
         if (!inp) return
         if (!this.code[i] || this.code === '' || i === inputIndex) {
           this.selectedInputIndex = i
-          let caretIndex = inp.value.length
+          const caretIndex = inp.value.length
           inp.setSelectionRange(caretIndex, caretIndex)
           inp.focus()
           return

@@ -1,3 +1,5 @@
+/* eslint-disable func-names */
+/* eslint-disable camelcase */
 export default function (instance) {
   return {
     LogIn(payload) {
@@ -37,7 +39,7 @@ export default function (instance) {
       )
     },
     VerifyRegistrationToken(access_token) {
-      return instance.get(`/users/verify`, {
+      return instance.get('/users/verify', {
         params: { access_token },
       })
     },

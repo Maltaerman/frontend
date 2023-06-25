@@ -1,20 +1,26 @@
+<!-- eslint-disable vue/v-on-event-hyphenation -->
 <template>
   <Header
     :is-show-setting="isSettingModalVisible"
     @settingClose="hideSettings"
   />
   <div
-    class="flex h-[calc(100vh-62px)] comp:h-[calc(100vh-74px)] tablet:overflow-y-auto mobile:overflow-y-auto"
+    class="
+      flex h-[calc(100vh-62px)] comp:h-[calc(100vh-74px)]
+      tablet:overflow-y-auto mobile:overflow-y-auto
+    "
   >
     <div class="shrink-0 shadow-cs1 comp:w-[320px] mobile:hidden">
       <div
-        class="flex h-[200px] w-full flex-col place-content-center place-items-center gap-2 shadow-cs2"
+        class="
+          flex h-[200px] w-full flex-col place-content-center place-items-center gap-2 shadow-cs2
+        "
       >
         <div class="h-[60px] w-[60px] rounded-full bg-blue-c-100 px-5 py-3">
           <img
             class="h-full w-full"
             src="/src/assets/Organizations/Emblem.svg"
-          />
+          >
         </div>
         <p class="w-min text-h3 font-semibold text-gray-c-600">
           {{ $t('dashboard.admin') }}
@@ -34,7 +40,9 @@
           <template #image>
             <SVG_Default_User />
           </template>
-          <template #text> Roles </template>
+          <template #text>
+            Roles
+          </template>
         </MenuItemLink>
 
         <div
@@ -53,19 +61,21 @@
       </div>
     </div>
     <div class="flex h-full w-full flex-col">
-      <router-view class="shrink grow"></router-view>
+      <router-view class="shrink grow" />
       <Footer class="w-full shrink-0 grow-0" />
     </div>
   </div>
 </template>
 
+<!-- eslint-disable camelcase -->
 <script>
 import SVG_Org_List from '../ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue'
 import SVG_settings from '../ComponentsSVG/SVG_settings.vue'
 import SVG_Default_User from '../ComponentsSVG/UserRolesSvg/SVG_Default_User.vue'
 import Header from '../Header/HeaderV2.vue'
 import MenuItemLink from '../SidebarComponents/MenuItemLink.vue'
-import RouterHelper from '../mixins/routerHelper.js'
+import RouterHelper from '../mixins/routerHelper'
+
 export default {
   name: 'MainPlatformAdministration',
   components: {
@@ -73,6 +83,7 @@ export default {
     SVG_settings,
     SVG_Org_List,
     MenuItemLink,
+    // eslint-disable-next-line vue/no-reserved-component-names
     Header,
   },
   mixins: [RouterHelper],

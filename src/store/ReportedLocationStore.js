@@ -1,4 +1,6 @@
-import api from '../http_client/index.js'
+/* eslint-disable import/no-cycle */
+/* eslint-disable no-param-reassign */
+import api from '../http_client/index'
 
 export default {
   state() {
@@ -33,10 +35,10 @@ export default {
           context.commit('setRequestsCount', res.data.count)
         })
         .catch((er) => {
-          console.error(er)
+          window.console.error(er)
         })
     },
   },
 }
 
-//export const ReportLocationState = createStore(storePrototype);
+// export const ReportLocationState = createStore(storePrototype);

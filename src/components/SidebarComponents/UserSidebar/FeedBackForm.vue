@@ -7,10 +7,12 @@
       <textarea
         id="issueMessage"
         v-model="issueMessage"
-        class="my-4 h-max min-h-[68px] w-full resize-none rounded-lg border border-gray-c-300 px-4 py-2"
+        class="
+          my-4 h-max min-h-[68px] w-full resize-none
+          rounded-lg border border-gray-c-300 px-4 py-2
+        "
         :placeholder="$t('userSideBar.formTextAreaPlaceholder')"
-      >
-      </textarea>
+      />
       <button
         id="issueMessSendButt"
         class="block rounded-lg border px-[50px] py-2 font-medium"
@@ -32,7 +34,7 @@
 <script>
 export default {
   name: 'FeedBackForm',
-  data: function () {
+  data() {
     return {
       issueMessage: '',
     }
@@ -44,6 +46,7 @@ export default {
   },
   methods: {
     Show(string) {
+      // eslint-disable-next-line no-alert
       alert(string)
     },
   },

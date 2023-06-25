@@ -1,6 +1,10 @@
+<!-- eslint-disable max-len -->
 <template>
   <div
-    class="flex h-full flex-col justify-between overflow-y-auto text-h3 shadow-cs1 tablet:text-h3 mobile:text-h4"
+    class="
+      flex h-full flex-col justify-between overflow-y-auto
+      text-h3 shadow-cs1 tablet:text-h3 mobile:text-h4
+    "
   >
     <div class="p-6">
       <div v-if="notFoundedMarkerData">
@@ -8,7 +12,10 @@
           {{ $t('notFoundAddress.noDBItem', { address: Address }) }}
         </p>
         <div class="mt-2.5">
-          <div v-if="notFoundedMarkerData.id" class="flex items-center gap-2">
+          <div
+            v-if="notFoundedMarkerData.id"
+            class="flex items-center gap-2"
+          >
             <svg
               class="fill-green-c-500"
               fill="none"
@@ -27,7 +34,10 @@
               {{ $t('notFoundAddress.requestExist') }}
             </p>
           </div>
-          <div v-else class="text-gray-c-500">
+          <div
+            v-else
+            class="text-gray-c-500"
+          >
             {{ $t('notFoundAddress.tips') }}
           </div>
         </div>
@@ -44,7 +54,10 @@
       >
         {{ buttonLocalization }}
       </button-1>
-      <div v-if="recentReports.length > 0" class="w-full">
+      <div
+        v-if="recentReports.length > 0"
+        class="w-full"
+      >
         <div class="z-10 mb-2 bg-white font-semibold">
           {{ $t('welcomeScreen.recentlyReports') }}
         </div>
@@ -55,7 +68,6 @@
           @report-click="RecentReportClick"
         />
       </div>
-      <!--			<FeedBackForm/>-->
     </div>
     <Footer />
     <Loader v-if="isLoader" />
@@ -66,15 +78,16 @@
   </div>
 </template>
 
+<!-- eslint-disable consistent-return -->
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-import api from '../../../http_client/index.js'
+import api from '../../../http_client/index'
 import Loader from '../../Loader.vue'
 import SendReportRequestModal from '../../Modals/SendReportRequestModal.vue'
 import WelcomeScreenReportList from '../../WelcomeScreen/WelcomeScreenReportList.vue'
-import dynamicContent from '../../mixins/dynamicContent.js'
-import userRoles from '../../mixins/userRoles.js'
+import dynamicContent from '../../mixins/dynamicContent'
+import userRoles from '../../mixins/userRoles'
 
 import Footer from './Footer.vue'
 
@@ -82,6 +95,7 @@ export default {
   name: 'NotFound',
   components: {
     WelcomeScreenReportList,
+    // eslint-disable-next-line vue/no-reserved-component-names
     Footer,
     SendReportRequestModal,
     Loader,
@@ -101,19 +115,16 @@ export default {
     }),
     buttonDisabled() {
       if (this.notFoundedMarkerData === null) return true
-      else if (
-        this.notFoundedMarkerData.id &&
-        this.getRole === this.userRoles.user
-      )
-        return true
-      else return false
+      if (
+        this.notFoundedMarkerData.id
+        && this.getRole === this.userRoles.user
+      ) return true
+      return false
     },
     buttonLocalization() {
       let localizeStr = this.$t('userSideBar.choose-location-button')
-      if (this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker))
-        localizeStr = this.$t('aidWorkerSideBar.takeRequest')
-      else if (this.notFoundedMarkerData)
-        localizeStr = this.$t('notFoundAddress.sendRequest')
+      if (this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker)) localizeStr = this.$t('aidWorkerSideBar.takeRequest')
+      else if (this.notFoundedMarkerData) localizeStr = this.$t('notFoundAddress.sendRequest')
       return localizeStr
     },
     Address() {
@@ -161,7 +172,7 @@ export default {
       this.$router.push('/main/submit-report')
     },
     //
-    //Resent reports
+    // Resent reports
     async GetRecentReports() {
       await api.locations
         .getRecentReports(20)
@@ -169,7 +180,7 @@ export default {
           this.recentReports = res.data ?? []
         })
         .catch((err) => {
-          console.error(err)
+          window.console.error(err)
         })
     },
     RecentReportClick(report) {
@@ -181,11 +192,11 @@ export default {
     },
     //
 
-    //Reporting unrequested location
+    // Reporting unrequested location
     async reviewNotExistedMarker() {
       if (!this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker)) return
       this.isLoader = true
-      let position = { ...this.notFoundedMarkerData.position }
+      const position = { ...this.notFoundedMarkerData.position }
       await api.locations
         .getGeocodingOSM(this.notFoundedMarkerData.position)
         .then((res) => {
@@ -208,15 +219,13 @@ export default {
 
     buttonAction() {
       if (
-        this.notFoundedMarkerData.id &&
-        this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker)
-      )
-        this.reviewNotFoundMarker()
+        this.notFoundedMarkerData.id
+        && this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker)
+      ) this.reviewNotFoundMarker()
       else if (
-        !this.notFoundedMarkerData.id &&
-        this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker)
-      )
-        this.reviewNotExistedMarker()
+        !this.notFoundedMarkerData.id
+        && this.isRoleHaveAccess(this.getRole, this.userRoles.aidWorker)
+      ) this.reviewNotExistedMarker()
       else this.isRequestModalView = true
     },
     closeReqModal() {

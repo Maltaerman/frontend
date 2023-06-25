@@ -1,3 +1,5 @@
+<!-- eslint-disable max-len -->
+<!-- eslint-disable vue/v-on-event-hyphenation -->
 <template>
   <div
     v-if="organization"
@@ -8,14 +10,14 @@
         {{ $t('organizationProfile.aidWorkers') }}
       </div>
       <button-1
-        class="block flex h-[46px] items-center justify-center mobile:w-full"
+        class="flex h-[46px] items-center justify-center mobile:w-full"
         @click.stop="ShowUserInviteModal"
       >
         <img
           alt=""
           class="mb-0.5 mr-1.5 inline-block"
           src="/src/assets/Organizations/addUser.svg"
-        />
+        >
         <span>{{ $t('organizationProfile.newInvitation') }}</span>
       </button-1>
     </div>
@@ -28,7 +30,13 @@
       />
       <div class="min-w-screen flex flex-wrap justify-start">
         <div
-          class="flex flex min-w-[400px] items-center overflow-hidden rounded-lg border px-5 text-h3 font-normal outline-none hover:border-blue-c-400 focus:border-blue-c-500 disabled:bg-gray-c-100 disabled:text-gray-c-500 disabled:hover:border-gray-c-300 mobile:min-w-full"
+          class="
+            flex min-w-[400px] items-center overflow-hidden
+            rounded-lg border px-5 text-h3 font-normal outline-none
+            hover:border-blue-c-400 focus:border-blue-c-500
+            disabled:bg-gray-c-100 disabled:text-gray-c-500
+            disabled:hover:border-gray-c-300 mobile:min-w-full
+          "
           :class="{
             'border-blue-c-500': isInputFocused,
             'border-gray-c-300': !isInputFocused,
@@ -67,7 +75,7 @@
             @focusin="OnInputFocus(true)"
             @focusout="OnInputFocus(false)"
             @input="updateParticipantsVisibleList"
-          />
+          >
         </div>
       </div>
     </div>
@@ -80,7 +88,9 @@
       <table class="w-full min-w-[799px] table-auto">
         <thead>
           <tr class="h-[58px] bg-gray-c-100 text-h3 text-gray-c-400">
-            <th class="table-col-head w-12">No</th>
+            <th class="table-col-head w-12">
+              No
+            </th>
             <th class="table-col-head w-1/5">
               {{ $t('organizationProfile.name') }}
             </th>
@@ -93,7 +103,7 @@
             <th class="table-col-head">
               {{ $t('organizationProfile.lastActivity') }}
             </th>
-            <th class="min-w-16"></th>
+            <th class="min-w-16" />
           </tr>
         </thead>
         <tbody>
@@ -102,11 +112,12 @@
             :key="index"
             class="h-[58px] shadow-cs2"
           >
-            <td class="table-col-row-item">{{ worker.id + 1 }}</td>
+            <td class="table-col-row-item">
+              {{ worker.id + 1 }}
+            </td>
             <td class="table-col-row-item">
               <!-- <span v-if="worker.username">{{ worker.username }}</span>
-
-							<span v-else>-</span> -->
+              <span v-else>-</span> -->
               <div
                 class="overflow-hidden truncate text-ellipsis text-base font-semibold text-gray-c-800"
               >
@@ -155,7 +166,7 @@
                 class="mx-auto block"
                 @click="showRemoveUserConfirm(worker)"
               >
-                <img src="/src/assets/delete.svg" />
+                <img src="/src/assets/delete.svg">
               </button>
             </td>
           </tr>
@@ -164,7 +175,7 @@
     </div>
   </div>
 
-  <!--	Edit organization modal-->
+  <!--Edit organization modal-->
   <ModalTemplate
     class-list="grid place-items-center px-4"
     :close-func="CloseEditModal"
@@ -179,9 +190,11 @@
         class="absolute top-6 right-6 cursor-pointer"
         @click="CloseEditModal"
       >
-        <img src="/src/assets/close.svg" />
+        <img src="/src/assets/close.svg">
       </button>
-      <div class="text-center text-h2 font-semibold">Редагування</div>
+      <div class="text-center text-h2 font-semibold">
+        Редагування
+      </div>
       <div class="mt-4 mb-6 flex flex-col gap-4">
         <div>
           <p class="text-h4 text-gray-c-500">
@@ -194,7 +207,9 @@
           />
         </div>
         <div>
-          <p class="text-h4 text-gray-c-500">{{ $t('dashboard.website') }}</p>
+          <p class="text-h4 text-gray-c-500">
+            {{ $t('dashboard.website') }}
+          </p>
           <input1
             v-model="editingOrgSite"
             class="mt-1 w-full outline-none"
@@ -204,17 +219,26 @@
       </div>
 
       <div class="flex gap-4">
-        <button2 class="w-full" @click.stop="CloseEditModal">
+        <button2
+          class="w-full"
+          @click.stop="CloseEditModal"
+        >
           {{ $t('general.cancel') }}
         </button2>
-        <button-1 class="w-full" @click.stop="EditOrg">
+        <button-1
+          class="w-full"
+          @click.stop="EditOrg"
+        >
           {{ $t('general.edit') }}
         </button-1>
       </div>
-      <Loader v-if="isEditModalLoaderVisible" class="rounded-lg" />
+      <Loader
+        v-if="isEditModalLoaderVisible"
+        class="rounded-lg"
+      />
     </div>
   </ModalTemplate>
-  <!--	-->
+  <!---->
   <!--Invite user modal-->
   <ModalTemplate
     class-list="grid place-items-center px-4"
@@ -223,14 +247,14 @@
     :is-modal-visible="isUserInviteModalVisible"
   >
     <div
-      class="relative relative mx-auto max-h-screen w-[480px] overflow-y-auto rounded-lg bg-white p-6 mobile:w-full"
+      class="relative mx-auto max-h-screen w-[480px] overflow-y-auto rounded-lg bg-white p-6 mobile:w-full"
       @click.stop
     >
       <button
         class="absolute top-6 right-6 cursor-pointer"
         @click="CloseUserInviteModal"
       >
-        <img src="/src/assets/close.svg" />
+        <img src="/src/assets/close.svg">
       </button>
       <div class="text-center text-h2 font-semibold">
         {{ $t('organizationProfile.addEmployee') }}
@@ -285,7 +309,10 @@
       >
         {{ $t('organizationProfile.sendInvite') }}
       </button-1>
-      <Loader v-if="isUserInviteModalLoaderVisible" class="rounded-lg" />
+      <Loader
+        v-if="isUserInviteModalLoaderVisible"
+        class="rounded-lg"
+      />
     </div>
   </ModalTemplate>
   <!---->
@@ -308,16 +335,18 @@
   <Loader v-if="isLoaderVisible" />
 </template>
 
+<!-- eslint-disable camelcase -->
 <script>
-import api from '../../../http_client/index.js'
+import api from '../../../http_client/index'
 import ButtonTag from '../../Buttons/ButtonTag.vue'
 import Button2 from '../../Buttons/Button_2.vue'
 import ButtonText1 from '../../Buttons/Button_text_1.vue'
+// eslint-disable-next-line import/no-named-default
 import { default as input1 } from '../../Inputs/Input-1.vue'
 import Loader from '../../Loader.vue'
 import ConfirmModal from '../../Modals/ConfirmModal.vue'
 import ModalTemplate from '../../Modals/ModalTemplate.vue'
-import dateFormatter from '../../mixins/dateFormatter.js'
+import dateFormatter from '../../mixins/dateFormatter'
 import userRoles from '../../mixins/userRoles'
 import RemoveOrgModal from '../RemoveOrgModal.vue'
 import { PARTICIPANT_STATUSES } from '../constants'
@@ -347,8 +376,8 @@ export default {
       editingOrgName: '',
       organizationStatusFilters: [],
       organizationParticipantsVisibleList: [],
-      activeStatusFilterValue: { value: 'all', text: this.$t(`general.all`) },
-      defaultStatusFilterValue: { value: 'all', text: this.$t(`general.all`) },
+      activeStatusFilterValue: { value: 'all', text: this.$t('general.all') },
+      defaultStatusFilterValue: { value: 'all', text: this.$t('general.all') },
       searchedParticipantValue: '',
       isInputFocused: false,
       editingOrgSite: '',
@@ -383,9 +412,8 @@ export default {
           text: this.GetCurrentUserStatusText(email_confirmed, is_active),
         }))
         .filter(
-          (status, index, self) =>
-            index ===
-            self.findIndex(
+          (status, index, self) => index
+            === self.findIndex(
               (s) => s.value === status.value && s.text === status.text,
             ),
         )
@@ -420,22 +448,22 @@ export default {
     },
     GetCurrentUserStatusStyle(mailConf, isActive) {
       if (mailConf && isActive) return 'positive'
-      else if (mailConf && !isActive) return 'negative'
-      else if (!mailConf && !isActive) return 'inactive'
-      else return 'negative'
+      if (mailConf && !isActive) return 'negative'
+      if (!mailConf && !isActive) return 'inactive'
+      return 'negative'
     },
 
     GetCurrentUserStatusText(mailConf, isActive) {
       if (mailConf && isActive) return this.$t('general.active')
-      else if (mailConf && !isActive) return this.$t('general.banned')
-      else if (!mailConf && !isActive) return this.$t('general.pending')
-      else return this.$t('general.error')
+      if (mailConf && !isActive) return this.$t('general.banned')
+      if (!mailConf && !isActive) return this.$t('general.pending')
+      return this.$t('general.error')
     },
     GetCurrentUserStatus(mailConf, isActive) {
       if (mailConf && isActive) return PARTICIPANT_STATUSES.ACTIVE
-      else if (mailConf && !isActive) return PARTICIPANT_STATUSES.BANNED
-      else if (!mailConf && !isActive) return PARTICIPANT_STATUSES.PENDING
-      else return PARTICIPANT_STATUSES.ERROR
+      if (mailConf && !isActive) return PARTICIPANT_STATUSES.BANNED
+      if (!mailConf && !isActive) return PARTICIPANT_STATUSES.PENDING
+      return PARTICIPANT_STATUSES.ERROR
     },
     ShowEditModal() {
       this.editingOrgName = this.organization.name
@@ -453,8 +481,7 @@ export default {
       else this.$toast.info(this.$t('organizationProfile.maxInviteMess'))
     },
     ShowUserInviteModal() {
-      if (!this.invitedUsersList || this.invitedUsersList.length <= 0)
-        this.invitedUsersList = ['']
+      if (!this.invitedUsersList || this.invitedUsersList.length <= 0) this.invitedUsersList = ['']
       this.isUserInviteModalVisible = true
     },
     CloseUserInviteModal() {
@@ -464,12 +491,12 @@ export default {
     async EditOrg() {
       this.isEditModalLoaderVisible = true
 
-      //TODO add desc and address
-      let payload = {
+      // TODO add desc and address
+      const payload = {
         name: this.editingOrgName,
         website: this.editingOrgSite,
-        /*description : "",
-				address : ""*/
+        /* description : "",
+        address : "" */
       }
 
       await api.organizations
@@ -485,10 +512,11 @@ export default {
         })
         .catch((err) => {
           let ErrorMessage = this.$t('general.errorMessage')
-          if (err.response.status == 400)
+          if (err.response.status === 400) {
             ErrorMessage = this.$t('dashboard.organizationExist', {
               orgName: this.createOrgName,
             })
+          }
           this.CloseEditModal()
           this.$toast.error(ErrorMessage)
         })
@@ -506,7 +534,7 @@ export default {
         .catch(() => {
           this.CloseUserInviteModal()
           this.$toast.error(this.$t('general.errorMessage'))
-          //throw err
+          // throw err
         })
     },
     RemoveClick() {
@@ -525,6 +553,7 @@ export default {
       )
       this.ConfirmModal.title = this.$t('organizationProfile.deleteUserTitle')
       this.ConfirmModal.accept = () => this.removeWorker(worker)
+      // eslint-disable-next-line no-return-assign
       this.ConfirmModal.decline = () => (this.ConfirmModal.visible = false)
       this.ConfirmModal.visible = true
     },
@@ -558,7 +587,7 @@ export default {
       await api.user
         .changeRole(worker)
         .then((res) => {
-          console.log(res)
+          window.console.log(res)
           const updatedWorkerData = res.data
           this.organization.participants.splice(workerId, 1, updatedWorkerData)
         })
@@ -598,22 +627,19 @@ export default {
     },
     filterParticipants(participants) {
       return participants.filter(
-        (worker) =>
-          this.GetCurrentUserStatus(
-            worker.email_confirmed,
-            worker.is_active,
-          ) === this.activeStatusFilterValue.value,
+        (worker) => this.GetCurrentUserStatus(
+          worker.email_confirmed,
+          worker.is_active,
+        ) === this.activeStatusFilterValue.value,
       )
     },
     searchParticipants(participants) {
       const searchedParticipants = participants.filter(
         ({ username, email, full_name }) => {
           const valuesToSearchIn = Object.values({ username, email, full_name })
-          return valuesToSearchIn.find((value) =>
-            value
-              .toLowerCase()
-              .includes(this.searchedParticipantValue.toLowerCase()),
-          )
+          return valuesToSearchIn.find((value) => value
+            .toLowerCase()
+            .includes(this.searchedParticipantValue.toLowerCase()))
         },
       )
       return searchedParticipants

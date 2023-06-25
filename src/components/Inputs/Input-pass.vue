@@ -1,3 +1,4 @@
+<!-- eslint-disable max-len -->
 <template>
   <label
     class="relative inline-block w-full"
@@ -12,7 +13,13 @@
     </div>
 
     <div
-      class="relative flex flex items-center overflow-hidden rounded-lg border text-h3 font-normal outline-none hover:border-blue-c-400 focus:border-blue-c-500 disabled:bg-gray-c-100 disabled:text-gray-c-500 disabled:hover:border-gray-c-300"
+      class="
+        flex items-center overflow-hidden rounded-lg
+        border text-h3 font-normal outline-none
+        hover:border-blue-c-400 focus:border-blue-c-500
+        disabled:bg-gray-c-100 disabled:text-gray-c-500
+        disabled:hover:border-gray-c-300
+      "
       :class="{
         'border-blue-c-500': isInputFocused,
         'border-gray-c-300': !isInputFocused && isValidStyle,
@@ -30,7 +37,7 @@
         @focusin="OnInputFocus(true)"
         @focusout="OnInputFocus(false)"
         @input="OnValueChange"
-      />
+      >
       <button
         class="absolute right-0 top-0 h-full w-[40px] cursor-pointer rounded-lg px-1"
         @click="toggleInputType"
@@ -64,8 +71,10 @@
   </label>
 </template>
 
+<!-- eslint-disable vue/require-default-prop -->
+<!-- eslint-disable vue/require-default-prop -->
 <script>
-import regex from '../mixins/regex.js'
+import regex from '../mixins/regex'
 
 export default {
   name: 'InputPass',
@@ -77,7 +86,7 @@ export default {
     validationMessage: String,
     validationFunc: {
       type: Function,
-      default: function () {
+      default() {
         return this.isPass(this.modelValue)
       },
     },
@@ -128,7 +137,7 @@ export default {
       this.validation(event.target.value)
     },
     validation() {
-      let isPassValid = this.validationFunc()
+      const isPassValid = this.validationFunc()
       this.$emit('validation', isPassValid)
       if (isPassValid) this.isValidStyle = true
       return isPassValid

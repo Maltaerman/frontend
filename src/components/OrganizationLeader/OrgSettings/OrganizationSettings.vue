@@ -2,7 +2,9 @@
   <div class="px-4 py-6 comp:p-9">
     <div class="flex flex-col gap-6 comp:flex-row comp:justify-between">
       <div class="grow">
-        <div class="title">{{ $t('dashboard.settings') }}</div>
+        <div class="title">
+          {{ $t('dashboard.settings') }}
+        </div>
         <div class="subTitle mb-6 mt-6 comp:mt-9">
           {{ $t('organizationProfile.organizationSettings') }}
         </div>
@@ -25,7 +27,9 @@
       </div>
     </div>
     <div class="mt-[48px]">
-      <div class="subTitle">{{ $t('userSettings.personalSettings') }}</div>
+      <div class="subTitle">
+        {{ $t('userSettings.personalSettings') }}
+      </div>
       <div class="flex flex-col gap-6 py-6 comp:flex-row comp:justify-between">
         <div class="grow comp:max-w-[480px]">
           <ChangeMailNameInputs
@@ -38,7 +42,10 @@
             v-model="userPassUpdate"
             @validation="setIsPassValid"
           />
-          <Button2 class="mt-6 w-full comp:w-[200px]" @click="UserEditUISwitch">
+          <Button2
+            class="mt-6 w-full comp:w-[200px]"
+            @click="UserEditUISwitch"
+          >
             {{ userSettingsButtonText }}
           </Button2>
         </div>
@@ -59,12 +66,14 @@
   </div>
 </template>
 
+<!-- eslint-disable camelcase -->
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import StoreEvents from '../../../store/storeEventSystem.js'
+import StoreEvents from '../../../store/storeEventSystem'
 import Button1 from '../../Buttons/Button_1.vue'
 import Button2 from '../../Buttons/Button_2.vue'
+// eslint-disable-next-line camelcase
 import SVG_save from '../../ComponentsSVG/Icons/SVG_save.vue'
 import ChangeMailNameInputs from '../../User/ChangeMailNameInputs.vue'
 import ChangePassInputs from '../../User/ChangePassInputs.vue'
@@ -132,14 +141,14 @@ export default {
     },
     isOrgSaveButtonAvailable() {
       if (!this.userOrganization) return false
-      let isChanged = [
+      const isChanged = [
         this.organization.name !== this.userOrganization.name,
         this.organization.website !== this.userOrganization.website,
         this.organization.description !== this.userOrganization.description,
         this.organization.address !== this.userOrganization.address,
         this.organization.logo !== this.userOrganization.logo,
       ]
-      return isChanged.some((x) => x == true)
+      return isChanged.some((x) => x === true)
     },
   },
   watch: {
@@ -199,52 +208,55 @@ export default {
     },
     onOgrEdit(data) {
       this.$toast.clear()
-      if (data instanceof Error)
-        this.$toast.error(this.$t('OrganizationSettings.OrgEditError'))
+      if (data instanceof Error) this.$toast.error(this.$t('OrganizationSettings.OrgEditError'))
       else this.$toast.success(this.$t('OrganizationSettings.OrgEditSuccess'))
     },
     editUserOrganization() {
-      let payload = {
+      const payload = {
         id: this.organization.id,
         name: this.organization.name,
       }
-      if (this.organization.name !== this.userOrganization.name)
-        payload['name'] = this.organization.name
-      if (this.organization.website !== this.userOrganization.website)
-        payload['website'] = this.organization.website
-      if (this.organization.description !== this.userOrganization.description)
-        payload['description'] = this.organization.description
-      if (this.organization.address !== this.userOrganization.address)
-        payload['address'] = this.organization.address
-      if (this.organization.logo !== this.userOrganization.logo)
-        payload['logo'] = this.organization.logo
+      if (this.organization.name !== this.userOrganization.name) {
+        payload.name = this.organization.name
+      }
+      if (this.organization.website !== this.userOrganization.website) {
+        payload.website = this.organization.website
+      }
+      if (this.organization.description !== this.userOrganization.description) {
+        payload.description = this.organization.description
+      }
+      if (this.organization.address !== this.userOrganization.address) {
+        payload.address = this.organization.address
+      }
+      if (this.organization.logo !== this.userOrganization.logo) {
+        payload.logo = this.organization.logo
+      }
       this.editOrganization(payload)
     },
     setIsPassValid(value) {
       this.userPassUpdate.isAllValid = value
     },
     setIsNameMailValid(value) {
-      let isNameChanged = this.userData.username !== this.user.username
-      let isMailChanged = this.userData.email !== this.user.email
+      const isNameChanged = this.userData.username !== this.user.username
+      const isMailChanged = this.userData.email !== this.user.email
       this.isNameMailValid = (isNameChanged || isMailChanged) && value
     },
     updateUserData() {
       if (!this.isNameMailValid) return
       this.$toast.wait(this.$t('userSettings.inProcess'))
-      let payload = {}
-      //if(this.userData.username !== this.user.username)
-      payload['username'] = this.user.username
-      //if(this.userData.email !== this.user.email)
-      payload['email'] = this.user.email
-      payload['full_name'] = ''
-      console.log(payload)
+      const payload = {}
+      // if(this.userData.username !== this.user.username)
+      payload.username = this.user.username
+      // if(this.userData.email !== this.user.email)
+      payload.email = this.user.email
+      payload.full_name = ''
+      window.console.log(payload)
       this.editUser(payload)
     },
     onUserDataUpdate(data) {
       this.$toast.clear()
       if (data instanceof Error) {
         this.$toast.error(this.$t('userSettings.userDataUpdatedErrorMess'))
-        return
       } else {
         this.user = { ...this.userData }
         this.$toast.success(this.$t('userSettings.userDataUpdatedSuccessMess'))
@@ -252,7 +264,7 @@ export default {
     },
     updatesUserPass() {
       this.$toast.wait(this.$t('userSettings.inProcess'))
-      let payload = {
+      const payload = {
         old_password: this.userPassUpdate.old_password,
         new_password: this.userPassUpdate.new_password,
       }
@@ -262,7 +274,6 @@ export default {
       this.$toast.clear(data)
       if (data instanceof Error) {
         this.$toast.error(this.$t('userSettings.userDataUpdatedErrorMess'))
-        return
       } else {
         this.user = { ...this.userData }
         this.userPassUpdate.new_password = ''
@@ -289,4 +300,6 @@ export default {
 <style scoped></style>
 
 <!--
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzc3Nzk1NDksInN1YiI6Imtvc2h5QGdtYWlsLmNvbSIsInNjb3BlcyI6WyJ1c2Vyczpjb25maXJtIl19.MKxf5tRdZ8gcihMnGNXt8A6TZ6KtnUI-zUgmXTuAi9s-->
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJleHAiOjE2Nzc3Nzk1NDksInN1YiI6Imtvc2h5QGdtYWlsLmNvbSIsInNjb3BlcyI6WyJ1c2Vyczpjb25maXJtIl19
+.MKxf5tRdZ8gcihMnGNXt8A6TZ6KtnUI-zUgmXTuAi9s-->

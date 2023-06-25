@@ -20,7 +20,7 @@
       :type="type"
       :value="modelValue"
       @input="updateInput"
-    />
+    >
     <div
       v-if="!isValidStyle && validationMessage"
       class="mt-1 px-2 text-left text-b3 text-red-c-500"
@@ -31,13 +31,16 @@
 </template>
 
 <script>
-import regex from '../mixins/regex.js'
+import regex from '../mixins/regex'
 
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: 'Input1',
   mixins: [regex],
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     modelValue: String,
+    // eslint-disable-next-line vue/require-default-prop
     validationType: {
       type: String,
       validator(value) {
@@ -52,13 +55,16 @@ export default {
       type: Function,
       default: () => true,
     },
+    // eslint-disable-next-line vue/require-default-prop
     placeholder: String,
     disabled: Boolean,
     type: {
       type: String,
       default: 'text',
     },
+    // eslint-disable-next-line vue/require-default-prop
     inpId: String,
+    // eslint-disable-next-line vue/require-default-prop
     label: String,
   },
   emits: ['validation', 'update:modelValue'],
@@ -76,21 +82,21 @@ export default {
     },
   },
   watch: {
-    /*modelValue(){
-			this.validate();
-		}*/
+    /* modelValue(){
+    this.validate();
+  } */
   },
   methods: {
     updateInput(event) {
       this.$emit('update:modelValue', event.target.value)
     },
     onFocus() {
-      //console.log("focus")
+      // console.log("focus")
       this.isValidStyle = true
     },
     onLeave() {
-      //console.log("Leave")
-      let res = this.validate()
+      // console.log("Leave")
+      const res = this.validate()
       this.isValidStyle = res
     },
     validate() {
@@ -98,7 +104,7 @@ export default {
       switch (this.validationType) {
         case 'mail':
           isValueValid = this.isMail(this.modelValue)
-          //console.log("mail validation " + isValueValid)
+          // console.log("mail validation " + isValueValid)
           break
         case 'name':
           isValueValid = this.isName(this.modelValue)

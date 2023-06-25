@@ -1,9 +1,10 @@
+<!-- eslint-disable max-len -->
 <template>
   <ModalTemplate
     class-list="grid place-items-center p-4"
     :close-func="closeThisModal"
+    :is-hide-on-click="true"
     :is-modal-visible="isVisible"
-    :isHideOnClick="true"
   >
     <div
       class="relative mx-auto w-[480px] rounded-lg bg-white p-6 mobile:w-full"
@@ -13,7 +14,7 @@
         class="absolute top-6 right-6 cursor-pointer"
         src="/src/assets/close.svg"
         @click="closeThisModal"
-      />
+      >
       <div class="text-center text-h2 font-semibold">
         {{ $t('dashboard.addOrganization') }}
       </div>
@@ -48,7 +49,7 @@
           :model-value="organization.emails[index]"
           :placeholder="$t('general.email')"
           :validation-message="$t('validations.mailNotValid')"
-          validationType="mail"
+          validation-type="mail"
         />
 
         <ButtonText1
@@ -87,13 +88,15 @@
   </ModalTemplate>
 </template>
 
+<!-- eslint-disable vue/require-default-prop -->
 <script>
-import api from '../../http_client/index.js'
+import api from '../../http_client/index'
 import ButtonText1 from '../Buttons/Button_text_1.vue'
 import Input1 from '../Inputs/Input-1.vue'
 import ModalTemplate from '../Modals/ModalTemplate.vue'
 import StringFormatter from '../mixins/StringFormatter'
-import regex from '../mixins/regex.js'
+import regex from '../mixins/regex'
+
 export default {
   components: {
     ButtonText1,
@@ -128,19 +131,19 @@ export default {
   computed: {
     isAllDataValid() {
       return (
-        this.organization.name.length > 2 &&
-        this.organization.website.length > 2 &&
-        this.organization.address.length > 2 &&
-        this.organization.emails.every((x) => this.isMail(x))
+        this.organization.name.length > 2
+        && this.organization.website.length > 2
+        && this.organization.address.length > 2
+        && this.organization.emails.every((x) => this.isMail(x))
       )
     },
     isAddEmailVisible() {
       return (
-        this.organization.emails.length < 3 &&
-        this.organization.emails.every((x) => this.isMail(x))
+        this.organization.emails.length < 3
+        && this.organization.emails.every((x) => this.isMail(x))
       )
     },
-    //TODO remove from here
+    // TODO remove from here
   },
   watch: {
     isVisible() {
@@ -157,7 +160,7 @@ export default {
       this.closeCreateOrgModal()
     },
     onAddOrganization(data, isRequestSuccess) {
-      this.$emit('addOrganization', { data: data, isSuccess: isRequestSuccess })
+      this.$emit('addOrganization', { data, isSuccess: isRequestSuccess })
       this.closeThisModal()
     },
     addEmail() {
@@ -171,7 +174,7 @@ export default {
           this.onAddOrganization(this.organization, true)
         })
         .catch((err) => {
-          let data = err
+          const data = err
           data.response.data.organization = this.organization
           this.onAddOrganization(data, false)
         })

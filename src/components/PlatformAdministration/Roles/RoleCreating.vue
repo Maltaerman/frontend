@@ -1,3 +1,4 @@
+<!-- eslint-disable max-len -->
 <template>
   <div class="px-4 py-6 comp:p-9">
     <div>
@@ -23,8 +24,13 @@
     </div>
 
     <div class="w-full max-w-[600px] py-6 comp:py-8">
-      <div class="subTitle">{{ $t('Roles.CreateRole') }}</div>
-      <Input1 class="my-6" :label="$t('Roles.Title')" />
+      <div class="subTitle">
+        {{ $t('Roles.CreateRole') }}
+      </div>
+      <Input1
+        class="my-6"
+        :label="$t('Roles.Title')"
+      />
       <div>{{}}</div>
     </div>
   </div>
@@ -32,6 +38,7 @@
 
 <script>
 import Input1 from '../../Inputs/Input-1.vue'
+
 export default {
   name: 'RoleCreating',
   components: { Input1 },

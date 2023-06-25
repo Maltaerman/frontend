@@ -1,3 +1,4 @@
+<!-- eslint-disable max-len -->
 <template>
   <teleport to="body">
     <div
@@ -5,13 +6,19 @@
       id="addressRequestModal"
       class="fixed top-0 left-0 right-0 bottom-0 z-[1050] grid h-screen w-screen place-items-center overflow-y-hidden bg-black/30 mobile:px-2"
     >
-      <transition mode="out-in" name="modal-anim">
+      <transition
+        mode="out-in"
+        name="modal-anim"
+      >
         <div
           v-if="animStep == 1"
           class="relative mx-auto flex h-min w-[500px] rounded-xl bg-white p-6 mobile:w-full"
           @click.stop
         >
-          <button class="absolute top-6 right-6 h-4 w-4" @click="hide">
+          <button
+            class="absolute top-6 right-6 h-4 w-4"
+            @click="hide"
+          >
             <svg
               fill="none"
               height="14"
@@ -34,8 +41,14 @@
               />
             </svg>
           </button>
-          <transition mode="out-in" name="modal-anim">
-            <div v-if="step === steps.numEnter" class="w-full text-center">
+          <transition
+            mode="out-in"
+            name="modal-anim"
+          >
+            <div
+              v-if="step === steps.numEnter"
+              class="w-full text-center"
+            >
               <div class="text-body-2 font-semibold">
                 {{ $t('addressReqModal.step1Title') }}
               </div>
@@ -86,9 +99,15 @@
                 {{ $t('addressReqModal.step2Button') }}
               </button-1>
               <div
-                class="text-body-1 mt-4 flex h-[42px] place-items-center justify-center text-gray-c-500"
+                class="
+                  text-body-1 mt-4 flex h-[42px] place-items-center
+                  justify-center text-gray-c-500
+                "
               >
-                <transition mode="out-in" name="modal-anim">
+                <transition
+                  mode="out-in"
+                  name="modal-anim"
+                >
                   <div v-if="codeExpiredIn > 0">
                     {{ $t('addressReqModal.codeExpires') }}
                     <span class="font-semibold text-blue-c-500">
@@ -106,11 +125,14 @@
               </div>
             </div>
           </transition>
-          <!--				<Loader v-if="isLoaderVisible"></Loader>-->
+          <!--<Loader v-if="isLoaderVisible"></Loader>-->
         </div>
         <div
           v-else-if="animStep == 2"
-          class="mx-auto grid h-[164px] w-[500px] items-center gap-6 rounded-xl bg-white px-[26px] py-10 mobile:w-full"
+          class="
+            mx-auto grid h-[164px] w-[500px] items-center gap-6
+            rounded-xl bg-white px-[26px] py-10 mobile:w-full
+          "
           @click.stop
         >
           <div class="subTitle text-center text-gray-c-800">
@@ -118,7 +140,7 @@
           </div>
           <ProgressBar :progress="sendingProgress" />
         </div>
-        <div v-else></div>
+        <div v-else />
       </transition>
     </div>
   </teleport>
@@ -127,19 +149,19 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex'
 
-import api from '../../http_client/index.js'
+import api from '../../http_client/index'
 import CodeInput from '../Inputs/CodeInput.vue'
-//import TelInput from '../Inputs/TelInput.vue'
+// import TelInput from '../Inputs/TelInput.vue'
 import TelInputV2 from '../Inputs/TelInputV2.vue'
 import ProgressBar from '../Other/ProgressBar.vue'
-import regex from '../mixins/regex.js'
+import regex from '../mixins/regex'
 
 export default {
   name: 'SendReportRequestModal',
   components: {
     TelInputV2,
     ProgressBar,
-    //TelInput,
+    // TelInput,
     CodeInput,
   },
   mixins: [regex],
@@ -191,9 +213,9 @@ export default {
     },
     isCodeValid() {
       return (
-        this.onlyDigitsRegex.test(this.code) &&
-        this.code.length === 6 &&
-        this.codeExpiredIn > 0
+        this.onlyDigitsRegex.test(this.code)
+        && this.code.length === 6
+        && this.codeExpiredIn > 0
       )
     },
   },
@@ -234,7 +256,7 @@ export default {
           this.setPhoneCodes(res.data)
         })
         .catch((err) => {
-          console.error(err)
+          window.console.error(err)
           setTimeout(() => {
             this.$toast.error(this.$t('general.errorMessage'))
           }, 100)
@@ -249,19 +271,18 @@ export default {
         )
         return
       }
-      let tel = this.telNum.replace('+', '%2B')
+      const tel = this.telNum.replace('+', '%2B')
       await api.guest
         .getCode(tel)
         .then((res) => {
-          console.log(res)
+          window.console.log(res)
           this.startTimer(this.getExpiredTime(res.data.expires_at))
-          //this.startTimer(res.data.expiration_minutes * 60);
+          // this.startTimer(res.data.expiration_minutes * 60);
           this.step = this.steps.codeEnter
         })
         .catch((error) => {
           let errorMess = this.$t('general.errorMessage')
-          if (error.response.status === 400)
-            errorMess = this.$t('validations.numNotValid')
+          if (error.response.status === 400) errorMess = this.$t('validations.numNotValid')
           this.$toast.error(errorMess, this.$toast.options(false, false))
         })
     },
@@ -276,6 +297,7 @@ export default {
       clearInterval(this.intervalId)
       this.codeExpiredIn = seconds
       this.intervalId = setInterval(() => {
+        // eslint-disable-next-line no-plusplus
         this.codeExpiredIn--
         if (this.codeExpiredIn <= 0) clearInterval(this.intervalId)
       }, 1000)
@@ -290,17 +312,18 @@ export default {
         return
       }
       this.animStep = 2
-      let payload = {
+      const payload = {
         lat: this.notFoundedMarker.position.lat,
         lng: this.notFoundedMarker.position.lng,
       }
       this.sendingProgress = 45
+      // eslint-disable-next-line no-promise-executor-return
       await new Promise((resolve) => setTimeout(resolve, 300))
       await api.locations
         .requestAddressReview(payload)
         .then(async (res) => {
-          console.log(res)
-          let data = {
+          window.console.log(res)
+          const data = {
             position: { ...res.data.position } ?? { ...payload },
             status: res.status ?? 1,
           }
@@ -310,10 +333,11 @@ export default {
             position: res.data.position,
             address: this.notFoundedMarker.address,
           })
-          let successMess = this.$t('notFoundAddress.modalSuccessMess', {
+          const successMess = this.$t('notFoundAddress.modalSuccessMess', {
             address: this.notFoundedMarker.address,
           })
           this.sendingProgress = 100
+          // eslint-disable-next-line no-promise-executor-return
           await new Promise((resolve) => setTimeout(resolve, 300))
           this.onClose = () => {
             this.$toast.success(successMess)
@@ -321,10 +345,9 @@ export default {
           this.hide()
         })
         .catch((err) => {
-          console.error(err)
+          window.console.error(err)
           let errMess = this.$t('general.errorMessage')
-          if (err.response && err.response.status === 400)
-            errMess = this.$t('notFoundAddress.modalErrRequestExist')
+          if (err.response && err.response.status === 400) errMess = this.$t('notFoundAddress.modalErrRequestExist')
           this.isLoaderVisible = false
           this.onClose = () => {
             this.$toast.error(errMess)
@@ -347,18 +370,19 @@ export default {
         )
         return
       }
-      let params = {
+      const params = {
         phone_number: this.telNum,
         otp: this.code,
         ...this.notFoundedMarker.position,
       }
       this.animStep = 2
       this.sendingProgress = 45
+      // eslint-disable-next-line no-promise-executor-return
       await new Promise((resolve) => setTimeout(resolve, 300))
       await api.guest
         .sendAddressRequest(params)
         .then(async (res) => {
-          let data = {
+          const data = {
             position: { ...this.notFoundedMarker.position },
             status: res.status ?? 1,
           }
@@ -369,11 +393,12 @@ export default {
             position: { ...this.notFoundedMarker.position },
             address: this.notFoundedMarker.address,
           })
-          let successMess = this.$t('notFoundAddress.modalSuccessMess', {
+          const successMess = this.$t('notFoundAddress.modalSuccessMess', {
             address: this.notFoundedMarker.address,
           })
 
           this.sendingProgress = 100
+          // eslint-disable-next-line no-promise-executor-return
           await new Promise((resolve) => setTimeout(resolve, 300))
           this.isLoaderVisible = false
           this.onClose = () => {
@@ -382,11 +407,11 @@ export default {
           this.hide()
         })
         .catch((err) => {
-          console.error(err)
-          let errMess = this.$t('general.errorMessage')
-          //TODO 400 статкус код коли запит на локацію вже існує. чи коли код чи номер не валідний?
-          /*if(err.response && err.response.status === 400)
-              errMess = this.$t("notFoundAddress.modalErrRequestExist");*/
+          window.console.error(err)
+          const errMess = this.$t('general.errorMessage')
+          // TODO 400 статкус код коли запит на локацію вже існує. чи коли код чи номер не валідний?
+          /* if(err.response && err.response.status === 400)
+              errMess = this.$t("notFoundAddress.modalErrRequestExist"); */
           this.isLoaderVisible = false
           this.onClose = () => {
             this.$toast.error(errMess)
@@ -404,11 +429,11 @@ export default {
       if (this.isCodeValid) this.SendRequestAction()
     },
     GetCodeAction() {
-      //this.getCode();
+      // this.getCode();
       this.getCodeDev()
     },
     SendRequestAction() {
-      //this.sendRequest();
+      // this.sendRequest();
       this.sendRequestDev()
     },
   },

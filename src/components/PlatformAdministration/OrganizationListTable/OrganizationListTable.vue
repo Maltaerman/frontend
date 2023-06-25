@@ -13,7 +13,10 @@
           <th class="w-24 text-center text-base font-medium">
             {{ $t('organizationProfile.employees') }}
           </th>
-          <th class="pl-4 text-base font-medium" colspan="2">
+          <th
+            class="pl-4 text-base font-medium"
+            colspan="2"
+          >
             {{ $t('organizationProfile.status') }}
           </th>
         </tr>
@@ -34,6 +37,7 @@
 import avatar from '../../../assets/Organizations/avatar.svg'
 
 import OrganizationListTableItem from './OrganizationListTableItem.vue'
+
 export default {
   name: 'OrganizationListTable',
   components: {
@@ -42,7 +46,7 @@ export default {
   props: {
     organizationsList: {
       type: Array,
-      default: [],
+      default: () => [],
     },
   },
   emits: ['remove'],

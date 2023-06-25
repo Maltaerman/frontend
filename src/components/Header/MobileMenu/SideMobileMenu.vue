@@ -15,7 +15,10 @@
           class="flex h-[76px] flex-nowrap items-center gap-3.5 p-4 shadow-cs2"
         >
           <div class="flex items-center">
-            <img class="h-auto w-7" :src="currentUserIconLink" />
+            <img
+              class="h-auto w-7"
+              :src="currentUserIconLink"
+            >
           </div>
           <div class="gap-1.5">
             <p class="whitespace-normal text-h4 font-semibold">
@@ -40,7 +43,10 @@
             </template>
           </MenuItemLink>
 
-          <MenuItemLink class="w-full" to="/main/requests">
+          <MenuItemLink
+            class="w-full"
+            to="/main/requests"
+          >
             <template #image>
               <SVG_question />
             </template>
@@ -51,7 +57,10 @@
                 </p>
                 <div
                   v-if="requestsCount > 0"
-                  class="top-[-15px] right-[-5px] min-w-[22px] rounded-[32px] bg-red-c-500 py-0.5 px-1 text-center text-b3 font-semibold text-white"
+                  class="
+                    top-[-15px] right-[-5px] min-w-[22px] rounded-[32px]
+                    bg-red-c-500 py-0.5 px-1 text-center text-b3 font-semibold text-white
+                  "
                 >
                   {{ requestsCount }}
                 </div>
@@ -100,7 +109,10 @@
 
           <button
             v-if="user.role === userRoles.aidWorker"
-            class="group flex h-[58px] w-full cursor-pointer items-center gap-4 p-1 px-6 text-h3 hover:bg-white"
+            class="
+              group flex h-[58px] w-full cursor-pointer items-center
+              gap-4 p-1 px-6 text-h3 hover:bg-white
+            "
             data-settings-button
             @click="settingButtonAction"
           >
@@ -115,13 +127,17 @@
               {{ $t('header.settings') }}
             </div>
           </button>
-          <SideBarMenuLocalizationDpDown class="w-full" @lang-update="hide" />
+          <SideBarMenuLocalizationDpDown
+            class="w-full"
+            @lang-update="hide"
+          />
         </div>
       </div>
     </transition>
   </div>
 </template>
 
+<!-- eslint-disable camelcase -->
 <script>
 import SVG_Org_List from '../../ComponentsSVG/MenuItemsSvg/SVG_Org_List.vue'
 import SVG_history from '../../ComponentsSVG/MenuItemsSvg/SVG_history.vue'
@@ -146,6 +162,7 @@ export default {
   },
   mixins: [userRoles],
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     user: Object,
     requestsCount: {
       type: Number,
@@ -185,10 +202,12 @@ export default {
   methods: {
     show() {
       this.isVisible = true
+      // eslint-disable-next-line no-return-assign
       setTimeout(() => (this.animTrigger = true), 0)
     },
     hide() {
       this.animTrigger = false
+      // eslint-disable-next-line no-return-assign
       setTimeout(() => (this.isVisible = false), 100)
     },
     settingButtonAction() {
@@ -212,7 +231,7 @@ export default {
 
 .menu-item-mobile {
   @apply flex h-[58px] w-full cursor-pointer items-center
-	gap-4  p-1
-	px-4 text-gray-c-500 hover:bg-blue-c-200;
+  gap-4  p-1
+  px-4 text-gray-c-500 hover:bg-blue-c-200;
 }
 </style>

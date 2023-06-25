@@ -1,5 +1,8 @@
 <template>
-  <div tabindex="1" @focusout="onLeave">
+  <div
+    tabindex="1"
+    @focusout="onLeave"
+  >
     <div
       class="input-1 flex cursor-pointer flex-nowrap items-center justify-between"
       @click="Drop"
@@ -8,12 +11,15 @@
         {{ modelValue.text ?? modelValue.item }}
       </div>
       <button class="block h-full">
-        <img src="/src/assets/dropdown-arrow.svg" />
+        <img src="/src/assets/dropdown-arrow.svg">
       </button>
     </div>
     <div class="relative">
       <transition name="drop">
-        <ul v-if="isDropped" class="drop-container overflow-y-auto-custom z-10">
+        <ul
+          v-if="isDropped"
+          class="drop-container overflow-y-auto-custom z-10"
+        >
           <li
             v-for="(item, index) in options"
             :key="index"
@@ -33,7 +39,9 @@
 export default {
   name: 'DropDownSelect',
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     modelValue: Object,
+    // eslint-disable-next-line vue/require-default-prop
     options: Array,
   },
   emits: ['update:modelValue'],
@@ -65,7 +73,7 @@ export default {
 <style scoped>
 .drop-item {
   @apply cursor-pointer snap-start
-	px-4 py-2 text-h3 hover:bg-blue-c-100 hover:text-blue-c-500;
+  px-4 py-2 text-h3 hover:bg-blue-c-100 hover:text-blue-c-500;
 }
 .drop-item-selected {
   @apply bg-blue-c-200 text-blue-c-500;
@@ -73,7 +81,7 @@ export default {
 
 .drop-container {
   @apply absolute
-	top-1 max-h-[210px] w-full snap-y snap-start rounded-xl bg-white shadow-cs1;
+  top-1 max-h-[210px] w-full snap-y snap-start rounded-xl bg-white shadow-cs1;
 }
 
 .drop-enter-active,

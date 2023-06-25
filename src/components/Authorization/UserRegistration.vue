@@ -11,7 +11,10 @@
         </div>
         <div>
           <div class="mb-6">
-            <label class="mb-1 block text-h4 text-gray-c-500" for="user-name">
+            <label
+              class="mb-1 block text-h4 text-gray-c-500"
+              for="user-name"
+            >
               {{ $t('userRegistration.name') }}
             </label>
             <input-1
@@ -28,7 +31,10 @@
             />
           </div>
           <div class="mb-6">
-            <label class="mb-1 block text-h4 text-gray-c-500" for="user-mail">
+            <label
+              class="mb-1 block text-h4 text-gray-c-500"
+              for="user-mail"
+            >
               {{ $t('userRegistration.email') }}
             </label>
             <input-1
@@ -44,7 +50,10 @@
             />
           </div>
           <div class="mb-6">
-            <label class="mb-1 block text-h4 text-gray-c-500" for="user-pass">
+            <label
+              class="mb-1 block text-h4 text-gray-c-500"
+              for="user-pass"
+            >
               {{ $t('userRegistration.password') }}
             </label>
             <input-pass
@@ -80,14 +89,24 @@
             v-model="isTermsAccept"
             class="m-0 block h-6 w-6 p-0 accent-blue-c-500 hover:accent-blue-c-400"
             type="checkbox"
-          />
+          >
           <div>
             {{ $t('userRegistration.terms.part1') }}
-            <a class="link-1" href="" tabindex="5" target="_blank">
+            <a
+              class="link-1"
+              href=""
+              tabindex="5"
+              target="_blank"
+            >
               {{ $t('userRegistration.terms.part2') }}
             </a>
             {{ $t('userRegistration.terms.part3') }}
-            <a class="link-1" href="" tabindex="6" target="_blank">
+            <a
+              class="link-1"
+              href=""
+              tabindex="6"
+              target="_blank"
+            >
               {{ $t('userRegistration.terms.part4') }}
             </a>
           </div>
@@ -104,19 +123,22 @@
       </div>
     </div>
   </div>
-  <Loader v-if="isLoaderVisible" class="z-[9999]" />
+  <Loader
+    v-if="isLoaderVisible"
+    class="z-[9999]"
+  />
 </template>
 <script>
 import { mapActions } from 'vuex'
 
-import api from '../../http_client/index.js'
+import api from '../../http_client/index'
 import Button1 from '../Buttons/Button_1.vue'
 import Header from '../Header/HeaderV2.vue'
 import input1 from '../Inputs/Input-1.vue'
 import InputPass from '../Inputs/Input-pass.vue'
 import Loader from '../Loader.vue'
-import regex from '../mixins/regex.js'
-import userRoles from '../mixins/userRoles.js'
+import regex from '../mixins/regex'
+import userRoles from '../mixins/userRoles'
 
 export default {
   name: 'UserRegistration',
@@ -124,6 +146,7 @@ export default {
     Loader,
     Button1,
     InputPass,
+    // eslint-disable-next-line vue/no-reserved-component-names
     Header,
     input1,
   },
@@ -148,11 +171,11 @@ export default {
   computed: {
     isRegEnabled() {
       return (
-        this.isMailValid &&
-        this.isNameValid &&
-        this.isPassValid &&
-        this.isPassEquals() &&
-        this.isTermsAccept
+        this.isMailValid
+        && this.isNameValid
+        && this.isPassValid
+        && this.isPassEquals()
+        && this.isTermsAccept
       )
     },
   },
@@ -177,9 +200,9 @@ export default {
       return this.pass === this.passConfirm
     },
     onRegSuccess() {
-      /*if(this.role == this.userRoles.organizationAdmin && !this.isOrgActivated)
-				this.$router.push("/organization-registration")
-			else*/
+      /* if(this.role == this.userRoles.organizationAdmin && !this.isOrgActivated)
+      this.$router.push("/organization-registration")
+      else */
       this.$router.push('/welcome')
     },
     async CreateUser() {
@@ -194,7 +217,7 @@ export default {
           this.access_token,
         )
         .then((res) => {
-          console.log(res)
+          window.console.log(res)
           this.isLoaderVisible = false
           this.$toast.success(this.$t('userRegistration.userRegSuccess'), {
             onClose: this.onRegSuccess,
@@ -203,14 +226,15 @@ export default {
         .catch((err) => {
           this.isLoaderVisible = false
           let errMess = this.$t('general.errorMessage')
-          if (err.response.status === 400)
+          if (err.response.status === 400) {
             errMess = this.$t('userRegistration.userMailExist', {
               userMail: this.userMail,
             })
+          }
           this.$toast.error(errMess, this.$toast.options(false, false))
         })
     },
-    //TODO localization
+    // TODO localization
     async GetUserRegInfo() {
       if (!this.$route.query.access_token) {
         this.$toast.error(
@@ -224,8 +248,8 @@ export default {
       await api.user
         .VerifyRegistrationToken(this.access_token)
         .then((res) => {
-          console.log(res.data)
-          //FIXME сигнатура поля зміниться
+          window.console.log(res.data)
+          // FIXME сигнатура поля зміниться
           this.organizationId = res.data.organization
           this.userMail = res.data.email
           this.role = res.data.role
@@ -237,8 +261,7 @@ export default {
           let errorMess = 'Error'
           this.$toast.clear()
           if (err.response.status === 422) errorMess = 'Token is not valid'
-          else if (err.response.status === 400)
-            errorMess = 'Token is either not valid or expired.'
+          else if (err.response.status === 400) errorMess = 'Token is either not valid or expired.'
           this.$toast.error(
             errorMess,
             this.$toast.options(false, false, this.onRegSuccess),

@@ -1,3 +1,4 @@
+<!-- eslint-disable max-len -->
 <template>
   <div
     class="relative font-semibold text-gray-c-500"
@@ -12,8 +13,13 @@
       @click.stop="isDropped = !isDropped"
     >
       <div class="flex items-center gap-2 mobile:gap-4">
-        <img class="h-4 w-6" :src="lang.flag" />
-        <div id="current-language">{{ lang.value }}</div>
+        <img
+          class="h-4 w-6"
+          :src="lang.flag"
+        >
+        <div id="current-language">
+          {{ lang.value }}
+        </div>
       </div>
       <img
         class="h-2 w-3.5 transition-all duration-300"
@@ -22,7 +28,7 @@
           'rotate-180': isDropped,
         }"
         src="/src/assets/dropdown-arrow.svg"
-      />
+      >
     </button>
     <div
       id="langList"
@@ -42,15 +48,20 @@
         }"
         @click.stop="setLang(langItem)"
       >
-        <img class="h-4 w-6" :src="langItem.flag" />
-        <div class="w-full text-left">{{ langItem.value }}</div>
+        <img
+          class="h-4 w-6"
+          :src="langItem.flag"
+        >
+        <div class="w-full text-left">
+          {{ langItem.value }}
+        </div>
       </button>
     </div>
   </div>
 </template>
 
 <script>
-//FIXME opened height = available lang amount multiple list item height, in this case 58px
+// FIXME opened height = available lang amount multiple list item height, in this case 58px
 import { mapMutations } from 'vuex'
 
 export default {
@@ -66,7 +77,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this)
+    window.console.log(this)
     this.lang = this.availableLang.find((x) => x.code === this.$i18n.locale)
   },
   methods: {

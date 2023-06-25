@@ -1,3 +1,4 @@
+<!-- eslint-disable max-len -->
 <template>
   <div
     class="group relative h-[182px] min-w-[240px] cursor-pointer rounded-lg border border-gray-c-300 p-4 mobile:w-full"
@@ -8,7 +9,7 @@
       class="absolute top-2 right-4 cursor-pointer rounded-full px-1 py-3 hover:bg-blue-c-200"
       @click.stop="ShowMenu"
     >
-      <img src="/src/assets/dots.svg" />
+      <img src="/src/assets/dots.svg">
     </div>
 
     <div
@@ -40,7 +41,12 @@
       viewBox="0 0 60 60"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle class="fill-blue-c-100" cx="30" cy="30" r="30" />
+      <circle
+        class="fill-blue-c-100"
+        cx="30"
+        cy="30"
+        r="30"
+      />
       <path
         class="fill-blue-c-300 group-hover:fill-blue-c-400"
         clip-rule="evenodd"
@@ -61,6 +67,7 @@
   </div>
 </template>
 
+<!-- eslint-disable vue/require-default-prop -->
 <script>
 import { mapActions } from 'vuex'
 
@@ -68,7 +75,7 @@ export default {
   name: 'OrganizationListItem',
   props: {
     organization: {
-      //required : true,
+      // required : true,
       type: Object,
     },
   },
@@ -87,7 +94,7 @@ export default {
       this.isMenuVisible = false
     },
     goToOrgProfile() {
-      //console.log("Go to org profile")
+      // console.log("Go to org profile")
       this.setSelectedOrganization(this.organization)
       this.$router.push(`/admin/organization-profile/${this.organization.id}`)
     },

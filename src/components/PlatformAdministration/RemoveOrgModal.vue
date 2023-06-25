@@ -7,14 +7,18 @@
       :is-modal-visible="isModalVisible"
     >
       <div
-        class="relative relative mx-auto max-h-screen w-[480px] overflow-y-auto rounded-lg bg-white p-6 mobile:w-full"
+        class="
+          relative mx-auto max-h-screen
+          w-[480px] overflow-y-auto rounded-lg
+          bg-white p-6 mobile:w-full
+        "
         @click.stop
       >
         <button
           class="absolute top-6 right-6 cursor-pointer"
           @click="closeThisComponent"
         >
-          <img src="/src/assets/close.svg" />
+          <img src="/src/assets/close.svg">
         </button>
         <div class="text-s1 mb-2">
           {{ $t('organizationProfile.deleteOrganization') }}
@@ -29,7 +33,10 @@
           </span>
         </div>
 
-        <input-1 v-model="inputValue" class="w-full" />
+        <input-1
+          v-model="inputValue"
+          class="w-full"
+        />
 
         <button-1
           class="mt-6 w-full"
@@ -38,17 +45,23 @@
         >
           Видалити
         </button-1>
-        <Loader v-if="isLoaderVisible" class="rounded-lg" />
+        <Loader
+          v-if="isLoaderVisible"
+          class="rounded-lg"
+        />
       </div>
     </ModalTemplate>
   </div>
 </template>
 
+<!-- eslint-disable no-unused-expressions -->
+<!-- eslint-disable vue/require-default-prop -->
 <script>
-import api from '../../http_client/index.js'
+import api from '../../http_client/index'
 import input1 from '../Inputs/Input-1.vue'
 import Loader from '../Loader.vue'
 import ModalTemplate from '../Modals/ModalTemplate.vue'
+
 export default {
   name: 'RemoveOrgModal',
   components: {
@@ -78,9 +91,9 @@ export default {
   },
   methods: {
     closeThisComponent() {
-      ;(this.isModalVisible = true),
-        (this.isLoaderVisible = false),
-        this.closeFunc()
+      this.isModalVisible = true
+      this.isLoaderVisible = false
+      this.closeFunc()
     },
     closeSuccess() {
       this.onRemoveSuccess()

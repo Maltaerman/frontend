@@ -1,6 +1,6 @@
 <template>
   <div class="h-2 overflow-hidden rounded-xl bg-blue-c-100">
-    <div class="progress h-full rounded-xl bg-blue-c-500 duration-300"></div>
+    <div class="progress h-full rounded-xl bg-blue-c-500 duration-300" />
   </div>
 </template>
 
@@ -16,8 +16,8 @@ export default {
   computed: {
     progressW() {
       if (this.progress < 0) return '0%'
-      else if (this.progress > 100) return '100%'
-      else return `${this.progress}%`
+      if (this.progress > 100) return '100%'
+      return `${this.progress}%`
     },
   },
 }

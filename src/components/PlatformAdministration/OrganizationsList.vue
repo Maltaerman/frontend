@@ -1,3 +1,5 @@
+<!-- eslint-disable vue/v-on-event-hyphenation -->
+<!-- eslint-disable max-len -->
 <template>
   <div class="h-full overflow-y-auto p-9 mobile:py-6 mobile:px-4">
     <div class="row flex flex-wrap justify-between">
@@ -5,36 +7,51 @@
         {{ $t('dashboard.organizations') }}
       </h1>
       <button-1
-        class="block flex h-[46px] items-center justify-center mobile:w-full"
+        class="flex h-[46px] items-center justify-center mobile:w-full"
         @click="showAddOrgModal"
       >
         <img
           class="mr-2.5 inline-block mobile:mt-0.5"
           src="/src/assets/plus.svg"
-        />
+        >
         <p>{{ $t('dashboard.addOrganization') }}</p>
       </button-1>
     </div>
-    <div v-if="organizationsList.length <= 0" class="mt-[215px]">
+    <div
+      v-if="organizationsList.length <= 0"
+      class="mt-[215px]"
+    >
       <img
         class="mx-auto h-[234px] w-[205px] mobile:h-[179px] mobile:w-[157px]"
         src="/src/assets/Organizations/Picture.png"
-      />
+      >
       <p class="text-body-1 mt-5 mb-6 text-center">
         {{ $t('dashboard.organizationListEmpty') }}
       </p>
       <button-1
-        class="mx-auto block flex items-center"
+        class="mx-auto flex items-center"
         @click="showAddOrgModal"
       >
-        <img class="mr-2.5 inline-block" src="/src/assets/plus.svg" />
+        <img
+          class="mr-2.5 inline-block"
+          src="/src/assets/plus.svg"
+        >
         <p>{{ $t('dashboard.addOrganization') }}</p>
       </button-1>
     </div>
-    <div v-else class="mt-9">
+    <div
+      v-else
+      class="mt-9"
+    >
       <div class="mb-6 flex flex-wrap justify-start gap-3">
         <div
-          class="flex flex min-w-[400px] items-center overflow-hidden rounded-lg border px-5 text-h3 font-normal outline-none hover:border-blue-c-400 focus:border-blue-c-500 disabled:bg-gray-c-100 disabled:text-gray-c-500 disabled:hover:border-gray-c-300 mobile:min-w-full"
+          class="
+            flex min-w-[400px] items-center overflow-hidden
+            rounded-lg border px-5 text-h3 font-normal outline-none
+            hover:border-blue-c-400 focus:border-blue-c-500
+            disabled:bg-gray-c-100 disabled:text-gray-c-500
+            disabled:hover:border-gray-c-300 mobile:min-w-full
+          "
           :class="{
             'border-blue-c-500': isInputFocused,
             'border-gray-c-300': !isInputFocused,
@@ -72,7 +89,7 @@
             @click.stop
             @focusin="OnInputFocus(true)"
             @focusout="OnInputFocus(false)"
-          />
+          >
         </div>
       </div>
       <div
@@ -96,7 +113,10 @@
               searchController.SearchedOrgName
             }}".
           </div>
-          <button-1 class="block w-min mobile:grow" @click="ResetSearchResult">
+          <button-1
+            class="block w-min mobile:grow"
+            @click="ResetSearchResult"
+          >
             {{ $t('general.refresh') }}
           </button-1>
         </div>
@@ -107,7 +127,11 @@
       />
     </div>
 
-    <div v-if="pageMax < 0" ref="scrollObserver" class="relative h-[80px]">
+    <div
+      v-if="pageMax < 0"
+      ref="scrollObserver"
+      class="relative h-[80px]"
+    >
       <Loader v-show="isLoaderVisible" />
     </div>
 
@@ -136,11 +160,12 @@
 <script>
 import axios from 'axios'
 
-import api from '../../http_client/index.js'
+import api from '../../http_client/index'
 import Button1 from '../Buttons/Button_1.vue'
 import Loader from '../Loader.vue'
 import UserInviteModal from '../Modals/UserInviteModal.vue'
-import StringFormatter from '../mixins/StringFormatter.js'
+// eslint-disable-next-line import/no-unresolved, import/extensions
+import StringFormatter from '../mixins/StringFormatter'
 
 import OrgInviteModal from './OrgInviteModal.vue'
 import OrganizationListTable from './OrganizationListTable/OrganizationListTable.vue'
@@ -205,20 +230,21 @@ export default {
     },
   },
   mounted() {
-    let options = {
+    const options = {
       threshold: 0,
     }
-    let callback = (entries) => {
+    const callback = (entries) => {
       if (
-        entries[0].isIntersecting &&
-        !this.isLoaderVisible &&
-        this.pageMax < 0 &&
-        this.isAutoPaginationOn
+        entries[0].isIntersecting
+        && !this.isLoaderVisible
+        && this.pageMax < 0
+        && this.isAutoPaginationOn
       ) {
+        // eslint-disable-next-line no-plusplus
         this.GetOrganizationList(++this.currentLastPage)
       }
     }
-    let observer = new IntersectionObserver(callback, options)
+    const observer = new IntersectionObserver(callback, options)
     observer.observe(this.$refs.scrollObserver)
 
     this.GetOrganizationList(this.currentLastPage)
@@ -260,11 +286,12 @@ export default {
     },
     async GetOrganizationList(page) {
       this.isLoaderVisible = true
-      //await new Promise(resolve => setTimeout(resolve, 5000))
+      // await new Promise(resolve => setTimeout(resolve, 5000))
       await api.organizations
         .getOrganizationList(page, this.limit)
         .then((res) => {
           if (res.data.length === 0) {
+            // eslint-disable-next-line no-plusplus
             this.pageMax = --this.currentLastPage
           } else if (res.data.length < this.limit) {
             this.pageMax = this.currentLastPage
@@ -274,24 +301,25 @@ export default {
           )
         })
         .catch((err) => {
-          console.error(err)
+          window.console.error(err)
         })
         .finally(() => {
           this.isLoaderVisible = false
         })
     },
-    //operationResult is {data: data(org or error), isSuccess : isRequestSuccess}
+    // operationResult is {data: data(org or error), isSuccess : isRequestSuccess}
     onAddOrganization(operationResult) {
       if (operationResult.data instanceof Error) {
         let errMess = this.$t('general.errorMessage')
-        if (operationResult.data.response.status == 400)
+        if (operationResult.data.response.status === 400) {
           errMess = this.$t('dashboard.organizationExist', {
             orgName: operationResult.data.response.data.organization.name,
           })
+        }
         this.$toast.error(errMess)
       } else {
-        /*let org = {...operationResult.data, participants : operationResult.data.emails}
-        this.organizationsList = [org, ...this.organizationsList]*/
+        /* let org = {...operationResult.data, participants : operationResult.data.emails}
+        this.organizationsList = [org, ...this.organizationsList] */
         this.$toast.success(
           this.$t('dashboard.organizationAddSuccess', {
             orgName: operationResult.data.name,
@@ -305,9 +333,10 @@ export default {
         this.$toast.error(this.$t('validations.minLength', { amount: 3 }))
         return
       }
-      /*await http_client.organizations.getOrganizationByName(this.searchController.SearchedOrgName,
-				{signal : this.searchController.cancelController.signal}
-			)*/
+      /* await http_client.organizations
+      .getOrganizationByName(this.searchController.SearchedOrgName,
+      {signal : this.searchController.cancelController.signal}
+    ) */
       await api.organizations
         .getOrganizationByName(this.searchController.SearchedOrgName, {
           cancelToken: this.searchController.cancelController.token,
@@ -316,11 +345,11 @@ export default {
           this.isAutoPaginationOn = false
           this.searchController.isSearchedOrgResult = true
           this.searchController.SearchedOrganizationsList = res.data
-          console.log(this.searchController.SearchedOrganizationsList)
+          window.console.log(this.searchController.SearchedOrganizationsList)
         })
         .catch((err) => {
           if (axios.isCancel(err)) {
-            console.log('Canceled')
+            window.console.log('Canceled')
             return
           }
           this.ResetSearchResult()

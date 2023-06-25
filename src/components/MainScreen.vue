@@ -1,10 +1,13 @@
 <template>
   <Header />
   <div
-    class="flex h-[calc(100vh-62px)] overflow-y-auto comp:h-[calc(100vh-74px)] tablet:flex-col mobile:flex-col"
+    class="
+      flex h-[calc(100vh-62px)] overflow-y-auto
+      comp:h-[calc(100vh-74px)] tablet:flex-col mobile:flex-col
+    "
   >
     <div class="z-50 shrink-0 comp:w-[600px] tablet:order-2 mobile:order-2">
-      <router-view></router-view>
+      <router-view />
     </div>
     <div class="min-h-[456px] w-full p-0 tablet:order-1 mobile:order-1">
       <GoogleMap />
@@ -21,6 +24,7 @@ import GoogleMap from './MapComponents/GoogleMap.vue'
 export default {
   name: 'MainScreen',
   components: {
+    // eslint-disable-next-line vue/no-reserved-component-names
     Header,
     GoogleMap,
   },

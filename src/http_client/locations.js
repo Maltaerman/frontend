@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+/* eslint-disable func-names */
 export default function (instance) {
   return {
     requestAddressReview({ lat, lng }) {

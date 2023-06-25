@@ -8,16 +8,18 @@
         v-if="status === ORGANIZATION_STATUSES?.DISABLED"
         class="relative top-0.5 mr-1 inline-block h-5 w-5 border-green-c-200"
       >
-        <SVG_eye_crossed class="fill-green-c-500"></SVG_eye_crossed>
+        <SVG_eye_crossed class="fill-green-c-500" />
       </div>
       <span class="capitalize"> {{ getStatusTranslate }}</span>
     </div>
   </div>
 </template>
 
+<!-- eslint-disable camelcase -->
 <script>
 import SVG_eye_crossed from '../../ComponentsSVG/Icons/SVG_eye_crossed.vue'
 import { ORGANIZATION_STATUSES } from '../constants'
+
 export default {
   name: 'OrganizationItemStatus',
   components: {
@@ -55,6 +57,7 @@ export default {
     },
   },
   methods: {
+    // eslint-disable-next-line consistent-return
     getOrganizationStatus() {
       const { ACTIVE, PENDING, DISABLED } = this.ORGANIZATION_STATUSES
       switch (this.status) {

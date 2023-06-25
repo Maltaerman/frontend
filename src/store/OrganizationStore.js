@@ -6,6 +6,7 @@ export default {
   },
   mutations: {
     setSelectedOrganization(state, organization) {
+      // eslint-disable-next-line no-param-reassign
       state.selectedOrganization = organization
     },
   },

@@ -3,7 +3,7 @@ export default function changelogs(instance) {
     getLocationChangeLog(locationId) {
       return instance.get(`changelogs/${locationId}`)
     },
-    //payload : {
+    // payload : {
     //  organization_id : int,
     //  admin_id : int
     //  query : string (address)

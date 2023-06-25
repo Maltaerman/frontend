@@ -1,5 +1,8 @@
 <template>
-  <tr class="h-[56px]" @mouseleave="HideMenu">
+  <tr
+    class="h-[56px]"
+    @mouseleave="HideMenu"
+  >
     <td class="max-content flex flex-nowrap items-center gap-5 pl-4 pt-1">
       <div
         class="relative h-10 w-10 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-600"
@@ -14,7 +17,7 @@
             clip-rule="evenodd"
             d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
             fill-rule="evenodd"
-          ></path>
+          />
         </svg>
       </div>
       <div class="h-full flex-col">
@@ -36,14 +39,20 @@
     </td>
     <td class="relative p-2">
       <div
-        class="absolute top-2 right-4 w-[25px] cursor-pointer rounded-full px-1 py-3 hover:bg-blue-c-200"
+        class="
+          absolute top-2 right-4 w-[25px] cursor-pointer
+          rounded-full px-1 py-3 hover:bg-blue-c-200
+        "
         @click.stop="ShowMenu"
       >
-        <img src="/src/assets/dots.svg" />
+        <img src="/src/assets/dots.svg">
       </div>
       <div
         ref="menu"
-        class="absolute top-1 right-6 h-[84px] w-[230px] rounded-lg bg-white p-2 font-semibold shadow-cs3"
+        class="
+          absolute top-1 right-6 h-[84px] w-[230px]
+          rounded-lg bg-white p-2 font-semibold shadow-cs3
+        "
         :class="{
           hidden: !isMenuVisible,
           absolute: isMenuVisible,
@@ -70,7 +79,7 @@
 <script>
 import { mapActions } from 'vuex'
 
-import { ORGANIZATION_STATUSES } from '../constants.js'
+import { ORGANIZATION_STATUSES } from '../constants'
 
 import OrganizationListStatus from './OrganizationItemStatus.vue'
 
@@ -82,7 +91,7 @@ export default {
   props: {
     organization: {
       type: Object,
-      default: {},
+      default: () => {},
     },
   },
   emits: ['remove'],
@@ -108,10 +117,9 @@ export default {
     },
     getOrganizationStatus(org) {
       if (org.disabled) return ORGANIZATION_STATUSES.DISABLED
-      else
-        return org.activated
-          ? ORGANIZATION_STATUSES.ACTIVE
-          : ORGANIZATION_STATUSES.PENDING
+      return org.activated
+        ? ORGANIZATION_STATUSES.ACTIVE
+        : ORGANIZATION_STATUSES.PENDING
     },
   },
 }

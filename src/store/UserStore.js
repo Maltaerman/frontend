@@ -1,8 +1,10 @@
-import userRoles from '../components/mixins/userRoles.js'
-import api from '../http_client/index.js'
+/* eslint-disable import/no-cycle */
+/* eslint-disable no-param-reassign */
+import userRoles from '../components/mixins/userRoles'
+import api from '../http_client/index'
 
 // eslint-disable-next-line import/namespace
-import StoreEvents from './storeEventSystem.js'
+import StoreEvents from './storeEventSystem'
 
 export default {
   state() {
@@ -37,7 +39,7 @@ export default {
   getters: {
     getToken(state) {
       if (state.loggedUserCredentials === null) return null
-      return `${state.loggedUserCredentials['token_type']} ${state.loggedUserCredentials['access_token']}`
+      return `${state.loggedUserCredentials.token_type} ${state.loggedUserCredentials.access_token}`
     },
     isAuth(state) {
       return (
@@ -53,7 +55,7 @@ export default {
     getRole(state) {
       if (!state.loggedUserInfo) {
         return userRoles.data().userRoles.user
-      } else return state.loggedUserInfo.role
+      } return state.loggedUserInfo.role
     },
     getLocalization(state) {
       return state.lang
@@ -69,7 +71,7 @@ export default {
           context.state.loggedUserInfo.organization_model.id,
         )
         .then((res) => {
-          console.log(res)
+          window.console.log(res)
           context.commit('setUserOrganization', {
             name: res.data.name,
             id: res.data.id,
@@ -79,10 +81,10 @@ export default {
           })
         })
         .catch((err) => {
-          console.log(err)
+          window.console.log(err)
         })
     },
-    //payload : {
+    // payload : {
     //    id : int
     //    name : String
     //    website : String
@@ -108,7 +110,7 @@ export default {
           )
         })
         .catch((err) => {
-          console.log(err)
+          window.console.log(err)
           StoreEvents.invoke(StoreEvents.events.onUserOrganizationUpdate, err)
         })
     },

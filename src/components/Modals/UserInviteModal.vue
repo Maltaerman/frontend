@@ -8,11 +8,16 @@
     <transition name="modal-anim">
       <div
         v-if="animTrigger"
-        class="relative relative mx-auto max-h-screen w-[480px] rounded-lg bg-white p-6 mobile:w-full"
+        class="
+          relative mx-auto max-h-screen w-[480px] rounded-lg bg-white p-6 mobile:w-full
+        "
         @click.stop
       >
-        <button class="absolute top-6 right-6 cursor-pointer" @click="close">
-          <img src="/src/assets/close.svg" />
+        <button
+          class="absolute top-6 right-6 cursor-pointer"
+          @click="close"
+        >
+          <img src="/src/assets/close.svg">
         </button>
         <div class="text-center text-h2 font-semibold">
           {{ $t('organizationProfile.addEmployee') }}
@@ -52,12 +57,13 @@
 </template>
 
 <script>
-import api from '../../http_client/index.js'
+import api from '../../http_client/index'
 import input1 from '../Inputs/Input-1.vue'
 import InputSuggest from '../Inputs/suggestionInput/Input-suggestion.vue'
-import regex from '../mixins/regex.js'
+import regex from '../mixins/regex'
 
 import ModalTemplate from './ModalTemplate.vue'
+
 export default {
   name: 'UserInviteModal',
   components: { InputSuggest, ModalTemplate, input1 },
@@ -71,6 +77,7 @@ export default {
       type: Function,
       required: true,
     },
+    // eslint-disable-next-line vue/require-default-prop
     classList: {
       type: String,
     },
@@ -99,10 +106,11 @@ export default {
   },
   watch: {
     isModalVisible(newVal) {
-      if (newVal)
+      if (newVal) {
         this.$nextTick(() => {
           this.animTrigger = true
         })
+      }
     },
     requestedOrg(n) {
       this.organization = undefined
@@ -127,13 +135,13 @@ export default {
       await api.organizations
         .getOrganizationByName(this.requestedOrg, {})
         .then((res) => {
-          console.log(res)
+          window.console.log(res)
           if (res.data[0]) {
             this.suggestions = res.data
           }
         })
         .catch((err) => {
-          console.error(err)
+          window.console.error(err)
         })
     },
     async SendInvite() {
@@ -142,21 +150,21 @@ export default {
         return
       }
       this.isLoader = true
-      let payload = {
+      const payload = {
         email: this.mail,
         organization: this.organization.id,
       }
       await api.user
         .SendInvite(payload)
         .then((res) => {
-          console.log(res)
+          window.console.log(res)
           setTimeout(() => {
             this.$toast.success(this.$t('organizationProfile.successInvite'))
           }, 200)
           this.close()
         })
         .catch((err) => {
-          console.error(err)
+          window.console.error(err)
           setTimeout(() => {
             this.$toast.error(this.$t('general.errorMessage'))
           }, 200)
@@ -165,9 +173,7 @@ export default {
           this.isLoader = false
         })
     },
-    suggestionProjection: (org) => {
-      return org.name
-    },
+    suggestionProjection: (org) => org.name,
     setSelectedItem(item) {
       this.organization = item
       this.suggestions = []

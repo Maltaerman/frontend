@@ -1,6 +1,9 @@
 <template>
   <GMapInfoWindow :opened="true">
-    <div ref="wrapper" class="w-[240px] rounded-lg">
+    <div
+      ref="wrapper"
+      class="w-[240px] rounded-lg"
+    >
       <div class="h-6 bg-green-c-200 pt-2">
         <div class="mx-auto h-8 w-8 overflow-visible rounded-full bg-white p-2">
           <SVGBuildingCondition
@@ -13,7 +16,10 @@
           />
         </div>
       </div>
-      <div ref="content" class="p-4 text-center text-b3">
+      <div
+        ref="content"
+        class="p-4 text-center text-b3"
+      >
         <p class="font-semibold">
           {{ ReportAddressFull(marker) }}
         </p>

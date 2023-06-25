@@ -1,17 +1,27 @@
 <template>
   <div class="h-full w-fit">
-    <router-link v-if="!isAuth" class="block h-full w-auto" to="/">
-      <img class="h-full w-auto" src="/logo/Logo.svg" />
+    <router-link
+      v-if="!isAuth"
+      class="block h-full w-auto"
+      to="/"
+    >
+      <img
+        class="h-full w-auto"
+        src="/logo/Logo.svg"
+      >
     </router-link>
-    <div v-else class="h-full">
+    <div
+      v-else
+      class="h-full"
+    >
       <router-link
         class="hidden comp:flex comp:flex-nowrap comp:items-center comp:gap-[18px]"
         to="/"
       >
-        <img src="/logo/Logo-mini.svg" />
+        <img src="/logo/Logo-mini.svg">
         <div>
           <div class="flex flex-nowrap gap-1.5">
-            <img :src="currentUserIconLink" />
+            <img :src="currentUserIconLink">
             <p class="whitespace-normal text-b3 font-semibold">
               {{ getUser.username }}
             </p>
@@ -21,8 +31,14 @@
           </div>
         </div>
       </router-link>
-      <button class="h-full w-10 py-0.5 comp:hidden" @click="showMenu">
-        <img class="h-full" src="/menu-burger.svg" />
+      <button
+        class="h-full w-10 py-0.5 comp:hidden"
+        @click="showMenu"
+      >
+        <img
+          class="h-full"
+          src="/menu-burger.svg"
+        >
       </button>
     </div>
   </div>
@@ -31,7 +47,7 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import userRoles from '../mixins/userRoles.js'
+import userRoles from '../mixins/userRoles'
 
 export default {
   name: 'HeaderLogo',

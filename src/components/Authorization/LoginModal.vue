@@ -173,10 +173,10 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-import api from '../../http_client/index.js'
+import api from '../../http_client/index'
 import Button1 from '../Buttons/Button_1.vue'
 import Loader from '../Loader.vue'
-import regex from '../mixins/regex.js'
+import regex from '../mixins/regex'
 
 export default {
   name: 'LoginModal',
@@ -227,6 +227,7 @@ export default {
       if (newValue) this.hide()
     },
     state(newVal) {
+      // eslint-disable-next-line default-case
       switch (newVal) {
         case this.states.login:
           this.passResetMail = ''
@@ -270,7 +271,7 @@ export default {
     async login() {
       if (!this.isLoginButtonDisabled) {
         this.isLoaderVisible = true
-        let credentials = new FormData()
+        const credentials = new FormData()
         credentials.append('username', this.email)
         credentials.append('password', this.pass)
         await api.user
@@ -294,7 +295,7 @@ export default {
         .GetInfo()
         .then((res) => {
           this.setLoggedUserInfo(res.data)
-          //this.GetUserOrganization();
+          // this.GetUserOrganization();
         })
         .catch((err) => {
           this.toError(err)

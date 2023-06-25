@@ -1,4 +1,4 @@
-//TODO event system store
+// TODO event system store
 class StoreEventSystemPrototype {
   constructor() {
     this.events = {
@@ -18,7 +18,7 @@ class StoreEventSystemPrototype {
 
   unsubscribe(event, method) {
     if (this[event]) {
-      this[event] = this[event].filter((x) => x != method)
+      this[event] = this[event].filter((x) => x !== method)
     }
   }
 

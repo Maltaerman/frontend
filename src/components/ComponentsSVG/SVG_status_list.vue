@@ -37,7 +37,10 @@
   />
 </template>
 
+<!-- eslint-disable camelcase -->
+<!-- eslint-disable vue/require-default-prop -->
 <script>
+// eslint-disable-next-line import/extensions
 import reportItemFlags from '../mixins/reportItemFlags.js'
 
 import SVG_building_condition from './SVG_building_condition.vue'

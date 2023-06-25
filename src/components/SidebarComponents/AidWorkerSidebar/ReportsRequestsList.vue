@@ -1,18 +1,28 @@
 <template>
-  <div ref="viewport" class="p-6">
+  <div
+    ref="viewport"
+    class="p-6"
+  >
     <div v-if="unreviewedMarkers.length > 0">
       <ReportRequestListItem
         v-for="item in unreviewedMarkers"
         :key="`request${item.id}`"
-        itemUsageTabName="requestsList"
+        item-usage-tab-name="requestsList"
         :location-request="item"
         @add-to-my-list="OnAddToMyList"
       />
     </div>
-    <div v-else class="mt-6 text-center text-h3 text-gray-c-800">
+    <div
+      v-else
+      class="mt-6 text-center text-h3 text-gray-c-800"
+    >
       {{ $t('aidWorkerSideBar.allListEmpty') }}
     </div>
-    <div v-if="pageMax < 0" ref="scrollObserver" class="relative h-[80px]">
+    <div
+      v-if="pageMax < 0"
+      ref="scrollObserver"
+      class="relative h-[80px]"
+    >
       <Loader v-show="isLoaderVisible" />
     </div>
   </div>
@@ -34,6 +44,7 @@ export default {
   props: {
     unreviewedMarkers: {
       type: Array,
+      // eslint-disable-next-line vue/require-valid-default-prop
       default: [],
     },
     page: {
@@ -52,29 +63,29 @@ export default {
   emits: ['next-page', 'add-to-my-list'],
   data() {
     return {
-      /*unreviewedMarkers: [],
-			page: 0,
-			pageMax: -1,
-			isLoaderVisible : false*/
+      /* unreviewedMarkers: [],
+      page: 0,
+      pageMax: -1,
+      isLoaderVisible : false */
     }
   },
   computed: {
     ...mapGetters(['isAuth']),
   },
   mounted() {
-    let options = {
+    const options = {
       threshold: 0,
     }
-    let callback = (entries) => {
+    const callback = (entries) => {
       if (
-        entries[0].isIntersecting &&
-        !this.isLoaderVisible &&
-        this.pageMax < 0
+        entries[0].isIntersecting
+        && !this.isLoaderVisible
+        && this.pageMax < 0
       ) {
         this.GetNextPage()
       }
     }
-    let observer = new IntersectionObserver(callback, options)
+    const observer = new IntersectionObserver(callback, options)
     observer.observe(this.$refs.scrollObserver)
   },
   methods: {

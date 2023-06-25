@@ -11,8 +11,13 @@
       @click.stop="isDropped = !isDropped"
     >
       <div class="flex items-center gap-2 mobile:gap-4">
-        <img class="h-4 w-6" :src="lang.flag" />
-        <div id="current-language">{{ lang.value }}</div>
+        <img
+          class="h-4 w-6"
+          :src="lang.flag"
+        >
+        <div id="current-language">
+          {{ lang.value }}
+        </div>
       </div>
       <img
         class="h-2 w-3.5 transition-all duration-300"
@@ -21,7 +26,7 @@
           'rotate-180': isDropped,
         }"
         src="/src/assets/dropdown-arrow.svg"
-      />
+      >
     </button>
     <div
       id="langList"
@@ -41,8 +46,13 @@
         }"
         @click.stop="setLang(langItem)"
       >
-        <img class="h-4 w-6" :src="langItem.flag" />
-        <div class="w-full text-left">{{ langItem.value }}</div>
+        <img
+          class="h-4 w-6"
+          :src="langItem.flag"
+        >
+        <div class="w-full text-left">
+          {{ langItem.value }}
+        </div>
       </button>
     </div>
   </div>

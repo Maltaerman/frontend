@@ -1,3 +1,4 @@
+<!-- eslint-disable max-len -->
 <template>
   <svg
     class="block h-full w-full"
@@ -17,7 +18,11 @@
       x="0"
       y="0"
     >
-      <rect fill="white" :height="c_height" :width="c_width" />
+      <rect
+        fill="white"
+        :height="c_height"
+        :width="c_width"
+      />
       <path
         d="M6.5 12.8H5.12986C3.72143 12.8 3.01721 12.8 2.72228 12.3385C2.42735 11.8769 2.72321 11.2379 3.31493 9.95975L6.04627 4.06006C6.42045 3.25182 6.60755 2.8477 6.80377 2.89091C7 2.93413 7 3.37946 7 4.27013V8.7C7 8.9357 7 9.05355 7.07322 9.12678C7.14645 9.2 7.2643 9.2 7.5 9.2H8.87014C10.2786 9.2 10.9828 9.2 11.2777 9.66154C11.5726 10.1231 11.2768 10.7621 10.6851 12.0402L7.95373 17.9399C7.57955 18.7482 7.39245 19.1523 7.19623 19.1091C7 19.0659 7 18.6205 7 17.7299V13.3C7 13.0643 7 12.9464 6.92678 12.8732C6.85355 12.8 6.7357 12.8 6.5 12.8Z"
       />
@@ -29,6 +34,7 @@
   </svg>
 </template>
 
+<!-- eslint-disable vue/require-default-prop -->
 <script>
 export default {
   name: 'SVGElectricity',
@@ -37,7 +43,7 @@ export default {
     width: Number,
     height: Number,
   },
-  data: function () {
+  data() {
     return {
       defaultData: {
         width: 14,

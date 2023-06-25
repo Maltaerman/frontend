@@ -1,11 +1,14 @@
+/* eslint-disable import/no-cycle */
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-param-reassign */
 import { createStore } from 'vuex'
 import VuexPersistence /* eslint-disable-line import/no-named-as-default */ from 'vuex-persist'
 
-import api from '../http_client/index.js'
+import api from '../http_client/index'
 
-import OrganizationStore from './OrganizationStore.js'
-import ReportLocationState from './ReportedLocationStore.js'
-import UserStore from './UserStore.js'
+import OrganizationStore from './OrganizationStore'
+import ReportLocationState from './ReportedLocationStore'
+import UserStore from './UserStore'
 
 const vuexCookie = new VuexPersistence({
   restoreState: (key) => getCookie(key),
@@ -13,14 +16,14 @@ const vuexCookie = new VuexPersistence({
   modules: ['user'],
   filter: CookieUpdateFilter,
   /* filter: (mutation) => mutation.type == 'setLoggedUserInfo' ||
-    mutation.type == "setLoggedUserCredentials" || mutation.type == "setUserOrganization"*/
+    mutation.type == "setLoggedUserCredentials" || mutation.type == "setUserOrganization" */
 })
 
 function CookieUpdateFilter(mutation) {
-  let triggerMutation = [
+  const triggerMutation = [
     'setLoggedUserInfo',
     'setLoggedUserCredentials',
-    //"setUserOrganization",
+    // "setUserOrganization",
     'setLocalization',
   ]
   return triggerMutation.includes(mutation.type)
@@ -62,7 +65,7 @@ export const storePrototype = {
     },
     setSelectedMarker(state, marker) {
       state.selectedMarkerData = marker
-      ////
+      /// /
       state.mapCenter = { ...state.defaultMapCenter }
       state.mapCenter = { ...marker.position }
 
@@ -76,7 +79,7 @@ export const storePrototype = {
     setNoDataMarker(state, marker) {
       state.selectedMarkerData = null
       state.notFoundedMarkerData = marker
-      ////
+      /// /
       state.mapCenter = { ...marker.position }
     },
     setMapCenter(state, position) {
@@ -88,7 +91,7 @@ export const storePrototype = {
     // функцію для отримання даних зі state з можливістю здійснювати попередні обрахунки
     getMapCenter(state) {
       return state.mapCenter ? state.mapCenter : state.defaultMapCenter
-      //return  state.mapCenter ?? undefined
+      // return  state.mapCenter ?? undefined
     },
     getSelectedLocationRequest(state) {
       return state.reports.selectedLocationRequest
@@ -119,7 +122,7 @@ export const storePrototype = {
       await api.changelogs
         .getLocationChangeLog(context.state.selectedMarkerData.id)
         .then((response) => {
-          console.log(response.data)
+          window.console.log(response.data)
           context.commit('setSelectedMarkerHistory', response.data)
         })
     },
@@ -128,12 +131,10 @@ export const storePrototype = {
       await api.locations
         .exactSearch(position.lat, position.lng)
         .then((response) => {
-          if (response.data.status === 3)
-            context.commit('setSelectedMarker', response.data)
-          else if (response.data.id)
-            context.commit('setNoDataMarker', response.data)
+          if (response.data.status === 3) context.commit('setSelectedMarker', response.data)
+          else if (response.data.id) context.commit('setNoDataMarker', response.data)
           else {
-            let notFoundAddress = {
+            const notFoundAddress = {
               position: response.data.position,
               address: `${response.data.address}, ${response.data.street_number}, ${response.data.city}, ${response.data.index}, ${response.data.country}`,
             }
@@ -141,25 +142,24 @@ export const storePrototype = {
           }
         })
         .catch(() => {
-          let notFoundAddress = {
-            position: position,
+          const notFoundAddress = {
+            position,
             address: name,
           }
           context.commit('setNoDataMarker', notFoundAddress)
         })
     },
-    /*async getMarkerById (context, locationId) {
+    /* async getMarkerById (context, locationId) {
       await api.locations.getLocationById(locationId).then((response) => {
         console.log(response.data)
         context.commit("setSelectedMarker", response.data)
       })
-    },*/
+    }, */
     async getMarkerById(context, { locationId, callbackFailed }) {
       await api.locations
         .getLocationById(locationId)
         .then((response) => {
-          if (response.data.status == 3)
-            context.commit('setSelectedMarker', response.data)
+          if (response.data.status === 3) context.commit('setSelectedMarker', response.data)
           else context.commit('setNoDataMarker', response.data)
         })
         .catch(() => {
@@ -179,20 +179,19 @@ export const storePrototype = {
 function setCookie(cname, cvalue, exdays = 0) {
   const d = new Date()
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000)
-  let expires = 'expires=' + d.toUTCString()
-  document.cookie =
-    cname + '=' + JSON.stringify(cvalue) + ';' + expires + ';path=/'
+  const expires = `expires=${d.toUTCString()}`
+  document.cookie = `${cname}=${JSON.stringify(cvalue)};${expires};path=/`
 }
 function getCookie(cname) {
-  let name = cname + '='
-  let decodedCookie = decodeURIComponent(document.cookie)
-  let ca = decodedCookie.split(';')
-  for (let i = 0; i < ca.length; i++) {
+  const name = `${cname}=`
+  const decodedCookie = decodeURIComponent(document.cookie)
+  const ca = decodedCookie.split(';')
+  for (let i = 0; i < ca.length; i += 1) {
     let c = ca[i]
-    while (c.charAt(0) == ' ') {
+    while (c.charAt(0) === ' ') {
       c = c.substring(1)
     }
-    if (c.indexOf(name) == 0) {
+    if (c.indexOf(name) === 0) {
       return JSON.parse(c.substring(name.length, c.length))
     }
   }

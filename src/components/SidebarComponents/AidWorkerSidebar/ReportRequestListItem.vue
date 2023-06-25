@@ -9,16 +9,25 @@
     <div>
       <div class="mb-3 flex justify-between">
         <div class="text-h4 text-gray-c-500">
-          <span v-if="!isExpired" class="capitalize">
+          <span
+            v-if="!isExpired"
+            class="capitalize"
+          >
             {{ GetDayDateString(locationRequest.created_at) }}
           </span>
-          <span v-else class="text-red-c-500">
+          <span
+            v-else
+            class="text-red-c-500"
+          >
             {{ $t('aidWorkerSideBar.expireIn', { hours: expireInHours }) }}
           </span>
         </div>
         <div class="text-h4 text-gray-c-500">
           {{ locationRequest.city }}
-          <img class="inline-block" src="/Marker-gray.svg" />
+          <img
+            class="inline-block"
+            src="/Marker-gray.svg"
+          >
           {{
             locationRequest.distance
               ? locationRequest.distance.toFixed(0) + ' km'
@@ -30,7 +39,10 @@
         class="cursor-pointer pb-2 text-h3 font-semibold text-blue-c-500 shadow-cs2"
         @click="setSelectedRequest(locationRequest)"
       >
-        <img class="mr-1 inline-block" src="/Marker-blue.svg" />
+        <img
+          class="mr-1 inline-block"
+          src="/Marker-blue.svg"
+        >
         {{ markerAddress }}
       </div>
       <div class="mt-4 flex items-baseline justify-between">
@@ -58,7 +70,10 @@
           v-else-if="isMyRequest && itemUsageTabName === 'requestsList'"
           class="p-2 text-h3 font-medium text-blue-c-500"
         >
-          <img class="mr-2 inline-block" src="/completed2.svg" />
+          <img
+            class="mr-2 inline-block"
+            src="/completed2.svg"
+          >
           {{ $t('aidWorkerSideBar.myRequest') }}
         </div>
       </div>
@@ -70,9 +85,9 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 
-import api from '../../../http_client/index.js'
+import api from '../../../http_client/index'
 import Loader from '../../Loader.vue'
-import dateFormatter from '../../mixins/dateFormatter.js'
+import dateFormatter from '../../mixins/dateFormatter'
 
 export default {
   name: 'ReportRequestListItem',
@@ -86,7 +101,7 @@ export default {
     itemUsageTabName: {
       type: String,
       default: 'requestsList',
-      validator: function (value) {
+      validator(value) {
         return ['requestsList', 'myRequestsList'].includes(value)
       },
     },
@@ -105,22 +120,22 @@ export default {
     }),
     isSelected() {
       if (!this.selectedLocationRequest || !this.locationRequest) return false
-      else return this.locationRequest.id === this.selectedLocationRequest.id
+      return this.locationRequest.id === this.selectedLocationRequest.id
     },
     isMyRequest() {
       return this.locationRequest.reported_by === this.AidWorker.id
     },
     markerAddress() {
       let address = ''
-      if (this.locationRequest.address)
-        address += `${this.locationRequest.address}, `
-      if (this.locationRequest.street_number)
-        address += `${this.locationRequest.street_number}, `
-      /*if(this.locationRequest.index)
-        address += `${this.locationRequest.index}, `*/
+      if (this.locationRequest.address) address += `${this.locationRequest.address}, `
+      if (this.locationRequest.street_number) address += `${this.locationRequest.street_number}, `
+      /* if(this.locationRequest.index)
+        address += `${this.locationRequest.index}, ` */
       if (this.locationRequest.city) address += `${this.locationRequest.city}`
       let trim = 0
+      // eslint-disable-next-line for-direction, no-plusplus
       for (let i = address.length - 1; i <= 0; i--) {
+        // eslint-disable-next-line no-plusplus
         if (address[i] === ' ' || address[i] === ',') trim++
         else break
       }
@@ -129,15 +144,15 @@ export default {
     },
     // is request remove from "My request" in 2 hours
     isExpired() {
-      let result = false
+      const result = false
       if (
-        this.locationRequest.reported_by &&
-        this.locationRequest.report_expires
+        this.locationRequest.reported_by
+        && this.locationRequest.report_expires
       ) {
         return (
-          this.GetDate(this.locationRequest.report_expires) -
-            this.GetDate(Date.now()) <=
-          this.expireInHours * 3600000
+          this.GetDate(this.locationRequest.report_expires)
+            - this.GetDate(Date.now())
+          <= this.expireInHours * 3600000
         )
       }
       return result
@@ -157,7 +172,7 @@ export default {
           this.$emit('add-to-my-list', res.data)
         })
         .catch((err) => {
-          console.log(err)
+          window.console.log(err)
         })
         .finally(() => {
           this.isLoaderVisible = false
@@ -171,7 +186,7 @@ export default {
           this.$emit('remove-from-my-list', res.data)
         })
         .catch((err) => {
-          console.log(err)
+          window.console.log(err)
         })
         .finally(() => {
           this.isLoaderVisible = false

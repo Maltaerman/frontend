@@ -1,3 +1,4 @@
+<!-- eslint-disable max-len -->
 <template>
   <svg
     class="block h-full w-full"
@@ -16,6 +17,7 @@
   </svg>
 </template>
 
+<!-- eslint-disable vue/require-default-prop -->
 <script>
 export default {
   name: 'SVGHospital',
@@ -24,7 +26,7 @@ export default {
     width: Number,
     height: Number,
   },
-  data: function () {
+  data() {
     return {
       defaultData: {
         width: 22,

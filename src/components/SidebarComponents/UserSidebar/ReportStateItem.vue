@@ -44,21 +44,27 @@
   </div>
 </template>
 
+<!-- eslint-disable camelcase -->
 <script>
 import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
 import Expander from '../../Other/Expander.vue'
-import dateFormatter from '../../mixins/dateFormatter.js'
-import reportItemFlags from '../../mixins/reportItemFlags.js'
+import dateFormatter from '../../mixins/dateFormatter'
+import reportItemFlags from '../../mixins/reportItemFlags'
 
 export default {
   name: 'ReportStateItem',
   components: { SVG_status_list, Expander },
   mixins: [reportItemFlags, dateFormatter],
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     organizationName: String,
+    // eslint-disable-next-line vue/require-default-prop
     flag: String,
+    // eslint-disable-next-line vue/require-default-prop
     flagValue: String,
+    // eslint-disable-next-line vue/require-default-prop
     description: String,
+    // eslint-disable-next-line vue/require-default-prop
     update: [String, Date],
   },
 }

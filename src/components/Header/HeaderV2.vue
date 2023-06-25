@@ -1,10 +1,14 @@
+<!-- eslint-disable max-len -->
 <template>
   <header
     id="header-container"
     class="header sticky top-0 z-[100] h-[62px] bg-white comp:h-[72px]"
   >
     <HeaderLogo @menu="showMenu" />
-    <div class="flex flex-nowrap items-center gap-8" deta-right-part-header>
+    <div
+      class="flex flex-nowrap items-center gap-8"
+      deta-right-part-header
+    >
       <HeaderLocalizationDropDown :class="{ 'mobile:hidden': isAuth }" />
 
       <HeaderRoundedButtons
@@ -17,11 +21,20 @@
         class="hidden flex-nowrap gap-[26px] comp:flex"
         data-aid-worker-buttons
       >
-        <button v-if="getRole === userRoles.aidWorker" @click="showSettings">
+        <button
+          v-if="getRole === userRoles.aidWorker"
+          @click="showSettings"
+        >
           <SVG_settings class="fill-blue-c-500" />
         </button>
-        <router-link class="relative block" to="/main/requests">
-          <img alt="" src="/question-mark.svg" />
+        <router-link
+          class="relative block"
+          to="/main/requests"
+        >
+          <img
+            alt=""
+            src="/question-mark.svg"
+          >
           <div
             v-if="RequestsCount > 0"
             class="absolute top-[-15px] right-[-5px] min-w-[22px] rounded-[32px] bg-red-c-500 py-0.5 px-1 text-center text-b3 font-semibold text-white"
@@ -39,7 +52,10 @@
       </button>
     </div>
   </header>
-  <LoginModal :close-func="closeModal" :is-modal-visible="isLoginModal" />
+  <LoginModal
+    :close-func="closeModal"
+    :is-modal-visible="isLoginModal"
+  />
   <UserSetting
     v-if="isAuth"
     :is-setting-visible="isSettingModal"
@@ -54,6 +70,7 @@
   />
 </template>
 
+<!-- eslint-disable camelcase -->
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
@@ -138,7 +155,7 @@ export default {
 <style scoped>
 .header {
   @apply flex h-[62px]
-	w-full flex-nowrap justify-between px-4 py-[19px] shadow-cs2 comp:h-[72px]
-	comp:px-6 comp:py-4;
+  w-full flex-nowrap justify-between px-4 py-[19px] shadow-cs2 comp:h-[72px]
+  comp:px-6 comp:py-4;
 }
 </style>

@@ -45,11 +45,11 @@ export default {
   },
   methods: {
     GetStateColor(field, status) {
-      let red = 'red'
-      let green = 'green'
-      let gray = 'gray'
+      const red = 'red'
+      const green = 'green'
+      const gray = 'gray'
       try {
-        let a = {
+        const a = {
           buildingCondition: {
             intact: green,
             damaged: red,
@@ -83,23 +83,23 @@ export default {
         }
         return a[field][status] ?? red
       } catch (err) {
-        console.error(`Поля ${field} зі статусом ${status} не знайдено`)
+        window.console.error(`Поля ${field} зі статусом ${status} не знайдено`)
         return red
       }
     },
     getTextColorClass(field, status) {
-      let color = this.GetStateColor(field, status)
+      const color = this.GetStateColor(field, status)
 
       if (color === 'red') return 'text-red-c-500'
-      else if (color === 'green') return 'text-green-c-500'
-      else if (color === 'yellow') return 'text-yellow-custom-400'
-      else if (color === 'gray') return 'text-gray-c-500'
-      else return 'text-red-c-500'
+      if (color === 'green') return 'text-green-c-500'
+      if (color === 'yellow') return 'text-yellow-custom-400'
+      if (color === 'gray') return 'text-gray-c-500'
+      return 'text-red-c-500'
     },
     getSVGColorClass(field, status) {
-      let color = this.GetStateColor(field, status)
+      const color = this.GetStateColor(field, status)
 
-      let colors = {
+      const colors = {
         red: 'fill-red-c-500',
         green: 'fill-green-c-500',
         yellow: 'fill-yellow-custom-400',
@@ -109,7 +109,7 @@ export default {
     },
     GetStatusTranslation(status) {
       try {
-        let a = {
+        const a = {
           intact: this.$t('reportTools.intact'),
           damaged: this.$t('reportTools.damaged'),
           no_data: this.$t('reportTools.noData'),
@@ -122,12 +122,12 @@ export default {
         }
         return a[status]
       } catch (err) {
-        console.error(`Поля зі статусом ${status} не знайдено`)
+        window.console.error(`Поля зі статусом ${status} не знайдено`)
         return this.$t('general.error')
       }
     },
     GetFlagToolTip(field) {
-      let translation = {
+      const translation = {
         buildingCondition: this.$t('tooltips.buildingCondition'),
         hospital: this.$t('tooltips.hospital'),
         carEntrance: this.$t('tooltips.carEntrance'),
@@ -281,7 +281,7 @@ export default {
     },
     getTooltipText(reportFlag) {
       try {
-        let a = {
+        const a = {
           buildingCondition: this.$t('reportTools.buildingCondition'),
           electricity: this.$t('reportTools.electricity'),
           carEntrance: this.$t('reportTools.carEntrance'),

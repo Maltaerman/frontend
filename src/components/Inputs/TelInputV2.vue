@@ -1,8 +1,15 @@
 <template>
   <div class="flex flex-col gap-6">
-    <SearchDropDown v-model="code" :options="availableCode" />
+    <SearchDropDown
+      v-model="code"
+      :options="availableCode"
+    />
     <label
-      class="flex w-full flex-nowrap gap-1 overflow-hidden rounded-lg border py-2 px-4 focus-within:border-blue-c-500 hover:border-blue-c-400 disabled:bg-gray-c-100 disabled:hover:border-gray-c-300"
+      class="
+        flex w-full flex-nowrap gap-1 overflow-hidden rounded-lg
+        border py-2 px-4 focus-within:border-blue-c-500 hover:border-blue-c-400
+        disabled:bg-gray-c-100 disabled:hover:border-gray-c-300
+      "
     >
       <p class="block cursor-text text-gray-c-400">
         {{ code.phone_code }}
@@ -12,7 +19,7 @@
         v-model="inp"
         class="block shrink grow basis-1 text-h3 font-normal outline-none disabled:text-gray-c-500"
         @keyup="keyAction"
-      />
+      >
     </label>
   </div>
 </template>
@@ -20,7 +27,7 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import regex from '../mixins/regex.js'
+import regex from '../mixins/regex'
 
 import DropDownOption from './SearchDropDown/DropDownOption'
 import SearchDropDown from './SearchDropDown/SearchDropDown.vue'
@@ -30,6 +37,7 @@ export default {
   components: { SearchDropDown },
   mixins: [regex],
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     modelValue: String,
   },
   emits: ['validation', 'update:modelValue', 'enter-click'],
@@ -46,7 +54,7 @@ export default {
       getPhoneCodes: 'getPhoneCodes',
     }),
     availableCode() {
-      let op = []
+      const op = []
       this.getPhoneCodes.forEach((el) => {
         op.push(DropDownOption(`${el.verbose_name} ${el.phone_code}`, el))
       })
@@ -76,10 +84,9 @@ export default {
       this.code = this.availableCode.find((x) => x.code === code)
     },
     numValidation() {
-      let isValid =
-        this.onlyDigitsRegex.test(this.number) &&
-        this.number.length >= this.code.min_length &&
-        this.number.length <= this.code.max_length
+      const isValid = this.onlyDigitsRegex.test(this.number)
+        && this.number.length >= this.code.min_length
+        && this.number.length <= this.code.max_length
       this.$emit('validation', isValid)
     },
     keyAction(e) {

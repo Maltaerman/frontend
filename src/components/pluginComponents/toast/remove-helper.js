@@ -1,5 +1,5 @@
 const removeElement = (el) => {
-  let par = el.parentNode
+  const par = el.parentNode
   if (typeof el.remove !== 'undefined') {
     el.remove()
   } else {

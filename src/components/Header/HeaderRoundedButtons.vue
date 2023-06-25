@@ -53,6 +53,7 @@
   </div>
 </template>
 
+<!-- eslint-disable camelcase -->
 <script>
 import SVG_dashboard from '../ComponentsSVG/MenuItemsSvg/SVG_dashboard.vue'
 import SVG_map from '../ComponentsSVG/MenuItemsSvg/SVG_map.vue'
@@ -65,6 +66,7 @@ export default {
   components: { SVG_map, SVG_dashboard, SVG_users },
   mixins: [userRoles, routerHelper],
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     userRole: String,
   },
   computed: {

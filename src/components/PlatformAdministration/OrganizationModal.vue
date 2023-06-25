@@ -2,8 +2,8 @@
   <ModalTemplate
     class-list="grid place-items-center p-4"
     :close-func="closeThisModal"
+    :is-hide-on-click="true"
     :is-modal-visible="isVisible"
-    :isHideOnClick="true"
   >
     <div
       class="relative mx-auto w-[480px] rounded-lg bg-white p-6 mobile:w-full"
@@ -13,13 +13,16 @@
         class="absolute top-6 right-6 cursor-pointer"
         src="/src/assets/close.svg"
         @click="closeThisModal"
-      />
+      >
       <div class="text-center text-h2 font-semibold">
         {{ $t('dashboard.addOrganization') }}
       </div>
       <div class="mt-4 mb-6 flex flex-col gap-4">
         <div>
-          <label class="text-h4 text-gray-c-500" for="inpRegNewOrgName">{{
+          <label
+            class="text-h4 text-gray-c-500"
+            for="inpRegNewOrgName"
+          >{{
             $t('dashboard.organizationName')
           }}</label>
           <input1
@@ -30,7 +33,10 @@
           />
         </div>
         <div>
-          <label class="text-h4 text-gray-c-500" for="inpRegNewOrgSite">{{
+          <label
+            class="text-h4 text-gray-c-500"
+            for="inpRegNewOrgSite"
+          >{{
             $t('dashboard.website')
           }}</label>
           <input1
@@ -53,10 +59,12 @@
   </ModalTemplate>
 </template>
 
+<!-- eslint-disable vue/require-default-prop -->
 <script>
 import Input1 from '../Inputs/Input-1.vue'
 import ModalTemplate from '../Modals/ModalTemplate.vue'
 import StringFormatter from '../mixins/StringFormatter'
+
 export default {
   components: {
     ModalTemplate,
@@ -92,11 +100,11 @@ export default {
   },
   methods: {
     closeThisModal() {
-      console.log('joł')
+      window.console.log('joł')
       this.closeCreateOrgModal()
     },
     addOrganization() {
-      console.log('adding from modal')
+      window.console.log('adding from modal')
       this.$emit('addOrganization', this.organization)
     },
   },

@@ -1,11 +1,13 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable import/no-cycle */
 import axios from 'axios'
 
-import { store } from '../store/mainStore.js'
+import { store } from '../store/mainStore'
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_REMOTE,
-  //baseURL: "http://192.168.0.114:7000/api/v1",
-  //baseURL : 'https://api.dev.dim.dev/api/v1/',
+  // baseURL: "http://192.168.0.114:7000/api/v1",
+  // baseURL : 'https://api.dev.dim.dev/api/v1/',
   withCredentials: false,
   headers: {
     accept: 'application/json',
@@ -13,7 +15,7 @@ const instance = axios.create({
 })
 
 instance.interceptors.request.use((config) => {
-  let token = store.getters.getToken
+  const token = store.getters.getToken
   if (token) config.headers.Authorization = token
   return config
 })

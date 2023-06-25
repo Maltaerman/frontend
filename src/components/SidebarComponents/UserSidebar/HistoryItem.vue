@@ -27,10 +27,13 @@
             class="my-2.5 font-semibold"
           >
             <div class="group relative flex cursor-default flex-wrap gap-2">
-              <div v-if="changedLogItem.old_value" class="flex gap-2">
+              <div
+                v-if="changedLogItem.old_value"
+                class="flex gap-2"
+              >
                 <p class="h-6 w-4">
                   <SVG_status_list
-                    :classList="
+                    :class-list="
                       getSVGColorClass(
                         changedLogItem.flag,
                         changedLogItem.old_value,
@@ -55,11 +58,11 @@
                 alt="arrow"
                 class="h-6 w-6"
                 src="/src/assets/change-arrow.svg"
-              />
+              >
               <div class="flex gap-2">
                 <p class="h-6 w-4">
                   <SVG_status_list
-                    :classList="
+                    :class-list="
                       getSVGColorClass(
                         changedLogItem.flag,
                         changedLogItem.new_value,
@@ -69,7 +72,7 @@
                   />
                 </p>
                 <p
-                  class="my-auto grow text-base text-h3 uppercase tablet:text-h4 mobile:text-h4"
+                  class="my-auto grow text-h3 uppercase tablet:text-h4 mobile:text-h4"
                   :class="
                     getTextColorClass(
                       changedLogItem.flag,
@@ -78,14 +81,16 @@
                   "
                 >
                   {{ GetStatusTranslation(changedLogItem.new_value) }}
-                  <!--										{{changedLogItem.new_value}}-->
                 </p>
               </div>
               <div class="tooltip">
                 {{ getTooltipText(changedLogItem.flag) }}
               </div>
             </div>
-            <Expander v-if="changedLogItem.description" class="font-normal">
+            <Expander
+              v-if="changedLogItem.description"
+              class="font-normal"
+            >
               {{ changedLogItem.description }}
             </Expander>
           </div>
@@ -105,12 +110,14 @@
   </div>
 </template>
 
+<!-- eslint-disable camelcase -->
 <script>
 import SVG_status_list from '../../ComponentsSVG/SVG_status_list.vue'
 import Expander from '../../Other/Expander.vue'
-import dateFormatter from '../../mixins/dateFormatter.js'
-import dynamicContent from '../../mixins/dynamicContent.js'
-import reportItemFlags from '../../mixins/reportItemFlags.js'
+import dateFormatter from '../../mixins/dateFormatter'
+import dynamicContent from '../../mixins/dynamicContent'
+import reportItemFlags from '../../mixins/reportItemFlags'
+
 export default {
   name: 'HistoryItem',
   components: {
@@ -119,9 +126,11 @@ export default {
   },
   mixins: [dynamicContent, reportItemFlags, dateFormatter],
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     log: Object,
     logs: {
       type: Array,
+      // eslint-disable-next-line vue/require-valid-default-prop
       default: [],
     },
   },
@@ -130,11 +139,11 @@ export default {
       return this.GetDayDateString(strDate).replace(' ', ', ')
     },
     getChangedLogs(log) {
-      let result = []
+      const result = []
       if (!log.old_flags || Object.keys(log.old_flags).length <= 0) {
         Object.keys(log.new_flags).forEach((flag) => {
           result.push({
-            flag: flag,
+            flag,
             old_value: undefined,
             new_value: log.new_flags[flag].flag,
             description: log.new_flags.description,
@@ -143,10 +152,11 @@ export default {
         return result
       }
 
+      // eslint-disable-next-line array-callback-return
       Object.keys(log.old_flags).map((flag) => {
         if (log.old_flags[flag].flag !== log.new_flags[flag].flag) {
           result.push({
-            flag: flag,
+            flag,
             old_value: log.old_flags[flag].flag,
             new_value: log.new_flags[flag].flag,
             description: '',
@@ -156,10 +166,11 @@ export default {
         if (
           log.old_flags[flag].description !== log.new_flags[flag].description
         ) {
-          let el = result.find((el) => el.flag == flag)
+          // eslint-disable-next-line eqeqeq, no-shadow
+          const el = result.find((el) => el.flag == flag)
           if (!el) {
             result.push({
-              flag: flag,
+              flag,
               old_value: log.old_flags[flag].flag,
               new_value: log.new_flags[flag].flag,
               description:
@@ -172,7 +183,7 @@ export default {
           }
         }
       })
-      //console.log(result);
+      // console.log(result);
       return result
     },
   },

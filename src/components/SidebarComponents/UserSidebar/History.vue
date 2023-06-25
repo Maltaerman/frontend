@@ -17,6 +17,7 @@ import Loader from '../../Loader.vue'
 import HistoryItem from './HistoryItem.vue'
 
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: 'History',
   components: { Loader, HistoryItem },
   data() {
@@ -30,10 +31,10 @@ export default {
       changeLogs: (state) => state.selectedMarkerHistoryData,
       selectedMarkerData: (state) => state.selectedMarkerData,
     }),
-    /*isLoader(){
+    /* isLoader(){
       return this.sortedChangedLogs.length <=0
-    }*/
-    /*sortedChangedLogs(){
+    } */
+    /* sortedChangedLogs(){
       let result = this.changeLogs.reduce((dates, log)=>{
         let date = log.created_at.split("T")[0];
         if(!dates[date])
@@ -42,7 +43,7 @@ export default {
         return dates
       }, {});
       return result;
-    }*/
+    } */
   },
   watch: {
     selectedMarkerData() {
@@ -62,9 +63,10 @@ export default {
     }),
     sortChangedLogs() {
       this.isLoader = true
-      let result = this.changeLogs.reduce((dates, log) => {
+      const result = this.changeLogs.reduce((dates, log) => {
         if (log.hidden) return dates
-        let date = log.created_at.split('T')[0]
+        const date = log.created_at.split('T')[0]
+        // eslint-disable-next-line no-param-reassign
         if (!dates[date]) dates[date] = []
         dates[date].push(log)
         return dates

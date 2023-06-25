@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import buttonOptions from './Button-options.vue'
 import ButtonTag from './ButtonTag.vue'
 import Button_1 from './Button_1.vue'

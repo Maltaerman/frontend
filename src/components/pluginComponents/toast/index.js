@@ -1,11 +1,15 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-underscore-dangle */
 import { h, render } from 'vue'
 
 import Modal from './Modal.vue'
-import eventSystem from './event-system.js'
-import messageTypes from './messageTypes.js'
+import eventSystem from './event-system'
+import messageTypes from './messageTypes'
 
-const mount = (comp, { props, children, element, app } = {}) => {
-  let el = element ? element : document.createElement('div')
+const mount = (comp, {
+  props, children, element, app,
+} = {}) => {
+  let el = element || document.createElement('div')
   let vNode = h(comp, props)
   if (app && app._context) {
     vNode.appContext = app._context
@@ -22,62 +26,60 @@ const mount = (comp, { props, children, element, app } = {}) => {
   return { vNode, destroy, el }
 }
 
-const Api = (globalOptions) => {
-  return {
-    show(message = '', options = { type: messageTypes.info }) {
-      let op = {
-        props: {
-          message,
-          ...options,
-          ...globalOptions,
-        },
-      }
-      let res = mount(Modal, op)
-      return res
-    },
-    info(message, options) {
-      options.type = messageTypes.info
-      this.show(message, options)
-    },
-    error(message, options = {}) {
-      options.type = messageTypes.error
-      this.show(message, options)
-    },
-    success(message, options = {}) {
-      options.type = messageTypes.success
-      this.show(message, options)
-    },
-    warning(message, options = {}) {
-      options.type = messageTypes.warning
-      this.show(message, options)
-    },
-    wait(message = '', onClose = () => {}) {
-      let localOptions = {
-        isCloseOnBg: false,
-        duration: false,
-        type: messageTypes.wait,
-        onClose: onClose,
-      }
-      this.show(message, localOptions)
-    },
-    clear(data = {}) {
-      eventSystem.$emit('toast-close', data)
-    },
-    // duration : Number ms || false, isCloseOnBg : Boolean, onClose : Function
-    options(duration, isCloseOnBg = true, onClose = () => {}) {
-      return {
-        duration,
-        isCloseOnBg,
-        onClose,
-      }
-    },
-  }
-}
+const Api = (globalOptions) => ({
+  show(message = '', options = { type: messageTypes.info }) {
+    const op = {
+      props: {
+        message,
+        ...options,
+        ...globalOptions,
+      },
+    }
+    const res = mount(Modal, op)
+    return res
+  },
+  info(message, options) {
+    options.type = messageTypes.info
+    this.show(message, options)
+  },
+  error(message, options = {}) {
+    options.type = messageTypes.error
+    this.show(message, options)
+  },
+  success(message, options = {}) {
+    options.type = messageTypes.success
+    this.show(message, options)
+  },
+  warning(message, options = {}) {
+    options.type = messageTypes.warning
+    this.show(message, options)
+  },
+  wait(message = '', onClose = () => {}) {
+    const localOptions = {
+      isCloseOnBg: false,
+      duration: false,
+      type: messageTypes.wait,
+      onClose,
+    }
+    this.show(message, localOptions)
+  },
+  clear(data = {}) {
+    eventSystem.$emit('toast-close', data)
+  },
+  // duration : Number ms || false, isCloseOnBg : Boolean, onClose : Function
+  options(duration, isCloseOnBg = true, onClose = () => {}) {
+    return {
+      duration,
+      isCloseOnBg,
+      onClose,
+    }
+  },
+})
 
 export default {
   install: (app, option = {}) => {
     app.component(Modal, Modal.name)
-    let api = Api(option)
+    const api = Api(option)
     // Default: isBgClickClose : True, duration : 3000ms
     app.config.globalProperties.$toast = api
   },

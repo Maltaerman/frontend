@@ -1,11 +1,17 @@
 <template>
   <router-link :to="to">
     <div
-      class="group flex h-[58px] w-full cursor-pointer items-center gap-4 p-1 px-6 text-h3 hover:bg-white"
+      class="
+        group flex h-[58px] w-full cursor-pointer
+        items-center gap-4 p-1 px-6 text-h3 hover:bg-white
+      "
       :class="{ 'bg-blue-c-200': isPathMatched(to) }"
     >
-      <div ref="image_container" class="h-5 w-5">
-        <slot name="image"></slot>
+      <div
+        ref="image_container"
+        class="h-5 w-5"
+      >
+        <slot name="image" />
       </div>
       <div
         class="h-min w-full font-semibold text-gray-c-500 group-hover:text-blue-c-400"
@@ -18,7 +24,7 @@
 </template>
 
 <script>
-import routerHelper from '../mixins/routerHelper.js'
+import routerHelper from '../mixins/routerHelper'
 
 export default {
   name: 'MenuItemLink',
@@ -39,7 +45,7 @@ export default {
   },
   methods: {
     updateSVG() {
-      let imgSvg = this.$refs.image_container.firstElementChild
+      const imgSvg = this.$refs.image_container.firstElementChild
       if (imgSvg && imgSvg.tagName === 'svg') {
         imgSvg.classList.add('w-full', 'h-full', 'group-hover:fill-blue-c-400')
         if (this.isPathMatched(this.to)) {

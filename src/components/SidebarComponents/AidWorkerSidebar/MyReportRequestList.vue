@@ -7,13 +7,16 @@
       <ReportRequestListItem
         v-for="item in myUnreviewedMarkers"
         :key="`request${item.id}`"
-        itemUsageTabName="myRequestsList"
+        item-usage-tab-name="myRequestsList"
         :location-request="item"
         @remove-from-my-list="OnRemoveFromMyList"
       />
     </div>
 
-    <div v-else class="mt-6 text-center text-h3 text-gray-c-800">
+    <div
+      v-else
+      class="mt-6 text-center text-h3 text-gray-c-800"
+    >
       {{ $t('aidWorkerSideBar.myListEmpty') }}
     </div>
     <Loader v-show="isLoaderVisible" />
@@ -34,6 +37,7 @@ export default {
   props: {
     myUnreviewedMarkers: {
       type: Array,
+      // eslint-disable-next-line vue/require-valid-default-prop
       default: [],
     },
     isLoaderVisible: {

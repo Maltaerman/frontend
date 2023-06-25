@@ -1,6 +1,7 @@
+<!-- eslint-disable vue/v-on-event-hyphenation -->
 <template>
   <ModalTemplate
-    :classList="
+    :class-list="
       'grid place-items-end mobile:place-items-center' + ' mobile:px-4'
     "
     :close-func="closeModal"
@@ -8,11 +9,15 @@
   >
     <div
       id="userSettings"
-      class="relative h-screen w-[600px] animate-userSettingsAppear bg-white p-9 tablet:w-[480px] tablet:p-4 mobile:h-min mobile:w-full mobile:rounded-lg mobile:p-4"
+      class="
+        relative h-screen w-[600px] animate-userSettingsAppear
+        bg-white p-9 tablet:w-[480px] tablet:p-4 mobile:h-min
+        mobile:w-full mobile:rounded-lg mobile:p-4
+      "
       :class="{ 'animate-userSettingsAppear': isSettingVisible }"
       @click.stop
     >
-      <Loader v-if="isShowLoader"></Loader>
+      <Loader v-if="isShowLoader" />
       <!--      Header-->
       <div
         class="relative mb-6 text-h1 font-semibold mobile:text-center mobile:text-h2"
@@ -22,7 +27,7 @@
           class="absolute top-0 hidden h-min w-min mobile:right-0 mobile:block"
           src="/close.svg"
           @click="closeModal"
-        />
+        >
       </div>
       <button-text1
         id="close-settings"
@@ -75,7 +80,10 @@
           </ButtonOptions>
         </div>
 
-        <div v-show="isPassChangeVisible" id="passChangeBlock">
+        <div
+          v-show="isPassChangeVisible"
+          id="passChangeBlock"
+        >
           <label for="setting-pass">{{ $t('userSettings.password') }}</label>
           <input-pass
             v-model="oldPass"
@@ -119,7 +127,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 
-import api from '../http_client/index.js'
+import api from '../http_client/index'
 
 import ButtonOptions from './Buttons/Button-options.vue'
 import Button1 from './Buttons/Button_1.vue'
@@ -163,8 +171,8 @@ export default {
     ...mapGetters(['getUser']),
     saveButDisable() {
       return (
-        this.username === this.getUser.username &&
-        this.email === this.getUser.email
+        this.username === this.getUser.username
+        && this.email === this.getUser.email
       )
     },
   },
@@ -205,19 +213,20 @@ export default {
     },
     updateSaveButDisable() {
       if (
-        this.username !== this.getUser.username ||
-        this.email !== this.getUser.email
-      )
-        this.isSaveButtonDisabled = false
+        this.username !== this.getUser.username
+        || this.email !== this.getUser.email
+      ) this.isSaveButtonDisabled = false
       else this.isSaveButtonDisabled = true
     },
     updateSavePassDisable() {
-      if (this.oldPass.length >= 8 && this.newPass.length >= 8)
+      if (this.oldPass.length >= 8 && this.newPass.length >= 8) {
         this.isChangePassButtonDisabled = false
-      else this.isChangePassButtonDisabled = true
+      } else {
+        this.isChangePassButtonDisabled = true
+      }
     },
     async updateUserData() {
-      let updatedData = {
+      const updatedData = {
         username: this.username,
         email: this.email,
         full_name: '',
@@ -239,11 +248,11 @@ export default {
         })
     },
     async updateUserPassword() {
-      let updatedPass = {
+      const updatedPass = {
         old_password: this.oldPass,
         new_password: this.newPass,
       }
-      console.log(updatedPass)
+      window.console.log(updatedPass)
       this.isShowLoader = true
       await api.user
         .UpdateUserPass(updatedPass)

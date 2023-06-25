@@ -1,3 +1,4 @@
+<!-- eslint-disable max-len -->
 <template>
   <svg
     height="17"
@@ -12,6 +13,8 @@
     />
   </svg>
 </template>
+
+<!-- eslint-disable vue/require-default-prop -->
 <script>
 export default {
   name: 'SVGeyeCrossed',
@@ -19,7 +22,7 @@ export default {
     width: Number,
     height: Number,
   },
-  data: function () {
+  data() {
     return {
       defaultData: {
         width: 22,

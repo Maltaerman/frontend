@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable import/prefer-default-export */
 import { createRouter, createWebHistory } from 'vue-router'
 
 import PasswordReset from '../components/Authorization/PasswordReset.vue'
@@ -12,8 +14,8 @@ import SideBarAidWorker from '../components/SidebarComponents/AidWorkerSidebar/S
 import SideBar from '../components/SidebarComponents/UserSidebar/SideBar.vue'
 import Test from '../components/Test.vue'
 import WelcomeScreen from '../components/WelcomeScreen/WelcomeScreen.vue'
-import userRoles from '../components/mixins/userRoles.js'
-import { store } from '../store/mainStore.js'
+import userRoles from '../components/mixins/userRoles'
+import { store } from '../store/mainStore'
 
 const mainRouter = [
   {
@@ -91,11 +93,9 @@ const mainRouter = [
   { path: '/test', component: Test },
   {
     path: '/:pathMatch(.*)*',
-    redirect: () => {
-      return {
-        path: '/main',
-      }
-    },
+    redirect: () => ({
+      path: '/main',
+    }),
   },
 ]
 export const Router = createRouter({
@@ -115,11 +115,11 @@ Router.beforeEach((to) => {
   if (to.meta.selectedRequest && !store.getters.getSelectedLocationRequest) {
     if (store.getters.isAuth) {
       return '/main/requests'
-    } else return '/main'
+    } return '/main'
   }
-  //FIXME
-  /*if(to.meta.minRole && !userRoles.methods.isRoleHaveAccess(store.getters.getRole))
+  // FIXME
+  /* if(to.meta.minRole && !userRoles.methods.isRoleHaveAccess(store.getters.getRole))
     return {
       path : "/"
-    }*/
+    } */
 })

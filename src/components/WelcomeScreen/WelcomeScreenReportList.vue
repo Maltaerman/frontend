@@ -7,15 +7,25 @@
     <div
       v-for="report in visibleElements"
       :key="`rep${report.id}`"
-      class="item-height group flex w-full shrink-0 grow-0 cursor-pointer flex-nowrap items-center bg-white hover:bg-blue-c-100"
+      class="
+        item-height group flex w-full shrink-0
+        grow-0 cursor-pointer flex-nowrap items-center
+        bg-white hover:bg-blue-c-100
+      "
       @click="OnReportClick(report)"
     >
       <div
-        class="h-3/5 w-0.5 shrink-0 grow-0 bg-gray-c-300 duration-200 group-hover:h-full group-hover:bg-blue-c-400"
+        class="
+          h-3/5 w-0.5 shrink-0 grow-0 bg-gray-c-300
+          duration-200 group-hover:h-full group-hover:bg-blue-c-400
+        "
       />
-      <div class="h-full shrink-0 grow-0 grow-0 py-2 pr-4 pl-3.5">
+      <div class="h-full shrink-0 grow-0 py-2 pr-4 pl-3.5">
         <div
-          class="text-h4 duration-100 group-hover:font-semibold group-hover:text-blue-c-400 mobile:text-b3"
+          class="
+            text-h4 duration-100 group-hover:font-semibold
+            group-hover:text-blue-c-400 mobile:text-b3
+          "
         >
           {{ ReportAddressFull(report) }}
         </div>
@@ -56,11 +66,12 @@
   </transition-group>
 </template>
 
+<!-- eslint-disable camelcase -->
 <script>
 import SVG_building_condition from '../ComponentsSVG/SVG_building_condition.vue'
-import dateFormatter from '../mixins/dateFormatter.js'
-import dynamicContent from '../mixins/dynamicContent.js'
-import reportItemFlags from '../mixins/reportItemFlags.js'
+import dateFormatter from '../mixins/dateFormatter'
+import dynamicContent from '../mixins/dynamicContent'
+import reportItemFlags from '../mixins/reportItemFlags'
 
 export default {
   name: 'WelcomeScreenReportList',
@@ -90,7 +101,7 @@ export default {
   computed: {
     itemHeight() {
       if (document.body.clientWidth <= 480) return '64px'
-      else return '67px'
+      return '67px'
     },
   },
   mounted() {
@@ -101,23 +112,25 @@ export default {
   },
   methods: {
     GetVisibleElements() {
+      // eslint-disable-next-line no-plusplus
       this.lastVisibleItemIndex++
       this.cycles = Math.trunc(
         this.lastVisibleItemIndex / this.reportsList.length,
       )
 
-      let index =
-        this.lastVisibleItemIndex - this.cycles * this.reportsList.length
+      const index = this.lastVisibleItemIndex - this.cycles * this.reportsList.length
       if (this.visibleElements.length >= 3) this.visibleElements.splice(0, 1)
       this.visibleElements.push(this.reportsList[index])
     },
     async startAnimation() {
       clearInterval(this.animId)
+      // eslint-disable-next-line no-plusplus
       for (let i = 0; i < this.reportsList.length; i++) {
         this.visibleElements.push(this.reportsList[i])
         this.lastVisibleItemIndex = i
+        // eslint-disable-next-line no-await-in-loop, no-promise-executor-return
         await new Promise((resolve) => setTimeout(() => resolve(true), 1000))
-        if (i == 2) break
+        if (i === 2) break
       }
       this.animId = setInterval(this.GetVisibleElements, this.delay)
     },
